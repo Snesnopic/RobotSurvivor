@@ -9,8 +9,10 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var player: SKSpriteNode!
     // Keeps track of when the last update happend.
     // Used to calculate how much time has passed between updates.
+    var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
     
     override func didMove(to view: SKView) {

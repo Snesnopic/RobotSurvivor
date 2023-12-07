@@ -36,8 +36,4 @@ class GameLogic: ObservableObject {
         }
     }
     
-    func restartGame(){
-        self.setUpGame()
-    }
-    
 }
