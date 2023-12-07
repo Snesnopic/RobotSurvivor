@@ -12,7 +12,7 @@ extension GameScene {
     
     private func setUpGame() {
         //needs gameLogic reference in GameScene
-//        self.gameLogic.setUpGame()
+        self.gameLogic.setUpGame()
         self.backgroundColor = SKColor.darkGray
         //there is no player to create yet!
 //        let playerInitialPosition = CGPoint(x: self.frame.width/2, y: self.frame.height/6)
@@ -25,14 +25,12 @@ extension GameScene {
     }
     
     
-//    private func createPlayer(at position: CGPoint) {
-//        self.player = SKShapeNode(circleOfRadius: 25.0)
-//        self.player.name = "player"
-//        self.player.fillColor = SKColor.blue
-//        self.player.strokeColor = SKColor.black
-//        self.player.position = position
-//        player.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
-//        addChild(self.player)
-//    }
+    private func createPlayer(at position: CGPoint) {
+        self.player = SKSpriteNode(imageNamed: "")
+        self.player.name = "player"
+        self.player.position = position
+        player.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
+        addChild(self.player)
+    }
     
 }
