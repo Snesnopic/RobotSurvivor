@@ -19,6 +19,7 @@
 		23A5F3912B21D42D0008FFB2 /* SceneSetUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */; };
 		23A5F3932B21D43B0008FFB2 /* PlayerInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3922B21D43B0008FFB2 /* PlayerInputs.swift */; };
 		23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */; };
+		931293F92B21D93F009B2441 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293F82B21D93F009B2441 /* Joystick.swift */; };
 		9D3EDD382B1F3FD200C5DF7B /* UntitledGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */; };
 		9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD392B1F3FD200C5DF7B /* GameView.swift */; };
 		9D3EDD3C2B1F3FD200C5DF7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneSetUp.swift; sourceTree = "<group>"; };
 		23A5F3922B21D43B0008FFB2 /* PlayerInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInputs.swift; sourceTree = "<group>"; };
 		23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBehavior.swift; sourceTree = "<group>"; };
+		931293F82B21D93F009B2441 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 		9D3EDD342B1F3FD200C5DF7B /* UntitledGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UntitledGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UntitledGameApp.swift; sourceTree = "<group>"; };
 		9D3EDD392B1F3FD200C5DF7B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				9DD8E2B32B20A777000998F3 /* GameScene.swift */,
 				23A5F3782B21CFA10008FFB2 /* GameLogic.swift */,
 				23A5F38B2B21D3A30008FFB2 /* Components */,
+				931293F82B21D93F009B2441 /* Joystick.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				23A5F3792B21CFA10008FFB2 /* GameLogic.swift in Sources */,
 				23A5F3872B21D1C10008FFB2 /* DurationView.swift in Sources */,
 				23A5F38F2B21D4180008FFB2 /* RegisterXP.swift in Sources */,
+				931293F92B21D93F009B2441 /* Joystick.swift in Sources */,
 				23A5F3912B21D42D0008FFB2 /* SceneSetUp.swift in Sources */,
 				9D3EDD382B1F3FD200C5DF7B /* UntitledGameApp.swift in Sources */,
 			);
