@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import SpriteKit
+
+extension GameScene{
+    private func increaseScore(value: Int){
+        gameLogic.increaseScore(points: value)
+    }
+}
