@@ -124,9 +124,9 @@
 		9D3EDD362B1F3FD200C5DF7B /* UntitledGame */ = {
 			isa = PBXGroup;
 			children = (
+				9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */,
 				23A5F3882B21D2260008FFB2 /* Game */,
 				23A5F3812B21D0B40008FFB2 /* Views */,
-				9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */,
 				9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */,
 				23A5F3892B21D34A0008FFB2 /* Preview Content */,
 			);

@@ -36,6 +36,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
+        
     }
     
     override func update(_ currentTime: TimeInterval) {
