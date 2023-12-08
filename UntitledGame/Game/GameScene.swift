@@ -8,7 +8,9 @@
 import SpriteKit
 import Foundation
 
-
+class enemyNode: SKScene {
+    
+}
 
 class playerNode: SKScene {
     var playerNode: SKSpriteNode!
