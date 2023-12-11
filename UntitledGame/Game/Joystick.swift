@@ -23,6 +23,7 @@ class Joystick: SKScene {
         joystickBase = SKSpriteNode(imageNamed: "joystickBase")
         joystickBase.size = CGSize(width: 100, height: 100)
         addChild(joystickBase)
+        joystickBase.position = CGPoint(x: 50, y: 50)
         // Create the knob of the joystick
         joystickKnob = SKSpriteNode(imageNamed: "joystickKnob")
         joystickKnob.size = CGSize(width: 50, height: 50)
@@ -39,8 +40,9 @@ class Joystick: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
-        
-        if joystickBase.contains(touchLocation) {
+        if !isJoystickActive {
+            joystickBase.position = CGPoint(x: touchLocation.x, y: self.frame.height - touchLocation.y)
+            joystickKnob.position = joystickBase.position
             isJoystickActive = true
         }
     }
@@ -50,8 +52,8 @@ class Joystick: SKScene {
         guard isJoystickActive else { return }
         
         let joystickBaseRadius = joystickBase.frame.size.width / 2
-        let touchLocation = touch.location(in: self)
-        
+        var touchLocation = touch.location(in: self)
+        touchLocation.y = self.frame.height - touchLocation.y
         // Calculate the distance and angle from the joystick base to the touch
         let deltaX = touchLocation.x - joystickBase.position.x
         let deltaY = touchLocation.y - joystickBase.position.y

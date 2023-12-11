@@ -17,7 +17,7 @@ extension GameScene {
         self.backgroundColor = SKColor.darkGray
         //there is no player to create yet!
         let playerInitialPosition = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
-        let joystickInitialPosition = CGPoint(x: 100, y: 100)
+        let joystickInitialPosition = CGPoint(x: 50, y: 50)
         self.createPlayer(at: playerInitialPosition)
         self.createJoystick(at: joystickInitialPosition)
     }
@@ -39,7 +39,8 @@ extension GameScene {
     private func createJoystick(at position: CGPoint) {
         self.joystick = Joystick(player: player)
         self.joystick.name = "joystick"
-        self.joystick.position = position
+        self.joystick.size = self.frame.size
+        self.position = position
         addChild(joystick)
     }
 }
