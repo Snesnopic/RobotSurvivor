@@ -9,18 +9,26 @@ import SwiftUI
 import SpriteKit
 
 struct GameView: View {
-    var scene: SKScene {
-        let scene = GameScene()
+    var scene: GameScene
+    var joystickScene: Joystick
+    init() {
         var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
         var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
+        
+        scene = GameScene()
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
-        return scene
+        
+        joystickScene = Joystick(player: scene.player)
+        joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
     }
-    
     var body: some View {
-        SpriteView(scene: self.scene)
-                    .ignoresSafeArea()
+        ZStack {
+            SpriteView(scene: self.scene)
+                .ignoresSafeArea()
+            SpriteView(scene: joystickScene,options: [.allowsTransparency]).ignoresSafeArea()
+        }
+        
     }
 }
 
