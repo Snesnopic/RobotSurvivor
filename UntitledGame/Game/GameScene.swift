@@ -27,12 +27,22 @@ import Foundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+   
+    
     var player: SKSpriteNode!
     var joystick: Joystick!
     // Keeps track of when the last update happend.
     // Used to calculate how much time has passed between updates.
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
+    
+    var isPlayerAlive = true
+    
+    let enemyTypes = EnemyTypesVM().enemyTypes
+    
+    let positions = Array(stride(from: -320, through: 320, by: 80))
+    
+    
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
@@ -53,5 +63,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.lastUpdate = currentTime
         
+        enemyLogic(currentTime: currentTime)
     }
 }
