@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		233F1F4F2B27039800EF01FC /* EnemyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233F1F4E2B27039800EF01FC /* EnemyType.swift */; };
 		23A5F3792B21CFA10008FFB2 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3782B21CFA10008FFB2 /* GameLogic.swift */; };
 		23A5F37B2B21CFCD0008FFB2 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F37A2B21CFCD0008FFB2 /* GameOverView.swift */; };
 		23A5F37D2B21CFE60008FFB2 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F37C2B21CFE60008FFB2 /* MainMenuView.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		233F1F4E2B27039800EF01FC /* EnemyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyType.swift; sourceTree = "<group>"; };
 		23A5F3782B21CFA10008FFB2 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 		23A5F37A2B21CFCD0008FFB2 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		23A5F37C2B21CFE60008FFB2 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */,
 				23A5F3922B21D43B0008FFB2 /* PlayerInputs.swift */,
 				23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */,
+				233F1F4E2B27039800EF01FC /* EnemyType.swift */,
 				6B99D2C02B21DF6C0069204F /* GameOver.swift */,
 			);
 			path = Components;
@@ -215,6 +218,7 @@
 				23A5F3792B21CFA10008FFB2 /* GameLogic.swift in Sources */,
 				23A5F3872B21D1C10008FFB2 /* DurationView.swift in Sources */,
 				23A5F38F2B21D4180008FFB2 /* RegisterXP.swift in Sources */,
+				233F1F4F2B27039800EF01FC /* EnemyType.swift in Sources */,
 				931293F92B21D93F009B2441 /* Joystick.swift in Sources */,
 				23A5F3912B21D42D0008FFB2 /* SceneSetUp.swift in Sources */,
 				9D3EDD382B1F3FD200C5DF7B /* UntitledGameApp.swift in Sources */,
