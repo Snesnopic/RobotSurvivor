@@ -11,16 +11,25 @@ import SpriteKit
 extension GameScene{
     
     func didBegin(_ contact: SKPhysicsContact) {
-        // Determine if the contact is between an enemy and the player
-        if let enemy = contact.bodyA.node as? EnemyNode, contact.bodyB.node == player {
-            stopEnemyMovement(enemy)
-        } else if let enemy = contact.bodyB.node as? EnemyNode, contact.bodyA.node == player {
-            stopEnemyMovement(enemy)
+        
+        let firstBody: SKPhysicsBody = contact.bodyA
+        let secondBody: SKPhysicsBody = contact.bodyB
+        print("d")
+
+        if let node = firstBody.node as? EnemyNode, let bool = node.name?.hasPrefix("enemy"){
+            stopEnemyMovement(node)
+            
+        }
+        if let node = secondBody.node as? EnemyNode, let bool = node.name?.hasPrefix("enemy"){
+            
+            stopEnemyMovement(node)
+            
         }
     }
     
     func stopEnemyMovement(_ enemy: EnemyNode) {
         enemy.removeAllActions()  // This stops the follow path action
         enemy.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        print("stop Move")
     }
 }
