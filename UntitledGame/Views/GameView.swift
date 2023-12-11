@@ -11,7 +11,9 @@ import SpriteKit
 struct GameView: View {
     var scene: SKScene {
         let scene = GameScene()
-        scene.size = CGSize(width: 216, height: 216)
+        var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
+        var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
+        scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
         return scene
     }
