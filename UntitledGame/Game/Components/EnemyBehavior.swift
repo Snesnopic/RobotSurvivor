@@ -21,6 +21,7 @@ extension GameScene {
         
         for activeEnemy in activeEnemies {
             activeEnemy.configureMovement(player)
+            activeEnemy.zRotation = 0
         }
     }
     
