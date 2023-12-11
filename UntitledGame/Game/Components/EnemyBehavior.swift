@@ -21,7 +21,7 @@ extension GameScene {
         
         for activeEnemy in activeEnemies {
             activeEnemy.configureMovement(player)
-            activeEnemy.zRotation = 0
+            
         }
     }
     
@@ -35,6 +35,7 @@ extension GameScene {
         for (index, position) in positions.shuffled().enumerated(){
             let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: CGFloat(position)), offset: enemyOffset * CGFloat(index * 3))
             enemy.physicsBody?.affectedByGravity = false
+            enemy.physicsBody?.allowsRotation = false
             addChild(enemy)
             
         }
