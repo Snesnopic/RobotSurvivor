@@ -27,8 +27,9 @@ extension GameScene {
     
     private func createPlayer(at position: CGPoint) {
         self.player.name = "player"
+        player.size = (player.texture?.size())!
         self.player.position = position
-        player.physicsBody = SKPhysicsBody(circleOfRadius: 25.0)
+        player.physicsBody = SKPhysicsBody(texture: player.texture!, size: (player.texture?.size())!)
         self.player.physicsBody?.affectedByGravity = false
         addChild(self.player)
     }
