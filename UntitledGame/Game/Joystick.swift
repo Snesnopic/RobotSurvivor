@@ -16,9 +16,9 @@ class Joystick: SKScene {
     var isJoystickActive = false
     
     required init(player: SKSpriteNode) {
-        
         self.playerNode = player
         super.init(size: CGSize(width: 100, height: 100))
+        self.backgroundColor = UIColor.clear
         // Create the base of the joystick
         joystickBase = SKSpriteNode(imageNamed: "joystickBase")
         joystickBase.size = CGSize(width: 100, height: 100)
@@ -41,7 +41,7 @@ class Joystick: SKScene {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
         if !isJoystickActive {
-            joystickBase.position = CGPoint(x: touchLocation.x, y: self.frame.height - touchLocation.y)
+            joystickBase.position = CGPoint(x: touchLocation.x, y: touchLocation.y)
             joystickKnob.position = joystickBase.position
             isJoystickActive = true
         }
@@ -52,8 +52,8 @@ class Joystick: SKScene {
         guard isJoystickActive else { return }
         
         let joystickBaseRadius = joystickBase.frame.size.width / 2
-        var touchLocation = touch.location(in: self)
-        touchLocation.y = self.frame.height - touchLocation.y
+        let touchLocation = touch.location(in: self)
+//        touchLocation.y = self.frame.height - touchLocation.y
         // Calculate the distance and angle from the joystick base to the touch
         let deltaX = touchLocation.x - joystickBase.position.x
         let deltaY = touchLocation.y - joystickBase.position.y

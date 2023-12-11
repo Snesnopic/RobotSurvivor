@@ -26,8 +26,8 @@ import Foundation
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
-    var player: SKSpriteNode!
+    var sceneCamera: SKCameraNode = SKCameraNode()
+    var player: SKSpriteNode = SKSpriteNode(imageNamed: "stick")
     var joystick: Joystick!
     // Keeps track of when the last update happend.
     // Used to calculate how much time has passed between updates.
@@ -52,6 +52,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
-        
+        camera?.position = player.position
     }
 }
