@@ -74,8 +74,7 @@ class Joystick: SKScene {
             let xMovement = cos(angle) * distance / joystickBaseRadius * speed
             let yMovement = sin(angle) * distance / joystickBaseRadius * speed
             
-            // Apply the movement to your character or game objects
-            // For example:
+            // Applied the movement to your character or game objects
             playerNode.position.x += xMovement
             playerNode.position.y += yMovement
         }
