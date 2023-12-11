@@ -40,7 +40,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        if(self.isGameOver){
+            gameLogic.finishGame()
+        }
+        if(self.lastUpdate == 0){
+            self.lastUpdate = currentTime
+        }
+        // Calculates how much time has passed since the last update
+        let timeElapsedSinceLastUpdate = currentTime - self.lastUpdate
+        // Increments the length of the game session at the game logic
+        self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
+        self.lastUpdate = currentTime
         
     }
 }
