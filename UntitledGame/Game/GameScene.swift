@@ -8,7 +8,13 @@
 import SpriteKit
 import Foundation
 
-
+struct CollisionType {
+    static let none : UInt32 = 0
+    static let all : UInt32 = UInt32.max
+    static let player : UInt32 = 0b1
+    static let enemy : UInt32 = 0b10
+    
+}
 
 //class playerNode: SKScene {
 //    var playerNode: SKSpriteNode!

@@ -27,9 +27,16 @@ extension GameScene {
     
     private func createPlayer(at position: CGPoint) {
         self.player.name = "player"
+        
         player.size = (player.texture?.size())!
         self.player.position = position
-        player.physicsBody = SKPhysicsBody(texture: player.texture!, size: (player.texture?.size())!)
+        
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.texture!.size().width, height:  (player.texture?.size().height)!))
+        
+        player.physicsBody?.categoryBitMask = CollisionType.player
+        player.physicsBody?.collisionBitMask = CollisionType.enemy
+        player.physicsBody?.contactTestBitMask = CollisionType.enemy
+        player.physicsBody?.isDynamic = false
         self.player.physicsBody?.affectedByGravity = false
         addChild(self.player)
     }

@@ -19,8 +19,14 @@ class EnemyNode: SKSpriteNode {
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
         super.init(texture: texture,color: .white, size: texture.size())
         
-        name = "Enemy" + type.name
+        name = "enemy" + type.name
+        
         physicsBody = SKPhysicsBody(rectangleOf: texture.size())
+        
+        physicsBody?.categoryBitMask = CollisionType.enemy
+        physicsBody?.collisionBitMask = CollisionType.player
+        physicsBody?.contactTestBitMask = CollisionType.player
+        physicsBody?.isDynamic = true
         physicsBody?.allowsRotation = false
         position = CGPoint (x: startPosition.x + offset,  y: startPosition.y + offset)
         
@@ -30,10 +36,6 @@ class EnemyNode: SKSpriteNode {
         fatalError("LOL NO")
     }
     
-    func stopEnemyMovement(){
-        self.physicsBody?.velocity = .zero
-        self.physicsBody?.angularVelocity = .zero
-    }
     
     func configureMovement(_ player: SKSpriteNode){
         let speed = type.speed

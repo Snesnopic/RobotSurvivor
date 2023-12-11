@@ -39,7 +39,8 @@ extension GameScene {
                 enemy.physicsBody?.affectedByGravity = false
                 addChild(enemy)
                 
-            }        }
+            }
+        }
         
 //        for (index, position) in positions.shuffled().enumerated(){
 //            let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: CGFloat(position)), offset: enemyOffset * CGFloat(index * 3))
