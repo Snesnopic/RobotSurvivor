@@ -51,7 +51,7 @@ class Joystick: SKScene {
         if isJoystickActive {
 
             // Use the angle and distance to control movement
-            let speed: CGFloat = 5.0
+            let speed: CGFloat = 2.0
             let xMovement = cos(angle) * speed
             let yMovement = sin(angle) * speed
             
