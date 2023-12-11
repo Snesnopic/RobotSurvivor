@@ -33,7 +33,7 @@ extension GameScene {
         
         for _ in 1...30 {
             for (index, position) in positions.shuffled().enumerated(){
-                let enemyType = Int.random(in: 0..<3)
+                let enemyType = Int.random(in: 0..<enemyTypes.count)
                 let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: CGFloat(position)), offset: enemyOffset * CGFloat(index * 3))
                 enemy.physicsBody?.affectedByGravity = false
                 addChild(enemy)
