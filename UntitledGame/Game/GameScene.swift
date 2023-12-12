@@ -9,10 +9,11 @@ import SpriteKit
 import Foundation
 
 struct CollisionType {
-    static let none : UInt32 = 0
     static let all : UInt32 = UInt32.max
-    static let player : UInt32 = 0b1
-    static let enemy : UInt32 = 0b10
+    static let none : UInt32 = 0
+    static let player : UInt32 = 1
+    static let enemy : UInt32 = 2
+    static let xp: UInt32 = 3
     
 }
 
@@ -46,7 +47,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let positions = Array(stride(from: -320, through: 320, by: 80))
     
+    override init(){
+        super.init(size: CGSize(width: 500, height: 500))
+        view?.showsFPS = true
+        view?.showsPhysics = true
+    }
     
+    required init?(coder aDecoder: NSCoder){
+        fatalError("coder problem")
+    }
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")

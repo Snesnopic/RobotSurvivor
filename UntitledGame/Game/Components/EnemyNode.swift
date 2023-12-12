@@ -21,11 +21,18 @@ class EnemyNode: SKSpriteNode {
         
         name = "enemy" + type.name
         
-        physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 20, height: 20))
+        physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x, self.position.y, texture.size().width, texture.size().height), transform: nil))
+        
+//        (polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x, self.position.y, texture.size().width, texture.size().height), transform: nil))
+        
+//        attackCircle = SKShapeNode(ellipseOfSize: CGSize(width: 1000, height: 400))
+//        attackCircle.physicsBody = SKPhysicsBody(polygonFromPath: CGPathCreateWithEllipseInRect(CGRectMake(-500, -200, 1000, 400), nil))
         
         physicsBody?.categoryBitMask = CollisionType.enemy
         physicsBody?.collisionBitMask = CollisionType.player | CollisionType.enemy
         physicsBody?.contactTestBitMask = CollisionType.player
+        
+        
         physicsBody?.isDynamic = true
         physicsBody?.allowsRotation = false
         position = CGPoint (x: startPosition.x + offset,  y: startPosition.y + offset)
