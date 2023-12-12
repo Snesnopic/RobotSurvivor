@@ -33,6 +33,8 @@ struct CollisionType {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    var lastUpdateTime: TimeInterval = 0
+    var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
     var player: SKSpriteNode = SKSpriteNode(imageNamed: "player")
     var joystick: Joystick!
@@ -78,5 +80,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         enemyLogic(currentTime: currentTime)
         camera?.position = player.position
+        
+        
+        // When the level is started or after the game has been paused, the last update time is reset to the current time.
+          if lastUpdateTime.isZero {
+              lastUpdateTime = currentTime
+        }
+        // Calculate delta time since `update` was last called.
+        deltaTime = currentTime - lastUpdateTime
+
+        // Use current time as the last update time on next game loop update.
+        lastUpdateTime = currentTime
     }
 }

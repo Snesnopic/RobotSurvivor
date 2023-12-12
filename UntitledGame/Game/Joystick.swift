@@ -10,12 +10,14 @@ import Foundation
 
 
 class Joystick: SKScene {
+    var gameSceneReference: GameScene
     var playerNode: SKSpriteNode
     var joystickBase: SKSpriteNode!
     var joystickKnob: SKSpriteNode!
     var isJoystickActive = false
     var angle: CGFloat = 0.0
-    required init(player: SKSpriteNode) {
+    required init(player: SKSpriteNode, gameSceneReference: GameScene) {
+        self.gameSceneReference = gameSceneReference
         self.playerNode = player
         super.init(size: CGSize(width: 100, height: 100))
         self.backgroundColor = UIColor.clear
@@ -47,13 +49,14 @@ class Joystick: SKScene {
         }
     }
     
+    
     override func update(_ currentTime: TimeInterval) {
         if isJoystickActive {
-
+            let deltaTime = gameSceneReference.deltaTime
             // Use the angle and distance to control movement
-            let speed: CGFloat = 2.0
-            let xMovement = cos(angle) * speed
-            let yMovement = sin(angle) * speed
+            let speed: CGFloat = 80.0
+            let xMovement = cos(angle) * speed * deltaTime
+            let yMovement = sin(angle) * speed * deltaTime
             
             // Apply the movement to your character or game objects
             // For example:
