@@ -9,6 +9,8 @@ import SwiftUI
 import SpriteKit
 
 struct GameViewUI: UIViewRepresentable {
+    
+    
  
     
      func makeUIView(context: Context) -> SKView {

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainMenuView: View {
+    @Binding var currentGameState: GameState
+    
+    
     var body: some View {
         ZStack{
             Color.darkGreen
@@ -30,7 +33,9 @@ struct MainMenuView: View {
                     .foregroundStyle(.green)
                     .padding(.bottom, 75)
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    currentGameState = .playing
+                }, label: {
                     Text("Play")
                 })
                 .font(.custom("Silkscreen-Regular", size: 50))
@@ -55,6 +60,6 @@ struct MainMenuView: View {
     }
 }
 
-#Preview {
-    MainMenuView()
-}
+//#Preview {
+//    MainMenuView(currentGameState: )
+//}
