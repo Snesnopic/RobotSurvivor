@@ -16,6 +16,7 @@ class Joystick: SKScene {
     var joystickKnob: SKSpriteNode!
     var isJoystickActive = false
     var angle: CGFloat = 0.0
+    
     required init(player: SKSpriteNode, gameSceneReference: GameScene) {
         self.gameSceneReference = gameSceneReference
         self.playerNode = player
@@ -32,8 +33,6 @@ class Joystick: SKScene {
         joystickKnob.position = joystickBase.position // Initially centered on the base
         addChild(joystickKnob)
     }
-
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -45,29 +44,27 @@ class Joystick: SKScene {
         if !isJoystickActive {
             joystickBase.position = CGPoint(x: touchLocation.x, y: touchLocation.y)
             joystickKnob.position = joystickBase.position
-            isJoystickActive = true
         }
     }
-    
     
     override func update(_ currentTime: TimeInterval) {
         if isJoystickActive {
             let deltaTime = gameSceneReference.deltaTime
             // Use the angle and distance to control movement
-            let speed: CGFloat = 80.0
+            let speed: CGFloat = playerNode.userData?.value(forKey: "speed") as! CGFloat
             let xMovement = cos(angle) * speed * deltaTime
             let yMovement = sin(angle) * speed * deltaTime
-            
             // Apply the movement to your character or game objects
             // For example:
             playerNode.position.x += xMovement
             playerNode.position.y += yMovement
         }
     }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        guard isJoystickActive else { return }
-        
+        // Joystick is not active if you don't move your touch from the base
+        isJoystickActive = !(touch.location(in: self).x == joystickBase.position.x && touch.location(in: self).y == joystickBase.position.y)
         let joystickBaseRadius = joystickBase.frame.size.width / 4
         let touchLocation = touch.location(in: self)
         // Calculate the distance and angle from the joystick base to the touch
@@ -75,7 +72,6 @@ class Joystick: SKScene {
         let deltaY = touchLocation.y - joystickBase.position.y
         let distance = hypot(deltaX, deltaY)
         angle = atan2(deltaY, deltaX)
-        
         // Restrict the knob within the joystick base using the distance
         if distance <= joystickBaseRadius {
             joystickKnob.position = touchLocation
