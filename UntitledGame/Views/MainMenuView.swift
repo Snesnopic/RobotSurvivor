@@ -9,7 +9,32 @@ import SwiftUI
 
 struct MainMenuView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            
+            Spacer()
+            
+            Text("Robot")
+                .font(.custom("Silkscreen-Bold", size: 65))
+            Text("Survivor")
+                .font(.custom("Silkscreen-Bold", size: 39))
+                .padding(.bottom, 75)
+            
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Text("Play")
+            })
+            .font(.custom("Silkscreen-Regular", size: 50))
+            .padding(.bottom)
+            .foregroundStyle(.green)
+            
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Text("Settings")
+            })
+            .font(.custom("Silkscreen-Regular", size: 25))
+            .foregroundStyle(.green)
+            
+            Spacer()
+            
+        }
     }
 }
 

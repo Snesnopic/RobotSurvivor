@@ -29,6 +29,8 @@
 		9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD392B1F3FD200C5DF7B /* GameView.swift */; };
 		9D3EDD3C2B1F3FD200C5DF7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */; };
 		9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8E2B32B20A777000998F3 /* GameScene.swift */; };
+		EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */; };
+		EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,9 @@
 		9D3EDD392B1F3FD200C5DF7B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DD8E2B32B20A777000998F3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Bold.ttf"; sourceTree = "<group>"; };
+		EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Regular.ttf"; sourceTree = "<group>"; };
+		EE2F23B72B2853EE000E3490 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +87,8 @@
 				23A5F3822B21D0C50008FFB2 /* HUD */,
 				23A5F37E2B21D0480008FFB2 /* ParentView.swift */,
 				23A5F37C2B21CFE60008FFB2 /* MainMenuView.swift */,
+				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
+				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
 				9D3EDD392B1F3FD200C5DF7B /* GameView.swift */,
 				23A5F37A2B21CFCD0008FFB2 /* GameOverView.swift */,
 			);
@@ -143,6 +150,7 @@
 		9D3EDD362B1F3FD200C5DF7B /* UntitledGame */ = {
 			isa = PBXGroup;
 			children = (
+				EE2F23B72B2853EE000E3490 /* Info.plist */,
 				9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */,
 				23A5F3882B21D2260008FFB2 /* Game */,
 				23A5F3812B21D0B40008FFB2 /* Views */,
@@ -211,7 +219,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */,
 				23A5F38A2B21D34B0008FFB2 /* Preview Content in Resources */,
+				EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */,
 				9D3EDD3C2B1F3FD200C5DF7B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +389,7 @@
 				DEVELOPMENT_TEAM = 3FRYF657J2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UntitledGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -408,6 +419,7 @@
 				DEVELOPMENT_TEAM = 3FRYF657J2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UntitledGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
