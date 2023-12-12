@@ -12,42 +12,49 @@ import SpriteKit
 extension GameScene {
     
     func enemyLogic(currentTime: TimeInterval){
-        let activeEnemies = children.compactMap{$0 as? EnemyNode}
-        
-        if activeEnemies.isEmpty {
-            createEnemies()
-            
+        let activeEnemies: [EnemyNode] = children.filter { node in
+            return node.isKind(of: EnemyNode.classForCoder())
+        } as! [EnemyNode]
+        var activeEnemiesCount = activeEnemies.count
+        while activeEnemiesCount < 40 {
+            //there must always be 40 enemies in the map
+            createEnemy()
+            activeEnemiesCount += 1
         }
         
         for activeEnemy in activeEnemies {
             activeEnemy.configureMovement(player)
-            
         }
     }
-    
-    func createEnemies() {
-        let enemyOffset: CGFloat = 100
-        let enemyStartX: CGFloat = 200
-        let enemyStartY = player.position.y + 100
-        
-        
-        
-        for _ in 1...30 {
-            for (index, position) in positions.shuffled().enumerated(){
-                let enemyType = Int.random(in: 0..<enemyTypes.count)
-                let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: CGFloat(position)), offset: enemyOffset * CGFloat(index * 3))
-                enemy.physicsBody?.affectedByGravity = false
-                enemy.zPosition = 1;
-                addChild(enemy)
-                
-            }
+    private func generateSign(number: Int) -> Int {
+        if number % 2 == 0 {
+            return -1
         }
-        
-//        for (index, position) in positions.shuffled().enumerated(){
-//            let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: CGFloat(position)), offset: enemyOffset * CGFloat(index * 3))
-//            enemy.physicsBody?.affectedByGravity = false
-//            addChild(enemy)
-//            
-//        }
+        else {
+            return 1
+        }
+    }
+    func createEnemy() {
+        let halfScreenWidth = Int(self.size.width / 2)
+        let halfScreenHeight = Int(self.size.height / 2)
+        let enemyType = Int.random(in: 0..<enemyTypes.count)
+        let side = Int.random(in: 0..<4)
+        var position = player.position
+        if side < 2 {
+            //spawns vertically
+            position.y = position.y + CGFloat(halfScreenHeight * generateSign(number: side%2))
+            let newX = Int(position.x) + halfScreenWidth
+            position.x = CGFloat(Int.random(in: Int(-newX)...Int(newX)))
+        }
+        else {
+            //spawns horizontally
+            position.x = position.x + CGFloat(halfScreenWidth * generateSign(number: side%2))
+            let newY = Int(position.y) + halfScreenHeight
+            position.y = CGFloat(Int.random(in: Int(-newY)...Int(newY)))
+        }
+        let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: position)
+        enemy.physicsBody?.affectedByGravity = false
+        enemy.zPosition = 1;
+        addChild(enemy)
     }
 }
