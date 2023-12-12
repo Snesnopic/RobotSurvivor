@@ -58,9 +58,9 @@ struct GameView: View {
     }
     var body: some View {
         ZStack {
-            GameViewUI()
-                .ignoresSafeArea()
-//            SpriteView(scene: joystickScene,options: [.allowsTransparency]).ignoresSafeArea()
+            //GameViewUI()
+            SpriteView(scene: self.scene).ignoresSafeArea()
+            SpriteView(scene: joystickScene,options: [.allowsTransparency]).ignoresSafeArea()
         }
         
     }
