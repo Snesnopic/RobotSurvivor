@@ -12,6 +12,7 @@ extension GameScene {
     
     func setUpGame() {
         self.gameLogic.setUpGame()
+        self.setUpPhysicsWorld()
         self.backgroundColor = SKColor.darkGray
         let playerInitialPosition = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         self.createPlayer(at: playerInitialPosition)
@@ -32,7 +33,8 @@ extension GameScene {
         self.player.position = position
         
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.texture!.size().width, height:  (player.texture?.size().height)!))
-        
+        player.userData = ["xp": 0];
+        player.zPosition = 2
         player.physicsBody?.categoryBitMask = CollisionType.player
         player.physicsBody?.collisionBitMask = CollisionType.enemy
         player.physicsBody?.contactTestBitMask = CollisionType.enemy

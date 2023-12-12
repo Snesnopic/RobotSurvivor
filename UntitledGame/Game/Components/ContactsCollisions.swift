@@ -14,17 +14,39 @@ extension GameScene{
         
         let firstBody: SKPhysicsBody = contact.bodyA
         let secondBody: SKPhysicsBody = contact.bodyB
-        print("d")
-
-        if let node = firstBody.node as? EnemyNode, let bool = node.name?.hasPrefix("enemy"){
-            stopEnemyMovement(node)
+        let chance = Int.random(in: 1...100)
+        
+        //Contact between player and enemy
+        if firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy{
+            if(chance>50){
+                generateXp(at: secondBody.node!.position)
+            }
+            secondBody.node?.removeFromParent()
             
         }
-        if let node = secondBody.node as? EnemyNode, let bool = node.name?.hasPrefix("enemy"){
-            
-            stopEnemyMovement(node)
+        if firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player{
+            if(chance>50){
+                generateXp(at: firstBody.node!.position)
+            }
+            firstBody.node?.removeFromParent()
             
         }
+        
+        //Contact between player and xp
+        //TODO: Change val with enemy.xpvalue
+        if firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp{
+            gainXP(val: 2);
+            secondBody.node?.removeFromParent()
+            print(player.userData!["xp"]!)
+            
+        }
+        if firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player{
+            gainXP(val: 2);
+            firstBody.node?.removeFromParent()
+            print(player.userData!["xp"]!)
+            
+        }
+        
     }
     
     func stopEnemyMovement(_ enemy: EnemyNode) {
