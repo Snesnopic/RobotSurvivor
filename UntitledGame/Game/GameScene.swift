@@ -47,7 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let enemyTypes = EnemyTypesVM().enemyTypes
     
-    let positions = Array(stride(from: -320, through: 320, by: 80))
+   
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
