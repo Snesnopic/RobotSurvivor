@@ -51,7 +51,11 @@ class Joystick: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if isJoystickActive {
+        if !isJoystickActive {
+            self.alpha = 0.0
+        }
+        else {
+            self.alpha = 1.0
             let deltaTime = gameSceneReference.deltaTime
             // Use the angle and distance to control movement
             let speed: CGFloat = playerNode.userData?.value(forKey: "speed") as! CGFloat
