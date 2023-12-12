@@ -54,7 +54,7 @@ class Joystick: SKScene {
         if isJoystickActive {
             let deltaTime = gameSceneReference.deltaTime
             // Use the angle and distance to control movement
-            let speed: CGFloat = 80.0
+            let speed: CGFloat = playerNode.userData?.value(forKey: "speed") as! CGFloat
             let xMovement = cos(angle) * speed * deltaTime
             let yMovement = sin(angle) * speed * deltaTime
             
