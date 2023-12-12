@@ -44,6 +44,7 @@ struct GameViewUI: UIViewRepresentable {
 
 
 struct GameView: View {
+    @StateObject var gameLogic: GameLogic =  GameLogic.shared
     var scene: GameScene
     var joystickScene: Joystick
     init() {
@@ -56,11 +57,13 @@ struct GameView: View {
         joystickScene = Joystick(player: scene.player,gameSceneReference: scene)
         joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
     }
+
     var body: some View {
         ZStack {
             //GameViewUI()
             SpriteView(scene: self.scene).ignoresSafeArea()
             SpriteView(scene: joystickScene,options: [.allowsTransparency]).ignoresSafeArea()
+            ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
         }
         
     }
