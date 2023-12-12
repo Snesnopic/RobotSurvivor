@@ -22,8 +22,8 @@ struct GameViewUI: UIViewRepresentable {
         let scene = GameScene()
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
-        let joystickScene = Joystick(player: scene.player)
-        joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
+        
+        
         view.presentScene(scene)
         
        
