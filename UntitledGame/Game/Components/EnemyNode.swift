@@ -21,10 +21,10 @@ class EnemyNode: SKSpriteNode {
         
         name = "enemy" + type.name
         
-        physicsBody = SKPhysicsBody(rectangleOf: texture.size())
+        physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 20, height: 20))
         
         physicsBody?.categoryBitMask = CollisionType.enemy
-        physicsBody?.collisionBitMask = CollisionType.player
+        physicsBody?.collisionBitMask = CollisionType.player | CollisionType.enemy
         physicsBody?.contactTestBitMask = CollisionType.player
         physicsBody?.isDynamic = true
         physicsBody?.allowsRotation = false

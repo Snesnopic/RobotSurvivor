@@ -14,17 +14,20 @@ extension GameScene{
         
         let firstBody: SKPhysicsBody = contact.bodyA
         let secondBody: SKPhysicsBody = contact.bodyB
-        print("d")
+        
 
         if let node = firstBody.node as? EnemyNode, let bool = node.name?.hasPrefix("enemy"){
             stopEnemyMovement(node)
+            print("d")
             
         }
         if let node = secondBody.node as? EnemyNode, let bool = node.name?.hasPrefix("enemy"){
             
             stopEnemyMovement(node)
-            
+            print("d")
         }
+       
+        
     }
     
     func stopEnemyMovement(_ enemy: EnemyNode) {
