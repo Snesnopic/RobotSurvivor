@@ -37,6 +37,7 @@ extension GameScene {
                 let enemyType = Int.random(in: 0..<enemyTypes.count)
                 let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: CGFloat(position)), offset: enemyOffset * CGFloat(index * 3))
                 enemy.physicsBody?.affectedByGravity = false
+                enemy.zPosition = 1;
                 addChild(enemy)
                 
             }

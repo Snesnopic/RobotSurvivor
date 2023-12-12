@@ -18,7 +18,6 @@ struct GameView: View {
         scene = GameScene()
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
-        
         joystickScene = Joystick(player: scene.player)
         joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
     }
