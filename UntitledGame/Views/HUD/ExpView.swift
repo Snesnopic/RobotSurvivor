@@ -18,9 +18,16 @@ struct ExpView: View {
                 .fill(Color.blue)
                 .frame(width: geometry.size.width * CGFloat(experience), height: 40)
                 .animation(.linear, value: experience)
+         
         }
+        
     }
+    
+
+    
+    
 }
+
 
 #Preview {
     ExpView(experience: 1)
