@@ -22,7 +22,7 @@ struct ParentView: View {
             GameView()
                 .environmentObject(gameLogic)
         case .gameOver:
-            EmptyView()
+            GameOverView()
         }
         
     }
