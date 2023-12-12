@@ -12,8 +12,8 @@ import Foundation
 class Joystick: SKScene {
     var gameSceneReference: GameScene
     var playerNode: SKSpriteNode
-    var joystickBase: SKSpriteNode!
-    var joystickKnob: SKSpriteNode!
+    var joystickBase: SKShapeNode!
+    var joystickKnob: SKShapeNode!
     var isJoystickActive = false
     var angle: CGFloat = 0.0
     
@@ -23,16 +23,19 @@ class Joystick: SKScene {
         super.init(size: CGSize(width: 100, height: 100))
         self.backgroundColor = UIColor.clear
         // Create the base of the joystick
-        joystickBase = SKSpriteNode(imageNamed: "joystickBase")
-        joystickBase.size = CGSize(width: 100, height: 100)
+//        let circlePath = UIBezierPath(ovalIn: CGRect(x: -50, y: -50, width: 100, height: 100))
+        joystickBase = SKShapeNode(circleOfRadius: 50)
+        joystickBase.fillColor = UIColor.white.withAlphaComponent(0.5)
         addChild(joystickBase)
         joystickBase.position = CGPoint(x: 50, y: 50)
         // Create the knob of the joystick
-        joystickKnob = SKSpriteNode(imageNamed: "joystickKnob")
-        joystickKnob.size = CGSize(width: 50, height: 50)
+        joystickKnob = SKShapeNode(circleOfRadius: 23)
+        joystickKnob.fillColor = UIColor.white
         joystickKnob.position = joystickBase.position // Initially centered on the base
         addChild(joystickKnob)
     }
+
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -48,7 +51,11 @@ class Joystick: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if isJoystickActive {
+        if !isJoystickActive {
+            self.alpha = 0.0
+        }
+        else {
+            self.alpha = 1.0
             let deltaTime = gameSceneReference.deltaTime
             // Use the angle and distance to control movement
             let speed: CGFloat = playerNode.userData?.value(forKey: "speed") as! CGFloat

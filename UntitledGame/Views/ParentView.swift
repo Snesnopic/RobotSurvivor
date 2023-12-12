@@ -11,6 +11,8 @@ struct ParentView: View {
     
     @State var currentGameState: GameState = .mainScreen
     
+    @StateObject var gameLogic: GameLogic = GameLogic()
+    
     var body: some View {
         
         switch currentGameState {
@@ -18,6 +20,7 @@ struct ParentView: View {
             MainMenuView(currentGameState: $currentGameState)
         case .playing:
             GameView()
+                .environmentObject(gameLogic)
         case .gameOver:
             EmptyView()
         }
