@@ -8,10 +8,23 @@
 import SwiftUI
 
 struct ParentView: View {
+    
+    @State var currentGameState: GameState = .mainScreen
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        switch currentGameState {
+        case .mainScreen: 
+            MainMenuView(currentGameState: $currentGameState)
+        case .playing:
+            GameView()
+        case .gameOver:
+            EmptyView()
+        }
+        
     }
 }
+
 
 #Preview {
     ParentView()

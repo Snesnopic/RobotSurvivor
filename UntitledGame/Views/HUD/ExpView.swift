@@ -10,19 +10,25 @@ import SwiftUI
 import SpriteKit
 
 struct ExpView: View {
-     @State var experience: Int // Bind this to your game's experience logic
-
+    @Binding var experienceNeeded: Int // Bind this to your game's experience logic
+    @Binding var currentXP: Int
     var body: some View {
         GeometryReader { geometry in
             Rectangle()
                 .fill(Color.blue)
-                .frame(width: geometry.size.width * CGFloat(experience), height: 40)
-                .animation(.linear, value: experience)
+                .frame(width: (geometry.size.width/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: 40)
+            
         }
+        
+        
     }
+    
+
+    
+    
 }
 
-#Preview {
-    ExpView(experience: 1)
-}
+//#Preview {
+//    ExpView(experienceNeeded: 20, currentXP: 0)
+//}
 

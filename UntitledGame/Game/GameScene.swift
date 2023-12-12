@@ -53,6 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
         view?.showsPhysics = true
+        setUpGame()
     }
     
     required init?(coder aDecoder: NSCoder){
@@ -61,7 +62,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
-        setUpGame()
     }
     
     override func update(_ currentTime: TimeInterval) {
