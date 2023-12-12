@@ -9,13 +9,7 @@ import SwiftUI
 import SpriteKit
 
 struct GameViewUI: UIViewRepresentable {
-    
-    
- 
-    
      func makeUIView(context: Context) -> SKView {
-        
-        
          
         var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
         var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
@@ -25,9 +19,6 @@ struct GameViewUI: UIViewRepresentable {
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
         view.presentScene(scene)
-        
-       
-       
 
         // Enable FPS and physics debugging
         view.showsFPS = true
@@ -44,28 +35,33 @@ struct GameViewUI: UIViewRepresentable {
 
 
 struct GameView: View {
+    @State var x: Bool = false
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
-    var scene: GameScene
-    var joystickScene: Joystick
-    init() {
-        var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
-        var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
-        
-        scene = GameScene()
-        scene.size = CGSize(width: screenWidth, height: screenHeight)
-        scene.scaleMode = .fill
-        joystickScene = Joystick(player: scene.player,gameSceneReference: scene)
-        joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
-    }
+    private var sceneWrapper = SceneWrapper()
 
     var body: some View {
         ZStack {
             //GameViewUI()
-            SpriteView(scene: self.scene).ignoresSafeArea()
-            SpriteView(scene: joystickScene,options: [.allowsTransparency]).ignoresSafeArea()
+            SpriteView(scene: self.sceneWrapper.scene)
+                .onChange(of: gameLogic.showPowerUp){
+                    sceneWrapper.scene.isPaused.toggle()
+                }
+                .ignoresSafeArea()
+            SpriteView(scene: sceneWrapper.joystickScene,options: [.allowsTransparency])
+                .onChange(of: gameLogic.showPowerUp){
+                    sceneWrapper.joystickScene.isPaused.toggle()
+                    if(gameLogic.showPowerUp == true){
+                        sceneWrapper.joystickScene.hideJoystick()
+                    }else{
+                        sceneWrapper.joystickScene.showJoystick()
+                    }
+                }
+                .ignoresSafeArea()
             ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
+            if(gameLogic.showPowerUp){
+                PowerUpView()
+            }
         }
-        
     }
 }
 

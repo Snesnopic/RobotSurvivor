@@ -50,6 +50,7 @@ extension GameScene {
         player.userData!["xpToNextLevel"] = nextLevelXp
         gameLogic.xpToNextLvl = nextLevelXp
         
+        gameLogic.showPowerUp = true
         
         //prints to check from console
         print("Reached new level!")

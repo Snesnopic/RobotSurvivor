@@ -14,7 +14,7 @@ class Joystick: SKScene {
     var playerNode: SKSpriteNode
     var joystickBase: SKShapeNode!
     var joystickKnob: SKShapeNode!
-    var isJoystickActive = false
+    var isJoystickActive: Bool = false
     var angle: CGFloat = 0.0
     
     required init(player: SKSpriteNode, gameSceneReference: GameScene) {
@@ -93,5 +93,18 @@ class Joystick: SKScene {
         guard isJoystickActive else { return }
         joystickKnob.position = joystickBase.position // Reset knob position
         isJoystickActive = false
+    }
+    
+    func hideJoystick(){
+        joystickBase.fillColor = UIColor.clear
+        joystickBase.strokeColor = UIColor.clear
+        joystickKnob.fillColor = UIColor.clear
+        joystickKnob.strokeColor = UIColor.clear
+    }
+    func showJoystick(){
+        joystickBase.fillColor = UIColor.white.withAlphaComponent(0.5)
+        joystickBase.strokeColor = UIColor.white
+        joystickKnob.fillColor = UIColor.white
+        joystickKnob.strokeColor = UIColor.white
     }
 }

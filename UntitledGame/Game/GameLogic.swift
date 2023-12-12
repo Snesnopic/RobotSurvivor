@@ -16,11 +16,14 @@ class GameLogic: ObservableObject {
         self.isGameOver = false;
     }
     
+    //general
     @Published var time: TimeInterval = 0
     @Published var currentScore: Int = 0
+    @Published var isGameOver = false
+    //xp system
     @Published var currentXP: Int = 0
     @Published var xpToNextLvl: Int = 30
-    @Published var isGameOver = false
+    @Published var showPowerUp: Bool = false
     
     func increaseScore(points: Int){
         self.currentScore = self.currentScore + points
