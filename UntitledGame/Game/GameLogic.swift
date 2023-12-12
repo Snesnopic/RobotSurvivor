@@ -13,17 +13,22 @@ class GameLogic: ObservableObject {
     
     func setUpGame(){
         self.currentScore = 0
-        self.currentXP = 0
         self.isGameOver = false;
     }
     
     @Published var time: TimeInterval = 0
     @Published var currentScore: Int = 0
     @Published var currentXP: Int = 0
+    @Published var xpToNextLvl: Int = 30
     @Published var isGameOver = false
     
     func increaseScore(points: Int){
-        self.currentScore = self.currentXP + points
+        self.currentScore = self.currentScore + points
+    }
+    
+    func updateXpBar(value: Int, newCap: Int){
+        self.currentXP = value
+        self.xpToNextLvl = newCap
     }
     
     func increaseTime(by t: TimeInterval){

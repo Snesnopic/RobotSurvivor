@@ -33,7 +33,7 @@ extension GameScene {
         self.player.position = position
         
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.texture!.size().width, height:  (player.texture?.size().height)!))
-        player.userData = ["xp": 0];
+        player.userData = ["level": 1, "xp": 0, "xpToNextLevel": 30];
         player.zPosition = 2
         player.physicsBody?.categoryBitMask = CollisionType.player
         player.physicsBody?.collisionBitMask = CollisionType.enemy
@@ -41,5 +41,21 @@ extension GameScene {
         player.physicsBody?.isDynamic = false
         self.player.physicsBody?.affectedByGravity = false
         addChild(self.player)
+    }
+    
+    public func levelUp(){
+        player.userData!["level"] = (player.userData!["level"] as? Int)! + 1
+        let nextLevelXp = (player.userData!["xpToNextLevel"] as? Int)! + 10
+        player.userData!["xpToNextLevel"] = nextLevelXp
+        gameLogic.xpToNextLvl = nextLevelXp
+        player.userData!["xp"] = 0
+        
+        //prints to check from console
+        print("Reached new level!")
+        print(player.userData!["level"]!)
+        print("Xp needed to level up")
+        print(player.userData!["xpToNextLevel"]!)
+        print("current xp")
+        print(player.userData!["xp"]!)
     }
 }

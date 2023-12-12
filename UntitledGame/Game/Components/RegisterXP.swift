@@ -11,6 +11,7 @@ import SpriteKit
 extension GameScene{
     public func gainXP(val: Int){
         player.userData!["xp"] = player.userData!["xp"] as! Int + val;
+        gameLogic.currentXP = player.userData!["xp"] as! Int
     }
     
     public func generateXp(at position: CGPoint){
