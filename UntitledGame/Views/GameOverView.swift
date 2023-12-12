@@ -9,7 +9,18 @@ import SwiftUI
 
 struct GameOverView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            Color.darkGreen
+                .ignoresSafeArea()
+            
+            VStack{
+                Text("Game")
+                    .font(.custom("Silkscreen-Bold", size: 50))
+                Text("Over")
+                    .font(.custom("Silkscreen-Bold", size: 51))
+            }
+            .foregroundStyle(.green)
+        }
     }
 }
 
