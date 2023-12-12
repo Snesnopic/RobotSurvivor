@@ -44,6 +44,12 @@ class EnemyNode: SKSpriteNode {
     
     
     func configureMovement(_ player: SKSpriteNode){
+        if self.position.x < player.position.x {
+            self.xScale = 1
+        }
+        else {
+            self.xScale = -1
+        }
         let speed = type.speed
         let distance = abs(CGFloat(hypotf(Float(self.position.x - player.position.x), Float(self.position.y - player.position.y))))
         
