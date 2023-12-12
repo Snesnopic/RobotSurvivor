@@ -8,6 +8,41 @@
 import SwiftUI
 import SpriteKit
 
+struct GameViewUI: UIViewRepresentable {
+ 
+    
+     func makeUIView(context: Context) -> SKView {
+        
+        
+         
+        var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
+        var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
+        
+        let view = SKView()
+        let scene = GameScene()
+        scene.size = CGSize(width: screenWidth, height: screenHeight)
+        scene.scaleMode = .fill
+        let joystickScene = Joystick(player: scene.player)
+        joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
+        view.presentScene(scene)
+        
+       
+       
+
+        // Enable FPS and physics debugging
+        view.showsFPS = true
+        view.showsPhysics = true
+
+        return view
+    }
+
+    func updateUIView(_ uiView: SKView, context: Context) {
+    }
+
+    typealias UIViewType = SKView
+}
+
+
 struct GameView: View {
     var scene: GameScene
     var joystickScene: Joystick
@@ -23,9 +58,9 @@ struct GameView: View {
     }
     var body: some View {
         ZStack {
-            SpriteView(scene: self.scene)
+            GameViewUI()
                 .ignoresSafeArea()
-            SpriteView(scene: joystickScene,options: [.allowsTransparency]).ignoresSafeArea()
+//            SpriteView(scene: joystickScene,options: [.allowsTransparency]).ignoresSafeArea()
         }
         
     }
