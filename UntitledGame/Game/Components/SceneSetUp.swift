@@ -45,10 +45,11 @@ extension GameScene {
     
     public func levelUp(){
         player.userData!["level"] = (player.userData!["level"] as? Int)! + 1
+        player.userData!["xp"] = 0
         let nextLevelXp = (player.userData!["xpToNextLevel"] as? Int)! + 10
         player.userData!["xpToNextLevel"] = nextLevelXp
         gameLogic.xpToNextLvl = nextLevelXp
-        player.userData!["xp"] = 0
+        
         
         //prints to check from console
         print("Reached new level!")

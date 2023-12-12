@@ -26,11 +26,6 @@ class GameLogic: ObservableObject {
         self.currentScore = self.currentScore + points
     }
     
-    func updateXpBar(value: Int, newCap: Int){
-        self.currentXP = value
-        self.xpToNextLvl = newCap
-    }
-    
     func increaseTime(by t: TimeInterval){
         self.time = self.time + t
     }

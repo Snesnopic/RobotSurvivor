@@ -36,9 +36,9 @@ extension GameScene{
         //Contact between player and xp
         //TODO: Change val with enemy.xpvalue
         if firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp{
-            withAnimation{
-                gainXP(val: 2);
-            }
+            
+            gainXP(val: 2)
+            
             if(player.userData!["xpToNextLevel"] as? Int == player.userData!["xp"] as? Int){
                 levelUp()
             }
@@ -47,12 +47,11 @@ extension GameScene{
             
         }
         if firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player{
-            withAnimation{
-                gainXP(val: 2);
-            }
+            gainXP(val: 2)
+            
             if(player.userData!["xpToNextLevel"] as? Int == player.userData!["xp"] as? Int){
                 levelUp()
-            
+                
             }
             firstBody.node?.removeFromParent()
             print(player.userData!["xp"]!)
