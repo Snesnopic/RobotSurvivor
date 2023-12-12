@@ -22,8 +22,6 @@ struct GameViewUI: UIViewRepresentable {
         let scene = GameScene()
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
-        
-        
         view.presentScene(scene)
         
        
