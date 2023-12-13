@@ -9,14 +9,26 @@ import Foundation
 import SpriteKit
 
 extension GameScene{
-    public func increaseHealth(){
+    func increaseHealth(){
         let newMaxHp = player.userData!["maxHp"] as! Double * 1.1
         player.userData!["maxHp"] = newMaxHp
     }
     
-    public func increaseSpeed(){
+    func increasePlayerSpeed(){
         let newSpeed = player.userData!["speed"] as! Int + 5
         player.userData!["speed"] = newSpeed
+    }
+    
+    func increaseFireRate(){
+        fireRate = fireRate - 0.5
+    }
+    
+    func increaseBulletSpeed(){
+        spd = spd - 1
+    }
+    
+    func increaseDamage(){
+        dmg = dmg + 5
     }
     
 }
