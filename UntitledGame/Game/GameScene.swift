@@ -47,15 +47,21 @@ class SceneWrapper{
     }
 }
 
+extension CGPoint: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(x)
+        hasher.combine(y)
+    }
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
-    var player: SKSpriteNode = SKSpriteNode(imageNamed: "player")
+    var player: SKSpriteNode!
     var healthBar: SKScene!
     var joystick: Joystick!
-    // Keeps track of when the last update happend.
-    // Used to calculate how much time has passed between updates.
+  
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
     var isPlayerAlive = true
@@ -69,6 +75,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var dmg: Int = 10
     var spd: Int = 10
     
+    var tilePositions: Set<CGPoint> = []
+    let tileSize = CGSize(width: 100, height: 100)
+    
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
@@ -79,21 +88,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     required init?(coder aDecoder: NSCoder){
         fatalError("coder problem")
     }
+    func updateTiles() {
+        let playerPosition = player.position
+        let visibleDistance = 500
+        
+       
+        let minX = playerPosition.x - CGFloat(visibleDistance)
+        let maxX = playerPosition.x + CGFloat(visibleDistance)
+        let minY = playerPosition.y - CGFloat(visibleDistance)
+        let maxY = playerPosition.y + CGFloat(visibleDistance)
+        
+        // Load new tiles
+        for x in stride(from: minX, through: maxX, by: tileSize.width) {
+            for y in stride(from: minY, through: maxY, by: tileSize.height) {
+                let position = CGPoint(x: x, y: y)
+                if !isTilePresent(at: position) {
+                    addTile(at: position)
+                }
+            }
+        }
+        for tile in self.children.compactMap({ $0 as? SKSpriteNode }) {
+            if tile.position.x < minX || tile.position.x > maxX ||
+                tile.position.y < minY || tile.position.y > maxY {
+                tilePositions.remove(tile.position)
+                tile.removeFromParent()
+            }
+        }
+  
+}
+    func isTilePresent(at position: CGPoint) -> Bool {
+        return tilePositions.contains(position)
+    }
     
     func addTile(at position: CGPoint) {
-        let tileType = Int.random(in: 1...2) // Randomly choose between 1 and 2
-        let tileImageName = tileType == 1 ? "terrainAsset" : "terrainAsset2" // Choose the image based on random selection
+        let tileType = Int.random(in: 1...2)
+        let tileImageName = tileType == 1 ? "terrainAsset" : "terrainAsset2"
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.position = position
         addChild(tile)
+
+        tilePositions.insert(position)
     }
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
         
-        let initialTiles = 50  // Number of tiles in each direction from the center
-        let tileSize = CGSize(width: 100, height: 100)  // Replace with your tile size
-
+        let initialTiles = 50
+        let tileSize = CGSize(width: 100, height: 100)
+        
         for x in -initialTiles...initialTiles {
             for y in -initialTiles...initialTiles {
                 let position = CGPoint(x: CGFloat(x) * tileSize.width, y: CGFloat(y) * tileSize.height)
@@ -111,9 +153,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if(self.lastUpdate == 0){
             self.lastUpdate = currentTime
         }
-        // Calculates how much time has passed since the last update
+        
         let timeElapsedSinceLastUpdate = currentTime - self.lastUpdate
-        // Increments the length of the game session at the game logic
+      
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
@@ -122,14 +164,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         camera?.position = player.position
         
         
-        // When the level is started or after the game has been paused, the last update time is reset to the current time.
+      
         if lastUpdateTime.isZero {
             lastUpdateTime = currentTime
         }
-        // Calculate delta time since `update` was last called.
+       
         deltaTime = currentTime - lastUpdateTime
         
-        // Use current time as the last update time on next game loop update.
+       
         lastUpdateTime = currentTime
         
         if readyToShoot {
@@ -141,15 +183,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         
     }
-    func updateTiles() {
-        let playerPosition = player.position
-            let visibleDistance = 0  // Adjust as needed
+    
+  }
 
-            // Calculate the bounds of the visible area
-        _ = playerPosition.x - CGFloat(visibleDistance)
-        _ = playerPosition.x + CGFloat(visibleDistance)
-        _ = playerPosition.y - CGFloat(visibleDistance)
-        _ = playerPosition.y + CGFloat(visibleDistance)
-
-    }
-}

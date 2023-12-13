@@ -27,12 +27,23 @@ extension GameScene {
     }
     
     private func createPlayer(at position: CGPoint) {
+  
+        self.player = SKSpriteNode(imageNamed: "AntiTank/Idle/1")
         self.player.name = "player"
-        
-        player.size = (player.texture?.size())!
+        var playerAtlas: SKTextureAtlas {
+            return SKTextureAtlas(named: "AntiTank/Idle")
+        }
+        var playerIdleTextures: [SKTexture] {
+            return [
+                playerAtlas.textureNamed("1"),
+                playerAtlas.textureNamed("2"),
+            ]
+        }
+        let idleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
+        player.run(SKAction.repeatForever(idleAnimation),withKey: "playerIdleAnimation")
+        player.size = CGSize(width: 30, height: 30)
         self.player.position = position
-        
-        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.texture!.size().width, height:  (player.texture?.size().height)!))
+        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 30, height:  30))
         player.userData = ["level": 1, "xp": 0, "xpToNextLevel": 30, "speed": 80, "hp": 100, "maxhp": 100];
         player.zPosition = 3
         player.physicsBody?.categoryBitMask = CollisionType.player
@@ -44,8 +55,8 @@ extension GameScene {
         
         healthBar = SKScene()
         
-        let healthBarFill = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 10.0)))
-        let healthBarTotal = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 10.0)))
+        let healthBarFill = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))
+        let healthBarTotal = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))
         
         healthBarTotal.fillColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
         healthBarFill.fillColor = UIColor.red
