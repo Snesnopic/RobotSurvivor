@@ -52,6 +52,7 @@ extension GameScene {
         healthBarTotal.strokeColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
         healthBarFill.strokeColor = UIColor.red
         
+        healthBarTotal.zPosition = 2
         healthBarFill.zPosition = healthBarTotal.zPosition + 1
         
         healthBar.addChild(healthBarTotal)
