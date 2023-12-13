@@ -25,6 +25,7 @@
 		23A5F3932B21D43B0008FFB2 /* PlayerInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3922B21D43B0008FFB2 /* PlayerInputs.swift */; };
 		23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */; };
 		6B99D2C12B21DF6C0069204F /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99D2C02B21DF6C0069204F /* GameOver.swift */; };
+		6B9BF2D22B29B4AD0048F887 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BF2D12B29B4AD0048F887 /* PowerUp.swift */; };
 		6BFDBA662B28D8700069F3F7 /* PowerUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFDBA652B28D8700069F3F7 /* PowerUpView.swift */; };
 		931293F92B21D93F009B2441 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293F82B21D93F009B2441 /* Joystick.swift */; };
 		934BBFDD2B28539B00B8D541 /* ExpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934BBFDC2B28539B00B8D541 /* ExpView.swift */; };
@@ -55,6 +56,7 @@
 		23A5F3922B21D43B0008FFB2 /* PlayerInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInputs.swift; sourceTree = "<group>"; };
 		23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBehavior.swift; sourceTree = "<group>"; };
 		6B99D2C02B21DF6C0069204F /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
+		6B9BF2D12B29B4AD0048F887 /* PowerUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
 		6BFDBA652B28D8700069F3F7 /* PowerUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUpView.swift; sourceTree = "<group>"; };
 		931293F82B21D93F009B2441 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 		934BBFDC2B28539B00B8D541 /* ExpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				23A5F38C2B21D4080008FFB2 /* RegisterScore.swift */,
 				23A5F38E2B21D4180008FFB2 /* RegisterXP.swift */,
+				6B9BF2D12B29B4AD0048F887 /* PowerUp.swift */,
 				23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */,
 				23A5F3922B21D43B0008FFB2 /* PlayerInputs.swift */,
 				23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */,
@@ -260,6 +263,7 @@
 				9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */,
 				9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */,
 				23A5F3932B21D43B0008FFB2 /* PlayerInputs.swift in Sources */,
+				6B9BF2D22B29B4AD0048F887 /* PowerUp.swift in Sources */,
 				23A5F37F2B21D0480008FFB2 /* ParentView.swift in Sources */,
 				23A5F3792B21CFA10008FFB2 /* GameLogic.swift in Sources */,
 				23A5F3872B21D1C10008FFB2 /* DurationView.swift in Sources */,
