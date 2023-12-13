@@ -14,12 +14,27 @@ class EnemyNode: SKSpriteNode {
         
         self.type = type
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
-        super.init(texture: texture,color: .white, size: texture.size())
+        
+        super.init(texture: texture,color: .white, size: CGSize(width: 20, height: 20))
         self.userData = ["health": type.health]
         name = "enemy" + type.name
         
-        physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x-10, self.position.y-10, texture.size().width, texture.size().height), transform: nil))
-        self.setScale(1.8)
+        var enemyAtlas: SKTextureAtlas {
+            return SKTextureAtlas(named: "\(type.name)/Walk")
+        }
+        var enemyIdleTextures: [SKTexture] {
+            return [
+                enemyAtlas.textureNamed("1"),
+                enemyAtlas.textureNamed("2"),
+                enemyAtlas.textureNamed("3"),
+                enemyAtlas.textureNamed("4"),
+            ]
+        }
+        let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
+        self.run(SKAction.repeatForever(idleAnimation),withKey: "playerIdleAnimation")
+        
+        physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x-10, self.position.y-10, 20, 20), transform: nil))
+        
         //        (polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x, self.position.y, texture.size().width, texture.size().height), transform: nil))
         
         //        attackCircle = SKShapeNode(ellipseOfSize: CGSize(width: 1000, height: 400))
