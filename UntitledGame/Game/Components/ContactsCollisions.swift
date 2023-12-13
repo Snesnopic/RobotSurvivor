@@ -18,50 +18,53 @@ extension GameScene{
         let chance = Int.random(in: 1...100)
         
         //Contact between player and enemy
-        if firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy{
+        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
             player.userData!["hp"] = player.userData!["hp"] as! Int - 10
-            if(chance>50){
-                generateXp(at: secondBody.node!.position)
-            }
-            secondBody.node?.removeFromParent()
-            
         }
-        if firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player{
-            player.userData!["hp"] = player.userData!["hp"] as! Int - 10
-            if(chance>50){
-                generateXp(at: firstBody.node!.position)
-            }
-            firstBody.node?.removeFromParent()
-            
-        }
+       
         
         //Contact between player and xp
         //TODO: Change val with enemy.xpvalue
-        if firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp{
+        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp) || (firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player)){
             gainXP(val: 3)
-            secondBody.node?.removeFromParent()
-            print(player.userData!["xp"]!)
-            
-        }
-        if firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player{
-            gainXP(val: 3)
-            
-            firstBody.node?.removeFromParent()
-            print(player.userData!["xp"]!)
-            
+            if(firstBody.categoryBitMask == CollisionType.xp){
+                firstBody.node?.removeFromParent()
+            }else{
+                secondBody.node?.removeFromParent()
+            }
         }
         
         //Contact between playerWeapon and enemy
         //TODO: Change val with enemy.xpvalue
-        if firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy{
-            secondBody.node?.removeFromParent()
-            firstBody.node?.removeFromParent()
+        if ((firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon)){
+            
+            //TODO: Implement the death logic based on enemy health
+            
+            if(firstBody.categoryBitMask == CollisionType.enemy){
+                let enemy = firstBody.node as! EnemyNode
+                enemy.userData!["health"] = enemy.userData!["health"]! as! Int - 10
+                print(enemy.userData!["health"] as Any)
+                if((enemy.userData!["health"] as! Int)<=0){
+                    if(chance>50){
+                        generateXp(at: firstBody.node!.position)
+                    }
+                    firstBody.node?.removeFromParent()
+                }
+                secondBody.node?.removeFromParent()
+            }else{
+                let enemy = secondBody.node as! EnemyNode
+                enemy.userData!["health"] = enemy.userData!["health"]! as! Int - 10
+                print(enemy.userData!["health"] as Any)
+                if((enemy.userData!["health"] as! Int)<=0){
+                    if(chance>50){
+                        generateXp(at: secondBody.node!.position)
+                    }
+                    secondBody.node?.removeFromParent()
+                }
+                firstBody.node?.removeFromParent()
+            }
+            
         }
-        if firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon{
-            firstBody.node?.removeFromParent()
-            secondBody.node?.removeFromParent()
-        }
-        
         
         
         //TODO: use when the player gets hurt
@@ -69,9 +72,6 @@ extension GameScene{
         let playerHp:Int = player.userData!["hp"] as! Int
         let playerMaxHp:Int = player.userData!["maxhp"] as! Int
         
-        print("Player HP: \(playerHp)")
-        print("Player MaxHP: \(playerMaxHp)")
-        print("Calculation: \(playerHp * Int(player.size.width) / playerMaxHp)")
         healthBarFill.xScale = CGFloat(playerHp * Int(player.size.width) / playerMaxHp)
     }
     

@@ -58,12 +58,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     // Used to calculate how much time has passed between updates.
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
-    
     var isPlayerAlive = true
     
     let enemyTypes = EnemyTypesVM().enemyTypes
     
     var readyToShoot: Bool = true
+    var fireRate: Int = 5
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -111,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if readyToShoot {
             readyToShoot = false
             shoot()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
                 self.readyToShoot = true
             }
         }

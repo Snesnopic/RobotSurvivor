@@ -52,6 +52,7 @@ struct GameView: View {
                     sceneWrapper.joystickScene.isPaused.toggle()
                     if(gameLogic.showPowerUp == true){
                         sceneWrapper.joystickScene.hideJoystick()
+                        
                     }else{
                         sceneWrapper.joystickScene.showJoystick()
                     }

@@ -34,7 +34,7 @@ extension GameScene {
         
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.texture!.size().width, height:  (player.texture?.size().height)!))
         player.userData = ["level": 1, "xp": 0, "xpToNextLevel": 30, "speed": 80, "hp": 100, "maxhp": 100];
-        player.zPosition = 2
+        player.zPosition = 3
         player.physicsBody?.categoryBitMask = CollisionType.player
         player.physicsBody?.collisionBitMask = CollisionType.enemy
         player.physicsBody?.contactTestBitMask = CollisionType.enemy
