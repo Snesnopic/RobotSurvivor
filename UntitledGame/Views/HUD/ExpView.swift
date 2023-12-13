@@ -14,10 +14,15 @@ struct ExpView: View {
     @Binding var currentXP: Int
     var body: some View {
         GeometryReader { geometry in
-            Rectangle()
-                .fill(Color.blue)
-                .frame(width: (geometry.size.width/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: 40)
-            
+            ZStack {
+                Rectangle()
+                    .fill(Color.blue)
+                    .frame(width: (geometry.size.width/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: 40)
+                Text("EXPERIENCE TO LEVEL UP")
+                    .bold()
+                    .foregroundStyle(.white)
+                    .frame(width: (geometry.size.width/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: 30)
+            }
         }
         
         
