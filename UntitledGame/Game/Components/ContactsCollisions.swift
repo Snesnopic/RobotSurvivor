@@ -19,7 +19,6 @@ extension GameScene{
         
         //Contact between player and enemy
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
-            let hp = "hp"
             player.userData!["hp"] = player.userData!["hp"] as! Double - 10
 
             if (player.userData!["hp"] as! Int) < 0 {
