@@ -21,7 +21,7 @@ extension GameScene{
         shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
         shot.physicsBody?.collisionBitMask =  CollisionType.enemy
         shot.physicsBody?.contactTestBitMask = CollisionType.enemy
-        shot.physicsBody?.isDynamic = true
+        shot.physicsBody?.isDynamic = false
         addChild(shot)
         
         let movement = SKAction.move(to: CGPoint(x: 1000, y: shot.position.y),duration: 5)
