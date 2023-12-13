@@ -65,6 +65,11 @@ class Joystick: SKScene {
             // For example:
             playerNode.position.x += xMovement
             playerNode.position.y += yMovement
+            gameSceneReference.healthBar.children.forEach { node in
+                node.position = playerNode.position
+                node.position.x = node.position.x - (playerNode.size.width / 2)
+                node.position.y = node.position.y - playerNode.size.height
+            }
         }
     }
     

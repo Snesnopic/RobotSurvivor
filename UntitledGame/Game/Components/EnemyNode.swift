@@ -10,19 +10,16 @@ import SpriteKit
 
 class EnemyNode: SKSpriteNode {
     var type: EnemyType
-    var health: Int
-    
     init(type: EnemyType,  startPosition: CGPoint) {
         
         self.type = type
-        self.health = type.health
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
         super.init(texture: texture,color: .white, size: texture.size())
-        
+        self.userData = ["health": type.health]
         name = "enemy" + type.name
         
         physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x-10, self.position.y-10, texture.size().width, texture.size().height), transform: nil))
-        
+        self.setScale(1.8)
         //        (polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x, self.position.y, texture.size().width, texture.size().height), transform: nil))
         
         //        attackCircle = SKShapeNode(ellipseOfSize: CGSize(width: 1000, height: 400))
@@ -45,10 +42,14 @@ class EnemyNode: SKSpriteNode {
     
     func configureMovement(_ player: SKSpriteNode){
         if self.position.x < player.position.x {
-            self.xScale = 1
+            if self.xScale < 0 {
+                self.xScale *= -1
+            }
         }
         else {
-            self.xScale = -1
+            if self.xScale >= 0 {
+                self.xScale *= -1
+            }
         }
         let speed = type.speed
         let distance = abs(CGFloat(hypotf(Float(self.position.x - player.position.x), Float(self.position.y - player.position.y))))
