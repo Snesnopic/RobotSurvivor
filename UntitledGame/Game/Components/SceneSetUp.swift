@@ -49,6 +49,9 @@ extension GameScene {
         healthBarTotal.fillColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
         healthBarFill.fillColor = UIColor.red
         
+        healthBarTotal.strokeColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
+        healthBarFill.strokeColor = UIColor.red
+        
         print("Health bar position: \(healthBarFill.position)")
         print("Player position: \(player.position)")
         
