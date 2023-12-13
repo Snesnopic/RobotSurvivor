@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct MainMenuView: View {
     @Binding var currentGameState: GameState
     
-    
+    @State var audioPlayer:AVAudioPlayer?
     var body: some View {
         ZStack{
             Color.darkGreen
@@ -56,7 +57,18 @@ struct MainMenuView: View {
                 Spacer()
                 
             }
-        }
+        }.onAppear(perform: {
+            do {
+                let path = Bundle.main.url(forResource: "mainmenu", withExtension: "mp3")
+                audioPlayer = try AVAudioPlayer(contentsOf: path!)
+                audioPlayer!.play()
+                audioPlayer!.volume = 1
+                print("I am now playing!! Proof: \(audioPlayer!.isPlaying)")
+            }
+            catch {
+                
+            }
+        })
     }
 }
 
