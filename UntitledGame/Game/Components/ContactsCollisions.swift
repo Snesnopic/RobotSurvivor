@@ -37,7 +37,7 @@ extension GameScene{
         //TODO: Change val with enemy.xpvalue
         if firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp{
             gainXP(val: 3)
-            
+            player.userData!["hp"] = player.userData!["hp"] as! Int - 10
             secondBody.node?.removeFromParent()
             print(player.userData!["xp"]!)
             
@@ -50,6 +50,12 @@ extension GameScene{
             
         }
         
+        //TODO: use when the player gets hurt
+        let healthBarFill = healthBar.children.last!
+        let playerHp:Int = player.userData!["hp"] as! Int
+        let playerMaxHp:Int = player.userData!["maxhp"] as! Int
+        
+        healthBarFill.xScale = CGFloat(playerHp * Int(player.size.width) / playerMaxHp)
     }
     
     func stopEnemyMovement(_ enemy: EnemyNode) {
