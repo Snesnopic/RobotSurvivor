@@ -52,7 +52,7 @@ extension GameScene {
         print("Health bar position: \(healthBarFill.position)")
         print("Player position: \(player.position)")
         
-        var array = [healthBarFill,healthBarTotal]
+        let array = [healthBarFill,healthBarTotal]
         array.forEach { node in
             node.position.x = node.position.x - (player.size.width / 2)
             node.position.y = node.position.y - player.size.height
