@@ -38,6 +38,7 @@
 		9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8E2B32B20A777000998F3 /* GameScene.swift */; };
 		EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */; };
 		EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */; };
+		EE2F23BD2B29C38E000E3490 /* Settings Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Bold.ttf"; sourceTree = "<group>"; };
 		EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Regular.ttf"; sourceTree = "<group>"; };
 		EE2F23B72B2853EE000E3490 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Settings Menu.swift"; path = "UntitledGame/Views/Settings Menu.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				23A5F3822B21D0C50008FFB2 /* HUD */,
 				23A5F37E2B21D0480008FFB2 /* ParentView.swift */,
 				23A5F37C2B21CFE60008FFB2 /* MainMenuView.swift */,
+				EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */,
 				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
 				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
 				9D3EDD392B1F3FD200C5DF7B /* GameView.swift */,
@@ -276,6 +279,7 @@
 				233F1F592B286B5400EF01FC /* Constants.swift in Sources */,
 				23A5F38D2B21D4080008FFB2 /* RegisterScore.swift in Sources */,
 				233F1F542B272C6E00EF01FC /* EnemyTypesVM.swift in Sources */,
+				EE2F23BD2B29C38E000E3490 /* Settings Menu.swift in Sources */,
 				23A5F3852B21D1B30008FFB2 /* ScoreView.swift in Sources */,
 				23A5F37B2B21CFCD0008FFB2 /* GameOverView.swift in Sources */,
 				2347545B2B29A7520063537F /* PlayerBehavior.swift in Sources */,

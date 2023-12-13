@@ -10,15 +10,12 @@ import SpriteKit
 
 class EnemyNode: SKSpriteNode {
     var type: EnemyType
-    var health: Int
-    
     init(type: EnemyType,  startPosition: CGPoint) {
         
         self.type = type
-        self.health = type.health
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
         super.init(texture: texture,color: .white, size: texture.size())
-        
+        self.userData = ["health": type.health]
         name = "enemy" + type.name
         
         physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x-10, self.position.y-10, texture.size().width, texture.size().height), transform: nil))
