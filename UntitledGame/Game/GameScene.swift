@@ -142,10 +142,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             let visibleDistance = 200  // Adjust as needed
 
             // Calculate the bounds of the visible area
-            let visibleMinX = playerPosition.x - CGFloat(visibleDistance)
-            let visibleMaxX = playerPosition.x + CGFloat(visibleDistance)
-            let visibleMinY = playerPosition.y - CGFloat(visibleDistance)
-            let visibleMaxY = playerPosition.y + CGFloat(visibleDistance)
+        _ = playerPosition.x - CGFloat(visibleDistance)
+        _ = playerPosition.x + CGFloat(visibleDistance)
+        _ = playerPosition.y - CGFloat(visibleDistance)
+        _ = playerPosition.y + CGFloat(visibleDistance)
 
     }
 }
