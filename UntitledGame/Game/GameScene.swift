@@ -64,6 +64,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let enemyTypes = EnemyTypesVM().enemyTypes
     
     var readyToShoot: Bool = true
+    var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
+    
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))

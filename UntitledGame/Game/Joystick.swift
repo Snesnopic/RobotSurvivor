@@ -57,10 +57,15 @@ class Joystick: SKScene {
         else {
             self.alpha = 1.0
             let deltaTime = gameSceneReference.deltaTime
+            
             // Use the angle and distance to control movement
             let speed: CGFloat = playerNode.userData?.value(forKey: "speed") as! CGFloat
+            let direction: (x: Int, y: Int)
             let xMovement = cos(angle) * speed * deltaTime
+            direction.x = xMovement > 0 ? 1 : -1
             let yMovement = sin(angle) * speed * deltaTime
+            direction.y = yMovement > 0 ? 1 : -1
+            
             // Apply the movement to your character or game objects
             // For example:
             playerNode.position.x += xMovement
@@ -69,6 +74,7 @@ class Joystick: SKScene {
                 node.position.x += xMovement
                 node.position.y += yMovement
             }
+            gameSceneReference
         }
     }
     

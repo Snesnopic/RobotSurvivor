@@ -24,7 +24,10 @@ extension GameScene{
         shot.physicsBody?.isDynamic = false
         addChild(shot)
         
-        let movement = SKAction.move(to: CGPoint(x: 1000, y: shot.position.y),duration: 5)
+        let velocity = player.physicsBody?.velocity // Get the velocity vector
+        
+        
+        let movement = SKAction.move(to: CGPoint(x: self.shootDirection.dx * 1000, y: shootDirection.dy * 1000),duration: 5)
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         shot.run(sequence)
         
