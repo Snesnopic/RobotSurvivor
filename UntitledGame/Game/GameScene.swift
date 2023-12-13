@@ -19,20 +19,34 @@ struct CollisionType {
 
 //class playerNode: SKScene {
 //    var playerNode: SKSpriteNode!
-//    
+//
 //    override func didMove(to view: SKView) {
-//        
+//
 //        playerNode = SKSpriteNode(color: .red, size: CGSize(width: 50, height: 50))
 //        playerNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
 //        playerNode.physicsBody = SKPhysicsBody(rectangleOf: playerNode.size)
 //        playerNode.physicsBody?.affectedByGravity = false
 //        playerNode.physicsBody?.allowsRotation = false
-//        
+//
 //    }
 //}
 
+class SceneWrapper{
+    var scene = GameScene()
+    var joystickScene: Joystick
+    init() {
+        var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
+        var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
+        
+        scene = GameScene()
+        scene.size = CGSize(width: screenWidth, height: screenHeight)
+        scene.scaleMode = .fill
+        joystickScene = Joystick(player: scene.player,gameSceneReference: scene)
+        joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
+    }
+}
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()

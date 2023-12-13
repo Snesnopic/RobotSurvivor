@@ -15,9 +15,10 @@ extension GameScene{
         if(value <= 0){
             levelUp()
             gainXP(val: -value)
+        }else{
+            player.userData!["xp"] = player.userData!["xp"] as! Int + val;
+            gameLogic.currentXP = player.userData!["xp"] as! Int
         }
-        player.userData!["xp"] = player.userData!["xp"] as! Int + val;
-        gameLogic.currentXP = player.userData!["xp"] as! Int
     }
     
     public func generateXp(at position: CGPoint){
