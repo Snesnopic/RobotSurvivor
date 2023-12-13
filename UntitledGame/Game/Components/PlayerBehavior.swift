@@ -10,13 +10,15 @@ import SpriteKit
 
 extension GameScene{
     
-    func shoot(){
+    func shoot(damage: Int, speed: Int){
         guard !isGameOver else {return}
-        
+        let dmg = damage
+        let spd = speed
         let shot = SKSpriteNode(imageNamed: "playerWeapon")
         shot.name = "playerWeapon"
         shot.position = player.position
-        shot.userData = ["damage": 1, "speed": 4]
+        
+        shot.userData = ["damage": dmg, "speed": spd]
         shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/2, height: shot.size.height/2))
         shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
         shot.physicsBody?.collisionBitMask =  CollisionType.enemy

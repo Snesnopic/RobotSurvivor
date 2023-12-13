@@ -63,7 +63,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let enemyTypes = EnemyTypesVM().enemyTypes
     
     var readyToShoot: Bool = true
-    var fireRate: Int = 5
+    var fireRate: Double = 3
+    var dmg: Int = 10
+    var spd: Int = 10
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -130,7 +132,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if readyToShoot {
             readyToShoot = false
-            shoot()
+            shoot(damage: dmg, speed: spd)
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
                 self.readyToShoot = true
             }
