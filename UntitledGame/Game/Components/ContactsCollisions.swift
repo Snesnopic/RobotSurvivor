@@ -69,10 +69,11 @@ extension GameScene{
         
         //TODO: use when the player gets hurt
         let healthBarFill = healthBar.children.last!
-        let playerHp:Int = player.userData!["hp"] as! Int
-        let playerMaxHp:Int = player.userData!["maxhp"] as! Int
+        let playerHp:Double = player.userData!["hp"] as! Double
+        let playerMaxHp:Double = player.userData!["maxhp"] as! Double
         
-        healthBarFill.xScale = CGFloat(playerHp * Int(player.size.width) / playerMaxHp)
+        let currentHpPercentage = playerHp * Double(player.size.width) / (playerMaxHp * playerMaxHp)
+        healthBarFill.xScale = CGFloat(currentHpPercentage)
     }
     
     func stopEnemyMovement(_ enemy: EnemyNode) {
