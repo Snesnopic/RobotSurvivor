@@ -50,6 +50,19 @@ extension GameScene{
             
         }
         
+        //Contact between playerWeapon and enemy
+        //TODO: Change val with enemy.xpvalue
+        if firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy{
+            secondBody.node?.removeFromParent()
+            firstBody.node?.removeFromParent()
+        }
+        if firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon{
+            firstBody.node?.removeFromParent()
+            secondBody.node?.removeFromParent()
+        }
+        
+        
+        
         //TODO: use when the player gets hurt
         let healthBarFill = healthBar.children.last!
         let playerHp:Int = player.userData!["hp"] as! Int
