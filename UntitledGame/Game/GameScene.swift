@@ -58,7 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
-    var player: SKSpriteNode = SKSpriteNode(imageNamed: "player")
+    var player: SKSpriteNode!
     var healthBar: SKScene!
     var joystick: Joystick!
   
