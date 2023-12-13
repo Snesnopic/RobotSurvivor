@@ -33,13 +33,34 @@ extension GameScene {
         self.player.position = position
         
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.texture!.size().width, height:  (player.texture?.size().height)!))
-        player.userData = ["level": 1, "xp": 0, "xpToNextLevel": 30, "speed": 80];
+        player.userData = ["level": 1, "xp": 0, "xpToNextLevel": 30, "speed": 80, "hp": 100, "maxhp": 100];
         player.zPosition = 2
         player.physicsBody?.categoryBitMask = CollisionType.player
         player.physicsBody?.collisionBitMask = CollisionType.enemy
         player.physicsBody?.contactTestBitMask = CollisionType.enemy
         player.physicsBody?.isDynamic = false
         self.player.physicsBody?.affectedByGravity = false
+        
+        healthBar = SKScene()
+        
+        let healthBarFill = SKShapeNode(rect: CGRect(origin: player.position, size: CGSize(width: 40.0, height: 10.0)))
+        let healthBarTotal = SKShapeNode(rect: CGRect(origin: player.position, size: CGSize(width: player.size.width, height: 10.0)))
+        
+        healthBarTotal.fillColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
+        healthBarFill.fillColor = UIColor.red
+        
+        print("Health bar position: \(healthBarFill.position)")
+        print("Player position: \(player.position)")
+        
+        let array = [healthBarFill,healthBarTotal]
+        array.forEach { node in
+            node.position.x = node.position.x - (player.size.width / 2)
+            node.position.y = node.position.y - player.size.height
+        }
+        
+        healthBar.addChild(healthBarTotal)
+        healthBar.addChild(healthBarFill)
+        addChild(healthBar)
         addChild(self.player)
     }
     
