@@ -43,11 +43,14 @@ extension GameScene {
         
         healthBar = SKScene()
         
-        let healthBarFill = SKShapeNode(rect: CGRect(origin: player.position, size: CGSize(width: 40.0, height: 10.0)))
+        let healthBarFill = SKShapeNode(rect: CGRect(origin: player.position, size: CGSize(width: player.size.width, height: 10.0)))
         let healthBarTotal = SKShapeNode(rect: CGRect(origin: player.position, size: CGSize(width: player.size.width, height: 10.0)))
         
         healthBarTotal.fillColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
         healthBarFill.fillColor = UIColor.red
+        
+        healthBarTotal.strokeColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
+        healthBarFill.strokeColor = UIColor.red
         
         print("Health bar position: \(healthBarFill.position)")
         print("Player position: \(player.position)")

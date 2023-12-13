@@ -35,25 +35,24 @@ extension GameScene {
         }
     }
     func createEnemy() {
-        let halfScreenWidth = Int(self.size.width / 2)
-        let halfScreenHeight = Int(self.size.height / 2)
+        let offSet = Int.random(in: 10...50)
+        let halfScreenWidth = Int(self.size.width / 2) + offSet
+        let halfScreenHeight = Int(self.size.height / 2) + offSet
         let enemyType = Int.random(in: 0..<enemyTypes.count)
+        
         let side = Int.random(in: 0..<4)
         var position = player.position
         if side < 2 {
             //spawns vertically
             position.y = position.y + CGFloat(halfScreenHeight * generateSign(number: side%2))
             let newX = Int(position.x) + halfScreenWidth
-            print("-newX : \(-newX)")
-            print("newX : \(newX)")
-            print("player position: \(player.position)")
-            position.x = CGFloat(Int.random(in: Int(-newX)...Int(newX)))
+            position.x = CGFloat(Int.random(in: min(-newX, newX)...max(-newX,newX)))
         }
         else {
             //spawns horizontally
             position.x = position.x + CGFloat(halfScreenWidth * generateSign(number: side%2))
             let newY = Int(position.y) + halfScreenHeight
-            position.y = CGFloat(Int.random(in: Int(-newY)...Int(newY)))
+            position.y = CGFloat(Int.random(in: min(-newY, newY)...max(-newY,newY)))
         }
         let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: position)
         enemy.physicsBody?.affectedByGravity = false
