@@ -44,6 +44,9 @@ extension GameScene {
             //spawns vertically
             position.y = position.y + CGFloat(halfScreenHeight * generateSign(number: side%2))
             let newX = Int(position.x) + halfScreenWidth
+            print("-newX : \(-newX)")
+            print("newX : \(newX)")
+            print("player position: \(player.position)")
             position.x = CGFloat(Int.random(in: Int(-newX)...Int(newX)))
         }
         else {

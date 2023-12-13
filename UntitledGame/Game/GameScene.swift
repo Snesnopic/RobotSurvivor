@@ -14,6 +14,7 @@ struct CollisionType {
     static let player : UInt32 = 1
     static let enemy : UInt32 = 2
     static let xp: UInt32 = 3
+    static let playerWeapon: UInt32 = 4
     
 }
 
@@ -61,7 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     let enemyTypes = EnemyTypesVM().enemyTypes
     
-   
+    var readyToShoot: Bool = true
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -97,13 +98,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         
         // When the level is started or after the game has been paused, the last update time is reset to the current time.
-          if lastUpdateTime.isZero {
-              lastUpdateTime = currentTime
+        if lastUpdateTime.isZero {
+            lastUpdateTime = currentTime
         }
         // Calculate delta time since `update` was last called.
         deltaTime = currentTime - lastUpdateTime
-
+        
         // Use current time as the last update time on next game loop update.
         lastUpdateTime = currentTime
+        
+        if readyToShoot {
+            readyToShoot = false
+            shoot()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.readyToShoot = true
+            }
+        }
+        
     }
 }

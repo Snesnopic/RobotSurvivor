@@ -5,7 +5,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "enemy3Weapon@2x.png",
+      "filename" : "playerWeapon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
