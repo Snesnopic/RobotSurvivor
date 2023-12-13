@@ -6,7 +6,7 @@
 //
 
 import SpriteKit
-import Foundation
+import AVFoundation
 
 struct CollisionType {
     static let all : UInt32 = UInt32.max
@@ -54,6 +54,7 @@ extension CGPoint: Hashable {
     }
 }
 
+
 class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     static let shared: GameScene = GameScene()
     var lastUpdateTime: TimeInterval = 0
@@ -79,6 +80,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var tilePositions: Set<CGPoint> = []
     let tileSize = CGSize(width: 100, height: 100)
     
+    var backgroundMusicPlayer: AVAudioPlayer?
+    
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
@@ -89,6 +92,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     required init?(coder aDecoder: NSCoder){
         fatalError("coder problem")
     }
+    
+    
     func updateTiles() {
         let playerPosition = player.position
         let visibleDistance = 500
@@ -116,7 +121,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
         }
   
-}
+    }
+    
     func isTilePresent(at position: CGPoint) -> Bool {
         return tilePositions.contains(position)
     }
@@ -141,6 +147,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
+        
+        setupBackgroundMusic(fileName: "game1")
+        backgroundMusicPlayer?.play()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10){
+             self.changeTrack(to: "game2")
+        }
         
         let initialTiles = 50
         let tileSize = CGSize(width: 100, height: 100)

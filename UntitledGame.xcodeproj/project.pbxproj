@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		233614732B2A0C0600446D77 /* BackgroundMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233614722B2A0C0600446D77 /* BackgroundMusic.swift */; };
 		233F1F4F2B27039800EF01FC /* EnemyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233F1F4E2B27039800EF01FC /* EnemyType.swift */; };
 		233F1F512B27244C00EF01FC /* EnemyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233F1F502B27244C00EF01FC /* EnemyNode.swift */; };
 		233F1F542B272C6E00EF01FC /* EnemyTypesVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233F1F532B272C6E00EF01FC /* EnemyTypesVM.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		233614722B2A0C0600446D77 /* BackgroundMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMusic.swift; sourceTree = "<group>"; };
 		233F1F4E2B27039800EF01FC /* EnemyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyType.swift; sourceTree = "<group>"; };
 		233F1F502B27244C00EF01FC /* EnemyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyNode.swift; sourceTree = "<group>"; };
 		233F1F532B272C6E00EF01FC /* EnemyTypesVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyTypesVM.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				6B99D2C02B21DF6C0069204F /* GameOver.swift */,
 				233F1F552B273C5D00EF01FC /* ContactsCollisions.swift */,
 				2347545A2B29A7520063537F /* PlayerBehavior.swift */,
+				233614722B2A0C0600446D77 /* BackgroundMusic.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */,
 				9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */,
 				9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */,
+				233614732B2A0C0600446D77 /* BackgroundMusic.swift in Sources */,
 				23A5F3932B21D43B0008FFB2 /* PlayerInputs.swift in Sources */,
 				6B9BF2D22B29B4AD0048F887 /* PowerUp.swift in Sources */,
 				23A5F37F2B21D0480008FFB2 /* ParentView.swift in Sources */,
