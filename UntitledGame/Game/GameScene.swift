@@ -65,7 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var readyToShoot: Bool = true
     var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
     
-    var fireRate: Double = 3
+    var fireRate: Double = 1
     var dmg: Int = 10
     var spd: Int = 10
     
