@@ -56,6 +56,7 @@ extension GameScene {
         }
         let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: position)
         enemy.physicsBody?.affectedByGravity = false
+       
         enemy.zPosition = 1;
         addChild(enemy)
     }

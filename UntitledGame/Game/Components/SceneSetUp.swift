@@ -50,6 +50,7 @@ extension GameScene {
         player.physicsBody?.collisionBitMask = CollisionType.enemy
         player.physicsBody?.contactTestBitMask = CollisionType.enemy
         player.physicsBody?.isDynamic = false
+        
         self.player.physicsBody?.affectedByGravity = false
         
         healthBar = SKScene()

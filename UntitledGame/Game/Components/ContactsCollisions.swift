@@ -32,6 +32,9 @@ extension GameScene{
                         
             healthBarFill.xScale = CGFloat(playerHp  / playerMaxHp)
             
+            player.userData!["hp"] = player.userData!["hp"] as! Int - 10
+            guard let enemyNode = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
+            enemyNode.slowDownMovement()
         }
        
         
@@ -79,9 +82,15 @@ extension GameScene{
         }
     }
     
-    func stopEnemyMovement(_ enemy: EnemyNode) {
-        enemy.removeAllActions()  // This stops the follow path action
-        enemy.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-        print("stop Move")
+    func didEnd(_ contact: SKPhysicsContact) {
+        let firstBody: SKPhysicsBody = contact.bodyA
+        let secondBody: SKPhysicsBody = contact.bodyB
+        //Contact between player and enemy
+        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
+            guard let enemyNode = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
+            enemyNode.speedUpMovement()
+        }
+       
     }
+    
 }

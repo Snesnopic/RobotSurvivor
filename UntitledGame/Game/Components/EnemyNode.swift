@@ -10,6 +10,8 @@ import SpriteKit
 
 class EnemyNode: SKSpriteNode {
     var type: EnemyType
+    var isMovementSlow: Bool = true
+    
     init(type: EnemyType,  startPosition: CGPoint) {
         
         self.type = type
@@ -17,6 +19,7 @@ class EnemyNode: SKSpriteNode {
         
         super.init(texture: texture,color: .white, size: CGSize(width: 20, height: 20))
         self.userData = ["health": type.health]
+        
         name = "enemy" + type.name
         
         var enemyAtlas: SKTextureAtlas {
@@ -66,20 +69,24 @@ class EnemyNode: SKSpriteNode {
                 self.xScale *= -1
             }
         }
-        let speed = type.speed
         let distance = abs(CGFloat(hypotf(Float(self.position.x - player.position.x), Float(self.position.y - player.position.y))))
-        
-        let action = SKAction.move(to: player.position, duration: distance/speed)
+        let speed = type.speed
+        let action =  SKAction.move(to: player.position, duration: distance/speed * (isMovementSlow ? 1.5 : 1))
         run(action)
-        //        let path = UIBezierPath()
-        //        path.move(to: .zero)
-        //
-        //        path.addLine(to: CGPoint(x: player.position.x - self.position.x, y: player.position.y - self.position.y))
-        //
-        //        let movement = SKAction.follow(path.cgPath,asOffset: true, orientToPath: true, speed: type.speed)
-        //        let sequence = SKAction.sequence([movement])
-        //
-        //        run(sequence)
+     
+    }
+    
+    func slowDownMovement() {
+        removeAllActions()
+        isMovementSlow = true
+       print("stop Move")
+        
+    }
+    func speedUpMovement(){
+        removeAllActions()
+        isMovementSlow = false
+        print("start Move")
+        
     }
 }
 
