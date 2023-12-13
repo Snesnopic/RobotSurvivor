@@ -15,6 +15,16 @@ struct Settings_Menu: View {
         Text("Sound Effects")
         Text("Volume")
         Text("Credits")
+        
+        ZStack{
+            Image("FrameHor")
+                .interpolation(.none)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200)
+            Text("Credits")
+                .font(.custom("Silkscreen-Regular", size: 25))
+        }
     }
 }
 
