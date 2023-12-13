@@ -27,7 +27,8 @@ extension GameScene{
         shot.zPosition = 2
         addChild(shot)
         
-        let movement = SKAction.move(to: CGPoint(x: 1000, y: shot.position.y),duration: shot.userData!["speed"] as! TimeInterval)
+        
+        let movement = SKAction.move(to: CGPoint(x: player.position.x + (2000 * shootDirection.dx ) , y: player.position.y + (shootDirection.dy * 2000)),duration: shot.userData!["speed"] as! TimeInterval)
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         shot.run(sequence)
         

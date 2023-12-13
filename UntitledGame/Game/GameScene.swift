@@ -69,7 +69,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     let enemyTypes = EnemyTypesVM().enemyTypes
     
     var readyToShoot: Bool = true
-    var fireRate: Double = 3
+    var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
+    
+    var fireRate: Double = 1
     var dmg: Int = 10
     var spd: Int = 10
     
