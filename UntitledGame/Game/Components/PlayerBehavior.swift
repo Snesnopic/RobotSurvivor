@@ -10,15 +10,12 @@ import SpriteKit
 
 extension GameScene{
     
-    func shoot(damage: Int, speed: Int){
+    func shoot(speed: Int){
         guard !isGameOver else {return}
-        let dmg = damage
-        let spd = speed
         let shot = SKSpriteNode(imageNamed: "playerWeapon")
         shot.name = "playerWeapon"
         shot.position = player.position
         
-        shot.userData = ["damage": dmg, "speed": spd]
         shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/2, height: shot.size.height/2))
         shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
         shot.physicsBody?.collisionBitMask =  CollisionType.enemy
@@ -28,7 +25,7 @@ extension GameScene{
         addChild(shot)
         
         
-        let movement = SKAction.move(to: CGPoint(x: player.position.x + (2000 * shootDirection.dx ) , y: player.position.y + (shootDirection.dy * 2000)),duration: shot.userData!["speed"] as! TimeInterval)
+        let movement = SKAction.move(to: CGPoint(x: player.position.x + (2000 * shootDirection.dx ) , y: player.position.y + (shootDirection.dy * 2000)),duration: TimeInterval(speed))
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         shot.run(sequence)
         

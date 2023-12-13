@@ -18,7 +18,7 @@ class EnemyNode: SKSpriteNode {
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
         
         super.init(texture: texture,color: .white, size: CGSize(width: 20, height: 20))
-        self.userData = ["health": type.health]
+        self.userData = ["health": type.health, "speed": type.speed]
         
         name = "enemy" + type.name
         
@@ -79,13 +79,11 @@ class EnemyNode: SKSpriteNode {
     func slowDownMovement() {
         removeAllActions()
         isMovementSlow = true
-       print("stop Move")
         
     }
     func speedUpMovement(){
         removeAllActions()
         isMovementSlow = false
-        print("start Move")
         
     }
 }
