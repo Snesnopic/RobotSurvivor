@@ -34,7 +34,7 @@ extension GameScene {
         
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: player.texture!.size().width, height:  (player.texture?.size().height)!))
         player.userData = ["level": 1, "xp": 0, "xpToNextLevel": 30, "speed": 80, "hp": 100, "maxhp": 100];
-        player.zPosition = 2
+        player.zPosition = 3
         player.physicsBody?.categoryBitMask = CollisionType.player
         player.physicsBody?.collisionBitMask = CollisionType.enemy
         player.physicsBody?.contactTestBitMask = CollisionType.enemy
@@ -43,8 +43,8 @@ extension GameScene {
         
         healthBar = SKScene()
         
-        let healthBarFill = SKShapeNode(rect: CGRect(origin: player.position, size: CGSize(width: player.size.width, height: 10.0)))
-        let healthBarTotal = SKShapeNode(rect: CGRect(origin: player.position, size: CGSize(width: player.size.width, height: 10.0)))
+        let healthBarFill = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 10.0)))
+        let healthBarTotal = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 10.0)))
         
         healthBarTotal.fillColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
         healthBarFill.fillColor = UIColor.red
@@ -52,17 +52,18 @@ extension GameScene {
         healthBarTotal.strokeColor = UIColor(red: 0.54, green: 0.0, blue: 0.0, alpha: 1.0)
         healthBarFill.strokeColor = UIColor.red
         
-        print("Health bar position: \(healthBarFill.position)")
-        print("Player position: \(player.position)")
-        
-        let array = [healthBarFill,healthBarTotal]
-        array.forEach { node in
-            node.position.x = node.position.x - (player.size.width / 2)
-            node.position.y = node.position.y - player.size.height
-        }
+        healthBarTotal.zPosition = 2
+        healthBarFill.zPosition = healthBarTotal.zPosition + 1
         
         healthBar.addChild(healthBarTotal)
         healthBar.addChild(healthBarFill)
+        
+        healthBar.children.forEach { node in
+            node.position = player.position
+            node.position.x = node.position.x - (player.size.width / 2)
+            node.position.y = node.position.y - player.size.height
+        }
+     
         addChild(healthBar)
         addChild(self.player)
     }

@@ -30,12 +30,15 @@
 		6BFDBA662B28D8700069F3F7 /* PowerUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFDBA652B28D8700069F3F7 /* PowerUpView.swift */; };
 		931293F92B21D93F009B2441 /* Joystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931293F82B21D93F009B2441 /* Joystick.swift */; };
 		934BBFDD2B28539B00B8D541 /* ExpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934BBFDC2B28539B00B8D541 /* ExpView.swift */; };
+		934BBFE12B29B74600B8D541 /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 934BBFE02B29B74600B8D541 /* MyTileSet.sks */; };
 		9D3EDD382B1F3FD200C5DF7B /* UntitledGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */; };
 		9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD392B1F3FD200C5DF7B /* GameView.swift */; };
 		9D3EDD3C2B1F3FD200C5DF7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */; };
+		9DD1D6CC2B29CAB00027768C /* mainmenu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */; };
 		9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8E2B32B20A777000998F3 /* GameScene.swift */; };
 		EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */; };
 		EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */; };
+		EE2F23BD2B29C38E000E3490 /* Settings Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,14 +65,17 @@
 		6BFDBA652B28D8700069F3F7 /* PowerUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUpView.swift; sourceTree = "<group>"; };
 		931293F82B21D93F009B2441 /* Joystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joystick.swift; sourceTree = "<group>"; };
 		934BBFDC2B28539B00B8D541 /* ExpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpView.swift; sourceTree = "<group>"; };
+		934BBFE02B29B74600B8D541 /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
 		9D3EDD342B1F3FD200C5DF7B /* UntitledGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UntitledGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UntitledGameApp.swift; sourceTree = "<group>"; };
 		9D3EDD392B1F3FD200C5DF7B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainmenu.mp3; sourceTree = "<group>"; };
 		9DD8E2B32B20A777000998F3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Bold.ttf"; sourceTree = "<group>"; };
 		EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Regular.ttf"; sourceTree = "<group>"; };
 		EE2F23B72B2853EE000E3490 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Settings Menu.swift"; path = "UntitledGame/Views/Settings Menu.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,7 @@
 				23A5F3822B21D0C50008FFB2 /* HUD */,
 				23A5F37E2B21D0480008FFB2 /* ParentView.swift */,
 				23A5F37C2B21CFE60008FFB2 /* MainMenuView.swift */,
+				EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */,
 				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
 				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
 				9D3EDD392B1F3FD200C5DF7B /* GameView.swift */,
@@ -172,6 +179,7 @@
 		9D3EDD362B1F3FD200C5DF7B /* UntitledGame */ = {
 			isa = PBXGroup;
 			children = (
+				9DD1D6CD2B29CCBB0027768C /* Sound */,
 				EE2F23B72B2853EE000E3490 /* Info.plist */,
 				9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */,
 				233F1F572B286AD000EF01FC /* SupportingFiles */,
@@ -180,8 +188,17 @@
 				233F1F522B272C2300EF01FC /* ViewModel */,
 				9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */,
 				23A5F3892B21D34A0008FFB2 /* Preview Content */,
+				934BBFE02B29B74600B8D541 /* MyTileSet.sks */,
 			);
 			path = UntitledGame;
+			sourceTree = "<group>";
+		};
+		9DD1D6CD2B29CCBB0027768C /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */,
+			);
+			path = Sound;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +262,8 @@
 				EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */,
 				23A5F38A2B21D34B0008FFB2 /* Preview Content in Resources */,
 				EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */,
+				9DD1D6CC2B29CAB00027768C /* mainmenu.mp3 in Resources */,
+				934BBFE12B29B74600B8D541 /* MyTileSet.sks in Resources */,
 				9D3EDD3C2B1F3FD200C5DF7B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,6 +279,7 @@
 				233F1F592B286B5400EF01FC /* Constants.swift in Sources */,
 				23A5F38D2B21D4080008FFB2 /* RegisterScore.swift in Sources */,
 				233F1F542B272C6E00EF01FC /* EnemyTypesVM.swift in Sources */,
+				EE2F23BD2B29C38E000E3490 /* Settings Menu.swift in Sources */,
 				23A5F3852B21D1B30008FFB2 /* ScoreView.swift in Sources */,
 				23A5F37B2B21CFCD0008FFB2 /* GameOverView.swift in Sources */,
 				2347545B2B29A7520063537F /* PlayerBehavior.swift in Sources */,
