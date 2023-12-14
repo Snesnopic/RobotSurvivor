@@ -70,11 +70,12 @@ extension GameScene{
             }.first!.node
             
             enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
-            print(enemy.userData!["health"] as Any)
+            //print(enemy.userData!["health"] as Any)
             if((enemy.userData!["health"] as! Int)<=0){
                 if(chance>50){
                     generateXp(at: enemy.position)
                 }
+                gameLogic.increaseScore(points: enemy.userData!["points"] as! Int)
                 enemy.removeFromParent()
             }
             else {
@@ -97,7 +98,7 @@ extension GameScene{
     }
     func flashRed(node: SKNode) {
        let action =  SKAction.sequence([
-        SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.5),
+        SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.2),
             SKAction.wait(forDuration: 0.1),
             SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)])
         node.run(action)

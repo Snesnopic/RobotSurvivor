@@ -18,7 +18,7 @@ class EnemyNode: SKSpriteNode {
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
         
         super.init(texture: texture,color: .white, size: CGSize(width: 20, height: 20))
-        self.userData = ["health": type.health, "speed": type.speed]
+        self.userData = ["health": type.health, "speed": type.speed, "points":type.points]
         
         name = "enemy" + type.name
         

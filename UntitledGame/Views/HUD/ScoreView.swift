@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct ScoreView: View {
+    @Binding var score: Int
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader{ geometry in
+             Text("score")
+                .font(.custom("Silkscreen-Regular", size: 30))
+                .foregroundStyle(.white)
+                .position(CGPoint(x: geometry.size.width/2, y: 60) )
+            Text(String(score))
+                .font(.custom("Silkscreen-Regular", size: 30))
+                .foregroundStyle(.white)
+                .position(CGPoint(x: geometry.size.width/2, y: 90) )
+        }
     }
 }
 
-#Preview {
-    ScoreView()
-}
+//#Preview {
+//    ScoreView()
+//}

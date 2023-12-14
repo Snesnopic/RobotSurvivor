@@ -11,4 +11,5 @@ struct EnemyType {
     let name: String
     let health: Int
     let speed: CGFloat
+    let points: Int
 }
