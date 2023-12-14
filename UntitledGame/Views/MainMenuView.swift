@@ -10,7 +10,7 @@ import SwiftUI
 struct MainMenuView: View {
     
     @Binding var currentGameState: GameState
-    
+    @State var showSetting: Bool = false
     var body: some View {
         ZStack{
             Color.deadBlue
@@ -61,9 +61,12 @@ struct MainMenuView: View {
                 
                 
                 PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
-                    //TODO: add navigation to settings
-                    
-                }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)                .frame(width: 224, height:64)
+                    showSetting = true
+                    }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
+                .fullScreenCover(isPresented: $showSetting, content: {
+                    Settings_Menu()
+                })
+                .frame(width: 224, height:64)
                 
                 Spacer()
                 

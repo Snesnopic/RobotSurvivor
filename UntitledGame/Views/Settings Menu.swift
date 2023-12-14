@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct Settings_Menu: View {
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         
         ZStack{
@@ -36,7 +37,7 @@ struct Settings_Menu: View {
                 
                 
                     PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
-                        //TODO: add navigation to main menu
+                        dismiss()
                     }, textView: Text("x")
                         .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
                     .frame(width:50, height: 57)
