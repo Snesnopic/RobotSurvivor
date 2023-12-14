@@ -1,56 +1,64 @@
 //
-//  MainMenuView.swift
+//  NewMainMenuView.swift
 //  UntitledGame
 //
-//  Created by Linar Zinatullin on 07/12/23.
+//  Created by Maya Navarrete Moncada on 13/12/23.
 //
 
 import SwiftUI
 
 struct MainMenuView: View {
-    @Binding var currentGameState: GameState
-    
     var body: some View {
         ZStack{
-            Color.darkGreen
+            Color.deadBlue
                 .ignoresSafeArea()
+            
+            Image("chip3")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+                .offset(x: -34)
+                .opacity(0.6)
+                
+            
             
             VStack{
                 
                 Spacer()
                 
-                Image(systemName: "cpu")
-                    .font(.system(size: 70))
-                    .padding(.bottom, -20)
-                    .foregroundColor(.green)
+                ZStack{
+                    Image("cpuHor")
+                        .interpolation(.none)
+                        .resizable()
+                        .frame(width: 315,height: 230)
+                        .padding(.bottom, 25)
+                        .shadow(radius: 15)
+                    
+                    VStack{
+                        Text("Robot")
+                            .font(.custom("Silkscreen-Bold", size: 50))
+                            .foregroundStyle(.white)
+                        Text("Survivor")
+                            .font(.custom("Silkscreen-Bold", size: 30))
+                            .foregroundStyle(.white)
+                            .padding(.top, -45)
+                            .padding(.bottom, 30)
+                    }
+                    
+                }
                 
-                Text("Robot")
-                    .font(.custom("Silkscreen-Bold", size: 65))
-                    .foregroundStyle(.green)
-                Text("Survivor")
-                    .font(.custom("Silkscreen-Bold", size: 39))
-                    .foregroundStyle(.green)
-                    .padding(.bottom, 75)
                 
-                Button(action: {
-                    currentGameState = .playing
-                }, label: {
-                    Text("Play")
-                })
-                .font(.custom("Silkscreen-Regular", size: 50))
-                .frame(width: 225, height:85)
-                .background(RoundedRectangle(cornerRadius: 10.0).fill(.green.opacity(0.3)))
-                .foregroundStyle(.green)
-                
+                PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
+                    //TODO: add navigation to game
+                }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
+                .frame(width: 224, height:96)
                 .padding(.bottom)
+                .shadow(radius: 15)
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    Text("Settings")
-                })
-                .font(.custom("Silkscreen-Regular", size: 25))
-                .frame(width: 225, height:50)
-                .background(RoundedRectangle(cornerRadius: 10.0).fill(.green.opacity(0.3)))
-                .foregroundStyle(.green)
+                
+                PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
+                    //TODO: add navigation to settings
+                }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)                .frame(width: 224, height:64)
                 
                 Spacer()
                 
@@ -59,6 +67,7 @@ struct MainMenuView: View {
     }
 }
 
-//#Preview {
-//    MainMenuView(currentGameState: .mainScreen)
-//}
+
+#Preview {
+    MainMenuView()
+}
