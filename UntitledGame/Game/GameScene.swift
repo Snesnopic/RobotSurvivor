@@ -153,7 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         //Music
         playTracks()
         
-        let initialTiles = 50
+        let initialTiles = 30
         let tileSize = CGSize(width: 100, height: 100)
         
         for x in -initialTiles...initialTiles {
@@ -171,7 +171,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     override func update(_ currentTime: TimeInterval) {
         if(self.isGameOver){
             gameLogic.finishGame()
-            updateTiles()
         }
         if(self.lastUpdate == 0){
             self.lastUpdate = currentTime
@@ -204,7 +203,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 self.readyToShoot = true
             }
         }
-        
+        updateTiles()
     }
     
   }
