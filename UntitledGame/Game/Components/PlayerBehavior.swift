@@ -12,9 +12,9 @@ extension GameScene{
     
     func shoot(speed: Int){
         guard !isGameOver else {return}
-        let shot = SKSpriteNode(imageNamed: "playerWeapon")
+        let shot = SKSpriteNode(imageNamed: "bullet")
         shot.texture?.filteringMode = .nearest
-        shot.name = "playerWeapon"
+        shot.name = "bullet"
         shot.position = player.position
         
         shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/2, height: shot.size.height/2))
@@ -23,6 +23,7 @@ extension GameScene{
         shot.physicsBody?.contactTestBitMask = CollisionType.enemy
         shot.physicsBody?.isDynamic = false
         shot.zPosition = 2
+        shot.setScale(2)
         addChild(shot)
         
         
