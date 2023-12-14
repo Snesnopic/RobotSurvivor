@@ -13,6 +13,9 @@ class GameLogic: ObservableObject {
     
     func setUpGame(){
         self.currentScore = 0
+        self.currentXP = 0
+        self.xpToNextLvl = 30
+        self.time = 0
         self.isGameOver = false
     }
     
