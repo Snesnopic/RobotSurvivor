@@ -64,14 +64,14 @@ extension GameScene{
             print(enemy.userData!["health"] as Any)
             if((enemy.userData!["health"] as! Int)<=0){
                 if(chance>50){
-                    generateXp(at: firstBody.node!.position)
+                    generateXp(at: enemy.position)
                 }
                 enemy.removeFromParent()
             }
             else {
                 flashRed(node: enemy)
             }
-            bullet!.removeFromParent()
+            bullet?.removeFromParent()
         }
         
         func didEnd(_ contact: SKPhysicsContact) {
