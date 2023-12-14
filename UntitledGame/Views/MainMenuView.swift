@@ -60,5 +60,5 @@ struct MainMenuView: View {
 }
 
 //#Preview {
-//    MainMenuView(currentGameState: )
+//    MainMenuView(currentGameState: .mainScreen)
 //}

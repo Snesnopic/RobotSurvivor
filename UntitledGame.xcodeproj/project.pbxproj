@@ -44,6 +44,8 @@
 		EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */; };
 		EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */; };
 		EE2F23BD2B29C38E000E3490 /* Settings Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */; };
+		EE2F23BF2B2A14D7000E3490 /* NewMainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2F23BE2B2A14D7000E3490 /* NewMainMenuView.swift */; };
+		EE2F23C12B2A1B40000E3490 /* PixelArtButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2F23C02B2A1B40000E3490 /* PixelArtButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +88,8 @@
 		EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Regular.ttf"; sourceTree = "<group>"; };
 		EE2F23B72B2853EE000E3490 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Settings Menu.swift"; path = "UntitledGame/Views/Settings Menu.swift"; sourceTree = SOURCE_ROOT; };
+		EE2F23BE2B2A14D7000E3490 /* NewMainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMainMenuView.swift; sourceTree = "<group>"; };
+		EE2F23C02B2A1B40000E3490 /* PixelArtButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelArtButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,11 +125,13 @@
 				23A5F3822B21D0C50008FFB2 /* HUD */,
 				23A5F37E2B21D0480008FFB2 /* ParentView.swift */,
 				23A5F37C2B21CFE60008FFB2 /* MainMenuView.swift */,
+				EE2F23BE2B2A14D7000E3490 /* NewMainMenuView.swift */,
 				EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */,
 				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
 				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
 				9D3EDD392B1F3FD200C5DF7B /* GameView.swift */,
 				23A5F37A2B21CFCD0008FFB2 /* GameOverView.swift */,
+				EE2F23C02B2A1B40000E3490 /* PixelArtButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -306,6 +312,7 @@
 				23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */,
 				9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */,
 				9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */,
+				EE2F23C12B2A1B40000E3490 /* PixelArtButtonView.swift in Sources */,
 				23A5F3932B21D43B0008FFB2 /* PlayerInputs.swift in Sources */,
 				6B9BF2D22B29B4AD0048F887 /* PowerUp.swift in Sources */,
 				23A5F37F2B21D0480008FFB2 /* ParentView.swift in Sources */,
@@ -320,6 +327,7 @@
 				233F1F562B273C5D00EF01FC /* ContactsCollisions.swift in Sources */,
 				6BFDBA662B28D8700069F3F7 /* PowerUpView.swift in Sources */,
 				233F1F512B27244C00EF01FC /* EnemyNode.swift in Sources */,
+				EE2F23BF2B2A14D7000E3490 /* NewMainMenuView.swift in Sources */,
 				6B99D2C12B21DF6C0069204F /* GameOver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
