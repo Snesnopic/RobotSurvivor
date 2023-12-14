@@ -27,7 +27,7 @@ extension GameScene {
     }
     
     private func createPlayer(at position: CGPoint) {
-  
+        
         self.player = SKSpriteNode(imageNamed: "AntiTank/Idle/1")
         self.player.name = "player"
         var playerAtlas: SKTextureAtlas {
@@ -78,7 +78,7 @@ extension GameScene {
             node.position.x = node.position.x - (player.size.width / 2)
             node.position.y = node.position.y - player.size.height
         }
-     
+        
         addChild(healthBar)
         addChild(self.player)
     }

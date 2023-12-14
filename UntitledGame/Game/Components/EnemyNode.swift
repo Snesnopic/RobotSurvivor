@@ -76,7 +76,7 @@ class EnemyNode: SKSpriteNode {
         let speed = type.speed
         let action =  SKAction.move(to: player.position, duration: distance/speed * (isMovementSlow ? 1.5 : 1))
         run(action)
-     
+        
     }
     
     func slowDownMovement() {

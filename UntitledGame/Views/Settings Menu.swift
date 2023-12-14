@@ -66,17 +66,17 @@ struct Settings_Menu: View {
                     Text("Volume")
                         .padding(.trailing, 10)
                     
-                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
-                        //TODO: add volume levels
-                    }, textView: Text(""))
-                    .frame(width:32, height:32)
-                    
-                    Text("9")
-                    
-                    PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
+                    PixelArtButtonView(buttonImage: "minus1", pressedImage: "plus2",buttonPressedAction: {
                         //TODO: add volume levels
                     }, textView: Text(""))
                     .frame(width:28, height:12)
+                    
+                    Text("9")
+                    
+                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "minus2",buttonPressedAction: {
+                        //TODO: add volume levels
+                    }, textView: Text(""))
+                    .frame(width:32, height:32)
                 }
                 .font(.custom("Silkscreen-Regular", size: 20))
                 .padding(.bottom, 20)

@@ -22,11 +22,12 @@ extension GameScene{
             
             
             if let playerHP = player.userData?["hp"] as? Double, playerHP <= 0 {
-                   gameLogic.isGameOver = true
-                    stopTracks()
-                   return
-               }
-                
+                gameLogic.isGameOver = true
+                self.scene?.isPaused = true
+                stopTracks()
+                return
+            }
+            
             player.userData!["hp"] = player.userData!["hp"] as! Double - 10
             
             flashRed(node: player)
@@ -97,8 +98,8 @@ extension GameScene{
         
     }
     func flashRed(node: SKNode) {
-       let action =  SKAction.sequence([
-        SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.2),
+        let action =  SKAction.sequence([
+            SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.2),
             SKAction.wait(forDuration: 0.1),
             SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)])
         node.run(action)

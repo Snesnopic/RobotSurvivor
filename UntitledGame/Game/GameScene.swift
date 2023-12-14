@@ -64,7 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var player: SKSpriteNode!
     var healthBar: SKScene!
     var joystick: Joystick!
-  
+    
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
     var isPlayerAlive = true
@@ -95,12 +95,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     required init?(coder aDecoder: NSCoder){
         fatalError("coder problem")
     }
-
+    
     func updateTiles() {
         let playerPosition = player.position
         let visibleXDistance = 700
         let visibleYDistance = 700
-       
+        
         let minX = playerPosition.x - CGFloat(visibleXDistance)
         let maxX = playerPosition.x + CGFloat(visibleXDistance)
         let minY = playerPosition.y - CGFloat(visibleYDistance)
@@ -113,7 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 let position = CGPoint(x: x, y: y)
                 if !isTilePresent(at: position) {
                     if((position.x >= minX && position.x < (minX + 400)) || (position.x > (maxX - 400) && position.x <= maxX)){
-                            addTile(at: position)
+                        addTile(at: position)
                     }else if((position.y >= minY && position.y < (minY + 400)) || (position.y > (maxY - 400) && position.y <= maxY)){
                         addTile(at: position)
                     }
@@ -127,7 +127,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 tile.removeFromParent()
             }
         }
-  
+        
     }
     
     func isTilePresent(at position: CGPoint) -> Bool {
@@ -138,15 +138,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let tileImageName: String
         let tileType = Int.random(in: 1...100)
         if(tileType <= 70){
-           tileImageName = "Moon1"
+            tileImageName = "Moon1"
         }else{
             tileImageName = "Moon2"
         }
-         
+        
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.position = position
         addChild(tile)
-
+        
         tilePositions.insert(position)
     }
     
@@ -180,7 +180,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         
         let timeElapsedSinceLastUpdate = currentTime - self.lastUpdate
-      
+        
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
@@ -192,14 +192,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         //camera?.setScale(5)
         
         
-      
+        
         if lastUpdateTime.isZero {
             lastUpdateTime = currentTime
         }
-       
+        
         deltaTime = currentTime - lastUpdateTime
         
-       
+        
         lastUpdateTime = currentTime
         
         if readyToShoot {
@@ -218,5 +218,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
     }
     
-  }
+}
 

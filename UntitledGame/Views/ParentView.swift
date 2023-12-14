@@ -20,7 +20,7 @@ struct ParentView: View {
     @StateObject var gameLogic: GameLogic = GameLogic()
     
     var audioPlayer: AudioPlayer =  AudioPlayer()
-
+    
     var body: some View {
         
         switch currentGameState {
@@ -43,7 +43,7 @@ struct ParentView: View {
                 .environmentObject(gameLogic)
         case .gameOver:
             GameOverView(currentGameState: $currentGameState)
-                
+            
         }
         
     }

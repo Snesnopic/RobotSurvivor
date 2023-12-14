@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct GameOverView: View {
-
+    
     @Binding var currentGameState: GameState
     
     var body: some View {
         
-       
+        
         
         ZStack{
             Color.darkGreen

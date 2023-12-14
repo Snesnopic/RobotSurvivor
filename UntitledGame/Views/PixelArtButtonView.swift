@@ -24,14 +24,14 @@ struct PixelArtButtonView: View {
                 textView                    
                     .offset(y: isPressed ? -2 : -7)
                     .opacity(isPressed ? 0.5 : 1)
-                    
+                
             }
         }
         .foregroundStyle(textColor ?? .white).gesture(DragGesture(minimumDistance: 0).onChanged { _ in
             isPressed = true
         }.onEnded{ _ in
             isPressed = false
-           buttonPressedAction?()
+            buttonPressedAction?()
         }
         )
         
