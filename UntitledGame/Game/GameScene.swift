@@ -79,7 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var spd: Int = 10
     
     var tilePositions: Set<CGPoint> = []
-    let tileSize = CGSize(width: 100, height: 100)
+    let tileSize = CGSize(width: 128, height: 128)
     
     var backgroundMusicPlayer: AVAudioPlayer?
     
@@ -158,8 +158,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         //Music
         playTracks()
         
-        let initialTiles = 30
-        let tileSize = CGSize(width: 100, height: 100)
+        let initialTiles = 10
+        let tileSize = CGSize(width: 128, height: 128)
         
         for x in -initialTiles...initialTiles {
             for y in -initialTiles...initialTiles {
