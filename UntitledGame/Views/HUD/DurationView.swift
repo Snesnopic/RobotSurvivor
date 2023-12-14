@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct DurationView: View {
+    @Binding var time: TimeInterval
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader{ geometry in
+            Text(String(time.minuteSecond))
+                .font(.custom("Silkscreen-Regular", size: 20))
+                .foregroundStyle(.white)
+                .position(CGPoint(x: geometry.size.width/2 , y: 80))
+        }
     }
 }
-
-#Preview {
-    DurationView()
-}
+//#Preview {
+//    DurationView()
+//}

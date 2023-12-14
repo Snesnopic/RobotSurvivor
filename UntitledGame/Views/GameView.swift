@@ -64,7 +64,13 @@ struct GameView: View {
                 }
                 .ignoresSafeArea()
             
-            ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
+                ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
+                
+                ScoreView(score: $gameLogic.currentScore)
+//                DurationView(time: $gameLogic.time)
+            
+                
+            
             if(gameLogic.showPowerUp){
                 PowerUpView()
             }
