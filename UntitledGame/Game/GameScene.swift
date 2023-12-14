@@ -138,11 +138,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         let tileImageName: String
         let tileType = Int.random(in: 1...100)
         if(tileType <= 70){
-           tileImageName = "Tile3"
-        }else if(tileType>70 && tileType <= 85){
-            tileImageName = "Tile1"
+           tileImageName = "Moon1"
         }else{
-            tileImageName = "Tile2"
+            tileImageName = "Moon2"
         }
          
         let tile = SKSpriteNode(imageNamed: tileImageName)
@@ -191,7 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         camera?.position = player.position
         
         //enable to have a wider view
-        camera?.setScale(5)
+        //camera?.setScale(5)
         
         
       
