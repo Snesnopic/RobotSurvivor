@@ -13,6 +13,7 @@ extension GameScene{
     func shoot(speed: Int){
         guard !isGameOver else {return}
         let shot = SKSpriteNode(imageNamed: "playerWeapon")
+        shot.texture?.filteringMode = .nearest
         shot.name = "playerWeapon"
         shot.position = player.position
         

@@ -26,12 +26,15 @@ class EnemyNode: SKSpriteNode {
             return SKTextureAtlas(named: "\(type.name)/Walk")
         }
         var enemyIdleTextures: [SKTexture] {
-            return [
-                enemyAtlas.textureNamed("1"),
-                enemyAtlas.textureNamed("2"),
-                enemyAtlas.textureNamed("3"),
-                enemyAtlas.textureNamed("4"),
-            ]
+            var textures: [SKTexture] = []
+            textures.append( enemyAtlas.textureNamed("1"))
+            textures.append( enemyAtlas.textureNamed("2"))
+            textures.append( enemyAtlas.textureNamed("3"))
+            textures.append( enemyAtlas.textureNamed("4"))
+            textures.forEach { texture in
+                texture.filteringMode = .nearest
+            }
+            return textures
         }
         let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
         self.run(SKAction.repeatForever(idleAnimation),withKey: "playerIdleAnimation")
