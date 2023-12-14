@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainMenuView: View {
+    
+    @Binding var currentGameState: GameState
+    
     var body: some View {
         ZStack{
             Color.deadBlue
@@ -50,6 +53,7 @@ struct MainMenuView: View {
                 
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
                     //TODO: add navigation to game
+                    withAnimation{startGame()}
                 }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
                 .frame(width: 224, height:96)
                 .padding(.bottom)
@@ -58,6 +62,7 @@ struct MainMenuView: View {
                 
                 PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
                     //TODO: add navigation to settings
+                    
                 }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)                .frame(width: 224, height:64)
                 
                 Spacer()
@@ -65,9 +70,15 @@ struct MainMenuView: View {
             }
         }
     }
+    
+    private func startGame() {
+        print("restart")
+        self.currentGameState = .playing
+        
+    }
 }
 
 
 #Preview {
-    MainMenuView()
+    MainMenuView(currentGameState: .constant(GameState.mainScreen))
 }

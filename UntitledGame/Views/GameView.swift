@@ -35,9 +35,14 @@ struct GameViewUI: UIViewRepresentable {
 
 
 struct GameView: View {
+    
+    @Binding var currentGameState: GameState
+    
     @State var x: Bool = false
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
-    private var sceneWrapper = SceneWrapper()
+    var sceneWrapper = SceneWrapper()
+    
+    
 
     var body: some View {
         ZStack {
@@ -63,10 +68,34 @@ struct GameView: View {
             if(gameLogic.showPowerUp){
                 PowerUpView()
             }
+        }.onChange(of: gameLogic.isGameOver){
+            if gameLogic.isGameOver {
+                
+                /** # PRO TIP!
+                 * You can experiment by adding other types of animations here before presenting the game over screen.
+                 */
+                
+                withAnimation {
+                    self.presentGameOverScreen()
+                }
+            }
+            
+        }
+        .onAppear{
+            self.gameLogic.restartGame()
         }
     }
+    
+    private func presentGameOverScreen() {
+        self.currentGameState = .gameOver
+        
+    }
+    
 }
 
 #Preview {
-    GameView()
+    GameView(currentGameState: .constant(GameState.playing))
 }
+
+
+

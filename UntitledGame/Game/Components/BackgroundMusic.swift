@@ -70,6 +70,10 @@ extension GameScene: AVAudioPlayerDelegate{
             backgroundMusicPlayer?.play()
         }
     }
+    
+    func stopTracks(){
+        backgroundMusicPlayer?.stop()
+    }
 
 }
 

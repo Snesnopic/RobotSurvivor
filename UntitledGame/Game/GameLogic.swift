@@ -13,7 +13,7 @@ class GameLogic: ObservableObject {
     
     func setUpGame(){
         self.currentScore = 0
-        self.isGameOver = false;
+        self.isGameOver = false
     }
     
     //general
@@ -37,6 +37,13 @@ class GameLogic: ObservableObject {
         if self.isGameOver == false{
             self.isGameOver = true
         }
+    }
+    
+    func restartGame() {
+        
+        // TODO: Customize!
+        
+        self.setUpGame()
     }
     
 }

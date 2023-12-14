@@ -19,7 +19,16 @@ extension GameScene{
         
         //Contact between player and enemy
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
+            
+            
+            if let playerHP = player.userData?["hp"] as? Double, playerHP <= 0 {
+                   gameLogic.isGameOver = true
+                    stopTracks()
+                   return
+               }
+                
             player.userData!["hp"] = player.userData!["hp"] as! Double - 10
+            
             flashRed(node: player)
             if (player.userData!["hp"] as! Int) < 0 {
                 player.userData!["hp"] = 0

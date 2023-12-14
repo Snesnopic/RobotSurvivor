@@ -39,11 +39,11 @@ struct ParentView: View {
                 ParentView.AudioPlayer.shared.stop()
             })
         case .playing:
-            
-            GameView()
+            GameView(currentGameState: $currentGameState)
                 .environmentObject(gameLogic)
         case .gameOver:
-            GameOverView()
+            GameOverView(currentGameState: $currentGameState)
+                
         }
         
     }

@@ -31,8 +31,10 @@ struct PixelArtButtonView: View {
             isPressed = true
         }.onEnded{ _ in
             isPressed = false
+           buttonPressedAction?()
         }
         )
+        
     }
 }
 
