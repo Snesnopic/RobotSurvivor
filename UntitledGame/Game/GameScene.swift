@@ -79,7 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var spd: Int = 10
     
     var tilePositions: Set<CGPoint> = []
-    let tileSize = CGSize(width: 128, height: 128)
+    let tileSize = CGSize(width: 100, height: 100)
     
     var backgroundMusicPlayer: AVAudioPlayer?
     
@@ -191,7 +191,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         camera?.position = player.position
         
         //enable to have a wider view
-        //camera?.setScale(5)
+        camera?.setScale(5)
         
         
       
