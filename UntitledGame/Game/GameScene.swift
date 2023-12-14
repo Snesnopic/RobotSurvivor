@@ -60,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
+    var readyToLoad: Bool = true
     var player: SKSpriteNode!
     var healthBar: SKScene!
     var joystick: Joystick!
@@ -92,24 +93,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     required init?(coder aDecoder: NSCoder){
         fatalError("coder problem")
     }
-    
-    
+
     func updateTiles() {
         let playerPosition = player.position
-        let visibleDistance = 500
-        
+        let visibleXDistance = 700
+        let visibleYDistance = 700
        
-        let minX = playerPosition.x - CGFloat(visibleDistance)
-        let maxX = playerPosition.x + CGFloat(visibleDistance)
-        let minY = playerPosition.y - CGFloat(visibleDistance)
-        let maxY = playerPosition.y + CGFloat(visibleDistance)
+        let minX = playerPosition.x - CGFloat(visibleXDistance)
+        let maxX = playerPosition.x + CGFloat(visibleXDistance)
+        let minY = playerPosition.y - CGFloat(visibleYDistance)
+        let maxY = playerPosition.y + CGFloat(visibleYDistance)
+        
         
         // Load new tiles
         for x in stride(from: minX, through: maxX, by: tileSize.width) {
             for y in stride(from: minY, through: maxY, by: tileSize.height) {
                 let position = CGPoint(x: x, y: y)
                 if !isTilePresent(at: position) {
-                    addTile(at: position)
+                    if((position.x >= minX && position.x < (minX + 400)) || (position.x > (maxX - 400) && position.x <= maxX)){
+                            addTile(at: position)
+                    }else if((position.y >= minY && position.y < (minY + 400)) || (position.y > (maxY - 400) && position.y <= maxY)){
+                        addTile(at: position)
+                    }
                 }
             }
         }
@@ -155,8 +160,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
              self.changeTrack(to: "game2")
         }
         
-        let initialTiles = 50
-        let tileSize = CGSize(width: 100, height: 100)
+        let initialTiles = 10
+        let tileSize = CGSize(width: 128, height: 128)
         
         for x in -initialTiles...initialTiles {
             for y in -initialTiles...initialTiles {
@@ -170,7 +175,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     override func update(_ currentTime: TimeInterval) {
         if(self.isGameOver){
             gameLogic.finishGame()
-            updateTiles()
         }
         if(self.lastUpdate == 0){
             self.lastUpdate = currentTime
@@ -184,6 +188,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         enemyLogic(currentTime: currentTime)
         camera?.position = player.position
+        
+        //enable to have a wider view
+        //camera?.setScale(5)
         
         
       
@@ -203,7 +210,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 self.readyToShoot = true
             }
         }
-        
+        if readyToLoad {
+            readyToLoad = false
+            updateTiles()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.readyToLoad = true
+            }
+        }
     }
     
   }

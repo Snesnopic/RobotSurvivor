@@ -57,7 +57,7 @@ extension GameScene{
             if(firstBody.categoryBitMask == CollisionType.enemy){
                 let enemy = firstBody.node as! EnemyNode
                 enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
-                print(enemy.userData!["health"] as Any)
+                //print(enemy.userData!["health"] as Any)
                 if((enemy.userData!["health"] as! Int)<=0){
                     if(chance>50){
                         generateXp(at: firstBody.node!.position)
@@ -69,7 +69,7 @@ extension GameScene{
                 let enemy = secondBody.node as! EnemyNode
                 
                 enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
-                print(enemy.userData!["health"] as Any)
+                //print(enemy.userData!["health"] as Any)
                 if((enemy.userData!["health"] as! Int)<=0){
                     if(chance>50){
                         generateXp(at: secondBody.node!.position)
