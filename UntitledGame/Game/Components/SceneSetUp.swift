@@ -34,8 +34,8 @@ extension GameScene {
             return SKTextureAtlas(named: "AntiTank/Idle")
         }
         var playerIdleTextures: [SKTexture] {
-            var texture1 = playerAtlas.textureNamed("1")
-            var texture2 = playerAtlas.textureNamed("2")
+            let texture1 = playerAtlas.textureNamed("1")
+            let texture2 = playerAtlas.textureNamed("2")
             texture1.filteringMode = .nearest
             texture2.filteringMode = .nearest
             return [

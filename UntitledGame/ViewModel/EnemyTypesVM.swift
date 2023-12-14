@@ -9,9 +9,9 @@ import Foundation
 
 class EnemyTypesVM {
     var enemyTypes: [EnemyType] = [
-    EnemyType(name: "Wasp", health: 30, speed: 50),
-    EnemyType(name: "Scarab", health: 70, speed: 25),
-    EnemyType(name: "Spider", health: 40, speed: 30),
-    EnemyType(name: "Hornet", health: 50, speed: 35)
+    EnemyType(name: "Wasp", health: 40, speed: 50, points: 30),
+    EnemyType(name: "Scarab", health: 70, speed: 35, points: 20),
+    EnemyType(name: "Spider", health: 25, speed: 40, points: 15),
+    EnemyType(name: "Hornet", health: 60, speed: 45, points: 30)
     ]
 }
