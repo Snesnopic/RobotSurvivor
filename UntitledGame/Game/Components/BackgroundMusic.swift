@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-extension GameScene{
+extension GameScene: AVAudioPlayerDelegate{
     
     
     func setupBackgroundMusic(fileName: String) {
@@ -16,15 +16,16 @@ extension GameScene{
                 DispatchQueue.main.async {
                     print("Could not find the music file.")
                 }
-                
                 return
             }
             
-            
+            self.currentTrack = fileName
             do {
                 let newPlayer = try AVAudioPlayer(contentsOf: backgroundMusicURL)
-                newPlayer.numberOfLoops = -1
+                newPlayer.numberOfLoops = 0
                 newPlayer.prepareToPlay()
+                newPlayer.delegate = self
+                
                 
                 DispatchQueue.main.async {
                     if self.backgroundMusicPlayer != nil {
@@ -44,5 +45,35 @@ extension GameScene{
          setupBackgroundMusic(fileName: newTrack)
         backgroundMusicPlayer?.play()
     }
+    
+    func playTracks(){
+        setupBackgroundMusic(fileName: "game1")
+        backgroundMusicPlayer?.play()
+        
+    }
+    
+    func determineNextTrack() -> String{
+        switch currentTrack{
+            case "game1":
+                return "game2"
+            case "game2":
+                return "game1"
+        default:
+            return "game1"
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if flag {
+            let nextTrack = determineNextTrack()
+            setupBackgroundMusic(fileName: nextTrack)
+            backgroundMusicPlayer?.play()
+        }
+    }
+    
+    func stopTracks(){
+        backgroundMusicPlayer?.stop()
+    }
+
 }
 

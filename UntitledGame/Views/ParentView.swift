@@ -29,6 +29,7 @@ struct ParentView: View {
                 do {
                     let path = Bundle.main.url(forResource: "mainmenu", withExtension: "mp3")
                     ParentView.AudioPlayer.shared = try AVAudioPlayer(contentsOf: path!)
+                    ParentView.AudioPlayer.shared.numberOfLoops = -1
                     ParentView.AudioPlayer.shared.play()
                 }
                 catch {
@@ -38,11 +39,11 @@ struct ParentView: View {
                 ParentView.AudioPlayer.shared.stop()
             })
         case .playing:
-            
-            GameView()
+            GameView(currentGameState: $currentGameState)
                 .environmentObject(gameLogic)
         case .gameOver:
-            GameOverView()
+            GameOverView(currentGameState: $currentGameState)
+                
         }
         
     }

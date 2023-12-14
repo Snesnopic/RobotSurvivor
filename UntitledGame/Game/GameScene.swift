@@ -83,6 +83,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     var backgroundMusicPlayer: AVAudioPlayer?
     
+    var currentTrack: String?
+    
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
@@ -153,15 +155,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
         
-        setupBackgroundMusic(fileName: "game1")
-        backgroundMusicPlayer?.play()
+        //Music
+        playTracks()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10){
-             self.changeTrack(to: "game2")
-        }
-        
-        let initialTiles = 10
-        let tileSize = CGSize(width: 128, height: 128)
+        let initialTiles = 30
+        let tileSize = CGSize(width: 100, height: 100)
         
         for x in -initialTiles...initialTiles {
             for y in -initialTiles...initialTiles {
@@ -172,6 +170,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
     }
     
+    func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
+        return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
+    }
     override func update(_ currentTime: TimeInterval) {
         if(self.isGameOver){
             gameLogic.finishGame()
