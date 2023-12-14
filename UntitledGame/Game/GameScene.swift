@@ -82,6 +82,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     var backgroundMusicPlayer: AVAudioPlayer?
     
+    var currentTrack: String?
+    
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
@@ -148,12 +150,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
         
-        setupBackgroundMusic(fileName: "game1")
-        backgroundMusicPlayer?.play()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10){
-             self.changeTrack(to: "game2")
-        }
+        //Music
+        playTracks()
         
         let initialTiles = 50
         let tileSize = CGSize(width: 100, height: 100)
@@ -166,6 +164,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         
     }
+    
     
     override func update(_ currentTime: TimeInterval) {
         if(self.isGameOver){
