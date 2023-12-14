@@ -52,10 +52,10 @@ class Joystick: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         if !isJoystickActive {
-            self.alpha = 0.0
+            hideJoystick()
         }
         else {
-            self.alpha = 1.0
+            showJoystick()
             let deltaTime = gameSceneReference.deltaTime
             
             // Use the angle and distance to control movement
@@ -114,15 +114,9 @@ class Joystick: SKScene {
     }
     
     func hideJoystick(){
-        joystickBase.fillColor = UIColor.clear
-        joystickBase.strokeColor = UIColor.clear
-        joystickKnob.fillColor = UIColor.clear
-        joystickKnob.strokeColor = UIColor.clear
+        self.alpha = 0.0
     }
     func showJoystick(){
-        joystickBase.fillColor = UIColor.white.withAlphaComponent(0.5)
-        joystickBase.strokeColor = UIColor.white
-        joystickKnob.fillColor = UIColor.white
-        joystickKnob.strokeColor = UIColor.white
+        self.alpha = 1.0
     }
 }

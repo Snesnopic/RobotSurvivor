@@ -47,17 +47,18 @@ struct GameView: View {
                     sceneWrapper.scene.isPaused.toggle()
                 }
                 .ignoresSafeArea()
+            
             SpriteView(scene: sceneWrapper.joystickScene,options: [.allowsTransparency])
                 .onChange(of: gameLogic.showPowerUp){
                     sceneWrapper.joystickScene.isPaused.toggle()
                     if(gameLogic.showPowerUp == true){
                         sceneWrapper.joystickScene.hideJoystick()
-                        
                     }else{
                         sceneWrapper.joystickScene.showJoystick()
                     }
                 }
                 .ignoresSafeArea()
+            
             ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
             if(gameLogic.showPowerUp){
                 PowerUpView()

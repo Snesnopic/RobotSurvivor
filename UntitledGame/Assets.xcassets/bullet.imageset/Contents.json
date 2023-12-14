@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "bullet.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "playerWeapon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

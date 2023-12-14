@@ -34,9 +34,13 @@ extension GameScene {
             return SKTextureAtlas(named: "AntiTank/Idle")
         }
         var playerIdleTextures: [SKTexture] {
+            var texture1 = playerAtlas.textureNamed("1")
+            var texture2 = playerAtlas.textureNamed("2")
+            texture1.filteringMode = .nearest
+            texture2.filteringMode = .nearest
             return [
-                playerAtlas.textureNamed("1"),
-                playerAtlas.textureNamed("2"),
+                texture1,
+                texture2
             ]
         }
         let idleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
@@ -52,7 +56,6 @@ extension GameScene {
         player.physicsBody?.isDynamic = false
         
         self.player.physicsBody?.affectedByGravity = false
-        
         healthBar = SKScene()
         
         let healthBarFill = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))

@@ -20,7 +20,7 @@ extension GameScene{
         //Contact between player and enemy
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
             player.userData!["hp"] = player.userData!["hp"] as! Double - 10
-
+            flashRed(node: player)
             if (player.userData!["hp"] as! Int) < 0 {
                 player.userData!["hp"] = 0
             }
@@ -28,14 +28,14 @@ extension GameScene{
             let healthBarFill = healthBar.children.last!
             let playerHp:Double = player.userData!["hp"] as! Double
             let playerMaxHp:Double = player.userData!["maxhp"] as! Double
-                        
+            
             healthBarFill.xScale = CGFloat(playerHp  / playerMaxHp)
             
             player.userData!["hp"] = player.userData!["hp"] as! Int - 10
             guard let enemyNode = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
             enemyNode.slowDownMovement()
         }
-       
+        
         
         //Contact between player and xp
         //TODO: Change val with enemy.xpvalue
@@ -53,43 +53,44 @@ extension GameScene{
         if ((firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon)){
             
             //TODO: Implement the death logic based on enemy health
+            let enemy = [firstBody,secondBody].filter { node in
+                node.categoryBitMask == CollisionType.enemy
+            }.first!.node as! EnemyNode
+            let bullet = [firstBody,secondBody].filter { node in
+                node.categoryBitMask == CollisionType.playerWeapon
+            }.first!.node
             
-            if(firstBody.categoryBitMask == CollisionType.enemy){
-                let enemy = firstBody.node as! EnemyNode
-                enemy.userData!["health"] = enemy.userData!["health"]! as! Int - 10
-                print(enemy.userData!["health"] as Any)
-                if((enemy.userData!["health"] as! Int)<=0){
-                    if(chance>50){
-                        generateXp(at: firstBody.node!.position)
-                    }
-                    firstBody.node?.removeFromParent()
+            enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
+            print(enemy.userData!["health"] as Any)
+            if((enemy.userData!["health"] as! Int)<=0){
+                if(chance>50){
+                    generateXp(at: enemy.position)
                 }
-                secondBody.node?.removeFromParent()
-            }else{
-                let enemy = secondBody.node as! EnemyNode
-                enemy.userData!["health"] = enemy.userData!["health"]! as! Int - 10
-                print(enemy.userData!["health"] as Any)
-                if((enemy.userData!["health"] as! Int)<=0){
-                    if(chance>50){
-                        generateXp(at: secondBody.node!.position)
-                    }
-                    secondBody.node?.removeFromParent()
-                }
-                firstBody.node?.removeFromParent()
+                enemy.removeFromParent()
+            }
+            else {
+                flashRed(node: enemy)
+            }
+            bullet?.removeFromParent()
+        }
+        
+        func didEnd(_ contact: SKPhysicsContact) {
+            let firstBody: SKPhysicsBody = contact.bodyA
+            let secondBody: SKPhysicsBody = contact.bodyB
+            //Contact between player and enemy
+            if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
+                guard let enemyNode = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
+                enemyNode.speedUpMovement()
             }
             
         }
+        
     }
-    
-    func didEnd(_ contact: SKPhysicsContact) {
-        let firstBody: SKPhysicsBody = contact.bodyA
-        let secondBody: SKPhysicsBody = contact.bodyB
-        //Contact between player and enemy
-        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
-            guard let enemyNode = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
-            enemyNode.speedUpMovement()
-        }
-       
+    func flashRed(node: SKNode) {
+       let action =  SKAction.sequence([
+        SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.5),
+            SKAction.wait(forDuration: 0.1),
+            SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)])
+        node.run(action)
     }
-    
 }

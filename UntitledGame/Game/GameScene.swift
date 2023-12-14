@@ -6,7 +6,7 @@
 //
 
 import SpriteKit
-import Foundation
+import AVFoundation
 
 struct CollisionType {
     static let all : UInt32 = UInt32.max
@@ -54,7 +54,9 @@ extension CGPoint: Hashable {
     }
 }
 
+
 class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
+    static let shared: GameScene = GameScene()
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
@@ -71,12 +73,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var readyToShoot: Bool = true
     var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
     
-    var fireRate: Double = 1
+    var fireRate: Double = 2
     var dmg: Int = 10
     var spd: Int = 10
     
     var tilePositions: Set<CGPoint> = []
     let tileSize = CGSize(width: 100, height: 100)
+    
+    var backgroundMusicPlayer: AVAudioPlayer?
+    
+    var currentTrack: String?
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -88,6 +94,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     required init?(coder aDecoder: NSCoder){
         fatalError("coder problem")
     }
+    
+    
     func updateTiles() {
         let playerPosition = player.position
         let visibleDistance = 500
@@ -115,14 +123,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
         }
   
-}
+    }
+    
     func isTilePresent(at position: CGPoint) -> Bool {
         return tilePositions.contains(position)
     }
     
     func addTile(at position: CGPoint) {
-        let tileType = Int.random(in: 1...2)
-        let tileImageName = tileType == 1 ? "terrainAsset" : "terrainAsset2"
+        let tileImageName: String
+        let tileType = Int.random(in: 1...100)
+        if(tileType <= 70){
+           tileImageName = "Tile3"
+        }else if(tileType>70 && tileType <= 85){
+            tileImageName = "Tile1"
+        }else{
+            tileImageName = "Tile2"
+        }
+         
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.position = position
         addChild(tile)
@@ -133,7 +150,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
         
-        let initialTiles = 50
+        //Music
+        playTracks()
+        
+        let initialTiles = 30
         let tileSize = CGSize(width: 100, height: 100)
         
         for x in -initialTiles...initialTiles {
@@ -145,10 +165,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
     }
     
+    func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
+        return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
+    }
     override func update(_ currentTime: TimeInterval) {
         if(self.isGameOver){
             gameLogic.finishGame()
-            updateTiles()
         }
         if(self.lastUpdate == 0){
             self.lastUpdate = currentTime
@@ -176,12 +198,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if readyToShoot {
             readyToShoot = false
-            shoot(damage: dmg, speed: spd)
+            shoot(speed: spd)
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
                 self.readyToShoot = true
             }
         }
-        
+        updateTiles()
     }
     
   }

@@ -11,6 +11,7 @@ import SpriteKit
 
 struct PowerUpView: View {
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    @StateObject var gameScene: GameScene =  GameScene.shared
     var body: some View {
         HStack{
             //TODO: randomly sort powerUp + give it to player on tap

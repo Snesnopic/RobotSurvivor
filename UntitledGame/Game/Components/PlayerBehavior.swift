@@ -10,25 +10,29 @@ import SpriteKit
 
 extension GameScene{
     
-    func shoot(damage: Int, speed: Int){
+    func shoot(speed: Int){
         guard !isGameOver else {return}
-        let dmg = damage
-        let spd = speed
-        let shot = SKSpriteNode(imageNamed: "playerWeapon")
-        shot.name = "playerWeapon"
+        let shot = SKSpriteNode(imageNamed: "bullet")
+        shot.texture?.filteringMode = .nearest
+        shot.name = "bullet"
         shot.position = player.position
         
-        shot.userData = ["damage": dmg, "speed": spd]
         shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/2, height: shot.size.height/2))
         shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
         shot.physicsBody?.collisionBitMask =  CollisionType.enemy
         shot.physicsBody?.contactTestBitMask = CollisionType.enemy
         shot.physicsBody?.isDynamic = false
         shot.zPosition = 2
+        shot.setScale(2)
         addChild(shot)
-        
-        
-        let movement = SKAction.move(to: CGPoint(x: player.position.x + (2000 * shootDirection.dx ) , y: player.position.y + (shootDirection.dy * 2000)),duration: shot.userData!["speed"] as! TimeInterval)
+        let activeEnemies: [EnemyNode] = children.filter { node in
+            return node.isKind(of: EnemyNode.classForCoder())
+        } as! [EnemyNode]
+        let closestEnemy: EnemyNode = activeEnemies.sorted(by: { first, second in
+            return distanceBetween(node1: player, node2: first) < distanceBetween(node1: player, node2: second)
+        }).first!
+        let time = distanceBetween(node1: player, node2: closestEnemy) / Float(speed * speed)
+        let movement = SKAction.move(to: closestEnemy.position,duration: TimeInterval(time))
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         shot.run(sequence)
         
