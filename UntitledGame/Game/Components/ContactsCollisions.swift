@@ -20,7 +20,7 @@ extension GameScene{
         //Contact between player and enemy
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
             player.userData!["hp"] = player.userData!["hp"] as! Double - 10
-            
+            flashRed(node: player)
             if (player.userData!["hp"] as! Int) < 0 {
                 player.userData!["hp"] = 0
             }
@@ -69,7 +69,7 @@ extension GameScene{
                 enemy.removeFromParent()
             }
             else {
-                enemy.flashRed()
+                flashRed(node: enemy)
             }
             bullet!.removeFromParent()
         }
@@ -85,5 +85,12 @@ extension GameScene{
             
         }
         
+    }
+    func flashRed(node: SKNode) {
+       let action =  SKAction.sequence([
+        SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.5),
+            SKAction.wait(forDuration: 0.1),
+            SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)])
+        node.run(action)
     }
 }

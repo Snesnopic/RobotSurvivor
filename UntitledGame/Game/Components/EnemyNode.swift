@@ -89,12 +89,5 @@ class EnemyNode: SKSpriteNode {
         isMovementSlow = false
         
     }
-    func flashRed() {
-       let action =  SKAction.sequence([
-        SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.5),
-            SKAction.wait(forDuration: 0.1),
-            SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)])
-        self.run(action)
-    }
 }
 
