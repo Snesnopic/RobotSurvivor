@@ -10,6 +10,8 @@ import SwiftUI
 
 struct Settings_Menu: View {
     @Environment(\.dismiss) private var dismiss
+    @State private var switchMusic: Bool = false
+    @State private var switchSound: Bool = false
     var body: some View {
         
         ZStack{
@@ -53,10 +55,13 @@ struct Settings_Menu: View {
                 HStack{
                     Text("Music")
                         .padding(.trailing, 35)
-                    Image("OffSwitch1")
+                    Image(switchMusic ? "OnSwitch1" : "OffSwitch1")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50)
+                        .onTapGesture {
+                            switchMusic.toggle()
+                        }
                         
                 }
                 .font(.custom("Silkscreen-Bold", size: 25))
@@ -66,14 +71,14 @@ struct Settings_Menu: View {
                     Text("Volume")
                         .padding(.trailing, 10)
                     
-                    PixelArtButtonView(buttonImage: "minus1", pressedImage: "plus2",buttonPressedAction: {
+                    PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                         //TODO: add volume levels
                     }, textView: Text(""))
                     .frame(width:28, height:12)
                     
                     Text("9")
                     
-                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "minus2",buttonPressedAction: {
+                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                         //TODO: add volume levels
                     }, textView: Text(""))
                     .frame(width:32, height:32)
@@ -86,10 +91,13 @@ struct Settings_Menu: View {
                     Text("Sound \nEffects")
                         .multilineTextAlignment(.leading)
                         .padding(.trailing, 10)
-                    Image("OnSwitch1")
+                    Image(switchSound ? "OnSwitch1" : "OffSwitch1")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50)
+                        .onTapGesture {
+                            switchSound.toggle()
+                        }
                         
                 }
                 .font(.custom("Silkscreen-Bold", size: 25))
@@ -99,17 +107,17 @@ struct Settings_Menu: View {
                     Text("Volume")
                         .padding(.trailing, 10)
                     
-                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
-                        //TODO: add volume levels
-                    }, textView: Text(""))
-                    .frame(width:32, height:32)
-                    
-                    Text("9")
-                    
                     PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                         //TODO: add volume levels
                     }, textView: Text(""))
                     .frame(width:28, height:12)
+                    
+                    Text("9")
+                    
+                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
+                        //TODO: add volume levels
+                    }, textView: Text(""))
+                    .frame(width:32, height:32)
                 }
                 .font(.custom("Silkscreen-Regular", size: 20))
                 .padding(.bottom, 25)

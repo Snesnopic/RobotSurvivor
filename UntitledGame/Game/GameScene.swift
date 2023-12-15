@@ -74,9 +74,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var readyToShoot: Bool = true
     var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
     
-    var fireRate: Double = 2
-    var dmg: Int = 10
-    var spd: Int = 10
+    var fireRate: Double = 0.2
+    var dmg: Int = 30
+    var spd: Int = 20
     
     var tilePositions: Set<CGPoint> = []
     let tileSize = CGSize(width: 100, height: 100)
