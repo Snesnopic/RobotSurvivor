@@ -210,7 +210,7 @@
 		9D3EDD362B1F3FD200C5DF7B /* UntitledGame */ = {
 			isa = PBXGroup;
 			children = (
-				9DD1D6CD2B29CCBB0027768C /* Sound */,
+				9DD1D6CD2B29CCBB0027768C /* Sounds */,
 				EE2F23B72B2853EE000E3490 /* Info.plist */,
 				9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */,
 				233F1F572B286AD000EF01FC /* SupportingFiles */,
@@ -223,7 +223,7 @@
 			path = UntitledGame;
 			sourceTree = "<group>";
 		};
-		9DD1D6CD2B29CCBB0027768C /* Sound */ = {
+		9DD1D6CD2B29CCBB0027768C /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
 				934BBFE82B2C5BF400B8D541 /* BULLETS.mp3 */,
@@ -234,7 +234,7 @@
 				9D77C9532B2A022D00781A25 /* game2.mp3 */,
 				9D77C9522B2A022D00781A25 /* game1.mp3 */,
 			);
-			path = Sound;
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

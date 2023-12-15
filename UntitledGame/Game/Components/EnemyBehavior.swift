@@ -71,7 +71,7 @@ extension GameScene {
         let enemyType = Int.random(in: 0..<enemyTypes.count)
         let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: getPositionNearPlayer())
         enemy.physicsBody?.affectedByGravity = false
-        enemy.zPosition = 1;
+        enemy.zPosition = 2
         addChild(enemy)
     }
 }

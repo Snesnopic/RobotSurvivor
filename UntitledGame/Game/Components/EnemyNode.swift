@@ -45,7 +45,6 @@ class EnemyNode: SKSpriteNode {
         physicsBody?.categoryBitMask = CollisionType.enemy
         physicsBody?.collisionBitMask = CollisionType.player | CollisionType.enemy
         physicsBody?.contactTestBitMask = CollisionType.player
-        
         physicsBody?.isDynamic = true
         physicsBody?.allowsRotation = false
         position = startPosition

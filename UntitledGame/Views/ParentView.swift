@@ -30,6 +30,7 @@ struct ParentView: View {
                     let path = Bundle.main.url(forResource: "mainmenu", withExtension: "mp3")
                     ParentView.AudioPlayer.shared = try AVAudioPlayer(contentsOf: path!)
                     ParentView.AudioPlayer.shared.numberOfLoops = -1
+                    ParentView.AudioPlayer.shared.volume = 0.3
                     ParentView.AudioPlayer.shared.play()
                 }
                 catch {
