@@ -80,15 +80,17 @@ struct MainMenuView: View {
                 
             }
         }.onAppear(perform: {
-            do {
-                let path = Bundle.main.url(forResource: "mainmenu", withExtension: "mp3")
-                MainMenuView.AudioPlayer.shared = try AVAudioPlayer(contentsOf: path!)
-                MainMenuView.AudioPlayer.shared.numberOfLoops = -1
-                MainMenuView.AudioPlayer.shared.volume = 0.3
-                MainMenuView.AudioPlayer.shared.play()
-            }
-            catch {
-                
+            if gameLogic.musicSwitch {
+                do {
+                    let path = Bundle.main.url(forResource: "mainmenu", withExtension: "mp3")
+                    MainMenuView.AudioPlayer.shared = try AVAudioPlayer(contentsOf: path!)
+                    MainMenuView.AudioPlayer.shared.numberOfLoops = -1
+                    MainMenuView.AudioPlayer.shared.volume = 0.3
+                    MainMenuView.AudioPlayer.shared.play()
+                }
+                catch {
+                    
+                }
             }
         }).onDisappear(perform: {
             MainMenuView.AudioPlayer.shared.stop()
