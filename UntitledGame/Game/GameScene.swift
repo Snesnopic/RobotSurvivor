@@ -147,6 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.position = position
+        tile.zPosition = -3
         addChild(tile)
         
         tilePositions.insert(position)
