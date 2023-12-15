@@ -25,17 +25,13 @@ class EnemyNode: SKSpriteNode {
         var enemyAtlas: SKTextureAtlas {
             return SKTextureAtlas(named: "\(type.name)/Walk")
         }
-        var enemyIdleTextures: [SKTexture] {
-            var textures: [SKTexture] = []
-            textures.append( enemyAtlas.textureNamed("1"))
-            textures.append( enemyAtlas.textureNamed("2"))
-            textures.append( enemyAtlas.textureNamed("3"))
-            textures.append( enemyAtlas.textureNamed("4"))
-            textures.forEach { texture in
-                texture.filteringMode = .nearest
-            }
-            return textures
+        var enemyIdleTextures: [SKTexture] = []
+        enemyAtlas.textureNames.forEach { string in
+            let texture = enemyAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            enemyIdleTextures.append(texture)
         }
+        
         let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
         self.run(SKAction.repeatForever(idleAnimation),withKey: "playerIdleAnimation")
         
@@ -57,19 +53,14 @@ class EnemyNode: SKSpriteNode {
     }
     
     func die() {
-        var textureAtlas: SKTextureAtlas!
-        var textures : [SKTexture] = []
-        if type.name == "Wasp" || type.name == "Hornet" {
-            textureAtlas = SKTextureAtlas(named: "Spider/Death")
+        var textureAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
+        var textures: [SKTexture] = []
+        textureAtlas.textureNames.forEach { string in
+            let texture = textureAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            textures.append(texture)
         }
-        else {
-            textureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
-        }
-        textures.append(textureAtlas.textureNamed("1"))
-        textures.forEach { tex in
-            tex.filteringMode = .nearest
-        }
-        
+
         let idleAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
         
         let corpse: SKNode = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
