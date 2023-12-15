@@ -10,8 +10,10 @@ import SwiftUI
 
 struct Settings_Menu: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var switchMusic: Bool = false
-    @State private var switchSound: Bool = false
+    @Binding var switchMusic: Bool
+    @Binding var switchSound: Bool
+    @Binding var music: Int
+    @Binding var sounds: Int
     var body: some View {
         
         ZStack{
@@ -73,13 +75,19 @@ struct Settings_Menu: View {
                     
                     PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                         //TODO: add volume levels
+                        if(music > 0){
+                            music = music - 1;
+                        }
                     }, textView: Text(""))
                     .frame(width:28, height:12)
                     
-                    Text("9")
+                    Text(String(music))
                     
                     PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                         //TODO: add volume levels
+                        if(music < 10){
+                            music = music + 1;
+                        }
                     }, textView: Text(""))
                     .frame(width:32, height:32)
                 }
@@ -109,13 +117,19 @@ struct Settings_Menu: View {
                     
                     PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                         //TODO: add volume levels
+                        if(sounds > 0){
+                            sounds = sounds - 1
+                        }
                     }, textView: Text(""))
                     .frame(width:28, height:12)
                     
-                    Text("9")
+                    Text(String(sounds))
                     
                     PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                         //TODO: add volume levels
+                        if(sounds < 10){
+                            sounds = sounds + 1
+                        }
                     }, textView: Text(""))
                     .frame(width:32, height:32)
                 }
@@ -139,6 +153,6 @@ struct Settings_Menu: View {
     }
 }
 
-#Preview {
-    Settings_Menu()
-}
+//#Preview {
+//    Settings_Menu()
+//}

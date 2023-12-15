@@ -12,7 +12,7 @@ extension GameScene{
     
     
     
-    func shoot(speed: Int){
+    func shoot(speed: Int, soundVolume: Int, switchVolume: Bool){
         guard !isGameOver else {return}
         let shot = SKSpriteNode(imageNamed: "bullet")
         shot.texture?.filteringMode = .nearest
@@ -39,8 +39,11 @@ extension GameScene{
         let soundNode = SKAudioNode(fileNamed: "BULLETS.mp3")
         soundNode.autoplayLooped = false
         addChild(soundNode)
-        soundNode.run(SKAction.changeVolume(to: 0.1, duration: 0))
-        
+        if(switchVolume){
+            soundNode.run(SKAction.changeVolume(to: (0.1/5)*Float(soundVolume), duration: 0))
+        }else{
+            soundNode.run(SKAction.changeVolume(to: 0, duration: 0))
+        }
         let playSound = SKAction.run {
                 soundNode.run(SKAction.play())
             }
