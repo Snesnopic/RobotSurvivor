@@ -70,6 +70,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var isPlayerAlive = true
     
     let enemyTypes = EnemyTypesVM().enemyTypes
+    var spawnRate: Int = 0
+    var readyToIncreaseSpawnRate: Bool = true
     
     var readyToShoot: Bool = true
     var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
@@ -212,6 +214,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             updateTiles()
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.readyToLoad = true
+            }
+        }
+    
+        if readyToIncreaseSpawnRate {
+            readyToIncreaseSpawnRate = false
+            self.spawnRate = self.spawnRate + 7
+            DispatchQueue.main.asyncAfter(deadline: .now() + 55) {
+                self.readyToIncreaseSpawnRate = true
             }
         }
     }

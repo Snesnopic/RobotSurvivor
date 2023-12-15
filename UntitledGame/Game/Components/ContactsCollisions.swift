@@ -85,7 +85,7 @@ extension GameScene{
                     
                 }
                 
-                if(chance>50){
+                if(chance>25){
                     generateXp(at: enemy.position)
                 }
                 gameLogic.increaseScore(points: enemy.userData!["points"] as! Int)
