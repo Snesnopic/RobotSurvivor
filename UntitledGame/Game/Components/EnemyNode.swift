@@ -56,6 +56,34 @@ class EnemyNode: SKSpriteNode {
         
     }
     
+    func die() {
+        var textureAtlas: SKTextureAtlas!
+        var textures : [SKTexture] = []
+        if type.name == "Wasp" || type.name == "Hornet" {
+            textureAtlas = SKTextureAtlas(named: "Spider/Death")
+        }
+        else {
+            textureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
+        }
+        textures.append(textureAtlas.textureNamed("1"))
+        textures.forEach { tex in
+            tex.filteringMode = .nearest
+        }
+        
+        let idleAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
+        
+        let corpse: SKNode = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
+        corpse.position = self.position
+        corpse.zPosition = 1
+        self.scene!.addChild(corpse)
+        let actionSequence = SKAction.sequence([
+            idleAnimation,
+            SKAction.wait(forDuration: 1.0),
+            SKAction.removeFromParent()])
+        corpse.run(actionSequence)
+        self.removeFromParent()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("LOL NO")
     }
