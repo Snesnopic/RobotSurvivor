@@ -11,10 +11,14 @@ struct DurationView: View {
     @Binding var time: TimeInterval
     var body: some View {
         GeometryReader{ geometry in
+            Text("Time")
+               .font(.custom("Silkscreen-Regular", size: 30))
+               .foregroundStyle(.white)
+               .position(CGPoint(x: geometry.size.width/1.2, y: 60) )
             Text(String(time.minuteSecond))
-                .font(.custom("Silkscreen-Regular", size: 20))
+                .font(.custom("Silkscreen-Regular", size: 30))
                 .foregroundStyle(.white)
-                .position(CGPoint(x: geometry.size.width/2 , y: 80))
+                .position(CGPoint(x: geometry.size.width/1.2 , y: 90))
         }
     }
 }

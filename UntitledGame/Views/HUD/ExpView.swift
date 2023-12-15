@@ -18,10 +18,6 @@ struct ExpView: View {
                 Rectangle()
                     .fill(Color.blue)
                     .frame(width: (geometry.size.width/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: 40)
-                Text("EXPERIENCE TO LEVEL UP")
-                    .bold()
-                    .foregroundStyle(.white)
-                    .frame(width: (geometry.size.width/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: 30)
             }
         }
         

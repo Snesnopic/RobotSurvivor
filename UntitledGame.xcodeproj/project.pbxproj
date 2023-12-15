@@ -132,10 +132,10 @@
 				23A5F37C2B21CFE60008FFB2 /* OldMainMenuView.swift */,
 				EEA581732B2B667C0068148C /* PixelArtButtonView.swift */,
 				EE2F23BC2B29C38E000E3490 /* Settings Menu.swift */,
-				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
-				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
 				9D3EDD392B1F3FD200C5DF7B /* GameView.swift */,
 				23A5F37A2B21CFCD0008FFB2 /* GameOverView.swift */,
+				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
+				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
 			);
 			path = Views;
 			sourceTree = "<group>";
