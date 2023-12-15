@@ -29,11 +29,25 @@ extension GameScene{
     }
     
     func increaseBulletSpeed(){
-        spd = spd - 1
+        spd = spd + 1
     }
     
     func increaseDamage(){
         dmg = dmg + 5
+    }
+    
+    func callPowerUp(name: String){
+        if(name == "more_dmg"){
+            increaseDamage()
+        }else if(name == "more_hp"){
+            increaseHealth()
+        }else if(name == "more_firerate"){
+            increaseFireRate()
+        }else if(name == "more_bullet_speed"){
+            increaseBulletSpeed()
+        }else if(name == "more_speed"){
+            increasePlayerSpeed()
+        }
     }
     
 }
