@@ -20,10 +20,9 @@ extension GameScene{
         //Contact between player and enemy
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
             
-         
-            
-            player.userData!["hp"] = player.userData!["hp"] as! Double - 10
-            
+            guard let enemyNode1 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
+            let enemyDmg = enemyNode1.userData!["damage"] as! Double
+            player.userData!["hp"] = player.userData!["hp"] as! Double - enemyDmg
             
             if (player.userData!["hp"] as! Int) <= 0 {
                 let soundEffect = SKAction.playSoundFileNamed("DEATH.mp3", waitForCompletion: false)
@@ -45,9 +44,8 @@ extension GameScene{
             
             healthBarFill.xScale = CGFloat(playerHp  / playerMaxHp)
             
-            player.userData!["hp"] = player.userData!["hp"] as! Int - 10
-            guard let enemyNode = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
-            enemyNode.slowDownMovement()
+            guard let enemyNode2 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
+            enemyNode2.slowDownMovement()
         }
         
         
