@@ -10,8 +10,8 @@ import SpriteKit
 
 extension GameScene{
     func increaseHealth(){
-        let newMaxHp = player.userData!["maxHp"] as! Double * 1.1
-        player.userData!["maxHp"] = newMaxHp
+        let newMaxHp = player.userData!["maxhp"] as! Double * 1.1
+        player.userData!["maxhp"] = newMaxHp
     }
     
     func increasePlayerSpeed(){
@@ -20,20 +20,29 @@ extension GameScene{
     }
     
     func increaseFireRate(){
-        
-        if(fireRate == 1.7 || fireRate == 1.5){
-            fireRate = fireRate - 0.2
-        }else{
-            fireRate = fireRate - 0.3
-        }
+        fireRate = fireRate - 0.1
     }
     
     func increaseBulletSpeed(){
-        spd = spd - 1
+        spd = spd + 2
     }
     
     func increaseDamage(){
         dmg = dmg + 5
+    }
+    
+    func callPowerUp(name: String){
+        if(name == "more_dmg"){
+            increaseDamage()
+        }else if(name == "more_hp"){
+            increaseHealth()
+        }else if(name == "more_firerate"){
+            increaseFireRate()
+        }else if(name == "more_bullet_speed"){
+            increaseBulletSpeed()
+        }else if(name == "more_speed"){
+            increasePlayerSpeed()
+        }
     }
     
 }

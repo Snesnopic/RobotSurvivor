@@ -22,6 +22,14 @@ extension GameScene {
             activeEnemiesCount += 1
         }
         
+        let farAwayEnemies: [EnemyNode] = activeEnemies.filter { node in
+            return distanceBetween(node1: node, node2: player) > (Float(self.frame.height + self.frame.width))
+        }
+        
+        farAwayEnemies.forEach { node in
+            node.position = getPositionNearPlayer()
+        }
+        
         for activeEnemy in activeEnemies {
             activeEnemy.configureMovement(player)
         }
@@ -34,29 +42,35 @@ extension GameScene {
             return 1
         }
     }
-    func createEnemy() {
-        let offSet = Int.random(in: 10...50)
+    
+    func getPositionNearPlayer() -> CGPoint {
+        let offSet = Int.random(in: 10...100)
         let halfScreenWidth = Int(self.size.width / 2) + offSet
         let halfScreenHeight = Int(self.size.height / 2) + offSet
-        let enemyType = Int.random(in: 0..<enemyTypes.count)
         
         let side = Int.random(in: 0..<4)
         var position = player.position
         if side < 2 {
             //spawns vertically
             position.y = position.y + CGFloat(halfScreenHeight * generateSign(number: side%2))
-            let newX = Int(position.x) + halfScreenWidth
-            position.x = CGFloat(Int.random(in: min(-newX, newX)...max(-newX,newX)))
+            let upperX = Int(position.x) + halfScreenWidth
+            let lowerX = Int(position.x) - halfScreenWidth
+            position.x = CGFloat(Int.random(in: min(upperX, lowerX)...max(upperX,lowerX)))
         }
         else {
             //spawns horizontally
             position.x = position.x + CGFloat(halfScreenWidth * generateSign(number: side%2))
-            let newY = Int(position.y) + halfScreenHeight
-            position.y = CGFloat(Int.random(in: min(-newY, newY)...max(-newY,newY)))
+            let upperY = Int(position.y) + halfScreenHeight
+            let lowerY = Int(position.y) - halfScreenHeight
+            position.y = CGFloat(Int.random(in: min(upperY, lowerY)...max(upperY,lowerY)))
         }
-        let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: position)
+        return position
+    }
+    
+    func createEnemy() {
+        let enemyType = Int.random(in: 0..<enemyTypes.count)
+        let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: getPositionNearPlayer())
         enemy.physicsBody?.affectedByGravity = false
-        
         enemy.zPosition = 1;
         addChild(enemy)
     }

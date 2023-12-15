@@ -74,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var readyToShoot: Bool = true
     var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
     
-    var fireRate: Double = 2
+    var fireRate: Double = 1
     var dmg: Int = 10
     var spd: Int = 10
     
@@ -202,7 +202,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if readyToShoot {
             readyToShoot = false
-            shoot(speed: spd)
+            shoot(speed: spd, soundVolume: gameLogic.soundsVolume, switchVolume: gameLogic.soundsSwitch)
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
                 self.readyToShoot = true
             }

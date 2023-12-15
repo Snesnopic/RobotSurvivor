@@ -10,6 +10,10 @@ import SwiftUI
 
 struct Settings_Menu: View {
     @Environment(\.dismiss) private var dismiss
+    @Binding var switchMusic: Bool
+    @Binding var switchSound: Bool
+    @Binding var music: Int
+    @Binding var sounds: Int
     var body: some View {
         
         ZStack{
@@ -53,10 +57,13 @@ struct Settings_Menu: View {
                 HStack{
                     Text("Music")
                         .padding(.trailing, 35)
-                    Image("OffSwitch1")
+                    Image(switchMusic ? "OnSwitch1" : "OffSwitch1")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50)
+                        .onTapGesture {
+                            switchMusic.toggle()
+                        }
                         
                 }
                 .font(.custom("Silkscreen-Bold", size: 25))
@@ -66,15 +73,21 @@ struct Settings_Menu: View {
                     Text("Volume")
                         .padding(.trailing, 10)
                     
-                    PixelArtButtonView(buttonImage: "minus1", pressedImage: "plus2",buttonPressedAction: {
+                    PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                         //TODO: add volume levels
+                        if(music > 0){
+                            music = music - 1;
+                        }
                     }, textView: Text(""))
                     .frame(width:28, height:12)
                     
-                    Text("9")
+                    Text(String(music))
                     
-                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "minus2",buttonPressedAction: {
+                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                         //TODO: add volume levels
+                        if(music < 10){
+                            music = music + 1;
+                        }
                     }, textView: Text(""))
                     .frame(width:32, height:32)
                 }
@@ -86,10 +99,13 @@ struct Settings_Menu: View {
                     Text("Sound \nEffects")
                         .multilineTextAlignment(.leading)
                         .padding(.trailing, 10)
-                    Image("OnSwitch1")
+                    Image(switchSound ? "OnSwitch1" : "OffSwitch1")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50)
+                        .onTapGesture {
+                            switchSound.toggle()
+                        }
                         
                 }
                 .font(.custom("Silkscreen-Bold", size: 25))
@@ -99,17 +115,23 @@ struct Settings_Menu: View {
                     Text("Volume")
                         .padding(.trailing, 10)
                     
-                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
-                        //TODO: add volume levels
-                    }, textView: Text(""))
-                    .frame(width:32, height:32)
-                    
-                    Text("9")
-                    
                     PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                         //TODO: add volume levels
+                        if(sounds > 0){
+                            sounds = sounds - 1
+                        }
                     }, textView: Text(""))
                     .frame(width:28, height:12)
+                    
+                    Text(String(sounds))
+                    
+                    PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
+                        //TODO: add volume levels
+                        if(sounds < 10){
+                            sounds = sounds + 1
+                        }
+                    }, textView: Text(""))
+                    .frame(width:32, height:32)
                 }
                 .font(.custom("Silkscreen-Regular", size: 20))
                 .padding(.bottom, 25)
@@ -131,6 +153,6 @@ struct Settings_Menu: View {
     }
 }
 
-#Preview {
-    Settings_Menu()
-}
+//#Preview {
+//    Settings_Menu()
+//}

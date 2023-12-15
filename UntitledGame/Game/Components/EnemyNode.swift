@@ -25,17 +25,13 @@ class EnemyNode: SKSpriteNode {
         var enemyAtlas: SKTextureAtlas {
             return SKTextureAtlas(named: "\(type.name)/Walk")
         }
-        var enemyIdleTextures: [SKTexture] {
-            var textures: [SKTexture] = []
-            textures.append( enemyAtlas.textureNamed("1"))
-            textures.append( enemyAtlas.textureNamed("2"))
-            textures.append( enemyAtlas.textureNamed("3"))
-            textures.append( enemyAtlas.textureNamed("4"))
-            textures.forEach { texture in
-                texture.filteringMode = .nearest
-            }
-            return textures
+        var enemyIdleTextures: [SKTexture] = []
+        enemyAtlas.textureNames.forEach { string in
+            let texture = enemyAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            enemyIdleTextures.append(texture)
         }
+        
         let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
         self.run(SKAction.repeatForever(idleAnimation),withKey: "playerIdleAnimation")
         
@@ -54,6 +50,29 @@ class EnemyNode: SKSpriteNode {
         physicsBody?.allowsRotation = false
         position = startPosition
         
+    }
+    
+    func die() {
+        var textureAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
+        var textures: [SKTexture] = []
+        textureAtlas.textureNames.forEach { string in
+            let texture = textureAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            textures.append(texture)
+        }
+
+        let idleAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
+        
+        let corpse: SKNode = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
+        corpse.position = self.position
+        corpse.zPosition = 1
+        self.scene!.addChild(corpse)
+        let actionSequence = SKAction.sequence([
+            idleAnimation,
+            SKAction.wait(forDuration: 1.0),
+            SKAction.removeFromParent()])
+        corpse.run(actionSequence)
+        self.removeFromParent()
     }
     
     required init?(coder aDecoder: NSCoder) {

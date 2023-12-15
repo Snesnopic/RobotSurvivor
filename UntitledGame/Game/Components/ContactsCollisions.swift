@@ -20,19 +20,24 @@ extension GameScene{
         //Contact between player and enemy
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
             
-            
-            if let playerHP = player.userData?["hp"] as? Double, playerHP <= 0 {
-                gameLogic.isGameOver = true
-                self.scene?.isPaused = true
-                stopTracks()
-                return
-            }
+         
             
             player.userData!["hp"] = player.userData!["hp"] as! Double - 10
             
-            flashRed(node: player)
-            if (player.userData!["hp"] as! Int) < 0 {
+            
+            if (player.userData!["hp"] as! Int) <= 0 {
+                let soundEffect = SKAction.playSoundFileNamed("DEATH.mp3", waitForCompletion: false)
+                self.scene?.run(soundEffect)
+                gameLogic.isGameOver = true
+                self.scene?.isPaused = true
+                stopTracks()
                 player.userData!["hp"] = 0
+                return
+            }
+            else {
+                let soundEffect = SKAction.playSoundFileNamed("HIT.mp3", waitForCompletion: false)
+                self.scene?.run(soundEffect)
+                flashRed(node: player)
             }
             
             let healthBarFill = healthBar.children.last!
@@ -72,12 +77,20 @@ extension GameScene{
             
             enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
             //print(enemy.userData!["health"] as Any)
+            
             if((enemy.userData!["health"] as! Int)<=0){
+                
+                if let deathEffect = SKEmitterNode(fileNamed: "EnemyDeath"){
+                    deathEffect.position = enemy.position
+                    addChild(deathEffect)
+                    
+                }
+                
                 if(chance>50){
                     generateXp(at: enemy.position)
                 }
                 gameLogic.increaseScore(points: enemy.userData!["points"] as! Int)
-                enemy.removeFromParent()
+                enemy.die()
             }
             else {
                 flashRed(node: enemy)
