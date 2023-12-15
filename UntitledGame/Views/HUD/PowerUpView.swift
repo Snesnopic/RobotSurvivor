@@ -19,43 +19,55 @@ struct PowerUpView: View {
     @State var p3: Int = 0
     
     var body: some View {
-        HStack{
-            //TODO: randomly sort powerUp + give it to player on tap
-            Button(action: {
-                gameLogic.showPowerUp = false
-                gameScene.callPowerUp(name: powerUp[p1])
+        VStack{
+            Text("Level Up!")
+                .font(.custom ("Silkscreen-Bold", size: 40))
+                .tracking(-2.5)
+            
+            ZStack{
+                Image("cpuHor")
+                    .interpolation(.none)
+                    .resizable()
+                    .frame(width:475, height:300)
                 
-            }, label: {
-                ZStack{
-                    Rectangle().frame(width: 100, height: 100).foregroundStyle(.green)
-                    Text(powerUp[p1])
+                
+                HStack{
+                    //TODO: randomly sort powerUp + give it to player on tap
+                  
+                    
+                    PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
+                        gameLogic.showPowerUp = false
+                        gameScene.callPowerUp(name: powerUp[p1])
+                    }, textView: Text(powerUp[p1]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
+                    .tracking(-3)
+                    .frame(width:94, height: 120)
+                    
+                    PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
+                        gameLogic.showPowerUp = false
+                        gameScene.callPowerUp(name: powerUp[p2])
+                    }, textView: Text(powerUp[p2]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
+                    .tracking(-3)
+                    .frame(width:94, height: 120)
+                    .padding(.horizontal)
+                    
+                    PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
+                        gameLogic.showPowerUp = false
+                        gameScene.callPowerUp(name: powerUp[p3])
+                    }, textView: Text(powerUp[p3]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
+                    .tracking(-3)
+                    .frame(width:94, height: 120)
+                    
+                    
+                    
+                }.onAppear(){
+                    p1 = powerUpSet.randomElement()!
+                    powerUpSet.remove(p1)
+                    p2 = powerUpSet.randomElement()!
+                    powerUpSet.remove(p2)
+                    p3 = powerUpSet.randomElement()!
+                    powerUpSet.remove(p3)
                 }
-            })
-            Button(action: {
-                gameLogic.showPowerUp = false
-                gameScene.callPowerUp(name: powerUp[p2])
-            }, label: {
-                ZStack{
-                    Rectangle().frame(width: 100, height: 100).foregroundStyle(.green)
-                    Text(powerUp[p2])
-                }
-            }).padding(.horizontal)
-            Button(action: {
-                gameLogic.showPowerUp = false
-                gameScene.callPowerUp(name: powerUp[p3])
-            }, label: {
-                ZStack{
-                    Rectangle().frame(width: 100, height: 100).foregroundStyle(.green)
-                    Text(powerUp[p3])
-                }
-            })
-        }.onAppear(){
-            p1 = powerUpSet.randomElement()!
-            powerUpSet.remove(p1)
-            p2 = powerUpSet.randomElement()!
-            powerUpSet.remove(p2)
-            p3 = powerUpSet.randomElement()!
-            powerUpSet.remove(p3)
+            }
         }
     }
 }
