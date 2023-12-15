@@ -77,7 +77,15 @@ extension GameScene{
             
             enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
             //print(enemy.userData!["health"] as Any)
+            
             if((enemy.userData!["health"] as! Int)<=0){
+                
+                if let deathEffect = SKEmitterNode(fileNamed: "EnemyDeath"){
+                    deathEffect.position = enemy.position
+                    addChild(deathEffect)
+                    
+                }
+                
                 if(chance>50){
                     generateXp(at: enemy.position)
                 }
