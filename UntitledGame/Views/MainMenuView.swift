@@ -52,7 +52,6 @@ struct MainMenuView: View {
                 
                 
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
-                    //TODO: add navigation to game
                     withAnimation{startGame()}
                 }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
                 .frame(width: 224, height:96)
