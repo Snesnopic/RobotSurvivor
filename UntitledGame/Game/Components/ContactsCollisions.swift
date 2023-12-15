@@ -82,7 +82,7 @@ extension GameScene{
                     generateXp(at: enemy.position)
                 }
                 gameLogic.increaseScore(points: enemy.userData!["points"] as! Int)
-                enemy.removeFromParent()
+                enemy.die()
             }
             else {
                 flashRed(node: enemy)
