@@ -53,7 +53,7 @@ class EnemyNode: SKSpriteNode {
     }
     
     func die() {
-        var textureAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
+        let textureAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
         var textures: [SKTexture] = []
         textureAtlas.textureNames.forEach { string in
             let texture = textureAtlas.textureNamed(string)

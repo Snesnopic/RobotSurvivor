@@ -33,18 +33,15 @@ extension GameScene {
         var playerAtlas: SKTextureAtlas {
             return SKTextureAtlas(named: "AntiTank/Idle")
         }
-        var playerIdleTextures: [SKTexture] {
-            let texture1 = playerAtlas.textureNamed("1")
-            let texture2 = playerAtlas.textureNamed("2")
-            texture1.filteringMode = .nearest
-            texture2.filteringMode = .nearest
-            return [
-                texture1,
-                texture2
-            ]
+        var playerIdleTextures: [SKTexture] = []
+        playerAtlas.textureNames.forEach { string in
+            let texture = playerAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            playerIdleTextures.append(texture)
         }
+        
         let idleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
-        player.run(SKAction.repeatForever(idleAnimation),withKey: "playerIdleAnimation")
+        player.run(SKAction.repeatForever(idleAnimation))
         player.size = CGSize(width: 30, height: 30)
         self.player.position = position
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 30, height:  30))
