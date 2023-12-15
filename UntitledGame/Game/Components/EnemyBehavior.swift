@@ -18,7 +18,7 @@ extension GameScene {
         var activeEnemiesCount = activeEnemies.count
         while activeEnemiesCount < 1+spawnRate {
             //there must always be 40 enemies in the map
-            createEnemy()
+            createEnemy(powerFactor: multiplier)
             activeEnemiesCount += 1
         }
         
@@ -67,10 +67,15 @@ extension GameScene {
         return position
     }
     
-    func createEnemy() {
+    func createEnemy(powerFactor: Double) {
         let enemyType = Int.random(in: 0..<enemyTypes.count)
         let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: getPositionNearPlayer())
         enemy.physicsBody?.affectedByGravity = false
+        enemy.userData!["health"] = enemy.userData!["health"] as! Double * powerFactor
+        enemy.userData!["speed"] = enemy.userData!["speed"] as! Double + (powerFactor * 3)
+        enemy.userData!["points"] = enemy.userData!["points"] as! Double * powerFactor
+        enemy.userData!["damage"] = enemy.userData!["damage"] as! Double * powerFactor
+        
         enemy.zPosition = 2
         addChild(enemy)
     }

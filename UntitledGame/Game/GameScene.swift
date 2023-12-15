@@ -69,22 +69,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var lastUpdate: TimeInterval = 0
     var isPlayerAlive = true
     
-    let enemyTypes = EnemyTypesVM().enemyTypes
+    //enemies
+    var enemyTypes = EnemyTypesVM().enemyTypes
     var spawnRate: Int = 0
     var readyToIncreaseSpawnRate: Bool = true
-    
+    var readyToIncreaseEnemyPower: Bool = true
+    var multiplier: Double = 0
+    //weapon
     var readyToShoot: Bool = true
     var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
-    
     var fireRate: Double = 1
     var dmg: Int = 10
     var spd: Int = 10
-    
+    //map
     var tilePositions: Set<CGPoint> = []
     let tileSize = CGSize(width: 100, height: 100)
-    
+    //music
     var backgroundMusicPlayer: AVAudioPlayer?
-    
     var currentTrack: String?
     
     override init(){
@@ -116,7 +117,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 if !isTilePresent(at: position) {
                     if((position.x >= minX && position.x < (minX + 400)) || (position.x > (maxX - 400) && position.x <= maxX)){
                         addTile(at: position)
-                    }else if((position.y >= minY && position.y < (minY + 400)) || (position.y > (maxY - 400) && position.y <= maxY)){
+                    }else if((position.y >= minY && position.y < (minY + 200)) || (position.y > (maxY - 200) && position.y <= maxY)){
                         addTile(at: position)
                     }
                 }
@@ -223,6 +224,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             self.spawnRate = self.spawnRate + 7
             DispatchQueue.main.asyncAfter(deadline: .now() + 55) {
                 self.readyToIncreaseSpawnRate = true
+            }
+        }
+        
+        if readyToIncreaseEnemyPower {
+            readyToIncreaseEnemyPower = false
+            multiplier = multiplier + 1
+            print(multiplier)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 110) {
+                self.readyToIncreaseEnemyPower = true
             }
         }
     }
