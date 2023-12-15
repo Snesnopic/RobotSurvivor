@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    
+    @StateObject var gameLogic: GameLogic =  GameLogic.shared
     @Binding var currentGameState: GameState
     @State var showSetting: Bool = false
     var body: some View {
@@ -64,7 +64,7 @@ struct MainMenuView: View {
                     showSetting = true
                     }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                 .fullScreenCover(isPresented: $showSetting, content: {
-                    Settings_Menu()
+                    Settings_Menu(switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
                 })
                 .frame(width: 224, height:64)
                 
