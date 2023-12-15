@@ -202,7 +202,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         if readyToShoot {
             readyToShoot = false
-            shoot(speed: spd, soundVolume: gameLogic.soundsVolume, switchVolume: gameLogic.soundsSwitch)
+            shoot()
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
                 self.readyToShoot = true
             }

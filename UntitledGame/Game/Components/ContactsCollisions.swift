@@ -35,8 +35,7 @@ extension GameScene{
                 return
             }
             else {
-                let soundEffect = SKAction.playSoundFileNamed("HIT.mp3", waitForCompletion: false)
-                self.scene?.run(soundEffect)
+                dmgSound()
                 flashRed(node: player)
             }
             
