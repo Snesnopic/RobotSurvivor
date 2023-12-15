@@ -10,6 +10,8 @@ import SpriteKit
 
 extension GameScene{
     
+    
+    
     func shoot(speed: Int){
         guard !isGameOver else {return}
         let shot = SKSpriteNode(imageNamed: "bullet")
@@ -33,8 +35,19 @@ extension GameScene{
         }).first!
         let time = distanceBetween(node1: player, node2: closestEnemy) / Float(speed * speed)
         let movement = SKAction.move(to: closestEnemy.position,duration: TimeInterval(time))
-        let sequence = SKAction.sequence([movement, .removeFromParent()])
-        shot.run(sequence)
+        
+        let soundNode = SKAudioNode(fileNamed: "BULLETS.mp3")
+        soundNode.autoplayLooped = false
+        addChild(soundNode)
+        soundNode.run(SKAction.changeVolume(to: 0.1, duration: 0))
+        
+        let playSound = SKAction.run {
+                soundNode.run(SKAction.play())
+            }
+        
+        
+        let sequence = SKAction.sequence([playSound, movement, .removeFromParent()])
+           shot.run(sequence)
         
     }
 }
