@@ -13,3 +13,11 @@ struct EnemyType {
     let speed: CGFloat
     let points: Int
 }
+
+struct EnemyCentipedeType{
+    let name: String
+    let health: Int
+    let speed: CGFloat
+    let points: Int
+    let parts: [EnemyType]
+}
