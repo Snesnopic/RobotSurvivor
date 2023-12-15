@@ -16,7 +16,7 @@ extension GameScene {
             return node.isKind(of: EnemyNode.classForCoder())
         } as! [EnemyNode]
         var activeEnemiesCount = activeEnemies.count
-        while activeEnemiesCount < 40 {
+        while activeEnemiesCount < 1+spawnRate {
             //there must always be 40 enemies in the map
             createEnemy()
             activeEnemiesCount += 1

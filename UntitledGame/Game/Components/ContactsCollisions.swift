@@ -35,8 +35,7 @@ extension GameScene{
                 return
             }
             else {
-                let soundEffect = SKAction.playSoundFileNamed("HIT.mp3", waitForCompletion: false)
-                self.scene?.run(soundEffect)
+                dmgSound()
                 flashRed(node: player)
             }
             
@@ -86,7 +85,7 @@ extension GameScene{
                     
                 }
                 
-                if(chance>50){
+                if(chance>25){
                     generateXp(at: enemy.position)
                 }
                 gameLogic.increaseScore(points: enemy.userData!["points"] as! Int)
