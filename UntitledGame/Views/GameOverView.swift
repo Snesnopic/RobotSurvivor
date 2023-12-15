@@ -11,6 +11,8 @@ struct GameOverView: View {
     
     @Binding var currentGameState: GameState
     
+    @State var opacity: Double = 0
+    
     var body: some View {
         
         
@@ -28,6 +30,7 @@ struct GameOverView: View {
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
                     //TODO: add navigation to settings
                     withAnimation{ restartGame()}
+                   
                     
                 }, textView: Text("Restart") .font(.custom("Silkscreen-Regular", size: 35)), textColor: .white)
                 .frame(width: 228, height:96)
@@ -42,6 +45,13 @@ struct GameOverView: View {
             }
             .foregroundStyle(.green)
             
+            
+        }
+        .opacity(opacity)
+        .onAppear{
+            withAnimation{
+                opacity = 1
+            }
             
         }
     }
