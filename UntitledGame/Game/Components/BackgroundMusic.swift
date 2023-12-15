@@ -26,6 +26,11 @@ extension GameScene: AVAudioPlayerDelegate{
                 newPlayer.prepareToPlay()
                 newPlayer.delegate = self
                 
+                if(self.gameLogic.musicSwitch){
+                    newPlayer.volume = (0.3/5)*Float(self.gameLogic.musicVolume)
+                }else{
+                    newPlayer.volume = 0
+                }
                 
                 DispatchQueue.main.async {
                     if self.backgroundMusicPlayer != nil {
