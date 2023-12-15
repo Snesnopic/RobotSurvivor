@@ -10,7 +10,7 @@ import SpriteKit
 
 extension GameScene{
     
-    func shoot(speed: Int){
+    func shoot(){
         guard !isGameOver else {return}
         let shot = SKSpriteNode(imageNamed: "bullet")
         shot.texture?.filteringMode = .nearest
@@ -31,10 +31,43 @@ extension GameScene{
         let closestEnemy: EnemyNode = activeEnemies.sorted(by: { first, second in
             return distanceBetween(node1: player, node2: first) < distanceBetween(node1: player, node2: second)
         }).first!
-        let time = distanceBetween(node1: player, node2: closestEnemy) / Float(speed * speed)
+        let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
         let movement = SKAction.move(to: closestEnemy.position,duration: TimeInterval(time))
-        let sequence = SKAction.sequence([movement, .removeFromParent()])
-        shot.run(sequence)
         
+        let soundNode = SKAudioNode(fileNamed: "BULLETS.mp3")
+        soundNode.autoplayLooped = false
+        addChild(soundNode)
+        if(gameLogic.soundsSwitch){
+            soundNode.run(SKAction.changeVolume(to: (0.1/5)*Float(gameLogic.soundsVolume), duration: 0))
+        }else{
+            soundNode.run(SKAction.changeVolume(to: 0, duration: 0))
+        }
+        let playSound = SKAction.run {
+                soundNode.run(SKAction.play())
+            }
+        
+        
+        let sequence = SKAction.sequence([playSound, movement, .removeFromParent()])
+           shot.run(sequence)
+        
+    }
+    
+    func dmgSound(){
+        let soundNode = SKAudioNode(fileNamed: "HIT.mp3")
+        soundNode.autoplayLooped = false
+        addChild(soundNode)
+        if(gameLogic.soundsSwitch){
+            soundNode.run(SKAction.changeVolume(to: (0.1/5)*Float(gameLogic.soundsVolume), duration: 0))
+        }else{
+            soundNode.run(SKAction.changeVolume(to: 0, duration: 0))
+        }
+        let playSound = SKAction.run {
+                soundNode.run(SKAction.play())
+            }
+        
+        let sequence = SKAction.sequence([playSound, .removeFromParent()])
+        self.scene?.run(sequence)
+        
+    
     }
 }

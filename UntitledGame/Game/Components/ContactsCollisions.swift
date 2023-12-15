@@ -35,8 +35,7 @@ extension GameScene{
                 return
             }
             else {
-                let soundEffect = SKAction.playSoundFileNamed("HIT.mp3", waitForCompletion: false)
-                self.scene?.run(soundEffect)
+                dmgSound()
                 flashRed(node: player)
             }
             
@@ -77,12 +76,20 @@ extension GameScene{
             
             enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
             //print(enemy.userData!["health"] as Any)
+            
             if((enemy.userData!["health"] as! Int)<=0){
+                
+                if let deathEffect = SKEmitterNode(fileNamed: "EnemyDeath"){
+                    deathEffect.position = enemy.position
+                    addChild(deathEffect)
+                    
+                }
+                
                 if(chance>50){
                     generateXp(at: enemy.position)
                 }
                 gameLogic.increaseScore(points: enemy.userData!["points"] as! Int)
-                enemy.removeFromParent()
+                enemy.die()
             }
             else {
                 flashRed(node: enemy)

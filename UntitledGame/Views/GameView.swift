@@ -77,24 +77,24 @@ struct GameView: View {
         }.onChange(of: gameLogic.isGameOver){
             if gameLogic.isGameOver {
                 
+                
                 /** # PRO TIP!
                  * You can experiment by adding other types of animations here before presenting the game over screen.
                  */
                 
-                withAnimation {
                     self.presentGameOverScreen()
-                }
             }
             
         }
         .onAppear{
             self.gameLogic.restartGame()
+            
+            
         }
     }
     
     private func presentGameOverScreen() {
         self.currentGameState = .gameOver
-        
     }
     
 }

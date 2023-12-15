@@ -6,11 +6,20 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct MainMenuView: View {
     
+    @StateObject var gameLogic: GameLogic =  GameLogic.shared
     @Binding var currentGameState: GameState
     @State var showSetting: Bool = false
+    
+    class AudioPlayer {
+        static var shared: AVAudioPlayer = AVAudioPlayer()
+    }
+    
+    var audioPlayer: AudioPlayer =  AudioPlayer()
+    
     var body: some View {
         ZStack{
             Color.deadBlue
@@ -63,12 +72,38 @@ struct MainMenuView: View {
                     showSetting = true
                     }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                 .fullScreenCover(isPresented: $showSetting, content: {
-                    Settings_Menu()
+                    Settings_Menu(switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
                 })
                 .frame(width: 224, height:64)
                 
                 Spacer()
                 
+            }
+        }.onAppear(perform: {
+            do {
+                let path = Bundle.main.url(forResource: "mainmenu", withExtension: "mp3")
+                MainMenuView.AudioPlayer.shared = try AVAudioPlayer(contentsOf: path!)
+                MainMenuView.AudioPlayer.shared.numberOfLoops = -1
+                MainMenuView.AudioPlayer.shared.volume = 0.3
+                MainMenuView.AudioPlayer.shared.play()
+            }
+            catch {
+                
+            }
+        }).onDisappear(perform: {
+            MainMenuView.AudioPlayer.shared.stop()
+        })
+        .onChange(of: gameLogic.musicSwitch){
+            if(gameLogic.musicSwitch){
+                MainMenuView.AudioPlayer.shared.volume = (0.3/5)*Float(gameLogic.musicVolume)
+            }else{
+                MainMenuView.AudioPlayer.shared.volume = 0
+            }
+            
+        }
+        .onChange(of: gameLogic.musicVolume){
+            if(gameLogic.musicSwitch){
+                MainMenuView.AudioPlayer.shared.volume = (0.3/5)*Float(gameLogic.musicVolume)
             }
         }
     }
