@@ -15,6 +15,7 @@ struct CollisionType {
     static let enemy : UInt32 = 2
     static let xp: UInt32 = 3
     static let playerWeapon: UInt32 = 4
+    static let pickUp: UInt32 = 6
     
 }
 
@@ -81,6 +82,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var fireRate: Double = 1
     var dmg: Int = 10
     var spd: Int = 10
+    //xp and pickups
+    var xpOnMap: Set<SKNode> = []
+    var readyToSpawnPickUp: Bool = true
     //map
     var tilePositions: Set<CGPoint> = []
     let tileSize = CGSize(width: 100, height: 100)
@@ -117,7 +121,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 if !isTilePresent(at: position) {
                     if((position.x >= minX && position.x < (minX + 400)) || (position.x > (maxX - 400) && position.x <= maxX)){
                         addTile(at: position)
-                    }else if((position.y >= minY && position.y < (minY + 200)) || (position.y > (maxY - 200) && position.y <= maxY)){
+                    }else if((position.y >= minY && position.y < (minY + 300)) || (position.y > (maxY - 300) && position.y <= maxY)){
                         addTile(at: position)
                     }
                 }
@@ -160,7 +164,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         //Music
         playTracks()
         
-        let initialTiles = 10
+        let initialTiles = 20
         let tileSize = CGSize(width: 128, height: 128)
         
         for x in -initialTiles...initialTiles {
@@ -230,11 +234,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if readyToIncreaseEnemyPower {
             readyToIncreaseEnemyPower = false
             multiplier = multiplier + 1
-            print(multiplier)
+            //print(multiplier)
             DispatchQueue.main.asyncAfter(deadline: .now() + 110) {
                 self.readyToIncreaseEnemyPower = true
             }
         }
+        
+        if readyToSpawnPickUp{
+            readyToSpawnPickUp = false
+            spawnPickUp()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
+                self.readyToSpawnPickUp = true
+            }
+        }
+        
+        
     }
     
 }

@@ -30,11 +30,11 @@ extension GameScene{
 
         newXP.physicsBody = SKPhysicsBody(circleOfRadius: 15)
         newXP.physicsBody?.affectedByGravity = false
-        
+
         //don't insert collisionBitMask for enemies
         newXP.physicsBody?.categoryBitMask = CollisionType.xp
         newXP.physicsBody?.collisionBitMask = CollisionType.player
-        
+        xpOnMap.insert(newXP)
         addChild(newXP)
     }
     

@@ -54,6 +54,19 @@ extension GameScene{
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp) || (firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player)){
             gainXP(val: 3)
             if(firstBody.categoryBitMask == CollisionType.xp){
+                xpOnMap.remove(firstBody.node!)
+                firstBody.node?.removeFromParent()
+            }else{
+                xpOnMap.remove(secondBody.node!)
+                secondBody.node?.removeFromParent()
+            }
+        }
+        
+        //Contact between player and pickUps
+        //TODO: change the function magnet to a more generic one with param. type (like powerUps)
+        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.pickUp) || (firstBody.categoryBitMask == CollisionType.pickUp && secondBody.categoryBitMask == CollisionType.player)){
+            magnet()
+            if(firstBody.categoryBitMask == CollisionType.pickUp){
                 firstBody.node?.removeFromParent()
             }else{
                 secondBody.node?.removeFromParent()
@@ -64,7 +77,6 @@ extension GameScene{
         //TODO: Change val with enemy.xpvalue
         if ((firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon)){
             
-            //TODO: Implement the death logic based on enemy health
             let enemy = [firstBody,secondBody].filter { node in
                 node.categoryBitMask == CollisionType.enemy
             }.first!.node as! EnemyNode
