@@ -67,13 +67,12 @@ extension GameScene{
         if ((firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon)){
             
             //TODO: Implement the death logic based on enemy health
-            let enemy = [firstBody,secondBody].filter { node in
-                node.categoryBitMask == CollisionType.enemy
-            }.first!.node as! EnemyNode
-            let bullet = [firstBody,secondBody].filter { node in
-                node.categoryBitMask == CollisionType.playerWeapon
-            }.first!.node
+            let enemyNode = [firstBody, secondBody].first { $0.categoryBitMask == CollisionType.enemy }?.node
+            let bulletNode = [firstBody, secondBody].first { $0.categoryBitMask == CollisionType.playerWeapon }?.node
             
+            guard let enemy = enemyNode as? EnemyNode, let bullet = bulletNode as? SKSpriteNode else {return}
+                
+            // TODO: Implement the death logic based on enemy health
             enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
             //print(enemy.userData!["health"] as Any)
             
@@ -94,7 +93,7 @@ extension GameScene{
             else {
                 flashRed(node: enemy)
             }
-            bullet?.removeFromParent()
+            bullet.removeFromParent()
         }
         
         func didEnd(_ contact: SKPhysicsContact) {
