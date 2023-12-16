@@ -15,6 +15,7 @@ struct CollisionType {
     static let enemy : UInt32 = 2
     static let xp: UInt32 = 3
     static let playerWeapon: UInt32 = 4
+    static let pickUp: UInt32 = 6
     
 }
 
@@ -69,22 +70,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var lastUpdate: TimeInterval = 0
     var isPlayerAlive = true
     
-    let enemyTypes = EnemyTypesVM().enemyTypes
+    //enemies
+    var enemyTypes = EnemyTypesVM().enemyTypes
     var spawnRate: Int = 0
     var readyToIncreaseSpawnRate: Bool = true
-    
+    var readyToIncreaseEnemyPower: Bool = true
+    var multiplier: Double = 0
+    //weapon
     var readyToShoot: Bool = true
     var shootDirection: CGVector = CGVector(dx: 1, dy: 0)
-    
     var fireRate: Double = 1
     var dmg: Int = 10
     var spd: Int = 10
-    
+    //xp and pickups
+    var xpOnMap: Set<SKNode> = []
+    var readyToSpawnPickUp: Bool = true
+    //map
     var tilePositions: Set<CGPoint> = []
     let tileSize = CGSize(width: 100, height: 100)
-    
+    //music
     var backgroundMusicPlayer: AVAudioPlayer?
-    
     var currentTrack: String?
     
     var isBossReady = true
@@ -118,7 +123,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 if !isTilePresent(at: position) {
                     if((position.x >= minX && position.x < (minX + 400)) || (position.x > (maxX - 400) && position.x <= maxX)){
                         addTile(at: position)
-                    }else if((position.y >= minY && position.y < (minY + 400)) || (position.y > (maxY - 400) && position.y <= maxY)){
+                    }else if((position.y >= minY && position.y < (minY + 300)) || (position.y > (maxY - 300) && position.y <= maxY)){
                         addTile(at: position)
                     }
                 }
@@ -149,6 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.position = position
+        tile.zPosition = -3
         addChild(tile)
         
         tilePositions.insert(position)
@@ -160,7 +166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         //Music
         playTracks()
         
-        let initialTiles = 10
+        let initialTiles = 20
         let tileSize = CGSize(width: 128, height: 128)
         
         for x in -initialTiles...initialTiles {
@@ -226,6 +232,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 self.readyToIncreaseSpawnRate = true
             }
         }
+        
+        if readyToIncreaseEnemyPower {
+            readyToIncreaseEnemyPower = false
+            multiplier = multiplier + 1
+            //print(multiplier)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 110) {
+                self.readyToIncreaseEnemyPower = true
+            }
+        }
+        
+        if readyToSpawnPickUp{
+            readyToSpawnPickUp = false
+            spawnPickUp()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
+                self.readyToSpawnPickUp = true
+            }
+        }
+        
+        
     }
     
 }

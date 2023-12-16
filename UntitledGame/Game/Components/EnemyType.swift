@@ -12,6 +12,7 @@ struct EnemyType {
     let health: Int
     let speed: CGFloat
     let points: Int
+    let damage: Double
 }
 
 struct EnemyBossType{

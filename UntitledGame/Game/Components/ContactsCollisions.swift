@@ -20,10 +20,9 @@ extension GameScene{
         //Contact between player and enemy
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
             
-         
-            
-            player.userData!["hp"] = player.userData!["hp"] as! Double - 10
-            
+            guard let enemyNode1 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
+            let enemyDmg = enemyNode1.userData!["damage"] as! Double
+            player.userData!["hp"] = player.userData!["hp"] as! Double - enemyDmg
             
             if (player.userData!["hp"] as! Int) <= 0 {
                 let soundEffect = SKAction.playSoundFileNamed("DEATH.mp3", waitForCompletion: false)
@@ -45,9 +44,8 @@ extension GameScene{
             
             healthBarFill.xScale = CGFloat(playerHp  / playerMaxHp)
             
-            player.userData!["hp"] = player.userData!["hp"] as! Int - 10
-            guard let enemyNode = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
-            enemyNode.slowDownMovement()
+            guard let enemyNode2 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
+            enemyNode2.slowDownMovement()
         }
         
         
@@ -56,6 +54,19 @@ extension GameScene{
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp) || (firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player)){
             gainXP(val: 3)
             if(firstBody.categoryBitMask == CollisionType.xp){
+                xpOnMap.remove(firstBody.node!)
+                firstBody.node?.removeFromParent()
+            }else{
+                xpOnMap.remove(secondBody.node!)
+                secondBody.node?.removeFromParent()
+            }
+        }
+        
+        //Contact between player and pickUps
+        //TODO: change the function magnet to a more generic one with param. type (like powerUps)
+        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.pickUp) || (firstBody.categoryBitMask == CollisionType.pickUp && secondBody.categoryBitMask == CollisionType.player)){
+            magnet()
+            if(firstBody.categoryBitMask == CollisionType.pickUp){
                 firstBody.node?.removeFromParent()
             }else{
                 secondBody.node?.removeFromParent()

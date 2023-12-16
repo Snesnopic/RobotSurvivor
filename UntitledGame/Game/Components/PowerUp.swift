@@ -20,7 +20,7 @@ extension GameScene{
     }
     
     func increaseFireRate(){
-        fireRate = fireRate - 0.1
+        fireRate = fireRate - 0.2
     }
     
     func increaseBulletSpeed(){

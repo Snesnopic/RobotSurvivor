@@ -18,7 +18,7 @@ class EnemyNode: SKSpriteNode {
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
         
         super.init(texture: texture,color: .white, size: CGSize(width: 20, height: 20))
-        self.userData = ["health": type.health, "speed": type.speed, "points":type.points]
+        self.userData = ["health": type.health, "speed": type.speed, "points":type.points, "damage": type.damage]
         
         name = "enemy" + type.name
         
@@ -91,7 +91,7 @@ class EnemyNode: SKSpriteNode {
             }
         }
         let distance = abs(CGFloat(hypotf(Float(self.position.x - player.position.x), Float(self.position.y - player.position.y))))
-        let speed = type.speed
+        let speed = self.userData?.value(forKey: "speed") as! CGFloat
         let action =  SKAction.move(to: player.position, duration: distance/speed * (isMovementSlow ? 1.5 : 1))
         run(action)
         
