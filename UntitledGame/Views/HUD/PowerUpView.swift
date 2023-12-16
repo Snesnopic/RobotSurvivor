@@ -11,7 +11,7 @@ import SpriteKit
 
 struct PowerUpView: View {
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
-    @StateObject var gameScene: GameScene =  GameScene.shared
+    @State var sceneWrap: SceneWrapper
     let powerUp: [String] = ["more_dmg", "more_firerate", "more_hp", "more_speed", "more_bullet_speed"]
     @State var powerUpSet: Set = [0,1,2,3,4]
     @State var p1: Int = 0
@@ -37,14 +37,14 @@ struct PowerUpView: View {
                     
                     PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                         gameLogic.showPowerUp = false
-                        gameScene.callPowerUp(name: powerUp[p1])
+                        sceneWrap.scene.callPowerUp(name: powerUp[p1])
                     }, textView: Text(powerUp[p1]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
                     .tracking(-3)
                     .frame(width:94, height: 120)
                     
                     PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                         gameLogic.showPowerUp = false
-                        gameScene.callPowerUp(name: powerUp[p2])
+                        sceneWrap.scene.callPowerUp(name: powerUp[p2])
                     }, textView: Text(powerUp[p2]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
                     .tracking(-3)
                     .frame(width:94, height: 120)
@@ -52,7 +52,7 @@ struct PowerUpView: View {
                     
                     PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                         gameLogic.showPowerUp = false
-                        gameScene.callPowerUp(name: powerUp[p3])
+                        sceneWrap.scene.callPowerUp(name: powerUp[p3])
                     }, textView: Text(powerUp[p3]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
                     .tracking(-3)
                     .frame(width:94, height: 120)
@@ -71,6 +71,6 @@ struct PowerUpView: View {
         }
     }
 }
-#Preview {
-    PowerUpView()
-}
+//#Preview {
+//    PowerUpView()
+//}

@@ -67,17 +67,15 @@ struct GameView: View {
             ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
             
             ScoreView(score: $gameLogic.currentScore)
-                           DurationView(time: $gameLogic.time)
-            
-            
-            
+            DurationView(time: $gameLogic.time)
+                     
             if(gameLogic.showPowerUp){
-                PowerUpView()
+                PowerUpView(sceneWrap: sceneWrapper)
             }
+            
+            
         }.onChange(of: gameLogic.isGameOver){
             if gameLogic.isGameOver {
-                
-                
                 /** # PRO TIP!
                  * You can experiment by adding other types of animations here before presenting the game over screen.
                  */
