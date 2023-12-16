@@ -87,6 +87,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     var currentTrack: String?
     
+    var isBossReady = true
+    
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true

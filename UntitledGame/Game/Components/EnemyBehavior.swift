@@ -33,6 +33,27 @@ extension GameScene {
         for activeEnemy in activeEnemies {
             activeEnemy.configureMovement(player)
         }
+        
+        
+//        let activeBosses = children.compactMap { $0 as? EnemyBossNode }
+//       
+//        if activeBosses.isEmpty {
+//            if isBossReady {
+//                isBossReady = false
+//                self.createBoss()
+//            }
+//        } else {
+//            activeBosses.forEach { activeBoss in
+//                activeBoss.configureMovement(player)
+//            }
+//            let activeParts = children.compactMap { $0 as? EnemyBodyBossNode }
+//            activeParts.forEach { activePart in
+//                activePart.configureMovement()
+//            }
+//        }
+        
+        
+        
     }
     private func generateSign(number: Int) -> Int {
         if number % 2 == 0 {
@@ -73,5 +94,21 @@ extension GameScene {
         enemy.physicsBody?.affectedByGravity = false
         enemy.zPosition = 2
         addChild(enemy)
+    }
+    
+    func createBoss() {
+        let enemyBoss = EnemyBossNode(type: EnemyTypesVM.enemyBoss , startPosition: getPositionNearPlayer())
+        enemyBoss.physicsBody?.affectedByGravity = false
+        enemyBoss.zPosition = 2
+        addChild(enemyBoss)
+        
+        var nodeToFollow: SKSpriteNode = enemyBoss.self
+        for _ in 0..<4 {
+            let enemyPart = EnemyBodyBossNode(type: enemyBoss.type.parts, startPosition: CGPoint(x: enemyBoss.position.x + 10, y: enemyBoss.position.y + 10), nodeToFollow: nodeToFollow)
+            enemyPart.zPosition = 1
+            addChild(enemyPart)
+            nodeToFollow = enemyPart.self
+        }
+       
     }
 }

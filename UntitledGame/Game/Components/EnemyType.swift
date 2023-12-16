@@ -14,10 +14,10 @@ struct EnemyType {
     let points: Int
 }
 
-struct EnemyCentipedeType{
+struct EnemyBossType{
     let name: String
     let health: Int
     let speed: CGFloat
     let points: Int
-    let parts: [EnemyType]
+    let parts: EnemyType
 }
