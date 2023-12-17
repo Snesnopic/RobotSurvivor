@@ -49,13 +49,20 @@ struct GameView: View {
             //GameViewUI()
             SpriteView(scene: self.sceneWrapper.scene)
                 .onChange(of: gameLogic.showPowerUp){
-                    sceneWrapper.scene.isPaused.toggle()
+                    if(gameLogic.showPowerUp == false){
+                        sceneWrapper.scene.isPaused = false
+                    }
                 }
                 .ignoresSafeArea()
             
             SpriteView(scene: sceneWrapper.joystickScene,options: [.allowsTransparency])
                 .onChange(of: gameLogic.showPowerUp){
-                    sceneWrapper.joystickScene.isPaused.toggle()
+                    if(gameLogic.showPowerUp == false){
+                        sceneWrapper.joystickScene.isPaused = false
+                    }else{
+                        sceneWrapper.joystickScene.isPaused = true
+                    }
+                    
                     if(gameLogic.showPowerUp == true){
                         sceneWrapper.joystickScene.hideJoystick()
                     }else{

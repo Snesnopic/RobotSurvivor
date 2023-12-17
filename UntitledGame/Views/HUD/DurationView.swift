@@ -14,11 +14,11 @@ struct DurationView: View {
             Text("Time")
                .font(.custom("Silkscreen-Regular", size: 30))
                .foregroundStyle(.white)
-               .position(CGPoint(x: geometry.size.width/1.2, y: 60) )
+               .position(CGPoint(x: geometry.size.width/6.5, y: 60) )
             Text(String(time.minuteSecond))
                 .font(.custom("Silkscreen-Regular", size: 30))
                 .foregroundStyle(.white)
-                .position(CGPoint(x: geometry.size.width/1.2 , y: 90))
+                .position(CGPoint(x: geometry.size.width/6.5 , y: 90))
         }
     }
 }
