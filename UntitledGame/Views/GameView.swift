@@ -40,7 +40,7 @@ struct GameView: View {
     
     @State var x: Bool = false
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
-    var sceneWrapper = SceneWrapper()
+    @State var sceneWrapper = SceneWrapper()
     
     
     
@@ -70,7 +70,7 @@ struct GameView: View {
             DurationView(time: $gameLogic.time)
                      
             if(gameLogic.showPowerUp){
-                PowerUpView(sceneWrap: sceneWrapper)
+                PowerUpView(sceneWrap: $sceneWrapper)
             }
             
             
