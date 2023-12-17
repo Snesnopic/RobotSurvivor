@@ -15,7 +15,7 @@ class EnemyTypesVM {
         EnemyType(name: "Hornet", health: 10, speed: 70, points: 30, damage: 2)
     ]
     static var enemyBoss: EnemyBossType =
-    EnemyBossType(name: "Centipede", health: 100, speed: 70, points: 150, parts: EnemyType(name: "CentipedeBody", health: 20, speed: 70, points: 30))
+    EnemyBossType(name: "Centipede", health: 100, speed: 70, points: 150, parts: EnemyType(name: "CentipedeBody", health: 20, speed: 70, points: 30, damage: 30))
     
     
 }
