@@ -53,6 +53,11 @@ struct GameView: View {
                         sceneWrapper.scene.isPaused = false
                     }
                 }
+                .onChange(of: gameLogic.showPauseMenu){
+                    if(gameLogic.showPauseMenu == false){
+                        sceneWrapper.scene.isPaused = false
+                    }
+                }
                 .ignoresSafeArea()
             
             SpriteView(scene: sceneWrapper.joystickScene,options: [.allowsTransparency])
@@ -69,13 +74,29 @@ struct GameView: View {
                         sceneWrapper.joystickScene.showJoystick()
                     }
                 }
+                .onChange(of: gameLogic.showPauseMenu){
+                    if(gameLogic.showPauseMenu == false){
+                        sceneWrapper.joystickScene.isPaused = false
+                    }else{
+                        sceneWrapper.joystickScene.isPaused = true
+                    }
+                    
+                    if(gameLogic.showPauseMenu == true){
+                        sceneWrapper.joystickScene.hideJoystick()
+                    }else{
+                        sceneWrapper.joystickScene.showJoystick()
+                    }
+                }
                 .ignoresSafeArea()
             
             ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
             
             ScoreView(score: $gameLogic.currentScore)
             DurationView(time: $gameLogic.time)
-                     
+            
+            if(gameLogic.showPauseMenu){
+                PauseMenuView(currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
+            }
             if(gameLogic.showPowerUp){
                 PowerUpView(sceneWrap: $sceneWrapper)
             }
