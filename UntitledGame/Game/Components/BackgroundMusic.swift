@@ -27,7 +27,7 @@ extension GameScene: AVAudioPlayerDelegate{
                 newPlayer.delegate = self
                 
                 if(self.gameLogic.musicSwitch){
-                    newPlayer.volume = (0.3/5)*Float(self.gameLogic.musicVolume)
+                    newPlayer.volume = (0.6/5)*Float(self.gameLogic.musicVolume)
                 }else{
                     newPlayer.volume = 0
                 }
