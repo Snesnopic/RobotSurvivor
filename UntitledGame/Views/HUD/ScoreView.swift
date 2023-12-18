@@ -24,12 +24,15 @@ struct ScoreView: View {
             Button(action: {
                 gameLogic.showPauseMenu = true
             }, label: {
-                Image(systemName: "circle.fill")
+                Image(systemName: "pause.fill")
+                    .resizable()
                     .foregroundStyle(.white)
                     
+                    
             })
-            .position(CGPoint(x: geometry.size.width - 30, y: 75) )
-            .frame(width: 100, height: 100, alignment: .center)
+            .disabled(gameLogic.showPowerUp || gameLogic.showPauseMenu)
+            .position(CGPoint(x: geometry.size.width - 55, y: 75) )
+            .frame(width: 40, height: 40, alignment: .center)
             
         }
     }

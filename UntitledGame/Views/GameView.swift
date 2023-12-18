@@ -94,12 +94,13 @@ struct GameView: View {
             ScoreView(score: $gameLogic.currentScore)
             DurationView(time: $gameLogic.time)
             
-            if(gameLogic.showPauseMenu){
-                PauseMenuView(currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
-            }
             if(gameLogic.showPowerUp){
                 PowerUpView(sceneWrap: $sceneWrapper)
             }
+            if(gameLogic.showPauseMenu){
+                PauseMenuView(currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
+            }
+            
             
             
         }.onChange(of: gameLogic.isGameOver){
