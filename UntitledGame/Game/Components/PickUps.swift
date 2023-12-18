@@ -11,9 +11,10 @@ import SpriteKit
 extension GameScene{
     func spawnPickUp(){
         //TODO: Add different pickup such as FOOD, MAGNET, TEMPORARY INVINCIBILITY ETC.ETC. and also different sprites
-        let newPickUp = SKShapeNode(circleOfRadius: 7)
+        let newPickUp = SKSpriteNode(imageNamed: "magnet")
+        newPickUp.texture?.filteringMode = .nearest
+        newPickUp.size = CGSize(width: 20, height: 20)
         newPickUp.name = "pickUp"
-        newPickUp.fillColor = SKColor.white
         newPickUp.position = getPositionNearPlayer()
         newPickUp.zPosition = 0;
         
