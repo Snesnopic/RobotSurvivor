@@ -32,6 +32,7 @@ class GameLogic: ObservableObject {
     @Published var soundsVolume: Int = 5
     @Published var musicSwitch: Bool = true
     @Published var soundsSwitch: Bool = true
+    @Published var showPauseMenu: Bool = false
     
     func increaseScore(points: Int){
         self.currentScore = self.currentScore + points
