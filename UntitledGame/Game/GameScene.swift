@@ -94,6 +94,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     var isBossReady = true
     
+    var timer: Timer?
+    
+    
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
@@ -163,6 +166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
         
+        
         //Music
         playTracks()
         
@@ -187,7 +191,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             self.lastUpdate = currentTime
         }
         
-        let timeElapsedSinceLastUpdate = currentTime - self.lastUpdate
+        let timeElapsedSinceLastUpdate = min(currentTime - self.lastUpdate, 0.5)
         
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
