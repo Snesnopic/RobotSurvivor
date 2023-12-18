@@ -232,7 +232,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if readyToIncreaseSpawnRate {
             readyToIncreaseSpawnRate = false
             self.spawnRate = self.spawnRate + 7
-            DispatchQueue.main.asyncAfter(deadline: .now() + 55) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 45) {
                 self.readyToIncreaseSpawnRate = true
             }
         }
