@@ -45,6 +45,7 @@ class SceneWrapper{
         scene.scaleMode = .fill
         joystickScene = Joystick(player: scene.player,gameSceneReference: scene)
         joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
+        scene.joystick = joystickScene
     }
 }
 
@@ -64,7 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var readyToLoad: Bool = true
     var player: SKSpriteNode!
     var healthBar: SKScene!
-    var joystick: Joystick!
+    var joystick: Joystick?
     
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
@@ -187,7 +188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             self.lastUpdate = currentTime
         }
         
-        let timeElapsedSinceLastUpdate = currentTime - self.lastUpdate
+        let timeElapsedSinceLastUpdate = min(currentTime - self.lastUpdate, 0.5)
         
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
@@ -213,14 +214,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         
         lastUpdateTime = currentTime
-        
-        if readyToShoot {
-            readyToShoot = false
-            shoot()
-            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
-                self.readyToShoot = true
+        if  player.userData!["hp"] as! Int != 0 {
+            if readyToShoot {
+                readyToShoot = false
+                shoot()
+                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
+                    self.readyToShoot = true
+                }
             }
         }
+       
         if readyToLoad {
             readyToLoad = false
             updateTiles()

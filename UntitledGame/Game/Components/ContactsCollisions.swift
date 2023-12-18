@@ -24,11 +24,43 @@ extension GameScene{
             let enemyDmg = enemyNode1.userData!["damage"] as! Double
             player.userData!["hp"] = player.userData!["hp"] as! Double - enemyDmg
             
-            if (player.userData!["hp"] as! Int) <= 0 {
+            if (player.userData!["hp"] as! Int) <= 0  && player.action(forKey: "deathAnimation") == nil{
+                player.userData!["hp"] = 0
+                player.removeAllActions()
+                let spriteAtlas = SKTextureAtlas(named: "AntiTank/Death")
+                var textures: [SKTexture] = []
+                spriteAtlas.textureNames.forEach { string in
+                    let texture = spriteAtlas.textureNamed(string)
+                    texture.filteringMode = .nearest
+                    textures.append(texture)
+                }
+                let deathAnimation = SKAction.animate(with: textures, timePerFrame: 0.5)
+                joystick?.removeAllChildren()
+                joystick?.isJoystickActive = false
+                joystick?.hideJoystick()
+                joystick?.isPaused = true
+                player.run(deathAnimation,withKey: "deathAnimation")
                 playSound(audioFileName: "DEATH.mp3")
-                finishGame()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
+                    self.finishGame()
+                }
+                
+                
+                
             }
             else {
+                let spriteAtlas = SKTextureAtlas(named: "AntiTank/Hit")
+                var textures: [SKTexture] = []
+                spriteAtlas.textureNames.forEach { string in
+                    let texture = spriteAtlas.textureNamed(string)
+                    texture.filteringMode = .nearest
+                    textures.append(texture)
+                }
+                let hitAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+                if player.action(forKey: "hitAnimation") == nil {
+                    player.run(hitAnimation,withKey: "hitAnimation")
+                }
                 playSound(audioFileName: "HIT.mp3")
                 flashRed(node: player)
             }

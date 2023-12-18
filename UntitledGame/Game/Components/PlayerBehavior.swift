@@ -16,7 +16,16 @@ extension GameScene{
         shot.texture?.filteringMode = .nearest
         shot.name = "bullet"
         shot.position = player.position
+        let spriteAtlas = SKTextureAtlas(named: "AntiTank/Fire")
+        var textures: [SKTexture] = []
+        spriteAtlas.textureNames.forEach { string in
+            let texture = spriteAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            textures.append(texture)
+        }
         
+        let shootAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+        player.run(shootAnimation)
         shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/2, height: shot.size.height/2))
         shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
         shot.physicsBody?.collisionBitMask =  CollisionType.enemy
@@ -44,7 +53,7 @@ extension GameScene{
         soundNode.autoplayLooped = false
         addChild(soundNode)
         if(gameLogic.soundsSwitch){
-            soundNode.run(SKAction.changeVolume(to: (0.1/5)*Float(gameLogic.soundsVolume), duration: 0.3))
+            soundNode.run(SKAction.changeVolume(to: (0.07/5)*Float(gameLogic.soundsVolume), duration: 0))
         }else{
             soundNode.run(SKAction.changeVolume(to: 0, duration: 0))
         }
