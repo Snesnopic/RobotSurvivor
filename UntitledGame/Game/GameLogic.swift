@@ -23,6 +23,7 @@ class GameLogic: ObservableObject {
     @Published var time: TimeInterval = 0
     @Published var currentScore: Int = 0
     @Published var isGameOver = false
+    @Published var joystick: Joystick?
     //xp system
     @Published var currentXP: Int = 0
     @Published var xpToNextLvl: Int = 30
