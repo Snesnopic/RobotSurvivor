@@ -261,6 +261,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             }
         }
         
+        if gameLogic.musicSwitch {
+            backgroundMusicPlayer?.volume = (0.6/5)*Float(self.gameLogic.musicVolume)
+        } else {
+            backgroundMusicPlayer?.volume = 0
+        }
+        
         
     }
     
