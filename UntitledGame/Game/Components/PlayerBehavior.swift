@@ -44,7 +44,7 @@ extension GameScene{
         soundNode.autoplayLooped = false
         addChild(soundNode)
         if(gameLogic.soundsSwitch){
-            soundNode.run(SKAction.changeVolume(to: (0.1/5)*Float(gameLogic.soundsVolume), duration: 0.3))
+            soundNode.run(SKAction.changeVolume(to: (0.07/5)*Float(gameLogic.soundsVolume), duration: 0))
         }else{
             soundNode.run(SKAction.changeVolume(to: 0, duration: 0))
         }
