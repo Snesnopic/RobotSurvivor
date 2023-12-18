@@ -40,29 +40,50 @@ struct PowerUpView: View {
                         //TODO: randomly sort powerUp + give it to player on tap
                         
                         
-                            PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
-                                gameLogic.showPowerUp = false
-                                sceneWrap.scene.callPowerUp(name: powerUp[p1])
-                            }, textView: Text(powerUp[p1]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
-                            .tracking(-3)
+                            ZStack{
+                                PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
+                                    gameLogic.showPowerUp = false
+                                    sceneWrap.scene.callPowerUp(name: powerUp[p1])
+                                }, textView: Text(""))
+                                
+                                Image(powerUp[p1])
+                                    .interpolation(.none)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .offset(y: -5)
+                            }
                             .frame(width:94, height: 120)
 
                         
                         
-                        PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
-                            gameLogic.showPowerUp = false
-                            sceneWrap.scene.callPowerUp(name: powerUp[p2])
-                        }, textView: Text(powerUp[p2]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
-                        .tracking(-3)
+                        ZStack{
+                            PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
+                                gameLogic.showPowerUp = false
+                                sceneWrap.scene.callPowerUp(name: powerUp[p2])
+                            }, textView: Text(" "))
+                            
+                            Image(powerUp[p2])
+                                .interpolation(.none)
+                                .resizable()
+                                .scaledToFit()
+                                .offset(y: -5)
+                            
+                        }
                         .frame(width:94, height: 120)
                         .padding(.horizontal, 5)
                         
-                        PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
+                        ZStack{ PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                             gameLogic.showPowerUp = false
                             sceneWrap.scene.callPowerUp(name: powerUp[p3])
-                        }, textView: Text(powerUp[p3]) .font(.custom("Silkscreen-Regular", size: 20)), textColor: .white)
-                        .tracking(-3)
-                        .frame(width:94, height: 120)
+                        }, textView: Text(" "))
+                        
+                            Image(powerUp[p3])
+                                .interpolation(.none)
+                                .resizable()
+                                .scaledToFit()
+                                .offset(y: -5)
+                            
+                        }.frame(width:94, height: 120)
                         
                         
                         

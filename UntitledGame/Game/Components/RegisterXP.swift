@@ -33,7 +33,8 @@ extension GameScene{
 
         //don't insert collisionBitMask for enemies
         newXP.physicsBody?.categoryBitMask = CollisionType.xp
-        newXP.physicsBody?.collisionBitMask = CollisionType.player
+        newXP.physicsBody?.collisionBitMask = CollisionType.none
+        newXP.physicsBody?.contactTestBitMask = CollisionType.player
         xpOnMap.insert(newXP)
         addChild(newXP)
     }

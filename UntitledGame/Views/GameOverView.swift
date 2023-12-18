@@ -23,9 +23,12 @@ struct GameOverView: View {
             
             VStack(){
                 Text("Game")
-                    .font(.custom("Silkscreen-Bold", size: 50))
+                    .font(.custom("Silkscreen-Bold", size: 75))
+                    .padding(.bottom, -50)
+                
                 Text("Over")
-                    .font(.custom("Silkscreen-Bold", size: 51))
+                    .font(.custom("Silkscreen-Bold", size: 75))
+                    .padding(.bottom)
                 
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
                     //TODO: add navigation to settings
@@ -34,7 +37,7 @@ struct GameOverView: View {
                     
                 }, textView: Text("Restart") .font(.custom("Silkscreen-Regular", size: 35)), textColor: .white)
                 .frame(width: 228, height:96)
-                .padding(.bottom)
+                .padding(.bottom, 5)
                 .shadow(radius: 15)
                 
                 

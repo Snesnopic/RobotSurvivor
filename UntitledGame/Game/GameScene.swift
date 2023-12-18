@@ -13,8 +13,8 @@ struct CollisionType {
     static let none : UInt32 = 0
     static let player : UInt32 = 1
     static let enemy : UInt32 = 2
-    static let xp: UInt32 = 3
-    static let playerWeapon: UInt32 = 4
+    static let xp: UInt32 = 4
+    static let playerWeapon: UInt32 = 8
     static let pickUp: UInt32 = 6
     
 }
@@ -232,7 +232,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if readyToIncreaseSpawnRate {
             readyToIncreaseSpawnRate = false
             self.spawnRate = self.spawnRate + 7
-            DispatchQueue.main.asyncAfter(deadline: .now() + 55) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 45) {
                 self.readyToIncreaseSpawnRate = true
             }
         }
