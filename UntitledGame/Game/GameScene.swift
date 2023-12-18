@@ -187,7 +187,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             self.lastUpdate = currentTime
         }
         
-        let timeElapsedSinceLastUpdate = currentTime - self.lastUpdate
+        let timeElapsedSinceLastUpdate = min(currentTime - self.lastUpdate, 0.5)
         
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
