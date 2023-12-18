@@ -44,13 +44,7 @@ struct PowerUpView: View {
                                 PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                                     gameLogic.showPowerUp = false
                                     sceneWrap.scene.callPowerUp(name: powerUp[p1])
-                                }, textView: Text(""))
-                                
-                                Image(powerUp[p1])
-                                    .interpolation(.none)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .offset(y: -5)
+                                }, imageView: Image(powerUp[p1]))
                             }
                             .frame(width:94, height: 120)
 
@@ -60,13 +54,7 @@ struct PowerUpView: View {
                             PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                                 gameLogic.showPowerUp = false
                                 sceneWrap.scene.callPowerUp(name: powerUp[p2])
-                            }, textView: Text(" "))
-                            
-                            Image(powerUp[p2])
-                                .interpolation(.none)
-                                .resizable()
-                                .scaledToFit()
-                                .offset(y: -5)
+                            }, imageView: Image(powerUp[p2]))
                             
                         }
                         .frame(width:94, height: 120)
@@ -75,13 +63,9 @@ struct PowerUpView: View {
                         ZStack{ PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                             gameLogic.showPowerUp = false
                             sceneWrap.scene.callPowerUp(name: powerUp[p3])
-                        }, textView: Text(" "))
+                        }, imageView: Image(powerUp[p3]))
                         
-                            Image(powerUp[p3])
-                                .interpolation(.none)
-                                .resizable()
-                                .scaledToFit()
-                                .offset(y: -5)
+                            
                             
                         }.frame(width:94, height: 120)
                         

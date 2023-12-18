@@ -12,8 +12,9 @@ struct PixelArtButtonView: View {
     var pressedImage: String
     var buttonPressedAction: (() -> Void)?
     @State private var isPressed: Bool = false
-    var textView: Text?
-    var textColor: Color?
+    var textView: Text? = nil
+    var textColor: Color? = .white
+    var imageView: Image? = nil
     
     var body: some View {
         ZStack {
@@ -23,6 +24,15 @@ struct PixelArtButtonView: View {
             if let textView {
                 textView                    
                     .offset(y: isPressed ? -2 : -7)
+                    .opacity(isPressed ? 0.5 : 1)
+                
+            }
+            if let imageView {
+                imageView
+                    .interpolation(.none)
+                    .resizable()
+                    .scaledToFit()
+                    .offset(y: isPressed ? -1 : -6)
                     .opacity(isPressed ? 0.5 : 1)
                 
             }
