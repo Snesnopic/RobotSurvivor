@@ -16,7 +16,16 @@ extension GameScene{
         shot.texture?.filteringMode = .nearest
         shot.name = "bullet"
         shot.position = player.position
+        let spriteAtlas = SKTextureAtlas(named: "AntiTank/Fire")
+        var textures: [SKTexture] = []
+        spriteAtlas.textureNames.forEach { string in
+            let texture = spriteAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            textures.append(texture)
+        }
         
+        let shootAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
+        player.run(shootAnimation)
         shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/2, height: shot.size.height/2))
         shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
         shot.physicsBody?.collisionBitMask =  CollisionType.enemy
