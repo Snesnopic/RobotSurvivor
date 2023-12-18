@@ -25,16 +25,11 @@ extension GameScene{
             player.userData!["hp"] = player.userData!["hp"] as! Double - enemyDmg
             
             if (player.userData!["hp"] as! Int) <= 0 {
-                let soundEffect = SKAction.playSoundFileNamed("DEATH.mp3", waitForCompletion: false)
-                self.scene?.run(soundEffect)
-                gameLogic.isGameOver = true
-                self.scene?.isPaused = true
-                stopTracks()
-                player.userData!["hp"] = 0
-                return
+                playSound(audioFileName: "DEATH.mp3")
+                finishGame()
             }
             else {
-                dmgSound()
+                playSound(audioFileName: "HIT.mp3")
                 flashRed(node: player)
             }
             
