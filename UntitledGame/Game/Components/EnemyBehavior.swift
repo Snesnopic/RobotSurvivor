@@ -11,7 +11,7 @@ import SpriteKit
 
 extension GameScene {
     
-    func enemyLogic(currentTime: TimeInterval){
+    func enemyLogic(){
         let activeEnemies: [EnemyNode] = children.filter { node in
             return node.isKind(of: EnemyNode.classForCoder())
         } as! [EnemyNode]
