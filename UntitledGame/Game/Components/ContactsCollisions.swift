@@ -23,9 +23,12 @@ extension GameScene{
             guard let enemyNode1 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
             let enemyDmg = enemyNode1.userData!["damage"] as! Double
             player.userData!["hp"] = player.userData!["hp"] as! Double - enemyDmg
-            
-            if (player.userData!["hp"] as! Int) <= 0  && player.action(forKey: "deathAnimation") == nil{
+            guard let playerHp:Double = player.userData!["hp"] as? Double else {return}
+            if playerHp <= 0 {
                 player.userData!["hp"] = 0
+                isPlayerAlive = false
+            }
+            if !isPlayerAlive && player.action(forKey: "deathAnimation") == nil{
                 player.removeAllActions()
                 let spriteAtlas = SKTextureAtlas(named: "AntiTank/Death")
                 var textures: [SKTexture] = []
@@ -45,28 +48,17 @@ extension GameScene{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
                     self.finishGame()
                 }
-                
-                
-                
+                return
             }
-            else {
-                let spriteAtlas = SKTextureAtlas(named: "AntiTank/Hit")
-                var textures: [SKTexture] = []
-                spriteAtlas.textureNames.forEach { string in
-                    let texture = spriteAtlas.textureNamed(string)
-                    texture.filteringMode = .nearest
-                    textures.append(texture)
-                }
-                let hitAnimation = SKAction.animate(with: textures, timePerFrame: 0.1)
-                if player.action(forKey: "hitAnimation") == nil {
-                    player.run(hitAnimation,withKey: "hitAnimation")
-                }
+            else if isPlayerAlive{
                 playSound(audioFileName: "HIT.mp3")
                 flashRed(node: player)
             }
+            else {
+                return
+            }
             
             let healthBarFill = healthBar.children.last!
-            let playerHp:Double = player.userData!["hp"] as! Double
             let playerMaxHp:Double = player.userData!["maxhp"] as! Double
             
             healthBarFill.xScale = CGFloat(playerHp  / playerMaxHp)
