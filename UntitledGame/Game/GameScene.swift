@@ -197,8 +197,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
+    
+        self.enemyLogic()
         
-        enemyLogic(currentTime: currentTime)
         camera?.position = player.position
         
         //enable to have a wider view
@@ -218,13 +219,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         
         lastUpdateTime = currentTime
-        if  player.userData!["hp"] as! Int != 0 {
-            if readyToShoot {
-                readyToShoot = false
-                shoot()
-                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
-                    self.readyToShoot = true
-                }
+        
+        if readyToShoot && isPlayerAlive{
+            readyToShoot = false
+            shoot()
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
+                self.readyToShoot = true
             }
         }
        
