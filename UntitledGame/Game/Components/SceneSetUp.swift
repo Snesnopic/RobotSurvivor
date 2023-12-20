@@ -11,7 +11,6 @@ import SpriteKit
 extension GameScene {
     
     func setUpGame() {
-        self.gameLogic.setUpGame()
         self.setUpPhysicsWorld()
         self.backgroundColor = SKColor.darkGray
         let playerInitialPosition = CGPoint(x: self.frame.width/2, y: self.frame.height/2)

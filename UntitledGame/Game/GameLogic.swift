@@ -11,7 +11,7 @@ class GameLogic: ObservableObject {
     
     static let shared: GameLogic = GameLogic()
     
-    func setUpGame(){
+    func restartGame(){
         self.currentScore = 0
         self.currentXP = 0
         self.xpToNextLvl = 30
@@ -49,11 +49,5 @@ class GameLogic: ObservableObject {
         }
     }
     
-    func restartGame() {
-        
-        // TODO: Customize!
-        
-        self.setUpGame()
-    }
     
 }
