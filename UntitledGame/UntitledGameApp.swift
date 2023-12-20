@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct UntitledGameApp: App {
+    
+    @State var gameLogic: GameLogic = .shared
+    
     var body: some Scene {
         WindowGroup {
-            ParentView().preferredColorScheme(.light)
+            ParentView()
+                .environment(gameLogic)
+                .preferredColorScheme(.light)
         }
     }
 }

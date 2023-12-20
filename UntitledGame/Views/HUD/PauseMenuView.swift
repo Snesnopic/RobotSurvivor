@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct PauseMenuView: View {
-    @ObservedObject var gameLogic: GameLogic
+    
+    @Environment(GameLogic.self)
+    var gameLogic: GameLogic
+    
     @Binding var currentGameState: GameState
     @Binding var sceneWrap: SceneWrapper
     @State var showSetting: Bool = false
+    
     var body: some View {
         ZStack{
             Image("pauseMenu")
@@ -42,7 +46,7 @@ struct PauseMenuView: View {
                         
                         showSetting = true
                     }).fullScreenCover(isPresented: $showSetting, content: {
-                        Settings_Menu(switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
+                        Settings_Menu()
                     })
                     .frame(width:67, height: 76.5)
                 }
@@ -51,6 +55,6 @@ struct PauseMenuView: View {
     }
 }
 
-#Preview {
-    PauseMenuView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
-}
+//#Preview {
+//    PauseMenuView(currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
+//}

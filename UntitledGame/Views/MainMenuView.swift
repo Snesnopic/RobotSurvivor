@@ -10,7 +10,9 @@ import AVFoundation
 
 struct MainMenuView: View {
     
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    @Environment(GameLogic.self)
+    var gameLogic: GameLogic
+    
     @Binding var currentGameState: GameState
     @State var showSetting: Bool = false
     
@@ -72,7 +74,7 @@ struct MainMenuView: View {
                     showSetting = true
                     }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                 .fullScreenCover(isPresented: $showSetting, content: {
-                    Settings_Menu(switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
+                    Settings_Menu()
                 })
                 .frame(width: 224, height:64)
                 

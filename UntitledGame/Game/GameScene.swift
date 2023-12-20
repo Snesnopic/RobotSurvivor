@@ -34,13 +34,11 @@ struct CollisionType {
 //}
 
 class SceneWrapper{
-    var scene = GameScene()
+    var scene: GameScene = .shared
     var joystickScene: Joystick
     init() {
         var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
         var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
-        
-        scene = GameScene()
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
         joystickScene = Joystick(player: scene.player,gameSceneReference: scene)
@@ -58,7 +56,11 @@ extension CGPoint: Hashable {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
+    
     static let shared: GameScene = GameScene()
+    
+    internal(set) var gameLogic: GameLogic = .shared
+    
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
@@ -67,7 +69,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var healthBar: SKScene!
     var joystick: Joystick?
     
-    var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
     var isPlayerAlive = true
     
@@ -98,7 +99,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     var timer: Timer?
     
     
-    override init(){
+    override private init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
         view?.showsPhysics = true
@@ -194,7 +195,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         let timeElapsedSinceLastUpdate = min(currentTime - self.lastUpdate, 0.5)
         
-        self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
+        gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
     
@@ -262,7 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         
         if gameLogic.musicSwitch {
-            backgroundMusicPlayer?.volume = (0.6/5)*Float(self.gameLogic.musicVolume)
+            backgroundMusicPlayer?.volume = (0.6/5)*Float(gameLogic.musicVolume)
         } else {
             backgroundMusicPlayer?.volume = 0
         }

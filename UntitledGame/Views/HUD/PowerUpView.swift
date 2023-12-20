@@ -10,7 +10,10 @@ import SwiftUI
 import SpriteKit
 
 struct PowerUpView: View {
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    
+    @Environment(GameLogic.self)
+    var gameLogic: GameLogic
+    
     @Binding var sceneWrap: SceneWrapper
     let powerUp: [String] = ["+dmg", "+firerate", "+hp", "+speed", "+bullet speed"]
     @State var powerUpSet: Set = [0,1,2,3,4]

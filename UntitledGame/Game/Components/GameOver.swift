@@ -10,12 +10,7 @@ import Foundation
 extension GameScene{
     
     var isGameOver: Bool {
-        
-        /*if (player.life <= 0){
-         isGameOver = true
-         }
-         */
-        return gameLogic.isGameOver
+        gameLogic.isGameOver
     }
     
     func finishGame() {

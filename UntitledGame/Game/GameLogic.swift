@@ -7,53 +7,99 @@
 
 import Foundation
 
-class GameLogic: ObservableObject {
+@Observable
+class GameLogic {
     
-    static let shared: GameLogic = GameLogic()
-    
-    func setUpGame(){
-        self.currentScore = 0
-        self.currentXP = 0
-        self.xpToNextLvl = 30
-        self.time = 0
-        self.isGameOver = false
+    static func restart() -> GameLogic {
+        var gameLogic: GameLogic = .init()
+        GameLogic.shared = gameLogic
+        return GameLogic.shared
     }
     
+    func restart() -> GameLogic {
+        return GameLogic.restart()
+    }
+    
+    static private(set) var shared: GameLogic = .init()
+    
+    private init() {}
+    
     //general
-    @Published var time: TimeInterval = 0
-    @Published var currentScore: Int = 0
-    @Published var isGameOver = false
-    @Published var joystick: Joystick?
+    var time: TimeInterval = 0 {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var currentScore: Int = 0 {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var isGameOver = false {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var joystick: Joystick? {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
     //xp system
-    @Published var currentXP: Int = 0
-    @Published var xpToNextLvl: Int = 30
-    @Published var showPowerUp: Bool = false
+    var currentXP: Int = 0 {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var xpToNextLvl: Int = 30 {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var showPowerUp: Bool = false {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
     //settings
-    @Published var musicVolume: Int = 5
-    @Published var soundsVolume: Int = 5
-    @Published var musicSwitch: Bool = true
-    @Published var soundsSwitch: Bool = true
-    @Published var showPauseMenu: Bool = false
+    var musicVolume: Int = 5 {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var soundsVolume: Int = 5 {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var musicSwitch: Bool = true {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var soundsSwitch: Bool = true {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
+    var showPauseMenu: Bool = false {
+        willSet {
+            print("something - \(String(describing: newValue))")
+        }
+    }
     
     func increaseScore(points: Int){
-        self.currentScore = self.currentScore + points
+        self.currentScore += points
     }
     
     func increaseTime(by t: TimeInterval){
-        self.time = self.time + t
+        self.time += t
     }
     
     func finishGame(){
         if self.isGameOver == false{
             self.isGameOver = true
         }
-    }
-    
-    func restartGame() {
-        
-        // TODO: Customize!
-        
-        self.setUpGame()
     }
     
 }

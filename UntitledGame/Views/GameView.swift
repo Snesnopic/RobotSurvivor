@@ -9,13 +9,14 @@ import SwiftUI
 import SpriteKit
 
 struct GameViewUI: UIViewRepresentable {
+    
     func makeUIView(context: Context) -> SKView {
         
         var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
         var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
         
         let view = SKView()
-        let scene = GameScene()
+        let scene: GameScene = .shared
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
         view.presentScene(scene)
@@ -39,10 +40,12 @@ struct GameView: View {
     @Binding var currentGameState: GameState
     
     @State var x: Bool = false
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    
     @State var sceneWrapper = SceneWrapper()
     
-    
+    var gameLogic: GameLogic {
+        self.sceneWrapper.scene.gameLogic
+    }
     
     var body: some View {
         ZStack {
@@ -89,16 +92,16 @@ struct GameView: View {
                 }
                 .ignoresSafeArea()
             
-            ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
+            ExpView()
             
-            ScoreView(score: $gameLogic.currentScore)
-            DurationView(time: $gameLogic.time)
+            ScoreView()
+            DurationView()
             
             if(gameLogic.showPowerUp){
                 PowerUpView(sceneWrap: $sceneWrapper)
             }
             if(gameLogic.showPauseMenu){
-                PauseMenuView(gameLogic: gameLogic ,currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
+                PauseMenuView(currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
             }
             
             
@@ -114,9 +117,7 @@ struct GameView: View {
             
         }
         .onAppear{
-            self.gameLogic.restartGame()
-            
-            
+            gameLogic.restart()
         }
     }
     
@@ -126,9 +127,9 @@ struct GameView: View {
     
 }
 
-#Preview {
-    GameView(currentGameState: .constant(GameState.playing))
-}
+//#Preview {
+//    GameView(currentGameState: .constant(GameState.playing))
+//}
 
 
 

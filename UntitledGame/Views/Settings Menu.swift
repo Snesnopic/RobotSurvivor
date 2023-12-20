@@ -10,10 +10,11 @@ import SwiftUI
 
 struct Settings_Menu: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var switchMusic: Bool
-    @Binding var switchSound: Bool
-    @Binding var music: Int
-    @Binding var sounds: Int
+    
+    @Environment(GameLogic.self)
+    var gameLogic: GameLogic
+    
+
     @State var showCredits: Bool = false
     var body: some View {
         if(!showCredits){
@@ -58,12 +59,12 @@ struct Settings_Menu: View {
                     HStack{
                         Text("Music")
                             .padding(.trailing, 35)
-                        Image(switchMusic ? "OnSwitch1" : "OffSwitch1")
+                        Image(gameLogic.musicSwitch ? "OnSwitch1" : "OffSwitch1")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50)
                             .onTapGesture {
-                                switchMusic.toggle()
+                                gameLogic.musicSwitch.toggle()
                             }
                         
                     }
@@ -76,18 +77,18 @@ struct Settings_Menu: View {
                         
                         PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(music > 0){
-                                music = music - 1;
+                            if(gameLogic.musicVolume > 0){
+                                gameLogic.musicVolume -= 1;
                             }
                         }, textView: Text(""))
                         .frame(width:28, height:12)
                         
-                        Text(String(music))
+                        Text(String(gameLogic.musicVolume))
                         
                         PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(music < 10){
-                                music = music + 1;
+                            if(gameLogic.musicVolume < 10){
+                                gameLogic.musicVolume += 1;
                             }
                         }, textView: Text(""))
                         .frame(width:32, height:32)
@@ -100,12 +101,12 @@ struct Settings_Menu: View {
                         Text("Sound \nEffects")
                             .multilineTextAlignment(.leading)
                             .padding(.trailing, 10)
-                        Image(switchSound ? "OnSwitch1" : "OffSwitch1")
+                        Image(gameLogic.soundsSwitch ? "OnSwitch1" : "OffSwitch1")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 50)
                             .onTapGesture {
-                                switchSound.toggle()
+                                gameLogic.soundsSwitch.toggle()
                             }
                         
                     }
@@ -118,18 +119,18 @@ struct Settings_Menu: View {
                         
                         PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(sounds > 0){
-                                sounds = sounds - 1
+                            if(gameLogic.soundsVolume > 0){
+                                gameLogic.soundsVolume -=  1
                             }
                         }, textView: Text(""))
                         .frame(width:28, height:12)
                         
-                        Text(String(sounds))
+                        Text(String(gameLogic.soundsVolume))
                         
                         PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(sounds < 10){
-                                sounds = sounds + 1
+                            if(gameLogic.soundsVolume < 10){
+                                gameLogic.soundsVolume += 1
                             }
                         }, textView: Text(""))
                         .frame(width:32, height:32)

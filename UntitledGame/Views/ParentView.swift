@@ -10,13 +10,7 @@ import AVFAudio
 
 struct ParentView: View {
     
-   
-    
     @State var currentGameState: GameState = .mainScreen
-    
-    @StateObject var gameLogic: GameLogic = GameLogic()
-    
-    
     
     var body: some View {
         
@@ -25,7 +19,6 @@ struct ParentView: View {
             MainMenuView(currentGameState: $currentGameState)
         case .playing:
             GameView(currentGameState: $currentGameState)
-                .environmentObject(gameLogic)
         case .gameOver:
             GameOverView(currentGameState: $currentGameState)
             
