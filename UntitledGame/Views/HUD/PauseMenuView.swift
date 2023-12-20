@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PauseMenuView: View {
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    @ObservedObject var gameLogic: GameLogic
     @Binding var currentGameState: GameState
     @Binding var sceneWrap: SceneWrapper
     @State var showSetting: Bool = false
@@ -52,5 +52,5 @@ struct PauseMenuView: View {
 }
 
 #Preview {
-    PauseMenuView(currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
+    PauseMenuView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
 }

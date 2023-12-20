@@ -98,7 +98,7 @@ struct GameView: View {
                 PowerUpView(sceneWrap: $sceneWrapper)
             }
             if(gameLogic.showPauseMenu){
-                PauseMenuView(currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
+                PauseMenuView(gameLogic: gameLogic ,currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
             }
             
             

@@ -34,12 +34,12 @@ extension GameScene{
         shot.zPosition = 2
         shot.setScale(2)
         addChild(shot)
-        let activeEnemies: [EnemyNode] = children.filter { node in
-            return node.isKind(of: EnemyNode.classForCoder())
-        } as! [EnemyNode]
-        let closestEnemy: EnemyNode = activeEnemies.sorted(by: { first, second in
+        
+        let activeEnemies = children.compactMap{$0 as? EnemyNode}
+       guard let closestEnemy: EnemyNode = activeEnemies.sorted(by: { first, second in
             return distanceBetween(node1: player, node2: first) < distanceBetween(node1: player, node2: second)
-        }).first!
+       }).first else {return}
+        
         let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
         let movement = SKAction.move(to: closestEnemy.position,duration: TimeInterval(time))
         playSound(audioFileName: "BULLETS.mp3")

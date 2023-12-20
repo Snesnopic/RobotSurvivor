@@ -95,6 +95,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     
     var isBossReady = true
     
+    var timer: Timer?
+    
+    
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
@@ -164,6 +167,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
         
+        
         //Music
         playTracks()
         
@@ -193,8 +197,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
+    
+        self.enemyLogic()
         
-        enemyLogic(currentTime: currentTime)
         camera?.position = player.position
         
         //enable to have a wider view
@@ -214,13 +219,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         
         
         lastUpdateTime = currentTime
-        if  player.userData!["hp"] as! Int != 0 {
-            if readyToShoot {
-                readyToShoot = false
-                shoot()
-                DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
-                    self.readyToShoot = true
-                }
+        
+        if readyToShoot && isPlayerAlive{
+            readyToShoot = false
+            shoot()
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
+                self.readyToShoot = true
             }
         }
        
@@ -255,6 +259,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
                 self.readyToSpawnPickUp = true
             }
+        }
+        
+        if gameLogic.musicSwitch {
+            backgroundMusicPlayer?.volume = (0.6/5)*Float(self.gameLogic.musicVolume)
+        } else {
+            backgroundMusicPlayer?.volume = 0
         }
         
         

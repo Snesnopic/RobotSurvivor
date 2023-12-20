@@ -16,8 +16,9 @@ struct ExpView: View {
         GeometryReader { geometry in
             ZStack {
                 Rectangle()
-                    .fill(Color.blue)
+                    .fill(Color.green)
                     .frame(width: (geometry.size.width/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: 40)
+                    .opacity(0.8)
             }
         }
         
