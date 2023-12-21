@@ -9,6 +9,17 @@ import Foundation
 import SpriteKit
 import SwiftUI
 
+struct CollisionType {
+    static let all : UInt32 = UInt32.max
+    static let none : UInt32 = 0
+    static let player : UInt32 = 1
+    static let enemy : UInt32 = 2
+    static let xp: UInt32 = 4
+    static let playerWeapon: UInt32 = 8
+    static let pickUp: UInt32 = 6
+    
+}
+
 extension GameScene{
     
     func didBegin(_ contact: SKPhysicsContact) {

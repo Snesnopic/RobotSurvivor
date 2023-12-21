@@ -8,31 +8,6 @@
 import SpriteKit
 import AVFoundation
 
-struct CollisionType {
-    static let all : UInt32 = UInt32.max
-    static let none : UInt32 = 0
-    static let player : UInt32 = 1
-    static let enemy : UInt32 = 2
-    static let xp: UInt32 = 4
-    static let playerWeapon: UInt32 = 8
-    static let pickUp: UInt32 = 6
-    
-}
-
-//class playerNode: SKScene {
-//    var playerNode: SKSpriteNode!
-//
-//    override func didMove(to view: SKView) {
-//
-//        playerNode = SKSpriteNode(color: .red, size: CGSize(width: 50, height: 50))
-//        playerNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
-//        playerNode.physicsBody = SKPhysicsBody(rectangleOf: playerNode.size)
-//        playerNode.physicsBody?.affectedByGravity = false
-//        playerNode.physicsBody?.allowsRotation = false
-//
-//    }
-//}
-
 class SceneWrapper{
     var scene = GameScene()
     var joystickScene: Joystick
@@ -49,15 +24,8 @@ class SceneWrapper{
     }
 }
 
-extension CGPoint: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(x)
-        hasher.combine(y)
-    }
-}
 
-
-class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     static let shared: GameScene = GameScene()
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
@@ -109,69 +77,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         fatalError("coder problem")
     }
     
-    func updateTiles() {
-        let playerPosition = player.position
-        let visibleXDistance = 700
-        let visibleYDistance = 700
-        
-        let minX = playerPosition.x - CGFloat(visibleXDistance)
-        let maxX = playerPosition.x + CGFloat(visibleXDistance)
-        let minY = playerPosition.y - CGFloat(visibleYDistance)
-        let maxY = playerPosition.y + CGFloat(visibleYDistance)
-        
-        
-        // Load new tiles
-        for x in stride(from: minX, through: maxX, by: tileSize.width) {
-            for y in stride(from: minY, through: maxY, by: tileSize.height) {
-                let position = CGPoint(x: x, y: y)
-                if !isTilePresent(at: position) {
-                    if((position.x >= minX && position.x < (minX + 400)) || (position.x > (maxX - 400) && position.x <= maxX)){
-                        addTile(at: position)
-                    }else if((position.y >= minY && position.y < (minY + 300)) || (position.y > (maxY - 300) && position.y <= maxY)){
-                        addTile(at: position)
-                    }
-                }
-            }
-        }
-        for node in self.children.compactMap({ $0 as? SKSpriteNode }) {
-            if(node.name == "tile"){
-                if node.position.x < minX || node.position.x > maxX ||
-                    node.position.y < minY || node.position.y > maxY{
-                    tilePositions.remove(node.position)
-                    node.removeFromParent()
-                }
-            }
-        }
-        
-    }
-    
-    func isTilePresent(at position: CGPoint) -> Bool {
-        return tilePositions.contains(position)
-    }
-    
-    func addTile(at position: CGPoint) {
-        let tileImageName: String
-        let tileType = Int.random(in: 1...100)
-        if(tileType <= 70){
-            tileImageName = "Moon1"
-        }else{
-            tileImageName = "Moon2"
-        }
-        
-        let tile = SKSpriteNode(imageNamed: tileImageName)
-        tile.name = "tile"
-        tile.position = position
-        tile.zPosition = -1
-        
-        tilePositions.insert(position)
-        addChild(tile)
-        
-    }
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
-        
-        
         //Music
         playTracks()
         
@@ -243,7 +151,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         if readyToIncreaseSpawnRate {
             readyToIncreaseSpawnRate = false
             self.spawnRate = self.spawnRate + 7
-            DispatchQueue.main.asyncAfter(deadline: .now() + 45) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 35) {
                 self.readyToIncreaseSpawnRate = true
             }
         }
@@ -252,7 +160,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
             readyToIncreaseEnemyPower = false
             multiplier = multiplier + 1
             //print(multiplier)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 110) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 55) {
                 self.readyToIncreaseEnemyPower = true
             }
         }

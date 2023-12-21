@@ -10,6 +10,16 @@ import SpriteKit
 
 extension GameScene{
     
+    func levelUp(){
+        player.userData!["level"] = (player.userData!["level"] as? Int)! + 1
+        player.userData!["xp"] = 0
+        let nextLevelXp = (player.userData!["xpToNextLevel"] as? Int)! + 10
+        player.userData!["xpToNextLevel"] = nextLevelXp
+        gameLogic.xpToNextLvl = nextLevelXp
+        
+        gameLogic.showPowerUp = true
+    }
+    
     func shoot(){
         guard !isGameOver else {return}
         let shot = SKSpriteNode(imageNamed: "bullet")
