@@ -14,7 +14,6 @@ class SceneWrapper{
     init() {
         var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
         var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
-        
         scene = GameScene()
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
@@ -26,7 +25,6 @@ class SceneWrapper{
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    static let shared: GameScene = GameScene()
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
@@ -115,7 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         camera?.position = player.position
         
         //enable to have a wider view
-        camera?.setScale(5)
+        //camera?.setScale(5)
         
         if ((gameLogic.showPowerUp) || gameLogic.showPauseMenu){
             self.scene?.isPaused = true
