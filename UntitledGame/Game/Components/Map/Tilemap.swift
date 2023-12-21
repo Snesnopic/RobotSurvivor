@@ -55,8 +55,11 @@ extension GameScene{
         }
         for node in self.children.compactMap({ $0 as? SKSpriteNode }) {
             if(node.name == "tile"){
-                if node.position.x < minX || node.position.x > maxX ||
-                    node.position.y < minY || node.position.y > maxY{
+                if(node.position.x < minX || node.position.x > maxX)
+                    {
+                    tilePositions.remove(node.position)
+                    node.removeFromParent()
+                }else if(node.position.y < minY || node.position.y > maxY){
                     tilePositions.remove(node.position)
                     node.removeFromParent()
                 }
