@@ -133,11 +133,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 }
             }
         }
-        for tile in self.children.compactMap({ $0 as? SKSpriteNode }) {
-            if tile.position.x < minX || tile.position.x > maxX ||
-                tile.position.y < minY || tile.position.y > maxY {
-                tilePositions.remove(tile.position)
-                tile.removeFromParent()
+        for node in self.children.compactMap({ $0 as? SKSpriteNode }) {
+            if(node.name == "tile"){
+                if node.position.x < minX || node.position.x > maxX ||
+                    node.position.y < minY || node.position.y > maxY{
+                    tilePositions.remove(node.position)
+                    node.removeFromParent()
+                }
             }
         }
         
@@ -157,11 +159,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         }
         
         let tile = SKSpriteNode(imageNamed: tileImageName)
+        tile.name = "tile"
         tile.position = position
-        tile.zPosition = -3
-        addChild(tile)
+        tile.zPosition = -1
         
         tilePositions.insert(position)
+        addChild(tile)
+        
     }
     
     override func didMove(to view: SKView) {
@@ -197,13 +201,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         
         self.lastUpdate = currentTime
-    
+        
         self.enemyLogic()
         
         camera?.position = player.position
         
         //enable to have a wider view
-        //camera?.setScale(5)
+        camera?.setScale(5)
         
         if ((gameLogic.showPowerUp) || gameLogic.showPauseMenu){
             self.scene?.isPaused = true
@@ -227,7 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 self.readyToShoot = true
             }
         }
-       
+        
         if readyToLoad {
             readyToLoad = false
             updateTiles()
@@ -235,7 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
                 self.readyToLoad = true
             }
         }
-    
+        
         if readyToIncreaseSpawnRate {
             readyToIncreaseSpawnRate = false
             self.spawnRate = self.spawnRate + 7

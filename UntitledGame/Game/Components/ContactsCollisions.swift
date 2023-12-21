@@ -104,8 +104,7 @@ extension GameScene{
                 
             // TODO: Implement the death logic based on enemy health
             enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
-            //print(enemy.userData!["health"] as Any)
-            
+
             if((enemy.userData!["health"] as! Int)<=0){
                 
                 if let deathEffect = SKEmitterNode(fileNamed: "EnemyDeath"){
