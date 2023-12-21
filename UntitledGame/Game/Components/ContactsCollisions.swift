@@ -128,6 +128,7 @@ extension GameScene{
                     generateXp(at: enemy.position)
                 }
                 gameLogic.increaseScore(points: enemy.userData!["points"] as! Int)
+                enemiesOnMap.remove(enemy)
                 enemy.die()
             }
             else {

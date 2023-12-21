@@ -12,75 +12,54 @@ import SpriteKit
 extension GameScene {
     
     func enemyLogic(){
-        let activeEnemies: [EnemyNode] = children.filter { node in
-            return node.isKind(of: EnemyNode.classForCoder())
-        } as! [EnemyNode]
-        var activeEnemiesCount = activeEnemies.count
+        var activeEnemiesCount = enemiesOnMap.count
         while activeEnemiesCount < 1+spawnRate {
             //there must always be 40 enemies in the map
             createEnemy(powerFactor: multiplier)
             activeEnemiesCount += 1
         }
         
-        let farAwayEnemies: [EnemyNode] = activeEnemies.filter { node in
-            return distanceBetween(node1: node, node2: player) > (Float(self.frame.height + self.frame.width))
-        }
         
-        farAwayEnemies.forEach { node in
-            node.position = getPositionNearPlayer()
-        }
-        
-        for activeEnemy in activeEnemies {
-            activeEnemy.configureMovement(player)
-        }
-        
-        
-//        let activeBosses = children.compactMap { $0 as? EnemyBossNode }
-//       
-//        if activeBosses.isEmpty {
-//            if isBossReady {
-//                isBossReady = false
-//                self.createBoss()
-//            }
-//        } else {
-//            activeBosses.forEach { activeBoss in
-//                activeBoss.configureMovement(player)
-//            }
-//            let activeParts = children.compactMap { $0 as? EnemyBodyBossNode }
-//            activeParts.forEach { activePart in
-//                activePart.configureMovement()
-//            }
-//        }
+        //        let activeBosses = children.compactMap { $0 as? EnemyBossNode }
+        //
+        //        if activeBosses.isEmpty {
+        //            if isBossReady {
+        //                isBossReady = false
+        //                self.createBoss()
+        //            }
+        //        } else {
+        //            activeBosses.forEach { activeBoss in
+        //                activeBoss.configureMovement(player)
+        //            }
+        //            let activeParts = children.compactMap { $0 as? EnemyBodyBossNode }
+        //            activeParts.forEach { activePart in
+        //                activePart.configureMovement()
+        //            }
+        //        }
         
         
         
-    }
-    private func generateSign(number: Int) -> Int {
-        if number % 2 == 0 {
-            return -1
-        }
-        else {
-            return 1
-        }
     }
     
     func getPositionNearPlayer() -> CGPoint {
         let offSet = Int.random(in: 10...100)
         let halfScreenWidth = Int(self.size.width / 2) + offSet
         let halfScreenHeight = Int(self.size.height / 2) + offSet
+        let possibleSign = [-1,1]
+        let sign = possibleSign.randomElement()
         
         let side = Int.random(in: 0..<4)
         var position = player.position
         if side < 2 {
             //spawns vertically
-            position.y = position.y + CGFloat(halfScreenHeight * generateSign(number: side%2))
+            position.y = position.y + CGFloat(halfScreenHeight * sign!)
             let upperX = Int(position.x) + halfScreenWidth
             let lowerX = Int(position.x) - halfScreenWidth
             position.x = CGFloat(Int.random(in: min(upperX, lowerX)...max(upperX,lowerX)))
         }
         else {
             //spawns horizontally
-            position.x = position.x + CGFloat(halfScreenWidth * generateSign(number: side%2))
+            position.x = position.x + CGFloat(halfScreenWidth * sign!)
             let upperY = Int(position.y) + halfScreenHeight
             let lowerY = Int(position.y) - halfScreenHeight
             position.y = CGFloat(Int.random(in: min(upperY, lowerY)...max(upperY,lowerY)))
@@ -98,7 +77,39 @@ extension GameScene {
         enemy.userData!["damage"] = enemy.userData!["damage"] as! Double * powerFactor
         
         enemy.zPosition = 2
+        enemiesOnMap.insert(enemy)
         addChild(enemy)
+    }
+    
+    
+    func getRelocatePosition(enemy: EnemyNode) -> CGPoint{
+        let offSet = Int.random(in: 10...30)
+        let possibleSign = [-1,1]
+        let sign = possibleSign.randomElement()
+        
+        var newPosition: CGPoint = CGPoint(x: 0, y: 0)
+        let distance: CGPoint = CGPoint(x: player.position.x - enemy.position.x, y: player.position.y - enemy.position.y)
+        newPosition.x = player.position.x + distance.x + CGFloat((offSet * sign!))
+        newPosition.y = player.position.y + distance.y + CGFloat((offSet * sign!))
+        
+        return newPosition
+    }
+    
+    func relocateEnemy(enemy: EnemyNode){
+        let relocatedEnemy = EnemyNode(type: enemy.type, startPosition: getRelocatePosition(enemy: enemy))
+        
+        enemy.physicsBody?.affectedByGravity = false
+        relocatedEnemy.userData!["health"] = enemy.userData!["health"] as! Double
+        relocatedEnemy.userData!["speed"] = enemy.userData!["speed"] as! Double
+        relocatedEnemy.userData!["points"] = enemy.userData!["points"] as! Double
+        relocatedEnemy.userData!["damage"] = enemy.userData!["damage"] as! Double
+        
+        relocatedEnemy.zPosition = 2
+        
+        enemiesOnMap.remove(enemy)
+        enemiesOnMap.insert(relocatedEnemy)
+        enemy.removeFromParent()
+        addChild(relocatedEnemy)
     }
     
     func createBoss() {
@@ -114,6 +125,5 @@ extension GameScene {
             addChild(enemyPart)
             nodeToFollow = enemyPart.self
         }
-       
     }
 }

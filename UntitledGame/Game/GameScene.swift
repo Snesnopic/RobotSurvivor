@@ -38,6 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isPlayerAlive = true
     
     //enemies
+    var enemiesOnMap: Set<EnemyNode> = []
     var enemyTypes = EnemyTypesVM().enemyTypes
     var spawnRate: Int = 0
     var readyToIncreaseSpawnRate: Bool = true
@@ -138,9 +139,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+            for enemy in enemiesOnMap{
+                enemy.configureMovement(player)
+            }
+        
         if readyToLoad {
             readyToLoad = false
             updateTiles()
+            for enemy in enemiesOnMap{
+                if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8){
+                    relocateEnemy(enemy: enemy)
+                }
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.readyToLoad = true
             }
