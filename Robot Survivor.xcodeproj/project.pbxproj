@@ -39,7 +39,6 @@
 		934BBFE52B29CFEE00B8D541 /* DEATH.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 934BBFE42B29CFEE00B8D541 /* DEATH.mp3 */; };
 		934BBFE72B29D06000B8D541 /* HIT.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 934BBFE62B29D06000B8D541 /* HIT.mp3 */; };
 		934BBFE92B2C5BF400B8D541 /* BULLETS.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 934BBFE82B2C5BF400B8D541 /* BULLETS.mp3 */; };
-		934BBFED2B2C630900B8D541 /* EnemyDeath.sks in Resources */ = {isa = PBXBuildFile; fileRef = 934BBFEC2B2C630900B8D541 /* EnemyDeath.sks */; };
 		9D3EDD382B1F3FD200C5DF7B /* UntitledGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */; };
 		9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD392B1F3FD200C5DF7B /* GameView.swift */; };
 		9D3EDD3C2B1F3FD200C5DF7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */; };
@@ -89,7 +88,6 @@
 		934BBFE42B29CFEE00B8D541 /* DEATH.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DEATH.mp3; sourceTree = "<group>"; };
 		934BBFE62B29D06000B8D541 /* HIT.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = HIT.mp3; sourceTree = "<group>"; };
 		934BBFE82B2C5BF400B8D541 /* BULLETS.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BULLETS.mp3; sourceTree = "<group>"; };
-		934BBFEC2B2C630900B8D541 /* EnemyDeath.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EnemyDeath.sks; sourceTree = "<group>"; };
 		9D3EDD342B1F3FD200C5DF7B /* Robot Survivor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Robot Survivor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D3EDD372B1F3FD200C5DF7B /* UntitledGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UntitledGameApp.swift; sourceTree = "<group>"; };
 		9D3EDD392B1F3FD200C5DF7B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 		9D3EDD2B2B1F3FD200C5DF7B = {
 			isa = PBXGroup;
 			children = (
-				934BBFEC2B2C630900B8D541 /* EnemyDeath.sks */,
 				6B4398982B2B1BF400053B16 /* Assets.xcassets */,
 				9D3EDD362B1F3FD200C5DF7B /* UntitledGame */,
 				9D3EDD352B1F3FD200C5DF7B /* Products */,
@@ -344,7 +341,6 @@
 				934BBFE92B2C5BF400B8D541 /* BULLETS.mp3 in Resources */,
 				23A5F38A2B21D34B0008FFB2 /* Preview Content in Resources */,
 				934BBFE72B29D06000B8D541 /* HIT.mp3 in Resources */,
-				934BBFED2B2C630900B8D541 /* EnemyDeath.sks in Resources */,
 				6B43989A2B2B1BF400053B16 /* Assets.xcassets in Resources */,
 				EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */,
 				9DD1D6CC2B29CAB00027768C /* mainmenu.mp3 in Resources */,

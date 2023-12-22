@@ -118,11 +118,23 @@ extension GameScene{
 
             if((enemy.userData!["health"] as! Int)<=0){
                 
-                if let deathEffect = SKEmitterNode(fileNamed: "EnemyDeath"){
-                    deathEffect.position = enemy.position
-                    addChild(deathEffect)
-                    
+                let explosionAtlas = SKTextureAtlas(named: "Explosions/Small")
+                var explosionTextures: [SKTexture] = []
+                explosionAtlas.textureNames.sorted().forEach { string in
+                    let texture = explosionAtlas.textureNamed(string)
+                    texture.filteringMode = .nearest
+                    explosionTextures.append(texture)
                 }
+                let explosionAnimation = SKAction.animate(with: explosionTextures, timePerFrame: 0.07)
+                
+                let explosion: SKNode = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
+                explosion.position = enemy.position
+                explosion.zPosition = 2
+                scene!.addChild(explosion)
+                let actionSequence = SKAction.sequence([
+                    explosionAnimation,
+                    SKAction.removeFromParent()])
+                explosion.run(actionSequence)
                 
                 if(chance>25){
                     generateXp(at: enemy.position)
