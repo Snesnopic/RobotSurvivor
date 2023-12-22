@@ -18,6 +18,24 @@ extension GameScene {
         self.camera = sceneCamera
     }
     
+    func setUpAnimations() {
+        explosionAtlas.textureNames.sorted().forEach { string in
+            let texture = explosionAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            explosionTextures.append(texture)
+        }
+        explosionAnimation = SKAction.animate(with: explosionTextures, timePerFrame: 0.07)
+
+        
+        deathAnimationAtlas.textureNames.sorted().forEach { string in
+            let texture = deathAnimationAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            deathAnimationTextures.append(texture)
+        }
+        deathAnimation = SKAction.animate(with: deathAnimationTextures, timePerFrame: 0.5)
+        
+    }
+    
     private func setUpPhysicsWorld() {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = .zero

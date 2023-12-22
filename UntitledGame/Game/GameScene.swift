@@ -32,7 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var player: SKSpriteNode!
     var healthBar: SKScene!
     var joystick: Joystick?
-    
+
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
     var isPlayerAlive = true
@@ -63,13 +63,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isBossReady = true
     
     var timer: Timer?
-    
-    
+    //animations
+    let flashRedAction = SKAction.sequence([
+        SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.2),
+        SKAction.wait(forDuration: 0.1),
+        SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)])
+    let explosionAtlas = SKTextureAtlas(named: "Explosions/Small")
+    var explosionTextures: [SKTexture] = []
+    var explosionAnimation: SKAction = SKAction()
+    let deathAnimationAtlas = SKTextureAtlas(named: "AntiTank/Death")
+    var deathAnimationTextures: [SKTexture] = []
+    var deathAnimation: SKAction = SKAction()
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
         view?.showsPhysics = true
         setUpGame()
+        setUpAnimations()
     }
     
     required init?(coder aDecoder: NSCoder){

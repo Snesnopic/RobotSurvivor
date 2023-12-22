@@ -41,14 +41,6 @@ extension GameScene{
             }
             if !isPlayerAlive && player.action(forKey: "deathAnimation") == nil{
                 player.removeAllActions()
-                let spriteAtlas = SKTextureAtlas(named: "AntiTank/Death")
-                var textures: [SKTexture] = []
-                spriteAtlas.textureNames.sorted().forEach { string in
-                    let texture = spriteAtlas.textureNamed(string)
-                    texture.filteringMode = .nearest
-                    textures.append(texture)
-                }
-                let deathAnimation = SKAction.animate(with: textures, timePerFrame: 0.5)
                 joystick?.removeAllChildren()
                 joystick?.isJoystickActive = false
                 joystick?.hideJoystick()
@@ -117,16 +109,6 @@ extension GameScene{
             enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
 
             if((enemy.userData!["health"] as! Int)<=0){
-                
-                let explosionAtlas = SKTextureAtlas(named: "Explosions/Small")
-                var explosionTextures: [SKTexture] = []
-                explosionAtlas.textureNames.sorted().forEach { string in
-                    let texture = explosionAtlas.textureNamed(string)
-                    texture.filteringMode = .nearest
-                    explosionTextures.append(texture)
-                }
-                let explosionAnimation = SKAction.animate(with: explosionTextures, timePerFrame: 0.07)
-                
                 let explosion: SKNode = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
                 explosion.position = enemy.position
                 explosion.zPosition = 2
@@ -162,12 +144,8 @@ extension GameScene{
         
     }
     func flashRed(node: SKNode) {
-        let action =  SKAction.sequence([
-            SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.2),
-            SKAction.wait(forDuration: 0.1),
-            SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)])
         if node.action(forKey: "flashRed") == nil {
-            node.run(action,withKey: "flashRed")
+            node.run(flashRedAction,withKey: "flashRed")
         }
     }
 }
