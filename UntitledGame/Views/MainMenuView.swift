@@ -32,8 +32,6 @@ struct MainMenuView: View {
                 .offset(x: -34)
                 .opacity(0.6)
                 
-            
-            
             VStack{
                 
                 Spacer()
@@ -56,9 +54,7 @@ struct MainMenuView: View {
                             .padding(.top, -45)
                             .padding(.bottom, 30)
                     }
-                    
                 }
-                
                 
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
                     withAnimation{startGame()}
