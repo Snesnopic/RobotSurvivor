@@ -21,7 +21,6 @@ extension GameScene {
     private func setUpPhysicsWorld() {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = .zero
-        
     }
     
 }
