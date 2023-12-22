@@ -43,7 +43,7 @@ extension GameScene{
                 player.removeAllActions()
                 let spriteAtlas = SKTextureAtlas(named: "AntiTank/Death")
                 var textures: [SKTexture] = []
-                spriteAtlas.textureNames.forEach { string in
+                spriteAtlas.textureNames.sorted().forEach { string in
                     let texture = spriteAtlas.textureNamed(string)
                     texture.filteringMode = .nearest
                     textures.append(texture)
