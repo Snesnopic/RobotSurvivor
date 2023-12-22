@@ -32,17 +32,24 @@ extension GameScene{
     }
     
     func callPowerUp(name: String){
-        if(name == "+dmg"){
+        switch name {
+        case "+dmg":
             increaseDamage()
-        }else if(name == "+hp"){
+            break
+        case "+hp":
             increaseHealth()
-        }else if(name == "+firerate"){
+            break
+        case "+firerate":
             increaseFireRate()
-        }else if(name == "+bullet speed"){
+            break
+        case "+bullet speed":
             increaseBulletSpeed()
-        }else if(name == "+speed"){
+            break
+        case "+speed":
             increasePlayerSpeed()
+            break
+        default:
+            break
         }
     }
-    
 }
