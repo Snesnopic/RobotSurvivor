@@ -10,26 +10,23 @@ import SwiftUI
 struct GameOverView: View {
     
     @Binding var currentGameState: GameState
-    
+    @Binding var score:Int
     @State var opacity: Double = 0
     
     var body: some View {
-        
-        
-        
         ZStack{
             Color.darkGreen
                 .ignoresSafeArea()
-            
             VStack(){
                 Text("Game")
                     .font(.custom("Silkscreen-Bold", size: 75))
                     .padding(.bottom, -50)
-                
                 Text("Over")
                     .font(.custom("Silkscreen-Bold", size: 75))
                     .padding(.bottom)
-                
+                Text("Score: \(score)")
+                    .font(.custom("Silkscreen-Bold", size: 35))
+                    .padding(.bottom)
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
                     //TODO: add navigation to settings
                     withAnimation{ restartGame()}
@@ -73,5 +70,5 @@ struct GameOverView: View {
 }
 
 #Preview {
-    GameOverView(currentGameState: .constant(GameState.gameOver))
+    GameOverView(currentGameState: .constant(GameState.gameOver), score: .constant(100))
 }
