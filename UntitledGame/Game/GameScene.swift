@@ -74,7 +74,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var explosionTextures: [SKTexture] = []
     var explosionAnimation: SKAction = SKAction()
     
-    let deathAnimationAtlas = SKTextureAtlas(named: "AntiTank/Death")
     var deathAnimationTextures: [SKTexture] = []
     var deathAnimation: SKAction = SKAction()
     

@@ -26,7 +26,7 @@ extension GameScene {
         }
         explosionAnimation = SKAction.animate(with: explosionTextures, timePerFrame: 0.07)
 
-        
+        let deathAnimationAtlas = SKTextureAtlas(named: "\(playerSkin)/Death")
         deathAnimationAtlas.textureNames.sorted().forEach { string in
             let texture = deathAnimationAtlas.textureNamed(string)
             texture.filteringMode = .nearest
