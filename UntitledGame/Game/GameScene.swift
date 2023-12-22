@@ -88,8 +88,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
         view?.showsPhysics = true
-        setUpGame()
         setUpAnimations()
+        setUpGame()
     }
     
     required init?(coder aDecoder: NSCoder){
