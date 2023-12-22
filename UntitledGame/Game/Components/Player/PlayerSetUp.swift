@@ -10,21 +10,9 @@ import SpriteKit
 
 extension GameScene{
     func createPlayer(at position: CGPoint) {
-        
-        self.player = SKSpriteNode(imageNamed: "AntiTank/Idle/1")
-        self.player.name = "player"
-        var playerAtlas: SKTextureAtlas {
-            return SKTextureAtlas(named: "AntiTank/Idle")
-        }
-        var playerIdleTextures: [SKTexture] = []
-        playerAtlas.textureNames.forEach { string in
-            let texture = playerAtlas.textureNamed(string)
-            texture.filteringMode = .nearest
-            playerIdleTextures.append(texture)
-        }
-        
-        let idleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
-        player.run(SKAction.repeatForever(idleAnimation))
+        player = SKSpriteNode(imageNamed: "\(playerSkin)/Idle/1")
+        player.name = "player"
+        player.run(SKAction.repeatForever(playerIdleAnimation))
         player.size = CGSize(width: 30, height: 30)
         self.player.position = position
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 20, height:  20))

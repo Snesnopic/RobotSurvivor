@@ -34,6 +34,22 @@ extension GameScene {
         }
         deathAnimation = SKAction.animate(with: deathAnimationTextures, timePerFrame: 0.5)
         
+        let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(playerSkin)/Idle")
+        playerIdleAtlas.textureNames.sorted().forEach { string in
+            let texture = playerIdleAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            playerIdleTextures.append(texture)
+        }
+        playerIdleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
+        
+        let shootAnimationAtlas = SKTextureAtlas(named: "\(playerSkin)/Fire")
+        shootAnimationAtlas.textureNames.forEach { string in
+            let texture = shootAnimationAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            shootAnimationTextures.append(texture)
+        }
+        shootAnimation = SKAction.animate(with: shootAnimationTextures, timePerFrame: 0.1)
+
     }
     
     private func setUpPhysicsWorld() {
