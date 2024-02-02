@@ -100,7 +100,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("You are in the game scene!")
         //Music
         playTracks()
-        view.showsFPS = true
         
         let initialTiles = 20
         let tileSize = CGSize(width: 128, height: 128)
