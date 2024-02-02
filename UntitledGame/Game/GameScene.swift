@@ -52,6 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var spd: Int = 10
     //xp and pickups
     var xpOnMap: Set<SKNode> = []
+    var xpToMagnetise: Set<SKNode> = []
     var readyToSpawnPickUp: Bool = true
     //map
     var tilePositions: Set<CGPoint> = []
@@ -166,6 +167,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            let sequence = SKAction.sequence([waitAction, enableShootingAction])
 //            run(sequence, withKey: "shootingSequence")
 //        }
+        
+        let playerPosition = player.position
+            for xp in xpToMagnetise {
+                let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y playerPosition.y))))
+                let speed = 500.0
+                let action =  SKAction.move(to: playerPosition, duration: distance/speed)
+                        xp.run(action)
+            }
+        
         for enemy in enemiesOnMap{
             enemy.configureMovement(player)
         }
