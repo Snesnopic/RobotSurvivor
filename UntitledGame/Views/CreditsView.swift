@@ -31,30 +31,27 @@ struct CreditsView: View {
                 .frame(width: 360)
                 .shadow(radius: 20)
                 .padding(.top, 50)
-            
+            PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
+                showCredit = false
+            }, textView: Text("x")
+                .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
+            .frame(width:50, height: 57)
+            .shadow(radius: 15)
+            .padding(.leading, 275)
+            .padding(.bottom,700)
             VStack{
                 
-                PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
-                    showCredit = false
-                }, textView: Text("x")
-                    .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
-                .frame(width:50, height: 57)
-                .shadow(radius: 15)
-                .padding(.leading, 275)
                 
                 Text("Created by:")
                     .font(.custom ("Silkscreen-Bold", size: 23))
                     .foregroundStyle(.white)
                     .tracking(-3)
-                    .padding(.top, 245)
-                
-                Text("\nGiuseppe Casillo\nGiuseppe Francione\nMaya Navarrete\nClaudio Pepe\nLinar Zinatullin")
-                    .font(.custom ("Silkscreen-Regular", size: 20))
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.white)
-                    .tracking(-3)
-                
-                Spacer()
+                ForEach(creators, id: \.self) {creator in
+                    Text(creator).font(.custom ("Silkscreen-Regular", size: 20))
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.white)
+                        .tracking(-3)
+                }
             }
         }
     }
