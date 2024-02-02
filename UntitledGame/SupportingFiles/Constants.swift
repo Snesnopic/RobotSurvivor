@@ -13,3 +13,11 @@ enum GameState {
     case gameOver
 }
 
+let creators = [
+    "Giuseppe Francione",
+    "Giuseppe Casillo",
+    "Claudio Pepe",
+    "Maya Navarrete",
+    "Linar Zinatullin",
+    "Davide Castaldi"
+]
