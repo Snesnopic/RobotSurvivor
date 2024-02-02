@@ -11,7 +11,9 @@ extension GameScene: AVAudioPlayerDelegate{
     
     
     func setupBackgroundMusic(fileName: String) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        
+        //Forse il problema aveva a che fare col fatto che ci fosse una DispatchQueue globale che funzionava insieme alla DispatchQueue main, di conseguenza, quando si cambiava la canzone, poteva capitare che la GameScene deallocava fileName, da cui l'errore famoso
+        DispatchQueue.main.async { [self] in
             guard let backgroundMusicURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") else {
                 DispatchQueue.main.async {
                     print("Could not find the music file.")
@@ -19,7 +21,7 @@ extension GameScene: AVAudioPlayerDelegate{
                 return
             }
             
-            self.currentTrack = fileName
+            currentTrack = fileName
             do {
                 let newPlayer = try AVAudioPlayer(contentsOf: backgroundMusicURL)
                 newPlayer.numberOfLoops = 0
@@ -33,9 +35,6 @@ extension GameScene: AVAudioPlayerDelegate{
                 }
                 
                 DispatchQueue.main.async {
-                    if self.backgroundMusicPlayer != nil {
-                        self.backgroundMusicPlayer?.stop()
-                    }
                     self.backgroundMusicPlayer = newPlayer
                     self.backgroundMusicPlayer?.play()
                 }
@@ -67,7 +66,7 @@ extension GameScene: AVAudioPlayerDelegate{
             return "game1"
         }
     }
-    
+        
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
             let nextTrack = determineNextTrack()

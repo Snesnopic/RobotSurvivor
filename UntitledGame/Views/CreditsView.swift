@@ -30,7 +30,7 @@ struct CreditsView: View {
                 .scaleEffect(x: 1, y: -1)
                 .frame(width: 360)
                 .shadow(radius: 20)
-                .padding(.top, 50)
+                .padding(.top, 60)
             
             VStack{
                 
@@ -48,7 +48,7 @@ struct CreditsView: View {
                     .tracking(-3)
                     .padding(.top, 245)
                 
-                Text("\nGiuseppe Casillo\nGiuseppe Francione\nMaya Navarrete\nClaudio Pepe\nLinar Zinatullin")
+                Text("\nGiuseppe Casillo\nGiuseppe Francione\nMaya Navarrete\nClaudio Pepe\nLinar Zinatullin\nDavide Castaldi")
                     .font(.custom ("Silkscreen-Regular", size: 20))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.white)
