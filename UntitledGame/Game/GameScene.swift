@@ -169,12 +169,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        }
         
         let playerPosition = player.position
-            for xp in xpToMagnetise {
-                let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y playerPosition.y))))
-                let speed = 500.0
-                let action =  SKAction.move(to: playerPosition, duration: distance/speed)
-                        xp.run(action)
-            }
+        for xp in xpToMagnetise{
+            let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y - playerPosition.y))))
+            let speed = 500.0
+            let action =  SKAction.move(to: playerPosition, duration: distance/speed)
+            xp.run(action)
+        }
         
         for enemy in enemiesOnMap{
             enemy.configureMovement(player)
