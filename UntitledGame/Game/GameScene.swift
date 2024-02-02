@@ -132,41 +132,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //enable to have a wider view
         //camera?.setScale(5)
         
-        if ((gameLogic.showPowerUp) || gameLogic.showPauseMenu){
-            self.scene?.isPaused = true
-        }else{
-            self.scene?.isPaused = false
-        }
+        self.scene?.isPaused = (gameLogic.showPowerUp || gameLogic.showPauseMenu) ? true : false
         
         if lastUpdateTime.isZero {
             lastUpdateTime = currentTime
         }
         
         deltaTime = currentTime - lastUpdateTime
-        
         lastUpdateTime = currentTime
-        
-        //        if readyToShoot && isPlayerAlive{
-        //            readyToShoot = false
-        //            shoot()
-        //            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
-        //                self.readyToShoot = true
-        //            }
-        //        }
-        
-//        if readyToShoot && isPlayerAlive {
-//            readyToShoot = false
-//            shoot()
-//            
-//            let maxFireRate = max(fireRate, 0)
-//            let waitAction = SKAction.wait(forDuration: maxFireRate)
-//            let enableShootingAction = SKAction.run {
-//                self.readyToShoot = true
-//            }
-//            print(maxFireRate)
-//            let sequence = SKAction.sequence([waitAction, enableShootingAction])
-//            run(sequence, withKey: "shootingSequence")
-//        }
         
         let playerPosition = player.position
         for xp in xpToMagnetise{
@@ -188,13 +161,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             reloading()
         }
         
-        //        if readyToIncreaseSpawnRate {
-        //            readyToIncreaseSpawnRate = false
-        //            self.spawnRate = self.spawnRate + 14
-        //            DispatchQueue.main.asyncAfter(deadline: .now() + 35) {
-        //                self.readyToIncreaseSpawnRate = true
-        //            }
-        //        }
         if readyToIncreaseSpawnRate {
             increaseSpawnRate()
         }
@@ -208,27 +174,56 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         backgroundMusicPlayer?.volume = gameLogic.musicSwitch ? (0.6/5)*Float(gameLogic.musicVolume) : 0
-
-//        if gameLogic.musicSwitch {
-//            backgroundMusicPlayer?.volume = (0.6/5)*Float(self.gameLogic.musicVolume)
-//        } else {
-//            backgroundMusicPlayer?.volume = 0
-//        }
     }
     
+    //TODO: Normal
+//    func shooting() {
+//        let maxFireRate = max(fireRate, 0)
+//        readyToShoot = false
+//        shoot()
+//        
+//        let waitAction = SKAction.wait(forDuration: 1/maxFireRate)
+//        let enableShootingAction = SKAction.run {
+//            self.readyToShoot = true
+//        }
+//        
+//        let sequence = SKAction.sequence([waitAction, enableShootingAction])
+//        run(sequence)
+//    }
+    
+    //TODO: recursive?
+//    func shooting() {
+//        guard readyToShoot else {
+//            return
+//        }
+//
+//        shoot()
+//        readyToShoot = false
+//
+//        let maxFireRate = max(fireRate, 0)
+//        let waitTime = 1 / maxFireRate
+//
+//        run(SKAction.wait(forDuration: waitTime)) {
+//            self.readyToShoot = true
+//            self.shooting() // Recursive call to schedule the next shot
+//        }
+//    }
+    //TODO: Attuale
     func shooting() {
-        let maxFireRate = max(fireRate, 0)
+        guard readyToShoot else { return }
+        
         readyToShoot = false
         shoot()
-        
-        let waitAction = SKAction.wait(forDuration: 1/maxFireRate)
+
+        let waitAction = SKAction.wait(forDuration: 1 / fireRate)
         let enableShootingAction = SKAction.run {
             self.readyToShoot = true
         }
-        
+
         let sequence = SKAction.sequence([waitAction, enableShootingAction])
         run(sequence)
     }
+    
     func reloading() {
         readyToLoad = false
         updateTiles()
@@ -251,7 +246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func increaseSpawnRate() {
         readyToIncreaseSpawnRate = false
-        self.spawnRate += 10
+        self.spawnRate += 50
         
         let waitAction = SKAction.wait(forDuration: 35)
         let enableSpawnRateIncreaseAction = SKAction.run {

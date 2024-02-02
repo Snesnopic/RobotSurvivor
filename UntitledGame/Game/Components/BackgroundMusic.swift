@@ -23,12 +23,7 @@ extension GameScene: AVAudioPlayerDelegate{
                     newPlayer.numberOfLoops = 0
                     newPlayer.prepareToPlay()
                     newPlayer.delegate = self
-                    
-                    if(self.gameLogic.musicSwitch){
-                        newPlayer.volume = (0.6/5)*Float(self.gameLogic.musicVolume)
-                    }else{
-                        newPlayer.volume = 0
-                    }
+                    newPlayer.volume = self.gameLogic.musicSwitch ? (0.6/5) * Float(self.gameLogic.musicVolume) : 0
                     
                     DispatchQueue.main.async {
                         self.backgroundMusicPlayer = newPlayer
@@ -43,7 +38,7 @@ extension GameScene: AVAudioPlayerDelegate{
         }
     }
     func changeTrack(to newTrack: String) {
-         setupBackgroundMusic(fileName: newTrack)
+        setupBackgroundMusic(fileName: newTrack)
         backgroundMusicPlayer?.play()
     }
     
@@ -55,15 +50,15 @@ extension GameScene: AVAudioPlayerDelegate{
     
     func determineNextTrack() -> String{
         switch currentTrack{
-            case "game1":
-                return "game2"
-            case "game2":
-                return "game1"
+        case "game1":
+            return "game2"
+        case "game2":
+            return "game1"
         default:
             return "game1"
         }
     }
-        
+    
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
             let nextTrack = determineNextTrack()
@@ -75,6 +70,6 @@ extension GameScene: AVAudioPlayerDelegate{
     func stopTracks(){
         backgroundMusicPlayer?.stop()
     }
-
+    
 }
 
