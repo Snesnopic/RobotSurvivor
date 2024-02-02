@@ -24,17 +24,15 @@ struct PowerUpView: View {
                 Image("cpuPower")
                     .interpolation(.none)
                     .resizable()
-                    .scaledToFit()
                     .offset(y:25)
-                    .padding(.horizontal, 10)
-                
+                    .frame(width: 370,height: 400)
                 VStack{
                     Text("Power Up!")
                         .font(.custom ("Silkscreen-Bold", size: 40))
                         .tracking(-2.5)
                         .foregroundStyle(.white)
                         .padding(.bottom, 50)
-                    
+                        
                     
                     HStack{
                         //TODO: randomly sort powerUp + give it to player on tap
