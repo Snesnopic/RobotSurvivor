@@ -48,9 +48,15 @@ extension GameScene{
                 player.run(deathAnimation,withKey: "deathAnimation")
                 playSound(audioFileName: "DEATH.mp3")
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
+                let waitAction = SKAction.wait(forDuration: 2.5)
+                let enableEnding = SKAction.run {
                     self.finishGame()
                 }
+                let sequence = SKAction.sequence([waitAction, enableEnding])
+                run(sequence)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
+//                    self.finishGame()
+//                }
                 return
             }
             else if isPlayerAlive{
