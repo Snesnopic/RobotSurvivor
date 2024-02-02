@@ -22,20 +22,15 @@ struct MainMenuView: View {
     
     var body: some View {
         ZStack{
-            Color.deadBlue
-                .ignoresSafeArea()
+            Color.deadBlue.ignoresSafeArea()
             
             Image("chip3")
-                .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-                .offset(x: -34)
                 .opacity(0.6)
-                
+            
             VStack{
-                
                 Spacer()
-                
                 ZStack{
                     Image("cpuHor")
                         .interpolation(.none)
@@ -66,7 +61,7 @@ struct MainMenuView: View {
                 
                 PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
                     showSetting = true
-                    }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
+                }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                 .fullScreenCover(isPresented: $showSetting, content: {
                     Settings_Menu(switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
                 })
