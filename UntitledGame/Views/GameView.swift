@@ -46,7 +46,7 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
-            //GameViewUI()
+            GameViewUI()
             SpriteView(scene: self.sceneWrapper.scene)
                 .onChange(of: gameLogic.showPowerUp){
                     if(gameLogic.showPowerUp == false){

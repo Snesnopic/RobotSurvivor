@@ -27,13 +27,13 @@ extension GameScene{
         shot.name = "bullet"
         shot.position = player.position
         player.run(shootAnimation)
-        shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/2, height: shot.size.height/2))
+        shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/3, height: shot.size.height/3))
         shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
         shot.physicsBody?.collisionBitMask =  CollisionType.enemy
         shot.physicsBody?.contactTestBitMask = CollisionType.enemy
         shot.physicsBody?.isDynamic = false
         shot.zPosition = 2
-        shot.setScale(2)
+        shot.setScale(1.5)
         addChild(shot)
         
         let activeEnemies = children.compactMap{$0 as? EnemyNode}
