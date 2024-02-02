@@ -83,6 +83,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var shootAnimationTextures: [SKTexture] = []
     var shootAnimation = SKAction()
     
+    var timeSinceLastShot: TimeInterval = 0.0
+    var timeSinceLastUpdate: TimeInterval = 0.0
+    var soundPool: [AVAudioPlayer] = []
+    
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
@@ -100,7 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("You are in the game scene!")
         //Music
         playTracks()
-        
+        setupSoundBullet()
         let initialTiles = 20
         let tileSize = CGSize(width: 128, height: 128)
         
@@ -214,8 +218,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         readyToShoot = false
         shoot()
-
-        let waitAction = SKAction.wait(forDuration: 1 / fireRate)
+        
+        let maxFireRate = max(fireRate, 0)
+        let waitAction = SKAction.wait(forDuration: 1/maxFireRate)
         let enableShootingAction = SKAction.run {
             self.readyToShoot = true
         }
@@ -223,6 +228,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let sequence = SKAction.sequence([waitAction, enableShootingAction])
         run(sequence)
     }
+//    func shooting(deltaTime: TimeInterval) {
+//        
+//        guard readyToShoot, scene != nil else { return }
+//        timeSinceLastShot += deltaTime
+//
+//        if timeSinceLastShot >= 1/fireRate {
+//            //spara e resetta il timer così da evitare stuttering
+//            shoot()
+//            timeSinceLastShot = 0.0
+//        }
+//    }
     
     func reloading() {
         readyToLoad = false
@@ -239,14 +255,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let sequence = SKAction.sequence([waitAction, enableReload])
         run(sequence)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                self.readyToLoad = true
-//            }
+
     }
     
     func increaseSpawnRate() {
         readyToIncreaseSpawnRate = false
-        self.spawnRate += 50
+        self.spawnRate += 10
         
         let waitAction = SKAction.wait(forDuration: 35)
         let enableSpawnRateIncreaseAction = SKAction.run {

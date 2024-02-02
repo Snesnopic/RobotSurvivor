@@ -38,14 +38,12 @@ extension GameScene: AVAudioPlayerDelegate{
         }
     }
     func changeTrack(to newTrack: String) {
-        setupBackgroundMusic(fileName: newTrack)
         backgroundMusicPlayer?.play()
+        setupBackgroundMusic(fileName: newTrack)
     }
     
     func playTracks(){
         setupBackgroundMusic(fileName: "game1")
-        backgroundMusicPlayer?.play()
-        
     }
     
     func determineNextTrack() -> String{
@@ -70,6 +68,4 @@ extension GameScene: AVAudioPlayerDelegate{
     func stopTracks(){
         backgroundMusicPlayer?.stop()
     }
-    
 }
-

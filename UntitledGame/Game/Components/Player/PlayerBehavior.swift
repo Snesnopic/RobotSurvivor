@@ -7,6 +7,7 @@
 
 import Foundation
 import SpriteKit
+import AVFAudio
 
 extension GameScene{
     
@@ -90,6 +91,32 @@ extension GameScene{
 //        shot.run(combinedAction)
 //    }
     
+    func setupSoundBullet() {
+        // Chiamato per inizializzare il pool dei suoni
+        for _ in 0..<100 {
+            if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
+                do {
+                    let soundPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                    soundPlayer.prepareToPlay()
+                    soundPool.append(soundPlayer)
+                } catch {
+                    print("mammt: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func playGunshotSound() {
+            guard let soundPlayer = soundPool.first else {
+                return
+            }
+            soundPlayer.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
+            soundPool.removeFirst()
+            soundPlayer.play()
+            soundPool.append(soundPlayer)
+        
+        }
+    
     func shoot() {
         guard !isGameOver else { return }
         
@@ -102,10 +129,11 @@ extension GameScene{
         if let closestEnemy = findClosestEnemy() {
             let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
             let movement = SKAction.move(to: closestEnemy.position, duration: TimeInterval(time))
-
+            
             // Run shooting animation and movement sequence
             player.run(shootAnimation)
-            playSound(audioFileName: "BULLETS.mp3")
+//            playSound(audioFileName: "BULLETS.mp3")
+            playGunshotSound()
             let sequence = SKAction.sequence([movement, .removeFromParent()])
             shot.run(sequence)
         }

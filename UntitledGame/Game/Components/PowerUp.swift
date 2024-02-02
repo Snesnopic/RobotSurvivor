@@ -21,8 +21,8 @@ extension GameScene{
     
     func increaseFireRate(){
         //debug purpose:
-        fireRate = 1000000
-//        fireRate += 3
+        fireRate = 30
+//        fireRate += 0.3
     }
     
     func increaseBulletSpeed(){
