@@ -76,9 +76,11 @@ extension GameScene{
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp) || (firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player)){
             gainXP(val: 3)
             if(firstBody.categoryBitMask == CollisionType.xp){
+                xpToMagnetise.remove(firstBody.node!)
                 xpOnMap.remove(firstBody.node!)
                 firstBody.node?.removeFromParent()
             }else{
+                xpToMagnetise.remove(secondBody.node!)
                 xpOnMap.remove(secondBody.node!)
                 secondBody.node?.removeFromParent()
             }
