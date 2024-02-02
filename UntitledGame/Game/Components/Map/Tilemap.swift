@@ -23,6 +23,7 @@ extension GameScene{
         tile.name = "tile"
         tile.position = position
         tile.zPosition = -1
+        tile.texture?.filteringMode = .nearest
         
         tilePositions.insert(position)
         addChild(tile)

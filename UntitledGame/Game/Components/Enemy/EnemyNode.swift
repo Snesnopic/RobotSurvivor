@@ -26,7 +26,7 @@ class EnemyNode: SKSpriteNode {
             return SKTextureAtlas(named: "\(type.name)/Walk")
         }
         var enemyIdleTextures: [SKTexture] = []
-        enemyAtlas.textureNames.forEach { string in
+        enemyAtlas.textureNames.sorted().forEach { string in
             let texture = enemyAtlas.textureNamed(string)
             texture.filteringMode = .nearest
             enemyIdleTextures.append(texture)
