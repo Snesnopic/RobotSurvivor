@@ -46,7 +46,7 @@ extension GameScene{
                 joystick?.hideJoystick()
                 joystick?.isPaused = true
                 player.run(deathAnimation,withKey: "deathAnimation")
-                playSound(audioFileName: "DEATH.mp3")
+                playDeathSound(audioFileName: "DEATH.mp3")
                 
                 let waitAction = SKAction.wait(forDuration: 2.5)
                 let enableEnding = SKAction.run {
@@ -60,7 +60,7 @@ extension GameScene{
                 return
             }
             else if isPlayerAlive{
-                playSound(audioFileName: "HIT.mp3")
+                playSound(name: "HIT.mp3")
                 flashRed(node: player)
             }
             else {

@@ -85,6 +85,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var timeSinceLastShot: TimeInterval = 0.0
     var timeSinceLastUpdate: TimeInterval = 0.0
+    var shotSoundPool: [AVAudioPlayer] = []
     var soundPool: [AVAudioPlayer] = []
     
     override init(){
@@ -104,7 +105,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("You are in the game scene!")
         //Music
         playTracks()
-        setupSoundBullet()
+        
+        DispatchQueue.main.async {
+            self.setupShotPool(quantityOfSounds: 30)
+            self.setupShortSoundPool(name: "DEATH", quantityOfSounds: 1)
+        }
         let initialTiles = 20
         let tileSize = CGSize(width: 128, height: 128)
         

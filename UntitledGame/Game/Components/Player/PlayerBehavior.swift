@@ -91,31 +91,65 @@ extension GameScene{
 //        shot.run(combinedAction)
 //    }
     
-    func setupSoundBullet() {
-        // Chiamato per inizializzare il pool dei suoni
-        for _ in 0..<100 {
+    //il motivo per il quale questa soluzione è ottimale è il fatto che prima si generava un suono (musica, suono colpi) su richiesta del main thread. Adesso si inizializza una funzione che è un array di suoni, che poi viene caricata asincronamente (in funzione dei suoni) così da alleggerire notevolmente la computazione.
+    
+    //TLDR: ottimizza notevolmente il gioco
+    func setupShotPool(quantityOfSounds: Int) {
+        //Inizializza la pool dei suoni
+        for _ in 0..<quantityOfSounds {
             if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
                 do {
                     let soundPlayer = try AVAudioPlayer(contentsOf: soundURL)
                     soundPlayer.prepareToPlay()
-                    soundPool.append(soundPlayer)
+                    self.shotSoundPool.append(soundPlayer)
                 } catch {
-                    print("mammt: \(error.localizedDescription)")
+                    print("mammt dice: \(error.localizedDescription)")
                 }
             }
         }
     }
     
-    func playGunshotSound() {
-            guard let soundPlayer = soundPool.first else {
-                return
-            }
-            soundPlayer.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
-            soundPool.removeFirst()
-            soundPlayer.play()
-            soundPool.append(soundPlayer)
+    //perché 2? Per lo stesso motivo
+    func playShotSound(name: String) {
         
+        guard let soundPlayer = shotSoundPool.first else {
+            return // Exit early if there is no matching sound player
         }
+        soundPlayer.volume = gameLogic.soundsSwitch ? (0.05/5) * Float(gameLogic.soundsVolume) : 0
+        shotSoundPool.removeFirst()
+        soundPlayer.play()
+        shotSoundPool.append(soundPlayer)
+    }
+    
+    func setupShortSoundPool(name soundName: String, quantityOfSounds: Int) {
+        
+        let soundURL = Bundle.main.url(forResource: soundName, withExtension: "mp3")
+        
+        do {
+            let soundPlayer = try AVAudioPlayer(contentsOf: soundURL!)
+            soundPlayer.prepareToPlay()
+            
+            //Inizializza la pool dei suoni
+            for _ in 0..<quantityOfSounds {
+                self.soundPool.append(soundPlayer)
+            }
+        } catch {
+            print("Ascanio dice: \(error.localizedDescription)")
+        }
+    }
+    
+    func playSound(name: String) {
+        // Filtra basato su nome
+        let filteredSounds = soundPool.filter { $0.url?.lastPathComponent.contains(name) ?? false }
+        
+        guard let soundPlayer = filteredSounds.first else {
+            return
+        }
+        soundPlayer.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
+        soundPool.removeFirst()
+        soundPlayer.play()
+        soundPool.append(soundPlayer)
+    }
     
     func shoot() {
         guard !isGameOver else { return }
@@ -125,15 +159,15 @@ extension GameScene{
         configureBullet(shot)
         configureBulletPhysics(shot)
         addChild(shot)
-
+        
         if let closestEnemy = findClosestEnemy() {
             let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
             let movement = SKAction.move(to: closestEnemy.position, duration: TimeInterval(time))
             
             // Run shooting animation and movement sequence
             player.run(shootAnimation)
-//            playSound(audioFileName: "BULLETS.mp3")
-            playGunshotSound()
+            //            playSound(audioFileName: "BULLETS.mp3")
+            playShotSound(name: "BULLETS")
             let sequence = SKAction.sequence([movement, .removeFromParent()])
             shot.run(sequence)
         }
@@ -165,7 +199,7 @@ extension GameScene{
     }
 
     //per l'audio
-    func playSound(audioFileName: String){
+    func playDeathSound(audioFileName: String){
         let soundNode = SKAudioNode(fileNamed: audioFileName)
         soundNode.autoplayLooped = false
         addChild(soundNode)
