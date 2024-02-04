@@ -60,7 +60,7 @@ extension GameScene{
                 return
             }
             else if isPlayerAlive{
-                playSound(name: "HIT.mp3")
+                playGettingHitSound(name: "HIT.mp3")
                 flashRed(node: player)
             }
             else {

@@ -87,6 +87,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var timeSinceLastUpdate: TimeInterval = 0.0
     var shotSoundPool: [AVAudioPlayer] = []
     var soundPool: [AVAudioPlayer] = []
+    var bulletPool: [SKSpriteNode] = []
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -107,8 +108,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playTracks()
         
         DispatchQueue.main.async {
-            self.setupShotPool(quantityOfSounds: 30)
-            self.setupShortSoundPool(name: "DEATH", quantityOfSounds: 1)
+            self.setupBulletPool(quantityOfBullets: 100)
+            self.setupShotPool(quantityOfSounds: 10)
+            self.setupShortSoundPool(name: "HIT", quantityOfSounds: 1)
         }
         let initialTiles = 20
         let tileSize = CGSize(width: 128, height: 128)
