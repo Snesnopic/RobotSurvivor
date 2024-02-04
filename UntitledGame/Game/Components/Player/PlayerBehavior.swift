@@ -21,79 +21,9 @@ extension GameScene{
         gameLogic.showPowerUp = true
     }
     
-//    func shoot(){
-//        guard !isGameOver else {return}
-//        let shot = SKSpriteNode(imageNamed: "bullet")
-//        shot.texture?.filteringMode = .nearest
-//        shot.name = "bullet"
-//        shot.position = player.position
-//        player.run(shootAnimation)
-//        shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/3, height: shot.size.height/3))
-//        shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
-//        shot.physicsBody?.collisionBitMask =  CollisionType.enemy
-//        shot.physicsBody?.contactTestBitMask = CollisionType.enemy
-//        shot.physicsBody?.isDynamic = false
-//        shot.zPosition = 2
-//        shot.setScale(1.5)
-//        addChild(shot)
-//        
-//        let activeEnemies = children.compactMap{$0 as? EnemyNode}
-//       guard let closestEnemy: EnemyNode = activeEnemies.sorted(by: { first, second in
-//            return distanceBetween(node1: player, node2: first) < distanceBetween(node1: player, node2: second)
-//       }).first else {return}
-//        
-//        let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
-//        let movement = SKAction.move(to: closestEnemy.position,duration: TimeInterval(time))
-//        playSound(audioFileName: "BULLETS.mp3")
-//        let sequence = SKAction.sequence([movement, .removeFromParent()])
-//           shot.run(sequence)
-//        
-//    }
+    //il motivo per il quale questa soluzione è ottimale è il fatto che prima si generava un proiettile su richiesta del main thread. Adesso si inizializza una funzione che è un buffer di proiettili, che poi viene caricata asincronamente così da alleggerire notevolmente la computazione.
     
-//    func shoot() {
-//        guard !isGameOver else { return }
-//
-//        let shot = SKSpriteNode(imageNamed: "bullet")
-//        shot.texture?.filteringMode = .nearest
-//        shot.name = "bullet"
-//        shot.position = player.position
-//        shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width, height: shot.size.height))
-//        shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
-//        shot.physicsBody?.collisionBitMask = CollisionType.enemy
-//        shot.physicsBody?.contactTestBitMask = CollisionType.enemy
-//        shot.physicsBody?.isDynamic = false
-//        shot.zPosition = 2
-//        addChild(shot)
-//        
-//        let activeEnemies = children.compactMap { $0 as? EnemyNode }
-//        guard let closestEnemy = activeEnemies.min(by: { distanceBetween(node1: player, node2: $0) < distanceBetween(node1: player, node2: $1) }) else {
-//            return
-//        }
-//
-//        let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
-//        let movement = SKAction.move(to: closestEnemy.position, duration: TimeInterval(time))
-//        let remove = SKAction.removeFromParent()
-//
-//        // Combine movement and removal actions into a sequence
-//        let sequence = SKAction.sequence([movement, remove])
-//
-//        // Create recoil animation (move player back briefly)
-//        let recoilDistance: CGFloat = 50.0
-//        let recoilAction = SKAction.move(by: CGVector(dx: -recoilDistance, dy: 0), duration: 1/fireRate)
-//        let resetPositionAction = SKAction.move(by: CGVector(dx: 0, dy: recoilDistance), duration: 1/fireRate)
-//
-//        // Combine the recoil animation with the shooting sequence
-//        let combinedAction = SKAction.group([sequence, recoilAction, resetPositionAction])
-//
-//        playSound(audioFileName: "BULLETS.mp3")
-//
-//        // Run the combined action on the shot
-//        shot.run(combinedAction)
-//    }
-    
-    //il motivo per il quale questa soluzione è ottimale è il fatto che prima si generava un suono (musica, suono colpi) su richiesta del main thread. Adesso si inizializza una funzione che è un array di suoni, che poi viene caricata asincronamente (in funzione dei suoni) così da alleggerire notevolmente la computazione.
-    
-    
+    //TLDR: ottimizza notevolmente il gioco
     func setupBulletPool(quantityOfBullets: Int) {
         for _ in 0..<quantityOfBullets { 
             let bullet = SKSpriteNode(imageNamed: "bullet")
@@ -103,48 +33,75 @@ extension GameScene{
         }
     }
     
-    func getBulletFromPool() -> SKSpriteNode? { return bulletPool.isEmpty ? nil : bulletPool.removeLast() }
-    func returnBulletToPool(_ bullet: SKSpriteNode) { bulletPool.append(bullet) }
+    func getBulletFromPool() -> SKSpriteNode? {
+        
+        //TODO: da ottimizzare, magari facendo solo questo if, ma adesso non ho sbatti
+        if (bulletPool.count < 10 && !done) {
+            DispatchQueue.global(qos: .background).async {
+                self.setupBulletPool(quantityOfBullets: 50)
+            }
+            done = true;
+        } else {
+            done = false
+        }
+        return bulletPool.removeLast()
+    }
+
+    func returnBulletToPool(_ bullets: [SKSpriteNode]) {
+        
+        //TODO: da ottimizzare, vedi func precedente
+        for bullet in bullets {
+            bulletPool.append(bullet)
+        }
+    }
         
     func shoot() {
+        
+        var usedBullets: [SKSpriteNode] = []
         guard !isGameOver else { return }
         
         if let shot = getBulletFromPool() {
-            // Imposta la posizione iniziale del proiettile in base alla posizione del giocatore
+            
+            //ue uaglio bell stu proiettile
+            usedBullets.append(shot)
             shot.position = player.position
             addChild(shot)
             
-            print("Numero di proiettili: \(bulletPool.count)")
-            
+            print("Proiettili restanti: \(bulletPool.count)")
+
             if let closestEnemy = findClosestEnemy() {
-                let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
+                let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * 8)
                 let movement = SKAction.move(to: closestEnemy.position, duration: TimeInterval(time))
                 
-                // Play sound before shooting animation and movement sequence
-                playShotSound(name: "BULLETS")
+                //PEW PEW
+                playBulletSound(name: "BULLETS")
+                //SPAR LELLU' SPAR
                 player.run(shootAnimation)
                 
                 let sequence = SKAction.sequence([movement, .removeFromParent()])
                 
-                // Restituisci il proiettile alla pool dopo il completamento della sequenza
                 shot.run(sequence) { [self] in
-                    print("Numero di proiettili: \(bulletPool.count)")
-                    self.returnBulletToPool(shot)
-                    print("Rimetto proiettile: \(bulletPool.count)")
+                    if usedBullets.last == shot {
+                        //tie piglt o proiettile
+                        self.returnBulletToPool(usedBullets)
+                        print("Rimetto proiettile: \(bulletPool.count)")
+                    }
                 }
             }
         }
     }
-
+    
+    //il motivo per il quale questa soluzione è ottimale è il fatto che prima si generava un suono (musica, suono colpi) su richiesta del main thread. Adesso si inizializza una funzione che è un buffer di suoni, che poi viene caricata asincronamente (in funzione dei suoni) così da alleggerire notevolmente la computazione.
+    
     //TLDR: ottimizza notevolmente il gioco
-    func setupShotPool(quantityOfSounds: Int) {
+    func setupBulletSoundPool(quantityOfSounds: Int) {
         //Inizializza la pool dei suoni
         for _ in 0..<quantityOfSounds {
             if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
                 do {
                     let soundPlayer = try AVAudioPlayer(contentsOf: soundURL)
                     soundPlayer.prepareToPlay()
-                    self.shotSoundPool.append(soundPlayer)
+                    self.bulletSoundPool.append(soundPlayer)
                 } catch {
                     print("mammt dice: \(error.localizedDescription)")
                 }
@@ -153,16 +110,13 @@ extension GameScene{
     }
     
     //perché 2? Per lo stesso motivo
-    func playShotSound(name: String) {
+    func playBulletSound(name: String) {
         
-        guard let soundPlayer = shotSoundPool.first else { return }
+        guard let soundPlayer = bulletSoundPool.first else { return }
         soundPlayer.volume = gameLogic.soundsSwitch ? (0.05/5) * Float(gameLogic.soundsVolume) : 0
-        print("Rimuovo suono, numero attuale: \(shotSoundPool.count)")
-        shotSoundPool.removeFirst()
+        bulletSoundPool.removeFirst()
         soundPlayer.play()
-        print("Suono utilizzato, rimetto suono. Numero attuale: \(shotSoundPool.count)")
-        shotSoundPool.append(soundPlayer)
-        print("Suono rimesso. Numero suoni totali: \(shotSoundPool.count)")
+        bulletSoundPool.append(soundPlayer)
     }
     
     func setupShortSoundPool(name soundName: String, quantityOfSounds: Int) {
@@ -190,28 +144,6 @@ extension GameScene{
         soundPlayer.play()
         soundPool.append(soundPlayer)
     }
-    
-//    func shoot() {
-//        guard !isGameOver else { return }
-//        
-//        //setup
-//        let shot = SKSpriteNode(imageNamed: "bullet")
-//        configureBullet(shot)
-//        configureBulletPhysics(shot)
-//        addChild(shot)
-//        
-//        if let closestEnemy = findClosestEnemy() {
-//            let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
-//            let movement = SKAction.move(to: closestEnemy.position, duration: TimeInterval(time))
-//            
-//            // Run shooting animation and movement sequence
-//            player.run(shootAnimation)
-//            //            playSound(audioFileName: "BULLETS.mp3")
-//            playShotSound(name: "BULLETS")
-//            let sequence = SKAction.sequence([movement, .removeFromParent()])
-//            shot.run(sequence)
-//        }
-//    }
     
     //per i proiettili
     func configureBullet(_ bullet: SKSpriteNode) {

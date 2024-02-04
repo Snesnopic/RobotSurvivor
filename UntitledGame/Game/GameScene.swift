@@ -85,9 +85,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var timeSinceLastShot: TimeInterval = 0.0
     var timeSinceLastUpdate: TimeInterval = 0.0
-    var shotSoundPool: [AVAudioPlayer] = []
+    var bulletSoundPool: [AVAudioPlayer] = []
     var soundPool: [AVAudioPlayer] = []
     var bulletPool: [SKSpriteNode] = []
+    var done: Bool = false
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -108,9 +109,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playTracks()
         
         DispatchQueue.main.async {
-            self.setupBulletPool(quantityOfBullets: 100)
-            self.setupShotPool(quantityOfSounds: 10)
-            self.setupShortSoundPool(name: "HIT", quantityOfSounds: 1)
+            self.setupBulletPool(quantityOfBullets: 15)
+            self.setupBulletSoundPool(quantityOfSounds: 25)
+            self.setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
         }
         let initialTiles = 20
         let tileSize = CGSize(width: 128, height: 128)
@@ -187,39 +188,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundMusicPlayer?.volume = gameLogic.musicSwitch ? (0.6/5)*Float(gameLogic.musicVolume) : 0
     }
     
-    //TODO: Normal
-//    func shooting() {
-//        let maxFireRate = max(fireRate, 0)
-//        readyToShoot = false
-//        shoot()
-//        
-//        let waitAction = SKAction.wait(forDuration: 1/maxFireRate)
-//        let enableShootingAction = SKAction.run {
-//            self.readyToShoot = true
-//        }
-//        
-//        let sequence = SKAction.sequence([waitAction, enableShootingAction])
-//        run(sequence)
-//    }
-    
-    //TODO: recursive?
-//    func shooting() {
-//        guard readyToShoot else {
-//            return
-//        }
-//
-//        shoot()
-//        readyToShoot = false
-//
-//        let maxFireRate = max(fireRate, 0)
-//        let waitTime = 1 / maxFireRate
-//
-//        run(SKAction.wait(forDuration: waitTime)) {
-//            self.readyToShoot = true
-//            self.shooting() // Recursive call to schedule the next shot
-//        }
-//    }
-    //TODO: Attuale
     func shooting() {
         guard readyToShoot else { return }
         
@@ -235,17 +203,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let sequence = SKAction.sequence([waitAction, enableShootingAction])
         run(sequence)
     }
-//    func shooting(deltaTime: TimeInterval) {
-//        
-//        guard readyToShoot, scene != nil else { return }
-//        timeSinceLastShot += deltaTime
-//
-//        if timeSinceLastShot >= 1/fireRate {
-//            //spara e resetta il timer così da evitare stuttering
-//            shoot()
-//            timeSinceLastShot = 0.0
-//        }
-//    }
     
     func reloading() {
         readyToLoad = false
@@ -267,7 +224,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func increaseSpawnRate() {
         readyToIncreaseSpawnRate = false
-        self.spawnRate += 10
+        self.spawnRate += 7
         
         let waitAction = SKAction.wait(forDuration: 35)
         let enableSpawnRateIncreaseAction = SKAction.run {
@@ -294,7 +251,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         readyToSpawnPickUp = false
         spawnPickUp()
         
-        let waitAction = SKAction.wait(forDuration: 60)
+        let waitAction = SKAction.wait(forDuration: 45)
         let enableSpawnMagnetPickUpAction = SKAction.run {
             self.readyToSpawnPickUp = true
         }
@@ -302,51 +259,3 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         run(sequence, withKey: "increaseSpawnMagnetPickUp")
     }
 }
-
-//func startSpawnRateIncreaseTimer() {
-//    spawnRateIncreaseTimer = Timer.scheduledTimer(
-//        timeInterval: 60.0,
-//        target: self,
-//        selector: #selector(increaseSpawnRate),
-//        userInfo: nil,
-//        repeats: false
-//    )
-//}
-//
-//@objc func increaseSpawnRate() {
-//    readyToIncreaseSpawnRate = false
-//    self.spawnRate += 7
-//    self.readyToIncreaseSpawnRate = true
-//}
-//
-//func startIncreaseEnemyPowerTimer() {
-//    enemyPowerTimer = Timer.scheduledTimer(
-//        timeInterval: 55.0,
-//        target: self,
-//        selector: #selector(increaseEnemyPower),
-//        userInfo: nil,
-//        repeats: true
-//    )
-//}
-//
-//@objc func increaseEnemyPower() {
-//    readyToIncreaseEnemyPower = false
-//    multiplier = multiplier + 1
-//    self.readyToIncreaseEnemyPower = true
-//}
-//
-//func startSpawnMagnetPickUpTimer() {
-//    magnetTimer = Timer.scheduledTimer(
-//        timeInterval: 35.0,
-//        target: self,
-//        selector: #selector(spawnMagnetPickUp),
-//        userInfo: nil,
-//        repeats: true
-//    )
-//}
-//
-//@objc func spawnMagnetPickUp() {
-//    readyToSpawnPickUp = false
-//    spawnPickUp()
-//    self.readyToSpawnPickUp = true
-//}
