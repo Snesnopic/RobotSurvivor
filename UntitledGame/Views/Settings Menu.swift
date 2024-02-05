@@ -28,7 +28,6 @@ struct Settings_Menu: View {
                     .offset(x: -34)
                     .opacity(0.6)
                 
-                
                 Image("cpuVert")
                     .interpolation(.none)
                     .resizable()
@@ -38,22 +37,23 @@ struct Settings_Menu: View {
                     .shadow(radius: 20)
                     .padding(.top, 50)
                 
+                PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
+                    dismiss()
+                }, textView: Text("x")
+                    .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
+                .frame(width:50, height: 57)
+                .shadow(radius: 15)
+                .padding(.leading, 275)
+                .padding(.bottom,700)
                 VStack{
                     
                     
-                    PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
-                        dismiss()
-                    }, textView: Text("x")
-                        .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
-                    .frame(width:50, height: 57)
-                    .shadow(radius: 15)
-                    .padding(.leading, 275)
                     
                     
                     Text("Settings")
-                        .font(.custom("Silkscreen-Bold", size: 50))
+                        .font(.custom("Silkscreen-Bold", size: 30))
                         .shadow(radius: 15)
-                        .padding(.bottom, 105)
+                        .padding(.top, 60)
                     
                     HStack{
                         Text("Music")
@@ -146,8 +146,6 @@ struct Settings_Menu: View {
                     .shadow(radius: 15)
                     
                     
-                    Spacer()
-                    
                 }
                 .foregroundStyle(.white)
                 .tracking(-2.5)
@@ -158,6 +156,6 @@ struct Settings_Menu: View {
     }
 }
 
-//#Preview {
-//    Settings_Menu()
-//}
+#Preview {
+    Settings_Menu(switchMusic: .constant(true), switchSound: .constant(true), music: .constant(10), sounds: .constant(10))
+}
