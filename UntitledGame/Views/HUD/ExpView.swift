@@ -22,13 +22,9 @@ struct ExpView: View {
             }
         }
     }
-    
-
-    
-    
 }
 
-//#Preview {
-//    ExpView(experienceNeeded: 20, currentXP: 0)
-//}
+#Preview {
+    ExpView(experienceNeeded: .constant(40), currentXP: .constant(20))
+}
 
