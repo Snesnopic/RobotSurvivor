@@ -110,7 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         DispatchQueue.main.async {
             self.setupBulletPool(quantityOfBullets: 15)
-            self.setupBulletSoundPool(quantityOfSounds: 25)
+            self.setupBulletSoundPool(quantityOfSounds: 30)
             self.setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
         }
         let initialTiles = 20
