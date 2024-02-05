@@ -21,8 +21,6 @@ struct ExpView: View {
                     .opacity(0.8)
             }
         }
-        
-        
     }
     
 
