@@ -12,9 +12,9 @@ struct DurationView: View {
     var body: some View {
         GeometryReader{ geometry in
             Text("Time")
-               .font(.custom("Silkscreen-Regular", size: 30))
-               .foregroundStyle(.white)
-               .position(CGPoint(x: geometry.size.width/6.5, y: 60) )
+                .font(.custom("Silkscreen-Regular", size: 30))
+                .foregroundStyle(.white)
+                .position(CGPoint(x: geometry.size.width/6.5, y: 60) )
             Text(String(time.minuteSecond))
                 .font(.custom("Silkscreen-Regular", size: 30))
                 .foregroundStyle(.white)
