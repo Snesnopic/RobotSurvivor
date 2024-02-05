@@ -57,7 +57,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var readyToSpawnPickUp: Bool = true
     //map
     var tilePositions: Set<CGPoint> = []
-    let tileSize = CGSize(width: 100, height: 100)
+    var centerTile: CGPoint = CGPoint(x: 0, y: 0)
+    let tileSize = CGSize(width: 128, height: 128)
     //music
     var backgroundMusicPlayer: AVAudioPlayer?
     var currentTrack: String?
@@ -102,7 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Music
         playTracks()
         
-        let initialTiles = 20
+        let initialTiles = 10
         let tileSize = CGSize(width: 128, height: 128)
         
         for x in -initialTiles...initialTiles {
@@ -122,7 +123,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if(self.lastUpdate == 0){
             self.lastUpdate = currentTime
         }
-        
         let timeElapsedSinceLastUpdate = min(currentTime - self.lastUpdate, 0.5)
         
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
@@ -173,7 +173,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if readyToLoad {
             readyToLoad = false
-            updateTiles()
             for enemy in enemiesOnMap{
                 if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8){
                     relocateEnemy(enemy: enemy)
@@ -182,6 +181,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.readyToLoad = true
             }
+        }
+        
+        //map generation if too far from center
+        if(abs(CGFloat(hypotf(Float(playerPosition.x - centerTile.x), Float(playerPosition.y - centerTile.y)))) > 768){
+            updateTiles()
         }
         
         if readyToIncreaseSpawnRate {

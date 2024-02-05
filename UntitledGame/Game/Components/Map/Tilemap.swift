@@ -15,8 +15,10 @@ extension GameScene{
         let tileType = Int.random(in: 1...100)
         if(tileType <= 70){
             tileImageName = "Moon1"
-        }else{
+        }else if(tileType > 70 || tileType < 90){
             tileImageName = "Moon2"
+        }else{
+            tileImageName = "Moon3"
         }
         
         let tile = SKSpriteNode(imageNamed: tileImageName)
@@ -30,43 +32,39 @@ extension GameScene{
         
     }
     
-    func updateTiles() {
-        let playerPosition = player.position
-        let visibleXDistance = 700
-        let visibleYDistance = 700
+    func newCenterTile(){
+        let baseX = Int(player.position.x/128)
+        let baseY = Int(player.position.y/128)
+
+        centerTile.x = CGFloat(baseX * 128)
+        centerTile.y = CGFloat(baseY * 128)
         
-        let minX = playerPosition.x - CGFloat(visibleXDistance)
-        let maxX = playerPosition.x + CGFloat(visibleXDistance)
-        let minY = playerPosition.y - CGFloat(visibleYDistance)
-        let maxY = playerPosition.y + CGFloat(visibleYDistance)
-        
-        
-        // Load new tiles
-        for x in stride(from: minX, through: maxX, by: tileSize.width) {
-            for y in stride(from: minY, through: maxY, by: tileSize.height) {
+        //print(centerTile)
+    }
+    
+    func updateTiles(){
+        newCenterTile()
+        for x in stride(from: centerTile.x - 1536, to: centerTile.x + 1536, by: tileSize.width){
+            for y in stride(from: centerTile.y - 1536, to: centerTile.y + 1536, by: tileSize.height){
                 let position = CGPoint(x: x, y: y)
-                if !isTilePresent(at: position) {
-                    if((position.x >= minX && position.x < (minX + 400)) || (position.x > (maxX - 400) && position.x <= maxX)){
-                        addTile(at: position)
-                    }else if((position.y >= minY && position.y < (minY + 300)) || (position.y > (maxY - 300) && position.y <= maxY)){
-                        addTile(at: position)
-                    }
+                if !isTilePresent(at: position){
+                    addTile(at: position)
                 }
             }
         }
+        
         for node in self.children.compactMap({ $0 as? SKSpriteNode }) {
             if(node.name == "tile"){
-                if(node.position.x < minX || node.position.x > maxX)
-                    {
+                if(node.position.x < centerTile.x - 1536 || node.position.x > centerTile.x + 1536)
+                {
                     tilePositions.remove(node.position)
                     node.removeFromParent()
-                }else if(node.position.y < minY || node.position.y > maxY){
+                }else if(node.position.y < centerTile.y - 1536 || node.position.y > centerTile.y + 1536){
                     tilePositions.remove(node.position)
                     node.removeFromParent()
                 }
             }
         }
-        
     }
     
     func isTilePresent(at position: CGPoint) -> Bool {
