@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var centerTile: CGPoint = CGPoint(x: 0, y: 0)
     //music
     var backgroundMusicPlayer: AVAudioPlayer?
-    var currentTrack: String?
+    var currentTrack: String? = "game1"
     
     var isBossReady = true
     
@@ -90,6 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var soundPool: [AVAudioPlayer] = []
     var bulletPool: [SKSpriteNode] = []
     var done: Bool = false
+    var musicPool: [AVAudioPlayer] = []
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -106,14 +107,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
-        //Music
-        playTracks()
         
-        DispatchQueue.main.async {
-            self.setupBulletPool(quantityOfBullets: 15)
-            self.setupBulletSoundPool(quantityOfSounds: 30)
-            self.setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
+        setupBackgroundMusic(quantityOfMusic: 2)
+        setupBulletPool(quantityOfBullets: 3)
+        DispatchQueue.main.async { [self] in
+            
+            setupBulletSoundPool(quantityOfSounds: 30)
+            setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
+            playTracks()
         }
+        
         let initialTiles = 10
         let tileSize = CGSize(width: 128, height: 128)
         

@@ -16,7 +16,6 @@ extension GameScene{
     func finishGame() {
         gameLogic.isGameOver = true
         self.scene?.isPaused = true
-        stopTracks()
         player.userData!["hp"] = 0
     }
     
