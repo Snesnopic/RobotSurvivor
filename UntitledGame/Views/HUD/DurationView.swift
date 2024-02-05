@@ -22,6 +22,6 @@ struct DurationView: View {
         }
     }
 }
-//#Preview {
-//    DurationView()
-//}
+#Preview {
+    DurationView(time: .constant(TimeInterval(581)))
+}
