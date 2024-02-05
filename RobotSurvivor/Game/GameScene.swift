@@ -56,7 +56,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var readyToSpawnPickUp: Bool = true
     //map
     var tilePositions: Set<CGPoint> = []
-    let tileSize = CGSize(width: 100, height: 100)
+    let tileSize = CGSize(width: 128, height: 128)
+    var centerTile: CGPoint = CGPoint(x: 0, y: 0)
     //music
     var backgroundMusicPlayer: AVAudioPlayer?
     var currentTrack: String?
@@ -113,7 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.setupBulletSoundPool(quantityOfSounds: 30)
             self.setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
         }
-        let initialTiles = 20
+        let initialTiles = 10
         let tileSize = CGSize(width: 128, height: 128)
         
         for x in -initialTiles...initialTiles {
@@ -152,6 +153,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         deltaTime = currentTime - lastUpdateTime
         lastUpdateTime = currentTime
+        
+        if abs(CGFloat(hypot(Float(player.position.x - centerTile.x), Float(player.position.y - centerTile.y)))) > 768 {
+            updateTiles()
+        }
+        
+        
+        
+        
         
         let playerPosition = player.position
         for xp in xpToMagnetise{
@@ -206,7 +215,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func reloading() {
         readyToLoad = false
-        updateTiles()
         for enemy in enemiesOnMap{
             if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8){
                 relocateEnemy(enemy: enemy)
