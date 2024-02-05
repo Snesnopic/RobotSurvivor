@@ -20,15 +20,17 @@ extension GameScene{
     }
     
     func increaseFireRate(){
-        fireRate = fireRate - 0.2
+        //debug purpose:
+//        fireRate = 30
+        fireRate += 0.25
     }
     
     func increaseBulletSpeed(){
-        spd = spd + 2
+        spd += 2
     }
     
     func increaseDamage(){
-        dmg = dmg + 5
+        dmg += 8
     }
     
     func callPowerUp(name: String){

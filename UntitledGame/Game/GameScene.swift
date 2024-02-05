@@ -30,7 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var sceneCamera: SKCameraNode = SKCameraNode()
     var readyToLoad: Bool = true
     var joystick: Joystick?
-
+    
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
     //player
@@ -38,7 +38,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isPlayerAlive = true
     var player: SKSpriteNode!
     var healthBar: SKScene!
-
     //enemies
     var enemiesOnMap: Set<EnemyNode> = []
     var enemyTypes = EnemyTypesVM().enemyTypes
@@ -80,9 +79,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var playerIdleTextures: [SKTexture] = []
     var playerIdleAnimation = SKAction()
-
+    
     var shootAnimationTextures: [SKTexture] = []
     var shootAnimation = SKAction()
+    
+    var timeSinceLastShot: TimeInterval = 0.0
+    var timeSinceLastUpdate: TimeInterval = 0.0
+    var bulletSoundPool: [AVAudioPlayer] = []
+    var soundPool: [AVAudioPlayer] = []
+    var bulletPool: [SKSpriteNode] = []
+    var done: Bool = false
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -102,6 +108,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Music
         playTracks()
         
+        DispatchQueue.main.async {
+            self.setupBulletPool(quantityOfBullets: 15)
+            self.setupBulletSoundPool(quantityOfSounds: 30)
+            self.setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
+        }
         let initialTiles = 20
         let tileSize = CGSize(width: 128, height: 128)
         
@@ -111,12 +122,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addTile(at: position)
             }
         }
-        
     }
     
     func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
         return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
     }
+    
     override func update(_ currentTime: TimeInterval) {
         
         if(self.lastUpdate == 0){
@@ -124,11 +135,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let timeElapsedSinceLastUpdate = min(currentTime - self.lastUpdate, 0.5)
-        
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
-        
         self.lastUpdate = currentTime
-        
         self.enemyLogic()
         
         camera?.position = player.position
@@ -136,87 +144,118 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //enable to have a wider view
         //camera?.setScale(5)
         
-        if ((gameLogic.showPowerUp) || gameLogic.showPauseMenu){
-            self.scene?.isPaused = true
-        }else{
-            self.scene?.isPaused = false
-        }
+        self.scene?.isPaused = (gameLogic.showPowerUp || gameLogic.showPauseMenu) ? true : false
         
         if lastUpdateTime.isZero {
             lastUpdateTime = currentTime
         }
         
         deltaTime = currentTime - lastUpdateTime
-        
-        
         lastUpdateTime = currentTime
-        
-        if readyToShoot && isPlayerAlive{
-            readyToShoot = false
-            shoot()
-            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(fireRate)) {
-                self.readyToShoot = true
-            }
-        }
         
         let playerPosition = player.position
         for xp in xpToMagnetise{
-                let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y - playerPosition.y))))
-                let speed = 500.0
-                let action =  SKAction.move(to: playerPosition, duration: distance/speed)
-                xp.run(action)
+            let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y - playerPosition.y))))
+            let speed = 500.0
+            let action =  SKAction.move(to: playerPosition, duration: distance/speed)
+            xp.run(action)
         }
         
-            for enemy in enemiesOnMap{
-                enemy.configureMovement(player)
-            }
+        for enemy in enemiesOnMap{
+            enemy.configureMovement(player)
+        }
+        
+        if readyToShoot && isPlayerAlive {
+            shooting()
+        }
         
         if readyToLoad {
-            readyToLoad = false
-            updateTiles()
-            for enemy in enemiesOnMap{
-                if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8){
-                    relocateEnemy(enemy: enemy)
-                }
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.readyToLoad = true
-            }
+            reloading()
         }
         
         if readyToIncreaseSpawnRate {
-            readyToIncreaseSpawnRate = false
-            self.spawnRate = self.spawnRate + 7
-            DispatchQueue.main.asyncAfter(deadline: .now() + 35) {
-                self.readyToIncreaseSpawnRate = true
-            }
+            increaseSpawnRate()
         }
         
         if readyToIncreaseEnemyPower {
-            readyToIncreaseEnemyPower = false
-            multiplier = multiplier + 1
-            //print(multiplier)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 55) {
-                self.readyToIncreaseEnemyPower = true
-            }
+            increaseEnemyPower()
         }
         
         if readyToSpawnPickUp{
-            readyToSpawnPickUp = false
-            spawnPickUp()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
-                self.readyToSpawnPickUp = true
-            }
+            spawnMagnetPickUp()
         }
         
-        if gameLogic.musicSwitch {
-            backgroundMusicPlayer?.volume = (0.6/5)*Float(self.gameLogic.musicVolume)
-        } else {
-            backgroundMusicPlayer?.volume = 0
-        }
-        
-        
+        backgroundMusicPlayer?.volume = gameLogic.musicSwitch ? (0.6/5)*Float(gameLogic.musicVolume) : 0
     }
     
-}
+    func shooting() {
+        guard readyToShoot else { return }
+        
+        readyToShoot = false
+        shoot()
+        
+        let maxFireRate = max(fireRate, 0)
+        let waitAction = SKAction.wait(forDuration: 1/maxFireRate)
+        let enableShootingAction = SKAction.run {
+            self.readyToShoot = true
+        }
 
+        let sequence = SKAction.sequence([waitAction, enableShootingAction])
+        run(sequence)
+    }
+    
+    func reloading() {
+        readyToLoad = false
+        updateTiles()
+        for enemy in enemiesOnMap{
+            if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8){
+                relocateEnemy(enemy: enemy)
+            }
+        }
+        let waitAction = SKAction.wait(forDuration: 3)
+        let enableReload = SKAction.run {
+            self.readyToLoad = true
+        }
+        
+        let sequence = SKAction.sequence([waitAction, enableReload])
+        run(sequence)
+
+    }
+    
+    func increaseSpawnRate() {
+        readyToIncreaseSpawnRate = false
+        self.spawnRate += 7
+        
+        let waitAction = SKAction.wait(forDuration: 35)
+        let enableSpawnRateIncreaseAction = SKAction.run {
+            self.readyToIncreaseSpawnRate = true
+        }
+        
+        let sequence = SKAction.sequence([waitAction, enableSpawnRateIncreaseAction])
+        run(sequence, withKey: "increaseSpawnRateAction")
+    }
+    
+    func increaseEnemyPower() {
+        readyToIncreaseEnemyPower = false
+        multiplier = multiplier + 1
+
+        let waitAction = SKAction.wait(forDuration: 55)
+        let enableIncreaseEnemyPowerAction = SKAction.run {
+            self.readyToIncreaseEnemyPower = true
+        }
+        let sequence = SKAction.sequence([waitAction, enableIncreaseEnemyPowerAction])
+        run(sequence, withKey: "increaseEnemyRatePower")
+    }
+    
+    func spawnMagnetPickUp() {
+        readyToSpawnPickUp = false
+        spawnPickUp()
+        
+        let waitAction = SKAction.wait(forDuration: 45)
+        let enableSpawnMagnetPickUpAction = SKAction.run {
+            self.readyToSpawnPickUp = true
+        }
+        let sequence = SKAction.sequence([waitAction, enableSpawnMagnetPickUpAction])
+        run(sequence, withKey: "increaseSpawnMagnetPickUp")
+    }
+}

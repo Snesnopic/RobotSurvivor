@@ -46,15 +46,21 @@ extension GameScene{
                 joystick?.hideJoystick()
                 joystick?.isPaused = true
                 player.run(deathAnimation,withKey: "deathAnimation")
-                playSound(audioFileName: "DEATH.mp3")
+                playDeathSound(audioFileName: "DEATH.mp3")
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
+                let waitAction = SKAction.wait(forDuration: 2.5)
+                let enableEnding = SKAction.run {
                     self.finishGame()
                 }
+                let sequence = SKAction.sequence([waitAction, enableEnding])
+                run(sequence)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5){
+//                    self.finishGame()
+//                }
                 return
             }
             else if isPlayerAlive{
-                playSound(audioFileName: "HIT.mp3")
+                playGettingHitSound(name: "HIT.mp3")
                 flashRed(node: player)
             }
             else {
@@ -76,9 +82,11 @@ extension GameScene{
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp) || (firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player)){
             gainXP(val: 3)
             if(firstBody.categoryBitMask == CollisionType.xp){
+                xpToMagnetise.remove(firstBody.node!)
                 xpOnMap.remove(firstBody.node!)
                 firstBody.node?.removeFromParent()
             }else{
+                xpToMagnetise.remove(secondBody.node!)
                 xpOnMap.remove(secondBody.node!)
                 secondBody.node?.removeFromParent()
             }

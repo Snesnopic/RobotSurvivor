@@ -7,6 +7,7 @@
 
 import Foundation
 import SpriteKit
+import AVFAudio
 
 extension GameScene{
     
@@ -20,44 +21,164 @@ extension GameScene{
         gameLogic.showPowerUp = true
     }
     
-    func shoot(){
-        guard !isGameOver else {return}
-        let shot = SKSpriteNode(imageNamed: "bullet")
-        shot.texture?.filteringMode = .nearest
-        shot.name = "bullet"
-        shot.position = player.position
-        player.run(shootAnimation)
-        shot.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: shot.size.width/2, height: shot.size.height/2))
-        shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon
-        shot.physicsBody?.collisionBitMask =  CollisionType.enemy
-        shot.physicsBody?.contactTestBitMask = CollisionType.enemy
-        shot.physicsBody?.isDynamic = false
-        shot.zPosition = 2
-        shot.setScale(2)
-        addChild(shot)
-        
-        let activeEnemies = children.compactMap{$0 as? EnemyNode}
-       guard let closestEnemy: EnemyNode = activeEnemies.sorted(by: { first, second in
-            return distanceBetween(node1: player, node2: first) < distanceBetween(node1: player, node2: second)
-       }).first else {return}
-        
-        let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * spd)
-        let movement = SKAction.move(to: closestEnemy.position,duration: TimeInterval(time))
-        playSound(audioFileName: "BULLETS.mp3")
-        let sequence = SKAction.sequence([movement, .removeFromParent()])
-           shot.run(sequence)
-        
+    //il motivo per il quale questa soluzione è ottimale è il fatto che prima si generava un proiettile su richiesta del main thread. Adesso si inizializza una funzione che è un buffer di proiettili, che poi viene caricata asincronamente così da alleggerire notevolmente la computazione.
+    
+    //TLDR: ottimizza notevolmente il gioco
+    func setupBulletPool(quantityOfBullets: Int) {
+        for _ in 0..<quantityOfBullets { 
+            let bullet = SKSpriteNode(imageNamed: "bullet")
+            configureBullet(bullet)
+            configureBulletPhysics(bullet)
+            bulletPool.append(bullet)
+        }
     }
     
-    func playSound(audioFileName: String){
+    func getBulletFromPool() -> SKSpriteNode? {
+        
+        //TODO: da ottimizzare, magari facendo solo questo if, ma adesso non ho sbatti
+        if (bulletPool.count < 10 && !done) {
+            DispatchQueue.global(qos: .background).async {
+                self.setupBulletPool(quantityOfBullets: 50)
+            }
+            done = true;
+        } else {
+            done = false
+        }
+        return bulletPool.removeLast()
+    }
+
+    func returnBulletToPool(_ bullets: [SKSpriteNode]) {
+        
+        //TODO: da ottimizzare, vedi func precedente
+        for bullet in bullets {
+            bulletPool.append(bullet)
+        }
+    }
+        
+    func shoot() {
+        
+        var usedBullets: [SKSpriteNode] = []
+        guard !isGameOver else { return }
+        
+        if let shot = getBulletFromPool() {
+            
+            //ue uaglio bell stu proiettile
+            usedBullets.append(shot)
+            shot.position = player.position
+            addChild(shot)
+            
+            print("Proiettili restanti: \(bulletPool.count)")
+
+            if let closestEnemy = findClosestEnemy() {
+                let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * 8)
+                let movement = SKAction.move(to: closestEnemy.position, duration: TimeInterval(time))
+                
+                //PEW PEW
+                playBulletSound(name: "BULLETS")
+                //SPAR LELLU' SPAR
+                player.run(shootAnimation)
+                
+                let sequence = SKAction.sequence([movement, .removeFromParent()])
+                
+                shot.run(sequence) { [self] in
+                    if usedBullets.last == shot {
+                        //tie piglt o proiettile
+                        self.returnBulletToPool(usedBullets)
+                        print("Rimetto proiettile: \(bulletPool.count)")
+                    }
+                }
+            }
+        }
+    }
+    
+    //il motivo per il quale questa soluzione è ottimale è il fatto che prima si generava un suono (musica, suono colpi) su richiesta del main thread. Adesso si inizializza una funzione che è un buffer di suoni, che poi viene caricata asincronamente (in funzione dei suoni) così da alleggerire notevolmente la computazione.
+    
+    //TLDR: ottimizza notevolmente il gioco
+    func setupBulletSoundPool(quantityOfSounds: Int) {
+        //Inizializza la pool dei suoni
+        for _ in 0..<quantityOfSounds {
+            if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
+                do {
+                    let soundPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                    soundPlayer.prepareToPlay()
+                    self.bulletSoundPool.append(soundPlayer)
+                } catch {
+                    print("mammt dice: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    //perché 2? Per lo stesso motivo
+    func playBulletSound(name: String) {
+        
+        guard let soundPlayer = bulletSoundPool.first else { return }
+        soundPlayer.volume = gameLogic.soundsSwitch ? (0.05/5) * Float(gameLogic.soundsVolume) : 0
+        bulletSoundPool.removeFirst()
+        soundPlayer.play()
+        bulletSoundPool.append(soundPlayer)
+    }
+    
+    func setupShortSoundPool(name soundName: String, quantityOfSounds: Int) {
+        
+        let soundURL = Bundle.main.url(forResource: soundName, withExtension: "mp3")
+        
+        do {
+            let soundPlayer = try AVAudioPlayer(contentsOf: soundURL!)
+            soundPlayer.prepareToPlay()
+            
+            //Inizializza la pool dei suoni
+            for _ in 0..<quantityOfSounds {
+                self.soundPool.append(soundPlayer)
+            }
+        } catch {
+            print("Ascanio dice: \(error.localizedDescription)")
+        }
+    }
+    
+    func playGettingHitSound(name: String) {
+        
+        guard let soundPlayer = soundPool.first else { return }
+        soundPlayer.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
+        soundPool.removeFirst()
+        soundPlayer.play()
+        soundPool.append(soundPlayer)
+    }
+    
+    //per i proiettili
+    func configureBullet(_ bullet: SKSpriteNode) {
+        bullet.texture?.filteringMode = .nearest
+        bullet.name = "bullet"
+        bullet.position = player.position
+        player.run(shootAnimation)
+        bullet.zPosition = 2
+        bullet.setScale(1.5)
+    }
+    
+    //per la fisica dei proiettili
+    func configureBulletPhysics(_ bullet: SKSpriteNode) {
+        bullet.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bullet.size.width/3, height: bullet.size.height/3))
+        bullet.physicsBody?.categoryBitMask = CollisionType.playerWeapon
+        bullet.physicsBody?.collisionBitMask = CollisionType.enemy
+        bullet.physicsBody?.contactTestBitMask = CollisionType.enemy
+        bullet.physicsBody?.isDynamic = false
+    }
+
+    //ricerca
+    func findClosestEnemy() -> EnemyNode? {
+        let activeEnemies = children.compactMap { $0 as? EnemyNode }
+        return activeEnemies.min(by: { distanceBetween(node1: player, node2: $0) < distanceBetween(node1: player, node2: $1) })
+    }
+
+    //per l'audio
+    func playDeathSound(audioFileName: String){
         let soundNode = SKAudioNode(fileNamed: audioFileName)
         soundNode.autoplayLooped = false
         addChild(soundNode)
-        if(gameLogic.soundsSwitch){
-            soundNode.run(SKAction.changeVolume(to: (0.07/5)*Float(gameLogic.soundsVolume), duration: 0))
-        }else{
-            soundNode.run(SKAction.changeVolume(to: 0, duration: 0))
-        }
+        
+        let volume = gameLogic.soundsSwitch ? (0.07/5) * Float(gameLogic.soundsVolume) : 0
+        soundNode.run(SKAction.changeVolume(to: volume, duration: 0))
+
         let playSound = SKAction.run {
                 soundNode.run(SKAction.play())
             }

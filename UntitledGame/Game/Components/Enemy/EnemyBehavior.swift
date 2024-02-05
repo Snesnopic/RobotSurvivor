@@ -11,34 +11,13 @@ import SpriteKit
 
 extension GameScene {
     
-    func enemyLogic(){
+    func enemyLogic() {
         var activeEnemiesCount = enemiesOnMap.count
         while activeEnemiesCount < 1+spawnRate {
             //there must always be 40 enemies in the map
             createEnemy(powerFactor: multiplier)
             activeEnemiesCount += 1
         }
-        
-        
-        //        let activeBosses = children.compactMap { $0 as? EnemyBossNode }
-        //
-        //        if activeBosses.isEmpty {
-        //            if isBossReady {
-        //                isBossReady = false
-        //                self.createBoss()
-        //            }
-        //        } else {
-        //            activeBosses.forEach { activeBoss in
-        //                activeBoss.configureMovement(player)
-        //            }
-        //            let activeParts = children.compactMap { $0 as? EnemyBodyBossNode }
-        //            activeParts.forEach { activePart in
-        //                activePart.configureMovement()
-        //            }
-        //        }
-        
-        
-        
     }
     
     func getPositionNearPlayer() -> CGPoint {
