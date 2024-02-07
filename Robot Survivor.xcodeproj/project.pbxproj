@@ -24,6 +24,7 @@
 		23A5F38F2B21D4180008FFB2 /* ExperiencePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F38E2B21D4180008FFB2 /* ExperiencePoints.swift */; };
 		23A5F3912B21D42D0008FFB2 /* SceneSetUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */; };
 		23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */; };
+		3EF2DD5A2B7396380089ACB7 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2DD592B7396380089ACB7 /* TutorialView.swift */; };
 		6B4703532B2DC76B007A6E4C /* PickUps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4703522B2DC76B007A6E4C /* PickUps.swift */; };
 		6B99D2C12B21DF6C0069204F /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99D2C02B21DF6C0069204F /* GameOver.swift */; };
 		6B9BF2D22B29B4AD0048F887 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9BF2D12B29B4AD0048F887 /* PowerUp.swift */; };
@@ -72,6 +73,7 @@
 		23A5F38E2B21D4180008FFB2 /* ExperiencePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperiencePoints.swift; sourceTree = "<group>"; };
 		23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneSetUp.swift; sourceTree = "<group>"; };
 		23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBehavior.swift; sourceTree = "<group>"; };
+		3EF2DD592B7396380089ACB7 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		6B4703522B2DC76B007A6E4C /* PickUps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUps.swift; sourceTree = "<group>"; };
 		6B99D2C02B21DF6C0069204F /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		6B9BF2D12B29B4AD0048F887 /* PowerUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				9D1E6B1F2B711A4A0013D59E /* SettingsMenu.swift */,
 				9D3EDD392B1F3FD200C5DF7B /* GameView.swift */,
 				23A5F37A2B21CFCD0008FFB2 /* GameOverView.swift */,
+				3EF2DD592B7396380089ACB7 /* TutorialView.swift */,
 				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
 				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
 			);
@@ -378,6 +381,7 @@
 				233F1F4F2B27039800EF01FC /* EnemyType.swift in Sources */,
 				934BBFDD2B28539B00B8D541 /* ExpView.swift in Sources */,
 				931293F92B21D93F009B2441 /* Joystick.swift in Sources */,
+				3EF2DD5A2B7396380089ACB7 /* TutorialView.swift in Sources */,
 				23A5F3912B21D42D0008FFB2 /* SceneSetUp.swift in Sources */,
 				9D3EDD382B1F3FD200C5DF7B /* RobotSurvivorApp.swift in Sources */,
 				233F1F562B273C5D00EF01FC /* ContactsCollisions.swift in Sources */,

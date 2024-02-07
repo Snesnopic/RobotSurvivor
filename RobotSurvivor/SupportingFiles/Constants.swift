@@ -11,6 +11,7 @@ enum GameState {
     case mainScreen
     case playing
     case gameOver
+    case tutorial
 }
 
 let creators = [

@@ -148,7 +148,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //enable to have a wider view
         //camera?.setScale(5)
         
-        self.scene?.isPaused = (gameLogic.showPowerUp || gameLogic.showPauseMenu) ? true : false
+        self.scene?.isPaused = (gameLogic.showPowerUp || gameLogic.showPauseMenu || gameLogic.showTutorial) ? true : false
         
         if lastUpdateTime.isZero {
             lastUpdateTime = currentTime
