@@ -35,17 +35,6 @@ class GameLogic: ObservableObject {
     @Published var musicSwitch: Bool = true
     @Published var soundsSwitch: Bool = true
     @Published var showPauseMenu: Bool = false
-//    @Published var showTutorial: Bool = true
-    
-    private init() {
-        if UserDefaults.standard.bool(forKey: "showTutorial") {
-            print("prendo: \(showTutorial)")
-            // Code to execute only on the first launch
-            self.showTutorial = false
-            print("metto e salvo: \(showTutorial)")
-            UserDefaults.standard.set(false, forKey: "showTutorial")
-        }
-    }
     
     func increaseScore(points: Int){
         self.currentScore = self.currentScore + points
