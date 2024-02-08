@@ -30,7 +30,7 @@ struct TutorialView: View {
                 .resizable()
                 .scaledToFit()
             Text(tutorialSteps[currentStep])
-                .font(.custom("Silkscreen-Regular", size: 18))
+                .font(.custom("Silkscreen-Regular", size: 19))
                 .foregroundStyle(.white)
                 .frame(width: 240, height: 150, alignment: .topLeading)
             
@@ -44,19 +44,39 @@ struct TutorialView: View {
                         currentStep += 1
                     }
                 }
-            }, textView: Text(currentStep != 2 ? "next" : "done") .font(.custom("Silkscreen-Regular", size: 14)), textColor: .white)
+            }, textView: Text(currentStep != 2 ? "next" : "done") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
             .frame(width: 50, height: 35)
             .padding(.top, 125)
             .offset(x: 100, y: 0)
             .shadow(radius: 15)
             
             PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
-                gameLogic.showTutorial = false
-                self.presentationMode.wrappedValue.dismiss()
-            }, textView: Text("skip") .font(.custom("Silkscreen-Regular", size: 14)), textColor: .white)
+                withAnimation {
+                    if currentStep == 0 && gameLogic.showTutorial {
+                        currentStep = 0
+                        
+                    } else {
+                        currentStep -= 1
+                    }
+                }
+            }, textView: Text("back") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
             .frame(width: 50, height: 35)
             .padding(.top, 125)
             .offset(x: 45, y: 0)
+            .shadow(radius: 15)
+            
+            Image("cpuHor")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100, alignment: .center)
+                .offset(y: 310)
+            PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
+                gameLogic.showTutorial = false
+                self.presentationMode.wrappedValue.dismiss()
+            }, textView: Text("skip") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
+            .frame(width: 50, height: 35)
+            .padding(.top, 125)
+            .offset(y: 248)
             .shadow(radius: 15)
         }
         .padding()
