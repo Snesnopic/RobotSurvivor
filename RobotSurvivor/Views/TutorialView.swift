@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TutorialView: View {
     
@@ -13,15 +14,15 @@ struct TutorialView: View {
     @Binding var currentGameState: GameState
     @Binding var sceneWrap: SceneWrapper
     @State var currentStep: Int = 0
-    @State var tutorialHasNoMoreText: Bool = true
-    
+    //    @Environment(\.modelContext) private var context
     @Environment(\.presentationMode) var presentationMode
+    
     var tutorialSteps = [
         "Drag your finger on the screen to move and shoot the horde of enemies!",
         "Pick up the experience left from enemies to fill the xp bar top!",
         "Fill the bar on top to obtain power-ups and improve your gameplay!"
     ]
-    
+   
     var body: some View {
         ZStack {
             
@@ -35,12 +36,10 @@ struct TutorialView: View {
             
             PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
                 withAnimation {
-                    if currentStep == 2 {
-                        print(gameLogic.showTutorial)
+                    if currentStep == 2 && gameLogic.showTutorial {
                         gameLogic.showTutorial = false;
                         self.presentationMode.wrappedValue.dismiss()
-                        sceneWrap.scene.isPaused = false
-
+                        
                     } else {
                         currentStep += 1
                     }
@@ -61,6 +60,19 @@ struct TutorialView: View {
             .shadow(radius: 15)
         }
         .padding()
+        .onDisappear {
+            saveTutorialStatus()
+        }
+        .onAppear {
+            loadTutorialStatus() 
+        }
+    }
+    func saveTutorialStatus() {
+        UserDefaults.standard.set(gameLogic.showTutorial, forKey: "showTutorial")
+    }
+    
+    func loadTutorialStatus() {
+            UserDefaults.standard.bool(forKey: "showTutorial")
     }
 }
 

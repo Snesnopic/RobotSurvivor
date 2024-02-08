@@ -11,6 +11,7 @@ import AVFAudio
 struct ParentView: View {
     @State var currentGameState: GameState = .mainScreen
     @StateObject var gameLogic: GameLogic = GameLogic.shared
+        @AppStorage ("showTutorial") var showTutorial: Bool = true
     var body: some View {
         switch currentGameState {
         case .mainScreen:
@@ -22,7 +23,6 @@ struct ParentView: View {
             GameOverView(currentGameState: $currentGameState, score: $gameLogic.currentScore)
         case .tutorial:
             TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
-
         }
     }
 }

@@ -43,7 +43,7 @@ struct PauseMenuView: View {
                         
                         showSetting = true
                     }).fullScreenCover(isPresented: $showSetting, content: {
-                        Settings_Menu(switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
+                        Settings_Menu(gameLogic: GameLogic.shared, switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
                     })
                     .frame(width:67, height: 76.5)
                 }

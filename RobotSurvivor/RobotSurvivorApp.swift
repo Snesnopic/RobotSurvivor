@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct RobotSurvivorApp: App {
+    
     var body: some Scene {
         WindowGroup {
-            ParentView().preferredColorScheme(.light).statusBarHidden(true)
+            ParentView()
+                .preferredColorScheme(.light).statusBarHidden(true)
+            //                .modelContainer(
+            //                    for: GameLogic.self,
+            //                    isAutosaveEnabled: true
+            //                )
         }
     }
 }
