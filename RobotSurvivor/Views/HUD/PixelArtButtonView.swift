@@ -32,7 +32,7 @@ struct PixelArtButtonView: View {
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .offset(y: isPressed ? 0 : 3)
+                    .offset(y: isPressed ? 0 : -5)
                     .opacity(isPressed ? 0.5 : 1)
                     .offset(y: -10)
                 
