@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class GameLogic: ObservableObject {
     
@@ -18,7 +19,7 @@ class GameLogic: ObservableObject {
         self.time = 0
         self.isGameOver = false
     }
-    
+    @AppStorage ("showTutorial") var showTutorial: Bool = true
     //general
     @Published var time: TimeInterval = 0
     @Published var currentScore: Int = 0

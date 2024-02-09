@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct Settings_Menu: View {
+    @ObservedObject var gameLogic: GameLogic
     @Environment(\.dismiss) private var dismiss
     @Binding var switchMusic: Bool
     @Binding var switchSound: Bool
@@ -32,7 +33,7 @@ struct Settings_Menu: View {
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .scaleEffect(x: 1, y: -1)
+                    .scaleEffect(x: 1, y: -1.4)
                     .frame(width: 360)
                     .shadow(radius: 20)
                     .padding(.top, 50)
@@ -47,13 +48,10 @@ struct Settings_Menu: View {
                 .padding(.bottom,700)
                 VStack{
                     
-                    
-                    
-                    
                     Text("Settings")
                         .font(.custom("Silkscreen-Bold", size: 30))
                         .shadow(radius: 15)
-                        .padding(.top, 60)
+                        .padding(.top, 50)
                     
                     HStack{
                         Text("Music")
@@ -86,7 +84,7 @@ struct Settings_Menu: View {
                         
                         PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(music < 10){
+                            if(music < 5){
                                 music = music + 1;
                             }
                         }, textView: Text(""))
@@ -128,7 +126,7 @@ struct Settings_Menu: View {
                         
                         PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(sounds < 10){
+                            if(sounds < 5){
                                 sounds = sounds + 1
                             }
                         }, textView: Text(""))
@@ -137,12 +135,31 @@ struct Settings_Menu: View {
                     .font(.custom("Silkscreen-Regular", size: 20))
                     .padding(.bottom, 25)
                     
+                    HStack{
+                        Text("Enable \nTutorial")
+                            .multilineTextAlignment(.leading)
+                            .font(.custom("Silkscreen-Bold", size: 25))
+                            .padding(.trailing, -7)
+                            .padding(.bottom, 7)
+                        Image(gameLogic.showTutorial ? "OnSwitch1" : "OffSwitch1")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50)
+                            .onTapGesture {
+                                gameLogic.showTutorial.toggle()
+                                UserDefaults.standard.set(gameLogic.showTutorial, forKey: "showTutorial")
+                            }
+                    }
+                    .font(.custom("Silkscreen-Bold", size: 25))
+                    .padding(.bottom, 7)
+                    
                     PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2",buttonPressedAction: {
                         //TODO: add navigation to credits
-                        showCredits = true
+                        showCredits.toggle()
                     }, textView: Text("Credits") .font(.custom("Silkscreen-Bold", size: 20)), textColor: .white)
-                    .frame(width: 144, height:48)
+                    .frame(width: 144, height: 50)
                     .padding(.bottom)
+                    .offset(y: 10)
                     .shadow(radius: 15)
                     
                     
@@ -157,5 +174,5 @@ struct Settings_Menu: View {
 }
 
 #Preview {
-    Settings_Menu(switchMusic: .constant(true), switchSound: .constant(true), music: .constant(10), sounds: .constant(10))
+    Settings_Menu(gameLogic: GameLogic.shared, switchMusic: .constant(true), switchSound: .constant(true), music: .constant(5), sounds: .constant(5))
 }

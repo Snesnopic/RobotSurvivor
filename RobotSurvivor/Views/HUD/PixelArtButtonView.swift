@@ -22,8 +22,8 @@ struct PixelArtButtonView: View {
                 .interpolation(.none)
                 .resizable()
             if let textView {
-                textView                    
-                    .offset(y: isPressed ? -2 : -7)
+                textView
+                    .offset(y: isPressed ? -1 : -3)
                     .opacity(isPressed ? 0.5 : 1)
                 
             }
@@ -32,7 +32,7 @@ struct PixelArtButtonView: View {
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .offset(y: isPressed ? -1 : -6)
+                    .offset(y: isPressed ? 0 : 3)
                     .opacity(isPressed ? 0.5 : 1)
                 
             }
@@ -42,9 +42,7 @@ struct PixelArtButtonView: View {
         }.onEnded{ _ in
             isPressed = false
             buttonPressedAction?()
-        }
-        )
-        
+        })
     }
 }
 

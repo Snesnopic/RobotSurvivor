@@ -37,16 +37,11 @@ struct GameViewUI: UIViewRepresentable {
 struct GameView: View {
     
     @Binding var currentGameState: GameState
-    
-    @State var x: Bool = false
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
     @State var sceneWrapper = SceneWrapper()
     
-    
-    
     var body: some View {
         ZStack {
-            //GameViewUI()
             SpriteView(scene: self.sceneWrapper.scene)
                 .onChange(of: gameLogic.showPowerUp){
                     if(gameLogic.showPowerUp == false){
@@ -55,6 +50,12 @@ struct GameView: View {
                 }
                 .onChange(of: gameLogic.showPauseMenu){
                     if(gameLogic.showPauseMenu == false){
+                        sceneWrapper.scene.isPaused = false
+                    }
+                }
+            
+                .onChange(of: gameLogic.showTutorial){
+                    if(gameLogic.showTutorial == false){
                         sceneWrapper.scene.isPaused = false
                     }
                 }
@@ -88,6 +89,21 @@ struct GameView: View {
                     }
                 }
                 .ignoresSafeArea()
+
+                .onChange(of: gameLogic.showTutorial){
+                    
+                    if(gameLogic.showTutorial == true){
+                        sceneWrapper.joystickScene.isPaused = true
+                    }else{
+                        sceneWrapper.joystickScene.isPaused = false
+                    }
+                    
+                    if(gameLogic.showTutorial == false){
+                        sceneWrapper.joystickScene.showJoystick()
+                    }else{
+                        sceneWrapper.joystickScene.hideJoystick()
+                    }
+                }
             
             ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
             
@@ -101,6 +117,10 @@ struct GameView: View {
                 PauseMenuView(gameLogic: gameLogic ,currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
             }
             
+            if(gameLogic.showTutorial){
+                TutorialView(gameLogic: gameLogic ,currentGameState: $currentGameState, sceneWrap: $sceneWrapper)
+            }
+
             
             
         }.onChange(of: gameLogic.isGameOver){
@@ -111,12 +131,9 @@ struct GameView: View {
                 
                     self.presentGameOverScreen()
             }
-            
         }
         .onAppear{
             self.gameLogic.restartGame()
-            
-            
         }
     }
     

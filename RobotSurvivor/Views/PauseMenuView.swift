@@ -29,7 +29,7 @@ struct PauseMenuView: View {
                     PixelArtButtonView(buttonImage: "exitUp", pressedImage: "exitDown", buttonPressedAction: {
                         gameLogic.showPauseMenu = false
                         self.currentGameState = .mainScreen
-                        sceneWrap.scene.stopTracks()
+//                        sceneWrap.scene.stopTracks()
                     })
                     .frame(width:67, height: 76.5)
 
@@ -43,7 +43,7 @@ struct PauseMenuView: View {
                         
                         showSetting = true
                     }).fullScreenCover(isPresented: $showSetting, content: {
-                        Settings_Menu(switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
+                        Settings_Menu(gameLogic: GameLogic.shared, switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
                     })
                     .frame(width:67, height: 76.5)
                 }

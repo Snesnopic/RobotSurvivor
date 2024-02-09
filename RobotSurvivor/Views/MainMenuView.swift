@@ -63,7 +63,7 @@ struct MainMenuView: View {
                     showSetting = true
                 }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                 .fullScreenCover(isPresented: $showSetting, content: {
-                    Settings_Menu(switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
+                    Settings_Menu(gameLogic: GameLogic.shared, switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
                 })
                 .frame(width: 224, height:64)
                 

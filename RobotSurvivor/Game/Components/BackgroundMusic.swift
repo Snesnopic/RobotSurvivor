@@ -10,62 +10,44 @@ import AVFoundation
 extension GameScene: AVAudioPlayerDelegate{
     
     
-    func setupBackgroundMusic(fileName: String) {
+    func setupBackgroundMusic(quantityOfMusic: Int) {
+        var index: Int = 0
+    //Forse il problema aveva a che fare col fatto che ci fosse una DispatchQueue globale che funzionava insieme alla DispatchQueue main, di conseguenza, quando si cambiava la canzone, poteva capitare che la GameScene deallocava fileName, da cui l'errore famoso
         
-        //Forse il problema aveva a che fare col fatto che ci fosse una DispatchQueue globale che funzionava insieme alla DispatchQueue main, di conseguenza, quando si cambiava la canzone, poteva capitare che la GameScene deallocava fileName, da cui l'errore famoso
-        DispatchQueue.main.async { [self] in
-            if let backgroundMusicURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
-                
-                currentTrack = fileName
-                
-                do {
-                    let newPlayer = try AVAudioPlayer(contentsOf: backgroundMusicURL)
-                    newPlayer.numberOfLoops = 0
-                    newPlayer.prepareToPlay()
-                    newPlayer.delegate = self
-                    newPlayer.volume = self.gameLogic.musicSwitch ? (0.6/5) * Float(self.gameLogic.musicVolume) : 0
-                    
-                    DispatchQueue.main.async {
-                        self.backgroundMusicPlayer = newPlayer
-                        self.backgroundMusicPlayer?.play()
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        print("Could not create audio player: \(error)")
-                    }
-                }
+        for _ in 0..<(quantityOfMusic) {
+            do {
+                let backgroundMusic = Bundle.main.url(forResource: "game\(index+1)", withExtension: "mp3")
+                let song = try AVAudioPlayer(contentsOf: backgroundMusic!)
+                song.numberOfLoops = 0
+                song.prepareToPlay()
+                musicPool.append(song)
+                index += 1
+//                newPlayer.numberOfLoops = 0
+//                newPlayer.prepareToPlay()
+//                newPlayer.delegate = self
+//                newPlayer.volume = self.gameLogic.musicSwitch ? (0.6/5) * Float(self.gameLogic.musicVolume) : 0
+
+//                DispatchQueue.main.async { [self] in
+//                    self.backgroundMusicPlayer = newPlayer
+//                    self.backgroundMusicPlayer?.play()
+//                }
+            } catch {
+                print("Could not create audio player: \(error)")
             }
         }
     }
-    func changeTrack(to newTrack: String) {
-        backgroundMusicPlayer?.play()
-        setupBackgroundMusic(fileName: newTrack)
-    }
-    
-    func playTracks(){
-        setupBackgroundMusic(fileName: "game1")
-    }
-    
-    func determineNextTrack() -> String{
-        switch currentTrack{
-        case "game1":
-            return "game2"
-        case "game2":
-            return "game1"
-        default:
-            return "game1"
-        }
+    //haha scemo
+    func playTracks() {
+        guard !gameLogic.isGameOver else { return }
+        let currentMusic = musicPool.first
+        musicPool.removeFirst()
+        currentMusic?.volume = gameLogic.soundsSwitch ? (0.6/5) * Float(gameLogic.soundsVolume) : 0
+        currentMusic?.play()
+        currentMusic?.delegate = self
+        musicPool.append(currentMusic!)
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        if flag {
-            let nextTrack = determineNextTrack()
-            setupBackgroundMusic(fileName: nextTrack)
-            backgroundMusicPlayer?.play()
-        }
-    }
-    
-    func stopTracks(){
-        backgroundMusicPlayer?.stop()
+        playTracks()
     }
 }
