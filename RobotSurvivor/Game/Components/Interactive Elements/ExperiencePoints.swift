@@ -39,12 +39,12 @@ extension GameScene{
 //
         let newXP = SKSpriteNode(imageNamed: "expOrb2")
         newXP.texture?.filteringMode = .nearest
-        newXP.size = CGSize(width: 15, height: 15)
+        newXP.size = CGSize(width: 8, height: 8)
         newXP.name = "xp"
         newXP.position = position
         newXP.zPosition = 0;
 
-        newXP.physicsBody = SKPhysicsBody(circleOfRadius: 10)
+        newXP.physicsBody = SKPhysicsBody(circleOfRadius: 6)
         newXP.physicsBody?.affectedByGravity = false
 
         //don't insert collisionBitMask for enemies
