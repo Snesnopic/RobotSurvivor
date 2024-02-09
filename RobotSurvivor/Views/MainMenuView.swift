@@ -100,15 +100,17 @@ struct MainMenuView: View {
         }).onDisappear(perform: {
             MainMenuView.AudioPlayer.shared.stop()
         })
-        .onChange(of: gameLogic.musicSwitch){
+        .onChange(of: gameLogic.musicSwitch,perform: {
+            value in
             if(gameLogic.musicSwitch){
                 MainMenuView.AudioPlayer.shared.volume = (0.3/5)*Float(gameLogic.musicVolume)
             }else{
                 MainMenuView.AudioPlayer.shared.volume = 0
             }
             
-        }
-        .onChange(of: gameLogic.musicVolume){
+        })
+        .onChange(of: gameLogic.musicVolume,perform: {
+            value in
             if(gameLogic.musicSwitch){
                 MainMenuView.AudioPlayer.shared.volume = (0.3/5)*Float(gameLogic.musicVolume)
             }

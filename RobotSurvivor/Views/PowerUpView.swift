@@ -81,16 +81,18 @@ struct PowerUpView: View {
                     
                     HStack(alignment: .top){
                         Text(powerUp[p1])
+                            .tracking(-3)
                             .frame(maxWidth: 94)
                         Text(powerUp[p2])
+                            .tracking(-3)
                             .frame(maxWidth: 94)
                             .padding(.horizontal, 5)
                         Text(powerUp[p3])
+                            .tracking(-3)
                             .frame(maxWidth: 94)
                     }
                     .font(.custom("Silkscreen-Regular", size: 20))
                     .foregroundStyle(.white)
-                    .tracking(-3)
                     .frame(height: 55)
                     .padding(.top, -5)
                     
