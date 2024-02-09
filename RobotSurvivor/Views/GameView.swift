@@ -43,26 +43,29 @@ struct GameView: View {
     var body: some View {
         ZStack {
             SpriteView(scene: self.sceneWrapper.scene)
-                .onChange(of: gameLogic.showPowerUp){
+                .onChange(of: gameLogic.showPowerUp, perform: { value in
                     if(gameLogic.showPowerUp == false){
                         sceneWrapper.scene.isPaused = false
                     }
-                }
-                .onChange(of: gameLogic.showPauseMenu){
+                })
+                .onChange(of: gameLogic.showPauseMenu,perform: {
+                    value in
                     if(gameLogic.showPauseMenu == false){
                         sceneWrapper.scene.isPaused = false
                     }
-                }
+                })
             
-                .onChange(of: gameLogic.showTutorial){
+                .onChange(of: gameLogic.showTutorial,perform: {
+                    value in
                     if(gameLogic.showTutorial == false){
                         sceneWrapper.scene.isPaused = false
                     }
-                }
+                })
                 .ignoresSafeArea()
             
             SpriteView(scene: sceneWrapper.joystickScene,options: [.allowsTransparency])
-                .onChange(of: gameLogic.showPowerUp){
+                .onChange(of: gameLogic.showPowerUp,perform: {
+                    value in
                     if(gameLogic.showPowerUp == false){
                         sceneWrapper.joystickScene.isPaused = false
                     }else{
@@ -74,8 +77,9 @@ struct GameView: View {
                     }else{
                         sceneWrapper.joystickScene.showJoystick()
                     }
-                }
-                .onChange(of: gameLogic.showPauseMenu){
+                })
+                .onChange(of: gameLogic.showPauseMenu, perform: {
+                    value in
                     if(gameLogic.showPauseMenu == false){
                         sceneWrapper.joystickScene.isPaused = false
                     }else{
@@ -87,11 +91,11 @@ struct GameView: View {
                     }else{
                         sceneWrapper.joystickScene.showJoystick()
                     }
-                }
+                })
                 .ignoresSafeArea()
-
-                .onChange(of: gameLogic.showTutorial){
-                    
+            
+                .onChange(of: gameLogic.showTutorial, perform: {
+                    value in
                     if(gameLogic.showTutorial == true){
                         sceneWrapper.joystickScene.isPaused = true
                     }else{
@@ -103,7 +107,7 @@ struct GameView: View {
                     }else{
                         sceneWrapper.joystickScene.hideJoystick()
                     }
-                }
+                })
             
             ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
             
@@ -120,18 +124,15 @@ struct GameView: View {
             if(gameLogic.showTutorial){
                 TutorialView(gameLogic: gameLogic ,currentGameState: $currentGameState, sceneWrap: $sceneWrapper)
             }
-
             
             
-        }.onChange(of: gameLogic.isGameOver){
+            
+        }.onChange(of: gameLogic.isGameOver,perform: {
+            value in
             if gameLogic.isGameOver {
-                /** # PRO TIP!
-                 * You can experiment by adding other types of animations here before presenting the game over screen.
-                 */
-                
-                    self.presentGameOverScreen()
+                self.presentGameOverScreen()
             }
-        }
+        })
         .onAppear{
             self.gameLogic.restartGame()
         }

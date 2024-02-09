@@ -41,16 +41,16 @@ struct CreditsView: View {
             .padding(.bottom,700)
             VStack{
                 
-                
                 Text("Created by:")
+                    .tracking(-3)
                     .font(.custom ("Silkscreen-Bold", size: 23))
                     .foregroundStyle(.white)
-                    .tracking(-3)
                 ForEach(creators, id: \.self) {creator in
-                    Text(creator).font(.custom ("Silkscreen-Regular", size: 20))
+                    Text(creator)
+                        .tracking(-3)
+                        .font(.custom ("Silkscreen-Regular", size: 20))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.white)
-                        .tracking(-3)
                 }
             }
         }

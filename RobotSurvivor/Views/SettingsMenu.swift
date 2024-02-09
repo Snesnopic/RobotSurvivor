@@ -49,12 +49,14 @@ struct Settings_Menu: View {
                 VStack{
                     
                     Text("Settings")
+                        .tracking(-2.5)
                         .font(.custom("Silkscreen-Bold", size: 30))
                         .shadow(radius: 15)
                         .padding(.top, 50)
                     
                     HStack{
                         Text("Music")
+                            .tracking(-2.5)
                             .padding(.trailing, 35)
                         Image(switchMusic ? "OnSwitch1" : "OffSwitch1")
                             .resizable()
@@ -70,6 +72,7 @@ struct Settings_Menu: View {
                     
                     HStack{
                         Text("Volume")
+                            .tracking(-2.5)
                             .padding(.trailing, 10)
                         
                         PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
@@ -96,6 +99,7 @@ struct Settings_Menu: View {
                     
                     HStack{
                         Text("Sound \nEffects")
+                            .tracking(-2.5)
                             .multilineTextAlignment(.leading)
                             .padding(.trailing, 10)
                         Image(switchSound ? "OnSwitch1" : "OffSwitch1")
@@ -112,6 +116,7 @@ struct Settings_Menu: View {
                     
                     HStack{
                         Text("Volume")
+                            .tracking(-2.5)
                             .padding(.trailing, 10)
                         
                         PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
@@ -137,6 +142,7 @@ struct Settings_Menu: View {
                     
                     HStack{
                         Text("Enable \nTutorial")
+                            .tracking(-2.5)
                             .multilineTextAlignment(.leading)
                             .font(.custom("Silkscreen-Bold", size: 25))
                             .padding(.trailing, -7)
@@ -165,7 +171,6 @@ struct Settings_Menu: View {
                     
                 }
                 .foregroundStyle(.white)
-                .tracking(-2.5)
             }
         }else{
             CreditsView(showCredit: $showCredits)
