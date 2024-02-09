@@ -157,15 +157,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         deltaTime = currentTime - lastUpdateTime
         lastUpdateTime = currentTime
         
-        if abs(CGFloat(hypot(Float(player.position.x - centerTile.x), Float(player.position.y - centerTile.y)))) > 768 {
+        let playerPosition = player.position
+        if abs(CGFloat(hypot(Float(playerPosition.x - centerTile.x), Float(playerPosition.y - centerTile.y)))) > 768 {
             updateTiles()
         }
-        
-        
-        
-        
-        
-        let playerPosition = player.position
+  
         for xp in xpToMagnetise{
             let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y - playerPosition.y))))
             let speed = 500.0
