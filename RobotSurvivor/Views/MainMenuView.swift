@@ -115,8 +115,7 @@ struct MainMenuView: View {
                 MainMenuView.AudioPlayer.shared.volume = (0.3/5)*Float(gameLogic.musicVolume)
             }
         })
-        
-        
+
         .statusBarHidden(true)
     }
     
