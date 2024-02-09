@@ -30,10 +30,10 @@ class GameLogic: ObservableObject {
     @Published var xpToNextLvl: Int = 30
     @Published var showPowerUp: Bool = false
     //settings
-    @Published var musicVolume: Int = 5
-    @Published var soundsVolume: Int = 5
-    @Published var musicSwitch: Bool = true
-    @Published var soundsSwitch: Bool = true
+    @AppStorage ("musicVolume") var musicVolume: Int = 5
+    @AppStorage ("soundsVolume") var soundsVolume: Int = 5
+    @AppStorage ("musicSwitch") var musicSwitch: Bool = true
+    @AppStorage ("soundsSwitch") var soundsSwitch: Bool = true
     @Published var showPauseMenu: Bool = false
     
     func increaseScore(points: Int){
