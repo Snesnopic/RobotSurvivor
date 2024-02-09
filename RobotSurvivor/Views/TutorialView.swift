@@ -64,6 +64,7 @@ struct TutorialView: View {
             .padding(.top, 125)
             .offset(x: 45, y: 0)
             .shadow(radius: 15)
+            .opacity(currentStep >= 1 ? 1 : 0)
             
             Image("cpuHor")
                 .resizable()
