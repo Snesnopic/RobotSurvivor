@@ -23,7 +23,7 @@ struct PixelArtButtonView: View {
                 .resizable()
             if let textView {
                 textView
-                    .offset(y: isPressed ? -1 : -3)
+                    .offset(y: isPressed ? -1 : -5)
                     .opacity(isPressed ? 0.5 : 1)
                 
             }

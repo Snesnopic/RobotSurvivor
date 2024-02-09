@@ -41,7 +41,8 @@ struct GameOverView: View {
                 PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
                     //TODO: add navigation to settings
                     withAnimation{ backToMainScreen()}
-                }, textView: Text("Menu").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)                .frame(width: 224, height:64)
+                }, textView: Text("Menu").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)                
+                .frame(width: 224, height:64)
             }
             .foregroundStyle(.green)
             
