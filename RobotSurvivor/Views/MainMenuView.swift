@@ -13,6 +13,7 @@ struct MainMenuView: View {
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
     @Binding var currentGameState: GameState
     @State var showSetting: Bool = false
+    @State var showTutorial: Bool = false
     
     class AudioPlayer {
         static var shared: AVAudioPlayer = AVAudioPlayer()
@@ -25,12 +26,12 @@ struct MainMenuView: View {
             Color.deadBlue.ignoresSafeArea()
             
             Image("chip3")
+                .interpolation(.none)
                 .scaledToFill()
                 .ignoresSafeArea()
                 .opacity(0.6)
             
             VStack{
-                Spacer()
                 ZStack{
                     Image("cpuHor")
                         .interpolation(.none)
@@ -50,26 +51,39 @@ struct MainMenuView: View {
                             .padding(.bottom, 30)
                     }
                 }
+                .padding(.bottom, 50)
                 
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
                     withAnimation{startGame()}
                 }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
                 .frame(width: 224, height:96)
-                .padding(.bottom)
+                .padding(.bottom, -30)
                 .shadow(radius: 15)
                 
+                Group {
+                    PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
+                        showTutorial = true
+                    }, textView: Text("Tutorial").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
+                    .fullScreenCover(isPresented: $showTutorial, content: {
+                        TutorialMenu()
+                    })
+                    .frame(width: 224, height: 60)
+                    .padding(.bottom, 10)
+                    //                .offset(y: -20)
+                    
+                    PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
+                        showSetting = true
+                    }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
+                    .fullScreenCover(isPresented: $showSetting, content: {
+                        Settings_Menu(gameLogic: GameLogic.shared, switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
+                    })
+                    .frame(width: 224, height: 60)
+                    //                .offset(y: -20)
+                }.offset(y: 80)
                 
-                PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
-                    showSetting = true
-                }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
-                .fullScreenCover(isPresented: $showSetting, content: {
-                    Settings_Menu(gameLogic: GameLogic.shared, switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
-                })
-                .frame(width: 224, height:64)
-                
-                Spacer()
                 
             }
+            .padding(.top, 0)
         }.onAppear(perform: {
             if gameLogic.musicSwitch {
                 do {
@@ -99,6 +113,8 @@ struct MainMenuView: View {
                 MainMenuView.AudioPlayer.shared.volume = (0.3/5)*Float(gameLogic.musicVolume)
             }
         }
+        .statusBarHidden(true)
+
     }
     
     private func startGame() {

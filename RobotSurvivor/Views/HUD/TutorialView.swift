@@ -27,6 +27,7 @@ struct TutorialView: View {
         ZStack {
             
             Image("pauseMenu")
+                .interpolation(.none)
                 .resizable()
                 .scaledToFit()
             Text(tutorialSteps[currentStep])
@@ -67,6 +68,7 @@ struct TutorialView: View {
             .opacity(currentStep >= 1 ? 1 : 0)
             
             Image("cpuHor")
+                .interpolation(.none)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100, alignment: .center)
