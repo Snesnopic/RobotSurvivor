@@ -114,9 +114,10 @@ struct MainMenuView: View {
             if(gameLogic.musicSwitch){
                 MainMenuView.AudioPlayer.shared.volume = (0.3/5)*Float(gameLogic.musicVolume)
             }
-        }
+        })
+        
+        
         .statusBarHidden(true)
-
     }
     
     private func startGame() {
