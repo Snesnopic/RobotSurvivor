@@ -22,13 +22,29 @@ extension GameScene{
     }
     
     public func generateXp(at position: CGPoint){
-        let newXP = SKShapeNode(circleOfRadius: 2)
+        
+//        let newPickUp = SKSpriteNode(imageNamed: "magnet")
+//        newPickUp.texture?.filteringMode = .nearest
+//        newPickUp.size = CGSize(width: 20, height: 20)
+//        newPickUp.name = "pickUp"
+//        newPickUp.position = getPositionNearPlayer()
+//        newPickUp.zPosition = 0;
+//        
+//        newPickUp.physicsBody = SKPhysicsBody(circleOfRadius: 7)
+//        newPickUp.physicsBody?.affectedByGravity = false
+//        
+//        //don't insert collisionBitMask for enemies
+//        newPickUp.physicsBody?.categoryBitMask = CollisionType.pickUp
+//        newPickUp.physicsBody?.collisionBitMask = CollisionType.player
+//
+        let newXP = SKSpriteNode(imageNamed: "expOrb2")
+        newXP.texture?.filteringMode = .nearest
+        newXP.size = CGSize(width: 15, height: 15)
         newXP.name = "xp"
-        newXP.fillColor = SKColor.green
         newXP.position = position
         newXP.zPosition = 0;
 
-        newXP.physicsBody = SKPhysicsBody(circleOfRadius: 15)
+        newXP.physicsBody = SKPhysicsBody(circleOfRadius: 10)
         newXP.physicsBody?.affectedByGravity = false
 
         //don't insert collisionBitMask for enemies
