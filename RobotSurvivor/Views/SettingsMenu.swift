@@ -84,7 +84,7 @@ struct Settings_Menu: View {
                         
                         PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(music < 5){
+                            if(music < 10){
                                 music = music + 1;
                             }
                         }, textView: Text(""))
@@ -126,7 +126,7 @@ struct Settings_Menu: View {
                         
                         PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(sounds < 5){
+                            if(sounds < 10){
                                 sounds = sounds + 1
                             }
                         }, textView: Text(""))
