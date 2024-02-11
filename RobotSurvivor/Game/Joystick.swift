@@ -25,7 +25,7 @@ class Joystick: SKScene {
         // Create the base of the joystick
         //        let circlePath = UIBezierPath(ovalIn: CGRect(x: -50, y: -50, width: 100, height: 100))
         joystickBase = SKShapeNode(circleOfRadius: 50)
-        joystickBase.fillColor = UIColor.white.withAlphaComponent(0.5)
+        joystickBase.fillColor = UIColor.white.withAlphaComponent(0.2)
         addChild(joystickBase)
         joystickBase.position = CGPoint(x: 50, y: 50)
         // Create the knob of the joystick
@@ -112,6 +112,6 @@ class Joystick: SKScene {
         self.alpha = 0.0
     }
     func showJoystick(){
-        self.alpha = 1.0
+        self.alpha = 0.9
     }
 }

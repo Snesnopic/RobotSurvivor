@@ -26,7 +26,7 @@ class EnemyNode: SKSpriteNode {
 
     }
     
-    //per configurazione appareza
+    //per configurazione apparenza
     func configureAppearance() {
         userData = ["health": type.health, "speed": type.speed, "points": type.points, "damage": type.damage]
         name = "enemy" + type.name
