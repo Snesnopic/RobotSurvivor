@@ -24,21 +24,31 @@ class SkinPreviewScene: SKScene {
     override func didMove(to view: SKView) {
         print("You are previewing \(skin)!")
         let player:SKSpriteNode = SKSpriteNode(imageNamed: "\(skin)/Idle/1")
-        
         let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(skin)/Idle")
         var playerIdleTextures: [SKTexture] = []
-        playerIdleAtlas.textureNames.sorted().forEach { string in
-            let texture = playerIdleAtlas.textureNamed(string)
+        var playerIdleAnimation:SKAction = SKAction()
+        
+        if isActive {
+            playerIdleAtlas.textureNames.sorted().forEach { string in
+                let texture = playerIdleAtlas.textureNamed(string)
+                texture.filteringMode = .nearest
+                playerIdleTextures.append(texture)
+            }
+            playerIdleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
+            
+        }
+        else {
+            let textureName = playerIdleAtlas.textureNames.sorted().first!
+            let texture = playerIdleAtlas.textureNamed(textureName)
             texture.filteringMode = .nearest
             playerIdleTextures.append(texture)
+            playerIdleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
         }
-            let playerIdleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
-       
+        player.run(SKAction.repeatForever(playerIdleAnimation))
+        
         backgroundColor = .clear
         player.name = "player"
-        if isActive {
-            player.run(SKAction.repeatForever(playerIdleAnimation))
-        }
+        
         player.size = CGSize(width: 30, height: 30)
         player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 20, height:  20))
         player.zPosition = 3
