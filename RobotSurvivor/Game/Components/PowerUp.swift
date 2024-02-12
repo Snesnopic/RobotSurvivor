@@ -11,7 +11,12 @@ import SpriteKit
 extension GameScene{
     func increaseHealth(){
         let newMaxHp = player.userData!["maxhp"] as! Double * 1.1
+        let difference = player.userData!["maxhp"] as! Double - newMaxHp
+        let currentHp = player.userData!["hp"] as! Double
+        player.userData!["hp"] = currentHp + difference
         player.userData!["maxhp"] = newMaxHp
+        
+        updateHpBar()
     }
     
     func increasePlayerSpeed(){
