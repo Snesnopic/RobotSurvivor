@@ -12,6 +12,7 @@ enum GameState {
     case playing
     case gameOver
     case tutorial
+    case chooseChar
 }
 
 let creators = [

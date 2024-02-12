@@ -54,7 +54,9 @@ struct MainMenuView: View {
                 .padding(.bottom, 50)
                 
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
-                    withAnimation{startGame()}
+                    withAnimation{
+                        self.currentGameState = .chooseChar
+                    }
                 }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
                 .frame(width: 224, height:96)
                 .padding(.bottom, -30)
