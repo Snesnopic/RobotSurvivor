@@ -25,6 +25,7 @@ class GameLogic: ObservableObject {
     @Published var currentScore: Int = 0
     @Published var isGameOver = false
     @Published var joystick: Joystick?
+    @Published var currentSkin: String = "AntiTank"
     //xp system
     @Published var currentXP: Int = 0
     @Published var xpToNextLvl: Int = 30

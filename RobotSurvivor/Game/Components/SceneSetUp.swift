@@ -26,7 +26,7 @@ extension GameScene {
         }
         explosionAnimation = SKAction.animate(with: explosionTextures, timePerFrame: 0.07)
 
-        let deathAnimationAtlas = SKTextureAtlas(named: "\(playerSkin)/Death")
+        let deathAnimationAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Death")
         deathAnimationAtlas.textureNames.sorted().forEach { string in
             let texture = deathAnimationAtlas.textureNamed(string)
             texture.filteringMode = .nearest
@@ -34,7 +34,7 @@ extension GameScene {
         }
         deathAnimation = SKAction.animate(with: deathAnimationTextures, timePerFrame: 0.5)
         
-        let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(playerSkin)/Idle")
+        let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Idle")
         playerIdleAtlas.textureNames.sorted().forEach { string in
             let texture = playerIdleAtlas.textureNamed(string)
             texture.filteringMode = .nearest
@@ -42,7 +42,7 @@ extension GameScene {
         }
         playerIdleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
         
-        let shootAnimationAtlas = SKTextureAtlas(named: "\(playerSkin)/Fire")
+        let shootAnimationAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Fire")
         shootAnimationAtlas.textureNames.forEach { string in
             let texture = shootAnimationAtlas.textureNamed(string)
             texture.filteringMode = .nearest

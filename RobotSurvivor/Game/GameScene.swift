@@ -34,7 +34,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
     //player
-    var playerSkin:String = "AntiTank"
     var isPlayerAlive = true
     var player: SKSpriteNode!
     var healthBar: SKScene!
