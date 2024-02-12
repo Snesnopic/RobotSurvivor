@@ -68,10 +68,7 @@ extension GameScene{
                 return
             }
             
-            let healthBarFill = healthBar.children.last!
-            let playerMaxHp:Double = player.userData!["maxhp"] as! Double
-            
-            healthBarFill.xScale = CGFloat(playerHp  / playerMaxHp)
+            updateHpBar()
             
             guard let enemyNode2 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
             enemyNode2.slowDownMovement()

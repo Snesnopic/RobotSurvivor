@@ -47,6 +47,13 @@ extension GameScene{
         return bulletPool.removeLast()
     }
 
+    public func updateHpBar() {
+        let healthBarFill = healthBar.children.last!
+        let playerMaxHp:Double = player.userData!["maxhp"] as! Double
+        guard let playerHp:Double = player.userData!["hp"] as? Double else {return}
+        healthBarFill.xScale = CGFloat(playerHp  / playerMaxHp)
+    }
+    
     func returnBulletToPool(_ bullets: [SKSpriteNode]) {
         
         //TODO: da ottimizzare, vedi func precedente
