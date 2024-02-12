@@ -51,6 +51,7 @@ extension GameScene{
                 let waitAction = SKAction.wait(forDuration: 2.5)
                 let enableEnding = SKAction.run {
                     self.finishGame()
+                    self.stopTracks()
                 }
                 let sequence = SKAction.sequence([waitAction, enableEnding])
                 run(sequence)

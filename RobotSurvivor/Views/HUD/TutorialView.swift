@@ -14,19 +14,19 @@ struct TutorialView: View {
     @Binding var currentGameState: GameState
     @Binding var sceneWrap: SceneWrapper
     @State var currentStep: Int = 0
-    //    @Environment(\.modelContext) private var context
     @Environment(\.presentationMode) var presentationMode
     
     var tutorialSteps = [
-        "Drag your finger on the screen to move and shoot the horde of enemies!",
-        "Pick up the experience left from enemies to fill the xp bar top!",
-        "Fill the bar on top to obtain power-ups and improve your gameplay!"
+        "Drag to move and shoot the endless enemies!",
+        "Collect XP left from enemies to fill the xp bar!",
+        "Fill the top bar for power-ups & better gameplay!"
     ]
    
     var body: some View {
         ZStack {
             
             Image("pauseMenu")
+                .interpolation(.none)
                 .resizable()
                 .scaledToFit()
             Text(tutorialSteps[currentStep])
@@ -64,8 +64,10 @@ struct TutorialView: View {
             .padding(.top, 125)
             .offset(x: 45, y: 0)
             .shadow(radius: 15)
+            .opacity(currentStep >= 1 ? 1 : 0)
             
             Image("cpuHor")
+                .interpolation(.none)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100, alignment: .center)

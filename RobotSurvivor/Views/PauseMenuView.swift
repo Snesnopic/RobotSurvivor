@@ -17,10 +17,8 @@ struct PauseMenuView: View {
             Image("pauseMenu")
                 .interpolation(.none)
                 .resizable()
-                .frame(width: 400, height: 500)
                 .scaledToFit()
-                .padding(.horizontal)
-            
+                .padding()
             
             VStack{
                 

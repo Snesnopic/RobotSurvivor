@@ -23,6 +23,7 @@ struct Settings_Menu: View {
                     .ignoresSafeArea()
                 
                 Image("chip3")
+                    .interpolation(.none)
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
@@ -33,7 +34,7 @@ struct Settings_Menu: View {
                     .interpolation(.none)
                     .resizable()
                     .scaledToFit()
-                    .scaleEffect(x: 1, y: -1.4)
+                    .scaleEffect(x: 1, y: -1.2)
                     .frame(width: 360)
                     .shadow(radius: 20)
                     .padding(.top, 50)
@@ -87,7 +88,7 @@ struct Settings_Menu: View {
                         
                         PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(music < 5){
+                            if(music < 10){
                                 music = music + 1;
                             }
                         }, textView: Text(""))
@@ -131,7 +132,7 @@ struct Settings_Menu: View {
                         
                         PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                             //TODO: add volume levels
-                            if(sounds < 5){
+                            if(sounds < 10){
                                 sounds = sounds + 1
                             }
                         }, textView: Text(""))
@@ -140,24 +141,7 @@ struct Settings_Menu: View {
                     .font(.custom("Silkscreen-Regular", size: 20))
                     .padding(.bottom, 25)
                     
-                    HStack{
-                        Text("Enable \nTutorial")
-                            .tracking(-2.5)
-                            .multilineTextAlignment(.leading)
-                            .font(.custom("Silkscreen-Bold", size: 25))
-                            .padding(.trailing, -7)
-                            .padding(.bottom, 7)
-                        Image(gameLogic.showTutorial ? "OnSwitch1" : "OffSwitch1")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50)
-                            .onTapGesture {
-                                gameLogic.showTutorial.toggle()
-                                UserDefaults.standard.set(gameLogic.showTutorial, forKey: "showTutorial")
-                            }
-                    }
-                    .font(.custom("Silkscreen-Bold", size: 25))
-                    .padding(.bottom, 7)
+                    
                     
                     PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2",buttonPressedAction: {
                         //TODO: add navigation to credits
@@ -172,6 +156,8 @@ struct Settings_Menu: View {
                 }
                 .foregroundStyle(.white)
             }
+            .statusBarHidden(true)
+
         }else{
             CreditsView(showCredit: $showCredits)
         }

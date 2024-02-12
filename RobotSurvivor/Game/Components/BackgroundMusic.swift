@@ -44,10 +44,17 @@ extension GameScene: AVAudioPlayerDelegate{
         currentMusic?.volume = gameLogic.soundsSwitch ? (0.6/5) * Float(gameLogic.soundsVolume) : 0
         currentMusic?.play()
         currentMusic?.delegate = self
+        backgroundMusicPlayer = currentMusic
         musicPool.append(currentMusic!)
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         playTracks()
     }
+    
+    func stopTracks() {
+        backgroundMusicPlayer?.stop()
+        backgroundMusicPlayer = nil
+    }
+    
 }

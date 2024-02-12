@@ -22,7 +22,6 @@ struct CreditsView: View {
                 .offset(x: -34)
                 .opacity(0.6)
             
-            
             Image("cpuVert")
                 .interpolation(.none)
                 .resizable()
@@ -54,6 +53,7 @@ struct CreditsView: View {
                 }
             }
         }
+        .statusBarHidden(true)
     }
 }
 
