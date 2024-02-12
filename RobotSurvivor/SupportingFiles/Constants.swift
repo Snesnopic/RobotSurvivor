@@ -22,3 +22,13 @@ let creators = [
     "Linar Zinatullin",
     "Davide Castaldi"
 ]
+
+let skins = [
+    "AntiTank",
+    "Assault",
+    "Grenadier",
+    "MachineGunner",
+    "RadioOperator",
+    "Sniper",
+    "SquadLeader"
+]
