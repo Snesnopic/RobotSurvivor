@@ -31,7 +31,7 @@ struct ScoreView: View {
                 Text("II")
                     .font(.custom("Silkscreen-Regular", size: 50))
                     .foregroundStyle(.white)
-                    .padding(.bottom, 23)
+                    .padding(.bottom, 3)
                 
             })
             .disabled(gameLogic.showPowerUp || gameLogic.showPauseMenu)
