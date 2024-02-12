@@ -40,13 +40,13 @@ struct ChooseCharView: View {
                                 }
                                 else{
                                     SpriteView(scene: SkinPreviewScene(skin: skin,isActive: false),options: [.allowsTransparency])
+                                        .grayscale(1)
                                 }
                             })
                             .frame(width: 100,height: 100)
                             Text(skin)
                                 .font(.custom("Silkscreen-Regular", size: 12.0)).foregroundStyle(.white)
                         }
-                        
                     }
                 }
             }
