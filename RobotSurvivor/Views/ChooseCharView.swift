@@ -9,6 +9,7 @@ import SwiftUI
 import _SpriteKit_SwiftUI
 
 struct ChooseCharView: View {
+    @Binding var selectedChar:String
     var body: some View {
         ZStack {
             Image("cpuPower")
@@ -16,31 +17,39 @@ struct ChooseCharView: View {
                 .resizable()
                 .offset(y:25)
                 .frame(width: 370,height: 400)
+            
+            ScrollView(.horizontal,showsIndicators: false) {
+                LazyHStack(alignment: .center)
+                {
+                    ForEach(skins, id: \.self) {
+                        skin in
+                        VStack {
+                            Button(action: {
+                                selectedChar = skin
+                                print("New value: \(selectedChar)")
+                            }, label: {
+                                SpriteView(scene: SkinPreviewScene(skin: skin,isActive: skin == selectedChar),options: [.allowsTransparency])
+                            })
+                            .frame(width: 100,height: 100)
+                            Text(skin)
+                                .font(.custom("Silkscreen-Regular", size: 12.0)).foregroundStyle(.white)
+                        }
+                        
+                    }
+                }
+            }
+            .padding(.top, 120)
+            .padding(.horizontal, 50)
+            
             Text("Choose character")
                 .tracking(3.0)
                 .font(.custom("Silkscreen-Bold", size: 19.0))
                 .foregroundStyle(.white)
-            ScrollView(.horizontal,showsIndicators: false) {
-
-                LazyHStack(alignment: .center)
-                 {
-                    ForEach(skins, id: \.self) {
-                        skin in
-                        PixelArtButtonView(buttonImage: "ButtonPlay1",
-                                           pressedImage: "ButtonPlay2",
-                                           scene: SkinPreviewScene(skin: skin))
-                        .frame(width: 100,height: 100)
-                    }
-                 }.contentShape(Rectangle())
-            }.onTapGesture {
-                
-            }
-            .padding(.top, 120)
-            .padding(.horizontal, 50)
+            
         }
     }
 }
 
 #Preview {
-    ChooseCharView()
+    ChooseCharView(selectedChar: .constant("AntiTank"))
 }
