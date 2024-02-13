@@ -39,6 +39,7 @@ extension GameScene{
                 player.userData!["hp"] = 0
                 isPlayerAlive = false
             }
+            updateHpBar()
             if !isPlayerAlive && player.action(forKey: "deathAnimation") == nil{
                 player.removeAllActions()
                 joystick?.removeAllChildren()
@@ -67,8 +68,6 @@ extension GameScene{
             else {
                 return
             }
-            
-            updateHpBar()
             
             guard let enemyNode2 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
             enemyNode2.slowDownMovement()
