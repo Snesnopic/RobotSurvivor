@@ -27,7 +27,7 @@ struct ChooseCharView: View {
                 .padding(.bottom,50)
             
             ScrollView(.horizontal,showsIndicators: false) {
-                LazyHStack(alignment: .center)
+                HStack(alignment: .center)
                 {
                     ForEach(skins, id: \.self) {
                         skin in
