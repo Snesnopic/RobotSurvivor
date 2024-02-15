@@ -90,7 +90,7 @@ struct MainMenuView: View {
                     let path = Bundle.main.url(forResource: "mainmenu", withExtension: "mp3")
                     MainMenuView.AudioPlayer.shared = try AVAudioPlayer(contentsOf: path!)
                     MainMenuView.AudioPlayer.shared.numberOfLoops = -1
-                    MainMenuView.AudioPlayer.shared.volume = 0.3
+                    MainMenuView.AudioPlayer.shared.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
                     MainMenuView.AudioPlayer.shared.play()
                 }
                 catch {

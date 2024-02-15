@@ -112,7 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupBulletPool(quantityOfBullets: 3)
         DispatchQueue.main.async { [self] in
             
-            setupBulletSoundPool(quantityOfSounds: 30)
+            setupBulletSoundPool(quantityOfSounds: 10)
             setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
             playTracks()
         }

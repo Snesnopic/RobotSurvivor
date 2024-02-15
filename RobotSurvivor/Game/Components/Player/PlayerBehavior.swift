@@ -113,7 +113,7 @@ extension GameScene{
     func playBulletSound(name: String) {
         
         guard let soundPlayer = bulletSoundPool.first else { return }
-        soundPlayer.volume = gameLogic.soundsSwitch ? (0.05/5) * Float(gameLogic.soundsVolume) : 0
+        soundPlayer.volume = gameLogic.soundsSwitch ? (0.15/5) * Float(gameLogic.soundsVolume) : 0
         bulletSoundPool.removeFirst()
         soundPlayer.play()
         bulletSoundPool.append(soundPlayer)
