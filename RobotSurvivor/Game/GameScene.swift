@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //player
     var playerSkin:String = "AntiTank"
     var isPlayerAlive = true
-    var player: SKSpriteNode!
+    var player: SKSpriteNode = SKSpriteNode()
     var healthBar: SKScene!
     //enemies
     var enemiesOnMap: Set<EnemyNode> = []
