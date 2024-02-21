@@ -25,7 +25,6 @@ extension GameScene{
         player.physicsBody?.isDynamic = false
         
         self.player.physicsBody?.affectedByGravity = false
-        healthBar = SKScene()
         
         let healthBarFill = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))
         let healthBarTotal = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))

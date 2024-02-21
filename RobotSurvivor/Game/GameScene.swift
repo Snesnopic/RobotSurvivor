@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //player
     var isPlayerAlive = true
     var player: SKSpriteNode!
-    var healthBar: SKScene!
+    var healthBar: SKScene = SKScene()
     //enemies
     var enemiesOnMap: Set<EnemyNode> = []
     var enemyTypes = EnemyTypesVM().enemyTypes
