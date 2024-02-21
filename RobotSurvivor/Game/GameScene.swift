@@ -35,7 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastUpdate: TimeInterval = 0
     //player
     var isPlayerAlive = true
-    var player: SKSpriteNode!
+    var player: SKSpriteNode = SKSpriteNode()
     var healthBar: SKScene = SKScene()
     //enemies
     var enemiesOnMap: Set<EnemyNode> = []
@@ -111,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupBulletPool(quantityOfBullets: 3)
         DispatchQueue.main.async { [self] in
             
-            setupBulletSoundPool(quantityOfSounds: 30)
+            setupBulletSoundPool(quantityOfSounds: 10)
             setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
             playTracks()
         }

@@ -10,7 +10,6 @@ import SpriteKit
 
 extension GameScene{
     func createPlayer(at position: CGPoint) {
-        player = SKSpriteNode(imageNamed: "\(gameLogic.currentSkin)/Idle/1")
         player.name = "player"
         player.run(SKAction.repeatForever(playerIdleAnimation))
         player.size = CGSize(width: 30, height: 30)

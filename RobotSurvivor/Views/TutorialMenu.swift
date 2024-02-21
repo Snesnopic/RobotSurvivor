@@ -13,9 +13,9 @@ struct TutorialMenu: View {
     @Environment(\.dismiss) private var dismiss
     
     var tutorialSteps = [
-        "Drag your finger on the screen to move and shoot the horde of enemies!",
-        "Pick up the experience left from enemies to fill the xp bar top!",
-        "Fill the bar on top to obtain power-ups and improve your gameplay!"
+        "Drag to move and shoot the endless enemies!",
+        "Collect XP left from enemies to fill the xp bar!",
+        "Fill the top bar for power-ups & better gameplay!"
     ]
     
     var body: some View {

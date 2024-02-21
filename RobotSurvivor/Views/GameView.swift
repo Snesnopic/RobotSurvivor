@@ -111,8 +111,8 @@ struct GameView: View {
             
             ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
             
-            ScoreView(score: $gameLogic.currentScore)
-            DurationView(time: $gameLogic.time)
+            ScoreView(score: $gameLogic.currentScore, time: $gameLogic.time)
+//            DurationView(time: $gameLogic.time)
             
             if(gameLogic.showPowerUp){
                 PowerUpView(sceneWrap: $sceneWrapper)

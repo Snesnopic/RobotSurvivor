@@ -21,9 +21,6 @@ extension GameScene{
         gameLogic.showPowerUp = true
     }
     
-    //il motivo per il quale questa soluzione è ottimale è il fatto che prima si generava un proiettile su richiesta del main thread. Adesso si inizializza una funzione che è un buffer di proiettili, che poi viene caricata asincronamente così da alleggerire notevolmente la computazione.
-    
-    //TLDR: ottimizza notevolmente il gioco
     func setupBulletPool(quantityOfBullets: Int) {
         for _ in 0..<quantityOfBullets { 
             let bullet = SKSpriteNode(imageNamed: "bullet")
@@ -69,7 +66,6 @@ extension GameScene{
         
         if let shot = getBulletFromPool() {
             
-            //ue uaglio bell stu proiettile
             usedBullets.append(shot)
             shot.position = player.position
             addChild(shot)
@@ -80,16 +76,13 @@ extension GameScene{
                 let time = distanceBetween(node1: player, node2: closestEnemy) / Float(spd * 8)
                 let movement = SKAction.move(to: closestEnemy.position, duration: TimeInterval(time))
                 
-                //PEW PEW
                 playBulletSound(name: "BULLETS")
-                //SPAR LELLU' SPAR
                 player.run(shootAnimation)
                 
                 let sequence = SKAction.sequence([movement, .removeFromParent()])
                 
                 shot.run(sequence) { [self] in
                     if usedBullets.last == shot {
-                        //tie piglt o proiettile
                         self.returnBulletToPool(usedBullets)
                         print("Rimetto proiettile: \(bulletPool.count)")
                     }
@@ -98,11 +91,9 @@ extension GameScene{
         }
     }
     
-    //il motivo per il quale questa soluzione è ottimale è il fatto che prima si generava un suono (musica, suono colpi) su richiesta del main thread. Adesso si inizializza una funzione che è un buffer di suoni, che poi viene caricata asincronamente (in funzione dei suoni) così da alleggerire notevolmente la computazione.
     
-    //TLDR: ottimizza notevolmente il gioco
     func setupBulletSoundPool(quantityOfSounds: Int) {
-        //Inizializza la pool dei suoni
+
         for _ in 0..<quantityOfSounds {
             if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
                 do {
@@ -116,11 +107,10 @@ extension GameScene{
         }
     }
     
-    //perché 2? Per lo stesso motivo
     func playBulletSound(name: String) {
         
         guard let soundPlayer = bulletSoundPool.first else { return }
-        soundPlayer.volume = gameLogic.soundsSwitch ? (0.05/5) * Float(gameLogic.soundsVolume) : 0
+        soundPlayer.volume = gameLogic.soundsSwitch ? (0.15/5) * Float(gameLogic.soundsVolume) : 0
         bulletSoundPool.removeFirst()
         soundPlayer.play()
         bulletSoundPool.append(soundPlayer)
@@ -134,7 +124,6 @@ extension GameScene{
             let soundPlayer = try AVAudioPlayer(contentsOf: soundURL!)
             soundPlayer.prepareToPlay()
             
-            //Inizializza la pool dei suoni
             for _ in 0..<quantityOfSounds {
                 self.soundPool.append(soundPlayer)
             }
@@ -152,7 +141,6 @@ extension GameScene{
         soundPool.append(soundPlayer)
     }
     
-    //per i proiettili
     func configureBullet(_ bullet: SKSpriteNode) {
         bullet.texture?.filteringMode = .nearest
         bullet.name = "bullet"
@@ -162,7 +150,6 @@ extension GameScene{
         bullet.setScale(1.5)
     }
     
-    //per la fisica dei proiettili
     func configureBulletPhysics(_ bullet: SKSpriteNode) {
         bullet.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bullet.size.width/3, height: bullet.size.height/3))
         bullet.physicsBody?.categoryBitMask = CollisionType.playerWeapon
@@ -171,13 +158,11 @@ extension GameScene{
         bullet.physicsBody?.isDynamic = false
     }
 
-    //ricerca
     func findClosestEnemy() -> EnemyNode? {
         let activeEnemies = children.compactMap { $0 as? EnemyNode }
         return activeEnemies.min(by: { distanceBetween(node1: player, node2: $0) < distanceBetween(node1: player, node2: $1) })
     }
 
-    //per l'audio
     func playDeathSound(audioFileName: String){
         let soundNode = SKAudioNode(fileNamed: audioFileName)
         soundNode.autoplayLooped = false
