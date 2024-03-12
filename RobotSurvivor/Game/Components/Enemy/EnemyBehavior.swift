@@ -50,10 +50,10 @@ extension GameScene {
         let enemyType = Int.random(in: 0..<enemyTypes.count)
         let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: getPositionNearPlayer())
         enemy.physicsBody?.affectedByGravity = false
-        enemy.userData!["health"] = enemy.userData!["health"] as! Double * powerFactor
-        enemy.userData!["speed"] = enemy.userData!["speed"] as! Double + (powerFactor * 3)
-        enemy.userData!["points"] = enemy.userData!["points"] as! Double * powerFactor
-        enemy.userData!["damage"] = enemy.userData!["damage"] as! Double * powerFactor
+        enemy.health = Int(Double(enemy.health) * powerFactor)
+        enemy.movementSpeed = enemy.movementSpeed + (powerFactor * 3)
+        enemy.points = Int(Double(enemy.points) * powerFactor)
+        enemy.damage = enemy.damage * powerFactor
         
         enemy.zPosition = 2
         enemiesOnMap.insert(enemy)
@@ -78,10 +78,10 @@ extension GameScene {
         let relocatedEnemy = EnemyNode(type: enemy.type, startPosition: getRelocatePosition(enemy: enemy))
         
         enemy.physicsBody?.affectedByGravity = false
-        relocatedEnemy.userData!["health"] = enemy.userData!["health"] as! Double
-        relocatedEnemy.userData!["speed"] = enemy.userData!["speed"] as! Double
-        relocatedEnemy.userData!["points"] = enemy.userData!["points"] as! Double
-        relocatedEnemy.userData!["damage"] = enemy.userData!["damage"] as! Double
+        relocatedEnemy.health = enemy.health
+        relocatedEnemy.movementSpeed = enemy.movementSpeed
+        relocatedEnemy.points = enemy.points
+        relocatedEnemy.damage = enemy.damage
         
         relocatedEnemy.zPosition = 2
         

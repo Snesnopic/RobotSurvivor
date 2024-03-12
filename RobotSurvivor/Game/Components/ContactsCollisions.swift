@@ -32,7 +32,7 @@ extension GameScene{
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
             
             guard let enemyNode1 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
-            let enemyDmg = enemyNode1.userData!["damage"] as! Double
+            let enemyDmg = enemyNode1.damage
             player.userData!["hp"] = player.userData!["hp"] as! Double - enemyDmg
             guard let playerHp:Double = player.userData!["hp"] as? Double else {return}
             if playerHp <= 0 {
@@ -111,9 +111,9 @@ extension GameScene{
             guard let enemy = enemyNode as? EnemyNode, let bullet = bulletNode as? SKSpriteNode else {return}
                 
             // TODO: Implement the death logic based on enemy health
-            enemy.userData!["health"] = enemy.userData!["health"]! as! Int - dmg
+            enemy.health -= dmg
 
-            if((enemy.userData!["health"] as! Int)<=0){
+            if enemy.health <= 0 {
                 let explosion: SKNode = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
                 explosion.position = enemy.position
                 explosion.zPosition = 2
@@ -126,7 +126,7 @@ extension GameScene{
                 if(chance>25){
                     generateXp(at: enemy.position)
                 }
-                gameLogic.increaseScore(points: enemy.userData!["points"] as! Int)
+                gameLogic.increaseScore(points: enemy.points)
                 enemiesOnMap.remove(enemy)
                 enemy.die()
             }
