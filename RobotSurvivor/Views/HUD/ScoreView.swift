@@ -54,4 +54,7 @@ struct ScoreView: View {
 
 #Preview {
     ScoreView(score: .constant(100), time: .constant(TimeInterval(581)))
+        .background {
+            Color.black
+        }
 }
