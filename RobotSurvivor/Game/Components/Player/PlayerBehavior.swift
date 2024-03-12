@@ -45,7 +45,7 @@ extension GameScene{
 
     public func updateHpBar() {
         let healthBarFill = healthBar.children.last!
-        healthBarFill.xScale = CGFloat(player.hp  / player.maxHp)
+        healthBarFill.xScale = CGFloat(Double(player.hp) / Double(player.maxHp))
     }
     
     func returnBulletToPool(_ bullets: [SKSpriteNode]) {
