@@ -28,7 +28,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
-    var readyToLoad: Bool = true
+    var readyToRecolate: Bool = true
     var joystick: Joystick?
     
     var gameLogic: GameLogic = GameLogic.shared
@@ -176,8 +176,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             shooting()
         }
         
-        if readyToLoad {
-            reloading()
+        if readyToRecolate {
+            relocateEnemies()
         }
         
         if readyToIncreaseSpawnRate {
@@ -211,8 +211,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         run(sequence)
     }
     
-    func reloading() {
-        readyToLoad = false
+    func relocateEnemies() {
+        readyToRecolate = false
         for enemy in enemiesOnMap{
             if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8){
                 relocateEnemy(enemy: enemy)
@@ -220,7 +220,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         let waitAction = SKAction.wait(forDuration: 3)
         let enableReload = SKAction.run {
-            self.readyToLoad = true
+            self.readyToRecolate = true
         }
         
         let sequence = SKAction.sequence([waitAction, enableReload])
@@ -230,9 +230,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func increaseSpawnRate() {
         readyToIncreaseSpawnRate = false
-        self.spawnRate += 7
+        self.spawnRate += 4
         
-        let waitAction = SKAction.wait(forDuration: 35)
+        let waitAction = SKAction.wait(forDuration: 25)
         let enableSpawnRateIncreaseAction = SKAction.run {
             self.readyToIncreaseSpawnRate = true
         }

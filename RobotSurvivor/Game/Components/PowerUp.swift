@@ -10,7 +10,7 @@ import SpriteKit
 
 extension GameScene{
     func increaseHealth(){
-        let newMaxHp = Int(Double(player.maxHp) * 1.1)
+        let newMaxHp = Int(Double(player.maxHp) * 1.2)
         let difference = player.maxHp - newMaxHp
         player.hp +=  difference
         player.maxHp = newMaxHp
@@ -19,7 +19,7 @@ extension GameScene{
     }
     
     func increasePlayerSpeed(){
-        player.movementSpeed += 5
+        player.movementSpeed += 7
     }
     
     func increaseFireRate(){
@@ -29,7 +29,7 @@ extension GameScene{
     }
     
     func increaseBulletSpeed(){
-        spd += 2
+        spd += 4
     }
     
     func increaseDamage(){
