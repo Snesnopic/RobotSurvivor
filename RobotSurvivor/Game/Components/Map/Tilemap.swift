@@ -15,7 +15,7 @@ extension GameScene{
         let tileType = Int.random(in: 1...100)
         if(tileType <= 70){
             tileImageName = "Moon1"
-        }else if tileType > 70 || tileType < 90{
+        }else if tileType > 70 && tileType < 90{
             tileImageName = "Moon2"
         } else {
             tileImageName = "Moon3"
