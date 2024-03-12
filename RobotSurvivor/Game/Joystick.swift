@@ -11,13 +11,13 @@ import Foundation
 
 class Joystick: SKScene {
     var gameSceneReference: GameScene
-    var playerNode: SKSpriteNode
+    var playerNode: PlayerNode
     var joystickBase: SKShapeNode!
     var joystickKnob: SKShapeNode!
     var isJoystickActive: Bool = false
     var angle: CGFloat = 0.0
     
-    required init(player: SKSpriteNode, gameSceneReference: GameScene) {
+    required init(player: PlayerNode, gameSceneReference: GameScene) {
         self.gameSceneReference = gameSceneReference
         self.playerNode = player
         super.init(size: CGSize(width: 100, height: 100))
@@ -59,7 +59,7 @@ class Joystick: SKScene {
             let deltaTime = gameSceneReference.deltaTime
             
             // Use the angle and distance to control movement
-            let speed: CGFloat = playerNode.userData?.value(forKey: "speed") as! CGFloat
+            let speed: CGFloat = CGFloat(playerNode.movementSpeed)
             let xMovement = cos(angle) * speed * deltaTime
             let yMovement = sin(angle) * speed * deltaTime
             

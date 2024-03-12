@@ -12,11 +12,10 @@ import AVFAudio
 extension GameScene{
     
     func levelUp(){
-        player.userData!["level"] = (player.userData!["level"] as? Int)! + 1
-        player.userData!["xp"] = 0
-        let nextLevelXp = (player.userData!["xpToNextLevel"] as? Int)! + 10
-        player.userData!["xpToNextLevel"] = nextLevelXp
-        gameLogic.xpToNextLvl = nextLevelXp
+        player.level += 1
+        player.xp = 0
+        player.xpToNextLevel += 10
+        gameLogic.xpToNextLvl = player.xpToNextLevel
         
         gameLogic.showPowerUp = true
     }
@@ -46,9 +45,7 @@ extension GameScene{
 
     public func updateHpBar() {
         let healthBarFill = healthBar.children.last!
-        let playerMaxHp:Double = player.userData!["maxhp"] as! Double
-        guard let playerHp:Double = player.userData!["hp"] as? Double else {return}
-        healthBarFill.xScale = CGFloat(playerHp  / playerMaxHp)
+        healthBarFill.xScale = CGFloat(player.hp  / player.maxHp)
     }
     
     func returnBulletToPool(_ bullets: [SKSpriteNode]) {

@@ -10,14 +10,14 @@ import SpriteKit
 
 extension GameScene{
     public func gainXP(val: Int){
-        let xpToLevel = (player.userData!["xpToNextLevel"] as! Int) - (player.userData!["xp"]! as! Int)
+        let xpToLevel = player.xpToNextLevel - player.xp
         let value = xpToLevel - val
         if(value <= 0){
             levelUp()
             gainXP(val: -value)
         }else{
-            player.userData!["xp"] = player.userData!["xp"] as! Int + val;
-            gameLogic.currentXP = player.userData!["xp"] as! Int
+            player.xp += val;
+            gameLogic.currentXP = player.xp
         }
     }
     

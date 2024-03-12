@@ -33,10 +33,9 @@ extension GameScene{
             
             guard let enemyNode1 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
             let enemyDmg = enemyNode1.damage
-            player.userData!["hp"] = player.userData!["hp"] as! Double - enemyDmg
-            guard let playerHp:Double = player.userData!["hp"] as? Double else {return}
-            if playerHp <= 0 {
-                player.userData!["hp"] = 0
+            player.hp -= Int(enemyDmg)
+            if player.hp <= 0 {
+                player.hp = 0
                 isPlayerAlive = false
             }
             updateHpBar()
