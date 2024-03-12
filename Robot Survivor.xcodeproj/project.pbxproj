@@ -44,6 +44,7 @@
 		9D3EDD382B1F3FD200C5DF7B /* RobotSurvivorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD372B1F3FD200C5DF7B /* RobotSurvivorApp.swift */; };
 		9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD392B1F3FD200C5DF7B /* GameView.swift */; };
 		9D3EDD3C2B1F3FD200C5DF7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */; };
+		9D59B0EF2BA03F9B00C9B627 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D59B0EE2BA03F9B00C9B627 /* LeaderboardView.swift */; };
 		9D77C9542B2A022D00781A25 /* game2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9D77C9522B2A022D00781A25 /* game2.mp3 */; };
 		9D77C9552B2A022D00781A25 /* game3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9D77C9532B2A022D00781A25 /* game3.mp3 */; };
 		9DD1D6CC2B29CAB00027768C /* mainmenu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */; };
@@ -97,6 +98,7 @@
 		9D3EDD372B1F3FD200C5DF7B /* RobotSurvivorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RobotSurvivorApp.swift; sourceTree = "<group>"; };
 		9D3EDD392B1F3FD200C5DF7B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9D59B0EE2BA03F9B00C9B627 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		9D77C9522B2A022D00781A25 /* game2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game2.mp3; sourceTree = "<group>"; };
 		9D77C9532B2A022D00781A25 /* game3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game3.mp3; sourceTree = "<group>"; };
 		9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainmenu.mp3; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				23A5F3822B21D0C50008FFB2 /* HUD */,
 				23A5F37E2B21D0480008FFB2 /* ParentView.swift */,
 				EEA581752B2B66A50068148C /* MainMenuView.swift */,
+				9D59B0EE2BA03F9B00C9B627 /* LeaderboardView.swift */,
 				EEF2533F2B2C966D00DDE44B /* PauseMenuView.swift */,
 				3E47CAC42B76643600837773 /* TutorialMenu.swift */,
 				6BFDBA652B28D8700069F3F7 /* PowerUpView.swift */,
@@ -398,6 +401,7 @@
 				3E47CAC52B76643600837773 /* TutorialMenu.swift in Sources */,
 				233F1F562B273C5D00EF01FC /* ContactsCollisions.swift in Sources */,
 				6BFDBA662B28D8700069F3F7 /* PowerUpView.swift in Sources */,
+				9D59B0EF2BA03F9B00C9B627 /* LeaderboardView.swift in Sources */,
 				233F1F512B27244C00EF01FC /* EnemyNode.swift in Sources */,
 				6B99D2C12B21DF6C0069204F /* GameOver.swift in Sources */,
 				6BE8220E2B3464C200962953 /* CGPointExtension.swift in Sources */,
@@ -534,7 +538,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = WLW428B75Y;
+				DEVELOPMENT_TEAM = 3FRYF657J2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RobotSurvivor/Info.plist;
@@ -570,7 +574,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = WLW428B75Y;
+				DEVELOPMENT_TEAM = 3FRYF657J2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RobotSurvivor/Info.plist;
