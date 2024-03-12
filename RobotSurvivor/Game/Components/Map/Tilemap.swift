@@ -35,8 +35,8 @@ extension GameScene{
         let baseX = Int(player.position.x / tileSize.width)
         let baseY = Int(player.position.y / tileSize.height)
         
-        centerTile.x = CGFloat(baseX * 128)
-        centerTile.y = CGFloat(baseY * 128)
+        centerTile.x = CGFloat(baseX * Int(tileSize.width))
+        centerTile.y = CGFloat(baseY * Int(tileSize.height))
     }
     func updateTiles() {
         newCenterTile()
