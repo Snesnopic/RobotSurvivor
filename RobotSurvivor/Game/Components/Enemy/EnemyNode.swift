@@ -13,24 +13,29 @@ class EnemyNode: SKSpriteNode {
     
     var type: EnemyType
     var isMovementSlow: Bool = true
-
+    var points:Int
+    var health:Int
+    var damage:Double
+    var movementSpeed:Double
     init(type: EnemyType, startPosition: CGPoint) {
         self.type = type
+        self.points = type.points
+        self.health = type.health
+        self.damage = type.damage
+        self.movementSpeed = type.speed
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
-
+        
         super.init(texture: texture, color: .white, size: CGSize(width: 20, height: 20))
-        configureAppearance()
+        self.movementSpeed = type.speed
+
+        name = "enemy" + type.name
         configurePhysics()
         configureIdleAnimation()
         position = startPosition
 
     }
     
-    //per configurazione apparenza
-    func configureAppearance() {
-        userData = ["health": type.health, "speed": type.speed, "points": type.points, "damage": type.damage]
-        name = "enemy" + type.name
-    }
+  
     
     //per parametri di fisica e collisioni
     func configurePhysics() {
@@ -88,8 +93,7 @@ class EnemyNode: SKSpriteNode {
         }
 
         let distance = abs(hypot(position.x - player.position.x, position.y - player.position.y))
-        let speed = userData?.value(forKey: "speed") as! CGFloat
-        let action = SKAction.move(to: player.position, duration: distance / speed * (isMovementSlow ? 1.5 : 1))
+        let action = SKAction.move(to: player.position, duration: distance / self.movementSpeed * (isMovementSlow ? 1.5 : 1))
         run(action)
     }
     

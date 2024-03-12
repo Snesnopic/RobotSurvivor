@@ -44,6 +44,7 @@
 		9D3EDD382B1F3FD200C5DF7B /* RobotSurvivorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD372B1F3FD200C5DF7B /* RobotSurvivorApp.swift */; };
 		9D3EDD3A2B1F3FD200C5DF7B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3EDD392B1F3FD200C5DF7B /* GameView.swift */; };
 		9D3EDD3C2B1F3FD200C5DF7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */; };
+		9D59B0F82BA05BBC00C9B627 /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D59B0F72BA05BBC00C9B627 /* PlayerNode.swift */; };
 		9D77C9542B2A022D00781A25 /* game2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9D77C9522B2A022D00781A25 /* game2.mp3 */; };
 		9D77C9552B2A022D00781A25 /* game3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9D77C9532B2A022D00781A25 /* game3.mp3 */; };
 		9DD1D6CC2B29CAB00027768C /* mainmenu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */; };
@@ -98,6 +99,7 @@
 		9D3EDD392B1F3FD200C5DF7B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		9D3EDD3B2B1F3FD200C5DF7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D59B0F02BA0456D00C9B627 /* Robot Survivor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Robot Survivor.entitlements"; sourceTree = "<group>"; };
+		9D59B0F72BA05BBC00C9B627 /* PlayerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
 		9D77C9522B2A022D00781A25 /* game2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game2.mp3; sourceTree = "<group>"; };
 		9D77C9532B2A022D00781A25 /* game3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game3.mp3; sourceTree = "<group>"; };
 		9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainmenu.mp3; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				6BE822052B345D5600962953 /* PlayerSetUp.swift */,
 				2347545A2B29A7520063537F /* PlayerBehavior.swift */,
+				9D59B0F72BA05BBC00C9B627 /* PlayerNode.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 			files = (
 				6BADBF8C2B2BBBED0047B2F9 /* TimeIntervalExtension.swift in Sources */,
 				233F1F592B286B5400EF01FC /* Constants.swift in Sources */,
+				9D59B0F82BA05BBC00C9B627 /* PlayerNode.swift in Sources */,
 				233F1F542B272C6E00EF01FC /* EnemyTypesVM.swift in Sources */,
 				23A5F3852B21D1B30008FFB2 /* ScoreView.swift in Sources */,
 				23A5F37B2B21CFCD0008FFB2 /* GameOverView.swift in Sources */,

@@ -14,10 +14,6 @@ struct RobotSurvivorApp: App {
         WindowGroup {
             ParentView()
                 .preferredColorScheme(.light).statusBarHidden(true)
-            //                .modelContainer(
-            //                    for: GameLogic.self,
-            //                    isAutosaveEnabled: true
-            //                )
         }
     }
 }

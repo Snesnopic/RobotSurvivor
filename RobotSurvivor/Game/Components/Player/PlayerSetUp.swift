@@ -10,21 +10,9 @@ import SpriteKit
 
 extension GameScene{
     func createPlayer(at position: CGPoint) {
-        player.name = "player"
+        
         player.run(SKAction.repeatForever(playerIdleAnimation))
-        player.size = CGSize(width: 30, height: 30)
-        self.player.position = position
-        player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 20, height:  20))
-        player.userData = ["level": 1, "xp": 0, "xpToNextLevel": 10, "speed": 70, "hp": 100, "maxhp": 100];
-        player.zPosition = 3
-        player.position = CGPoint(x: 0, y: 0)
-        player.physicsBody?.categoryBitMask = CollisionType.player
-        player.physicsBody?.collisionBitMask = CollisionType.enemy
-        player.physicsBody?.contactTestBitMask = CollisionType.enemy
-        player.physicsBody?.isDynamic = false
-        
-        self.player.physicsBody?.affectedByGravity = false
-        
+
         let healthBarFill = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))
         let healthBarTotal = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))
         

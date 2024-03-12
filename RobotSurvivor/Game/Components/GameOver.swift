@@ -22,7 +22,7 @@ extension GameScene{
         }
         gameLogic.isGameOver = true
         self.scene?.isPaused = true
-        player.userData!["hp"] = 0
+        player.hp = 0
     }
     
 }

@@ -35,7 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastUpdate: TimeInterval = 0
     //player
     var isPlayerAlive = true
-    var player: SKSpriteNode = SKSpriteNode()
+    var player: PlayerNode = PlayerNode()
     var healthBar: SKScene = SKScene()
     //enemies
     var enemiesOnMap: Set<EnemyNode> = []
