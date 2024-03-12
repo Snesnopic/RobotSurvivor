@@ -15,7 +15,7 @@ extension GameScene{
         let tileType = Int.random(in: 1...100)
         if(tileType <= 70){
             tileImageName = "Moon1"
-        }else if tileType > 70 || tileType < 90{
+        }else if tileType > 70 && tileType < 90{
             tileImageName = "Moon2"
         } else {
             tileImageName = "Moon3"
@@ -32,11 +32,11 @@ extension GameScene{
         
     }
     func newCenterTile() {
-        let baseX = Int(player.position.x / 128)
-        let baseY = Int(player.position.y / 128)
+        let baseX = Int(player.position.x / tileSize.width)
+        let baseY = Int(player.position.y / tileSize.height)
         
-        centerTile.x = CGFloat(baseX * 128)
-        centerTile.y = CGFloat(baseY * 128)
+        centerTile.x = CGFloat(baseX * Int(tileSize.width))
+        centerTile.y = CGFloat(baseY * Int(tileSize.height))
     }
     func updateTiles() {
         newCenterTile()

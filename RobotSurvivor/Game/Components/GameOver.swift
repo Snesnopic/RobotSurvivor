@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GameKit
 
 extension GameScene{
     
@@ -14,6 +15,11 @@ extension GameScene{
     }
     
     func finishGame() {
+        GKLeaderboard.submitScore(gameLogic.currentScore, context: 0, player: GKLocalPlayer.local, leaderboardIDs: ["highscores"]) { error in
+            if error != nil {
+                print("Error: \(error!)")
+            }
+        }
         gameLogic.isGameOver = true
         self.scene?.isPaused = true
         player.userData!["hp"] = 0
