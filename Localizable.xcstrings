@@ -1,6 +1,39 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Collect XP left from enemies to fill the xp bar!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colleziona l'esperienza dai nemici per riempire la barra esperienza"
+          }
+        }
+      }
+    },
+    "Drag to move and shoot the endless enemies!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trascina il dito per muoverti e uccidere i nemici!"
+          }
+        }
+      }
+    },
+    "Fill the top bar to obtain power-ups!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riempi la barra per ottenere potenziamenti!"
+          }
+        }
+      }
+    },
     "Key" : {
       "extractionState" : "manual"
     }
