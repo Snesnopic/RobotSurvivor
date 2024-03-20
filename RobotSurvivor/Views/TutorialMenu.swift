@@ -81,6 +81,12 @@ struct TutorialMenu: View {
     }
 }
 
-#Preview {
+#Preview("English") {
     TutorialMenu()
+        .environment(\.locale, Locale(identifier: "EN"))
+}
+
+#Preview("Italian"){
+    TutorialMenu()
+        .environment(\.locale, Locale(identifier: "IT"))
 }

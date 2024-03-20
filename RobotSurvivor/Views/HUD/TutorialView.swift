@@ -99,6 +99,13 @@ struct TutorialView: View {
 }
 
 
-#Preview {
+#Preview("English") {
     TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
+        .environment(\.locale, Locale(identifier: "EN"))
+}
+
+
+#Preview("Italian") {
+    TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
+        .environment(\.locale, Locale(identifier: "IT"))
 }

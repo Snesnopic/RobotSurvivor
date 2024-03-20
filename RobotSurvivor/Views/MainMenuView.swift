@@ -57,7 +57,7 @@ struct MainMenuView: View {
                     withAnimation{
                         self.currentGameState = .chooseChar
                     }
-                }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
+                }, textView: Text(String(localized:"Play")) .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
                 .frame(width: 224, height:96)
                 .padding(.bottom, -30)
                 .shadow(radius: 15)
@@ -65,7 +65,7 @@ struct MainMenuView: View {
                 Group {
                     PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
                         showTutorial = true
-                    }, textView: Text("Tutorial").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
+                    }, textView: Text(String(localized:"Tutorial")).font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                     .fullScreenCover(isPresented: $showTutorial, content: {
                         TutorialMenu()
                     })
@@ -75,7 +75,7 @@ struct MainMenuView: View {
                     
                     PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
                         showSetting = true
-                    }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
+                    }, textView: Text(String(localized: "Settings")).font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                     .fullScreenCover(isPresented: $showSetting, content: {
                         Settings_Menu(gameLogic: GameLogic.shared, switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
                     })
