@@ -13,9 +13,9 @@ struct TutorialMenu: View {
     @Environment(\.dismiss) private var dismiss
     
     var tutorialSteps = [
-        String(localized: "Drag to move and shoot the endless enemies!"),
-        String(localized: "Collect XP left from enemies to fill the xp bar!"),
-        String(localized: "Fill the top bar to obtain power-ups!")
+        String(localized:"Drag to move and shoot the endless enemies!"),
+        String(localized:"Collect XP left from enemies to fill the xp bar!"),
+        String(localized:"Fill the xp bar to obtain power-ups!")
     ]
     
     var body: some View {
@@ -83,10 +83,10 @@ struct TutorialMenu: View {
 
 #Preview("English") {
     TutorialMenu()
-        .environment(\.locale, Locale(identifier: "EN"))
+        .environment(\.locale, Locale(identifier: "en"))
 }
 
 #Preview("Italian"){
     TutorialMenu()
-        .environment(\.locale, Locale(identifier: "IT"))
+        .environment(\.locale, Locale(identifier: "it"))
 }

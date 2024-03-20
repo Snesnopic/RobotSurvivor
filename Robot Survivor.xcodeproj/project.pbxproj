@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,7 @@
 		23A5F3912B21D42D0008FFB2 /* SceneSetUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */; };
 		23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */; };
 		3E47CAC52B76643600837773 /* TutorialMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47CAC42B76643600837773 /* TutorialMenu.swift */; };
+		3E5C618E2BAB96E7003B7A6A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */; };
 		3EF2DD5A2B7396380089ACB7 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2DD592B7396380089ACB7 /* TutorialView.swift */; };
 		6B4703532B2DC76B007A6E4C /* PickUps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4703522B2DC76B007A6E4C /* PickUps.swift */; };
 		6B99D2C12B21DF6C0069204F /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99D2C02B21DF6C0069204F /* GameOver.swift */; };
@@ -245,8 +246,8 @@
 		9D3EDD2B2B1F3FD200C5DF7B = {
 			isa = PBXGroup;
 			children = (
-				3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */,
 				9D59B0F02BA0456D00C9B627 /* Robot Survivor.entitlements */,
+				3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */,
 				9D3EDD362B1F3FD200C5DF7B /* RobotSurvivor */,
 				9D3EDD352B1F3FD200C5DF7B /* Products */,
 			);
@@ -327,7 +328,7 @@
 				};
 			};
 			buildConfigurationList = 9D3EDD2F2B1F3FD200C5DF7B /* Build configuration list for PBXProject "Robot Survivor" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -356,6 +357,7 @@
 				9D77C9542B2A022D00781A25 /* game2.mp3 in Resources */,
 				EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */,
 				934BBFE92B2C5BF400B8D541 /* BULLETS.mp3 in Resources */,
+				3E5C618E2BAB96E7003B7A6A /* Localizable.xcstrings in Resources */,
 				23A5F38A2B21D34B0008FFB2 /* Preview Content in Resources */,
 				934BBFE72B29D06000B8D541 /* HIT.mp3 in Resources */,
 				EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */,
@@ -542,6 +544,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_INFOPLIST_LOCALIZATIONS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Robot Survivor.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -579,6 +582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_INFOPLIST_LOCALIZATIONS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Robot Survivor.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

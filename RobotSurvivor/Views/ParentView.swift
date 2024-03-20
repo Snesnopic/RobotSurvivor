@@ -29,6 +29,11 @@ struct ParentView: View {
 }
 
 
-#Preview {
+#Preview("English"){
     ParentView()
+        .environment(\.locale, Locale(identifier: "EN"))
+}
+#Preview("Italian"){
+    ParentView()
+        .environment(\.locale, Locale(identifier: "IT"))
 }

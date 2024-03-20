@@ -17,9 +17,9 @@ struct TutorialView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var tutorialSteps = [
-        String(localized: "Drag to move and shoot the endless enemies!"),
-        String(localized: "Collect XP left from enemies to fill the xp bar!"),
-        String(localized: "Fill the top bar to obtain power-ups!")
+        String(localized:"Drag to move and shoot the endless enemies!"),
+        String(localized:"Collect XP left from enemies to fill the xp bar!"),
+        String(localized:"Fill the xp bar to obtain power-ups!")
     ]
    
     var body: some View {
