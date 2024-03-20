@@ -13,9 +13,9 @@ struct TutorialMenu: View {
     @Environment(\.dismiss) private var dismiss
     
     var tutorialSteps = [
-        "Drag to move and shoot the endless enemies!",
-        "Collect XP left from enemies to fill the xp bar!",
-        "Fill the top bar for power-ups & better gameplay!"
+        LocalizedStringKey("Drag to move and shoot the endless enemies!"),
+        LocalizedStringKey("Collect XP left from enemies to fill the xp bar!"),
+        LocalizedStringKey("Fill the top bar to obtain power-ups!")
     ]
     
     var body: some View {
