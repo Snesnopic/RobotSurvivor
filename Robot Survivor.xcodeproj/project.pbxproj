@@ -78,6 +78,7 @@
 		23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneSetUp.swift; sourceTree = "<group>"; };
 		23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBehavior.swift; sourceTree = "<group>"; };
 		3E47CAC42B76643600837773 /* TutorialMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialMenu.swift; sourceTree = "<group>"; };
+		3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		3EF2DD592B7396380089ACB7 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		6B4703522B2DC76B007A6E4C /* PickUps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUps.swift; sourceTree = "<group>"; };
 		6B99D2C02B21DF6C0069204F /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
@@ -244,6 +245,7 @@
 		9D3EDD2B2B1F3FD200C5DF7B = {
 			isa = PBXGroup;
 			children = (
+				3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */,
 				9D59B0F02BA0456D00C9B627 /* Robot Survivor.entitlements */,
 				9D3EDD362B1F3FD200C5DF7B /* RobotSurvivor */,
 				9D3EDD352B1F3FD200C5DF7B /* Products */,
@@ -331,6 +333,7 @@
 			knownRegions = (
 				en,
 				Base,
+				it,
 			);
 			mainGroup = 9D3EDD2B2B1F3FD200C5DF7B;
 			productRefGroup = 9D3EDD352B1F3FD200C5DF7B /* Products */;
