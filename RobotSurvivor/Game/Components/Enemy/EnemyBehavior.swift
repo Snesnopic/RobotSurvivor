@@ -47,7 +47,7 @@ extension GameScene {
     }
     
     func createEnemy(powerFactor: Double) {
-        let enemyType = Int.random(in: 0..<enemyTypes.count)
+        let enemyType = Int.random(in: 0..<enemyTypes.count - 2)
         let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: getPositionNearPlayer())
         enemy.physicsBody?.affectedByGravity = false
         enemy.health = Int(Double(enemy.health) * powerFactor)

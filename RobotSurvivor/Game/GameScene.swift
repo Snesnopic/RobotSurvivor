@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var healthBar: SKScene = SKScene()
     //enemies
     var enemiesOnMap: Set<EnemyNode> = []
-    var enemyTypes = EnemyTypesVM().enemyTypes
+    var enemyTypes = EnemyTypesVM.enemyTypes
     var spawnRate: Int = 0
     var readyToIncreaseSpawnRate: Bool = true
     var readyToIncreaseEnemyPower: Bool = true
