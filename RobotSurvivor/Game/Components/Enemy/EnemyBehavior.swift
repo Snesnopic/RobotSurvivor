@@ -18,8 +18,18 @@ extension GameScene {
             createEnemy(powerFactor: multiplier)
             activeEnemiesCount += 1
         }
+        if Int(gameLogic.time) % 60 == 0 && !isBossActive {
+            print("I should spawn the boss!")
+            isBossActive = true
+            createBoss()
+        }
     }
-    
+    func bossLogic() {
+        activeBoss?.configureMovement(player)
+        activeBoss?.bodyParts.forEach({ bodyPart in
+            bodyPart.configureMovement(bodyPart.nodeToFollow)
+        })
+    }
     func getPositionNearPlayer() -> CGPoint {
         let offSet = Int.random(in: 10...100)
         let halfScreenWidth = Int(self.size.width / 2) + offSet
@@ -92,13 +102,12 @@ extension GameScene {
     }
     
     func createBoss() {
-        var bossEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
+        let bossEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
             return enemy.name == "CentipedeHead"
         })!
         
-        
         let enemyBoss = EnemyBossNode(type: bossEnemyType , startPosition: getPositionNearPlayer(), parts: 10)
-        enemyBoss.physicsBody?.affectedByGravity = false
+        activeBoss = enemyBoss
         enemyBoss.zPosition = 2
         addChild(enemyBoss)
         enemyBoss.bodyParts.forEach { bodyPart in
