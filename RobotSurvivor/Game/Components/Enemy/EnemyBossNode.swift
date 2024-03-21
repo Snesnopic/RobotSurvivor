@@ -39,12 +39,12 @@ class EnemyBossNode: EnemyNode {
         name = "enemy" + type.name
         configureIdleAnimation()
         position = startPosition
-        let firstBodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: CGPoint(x: self.position.x, y: self.position.y - 5), nodeToFollow: self, headReference: self)
+        let firstBodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: startPosition, nodeToFollow: self, headReference: self)
         bodyParts.insert(firstBodyPart)
         var previousNode: EnemyBodyBossNode = firstBodyPart
         
         for _ in 1..<parts {
-            let bodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: CGPoint(x: previousNode.position.x, y: previousNode.position.y - 5), nodeToFollow: previousNode, headReference: self)
+            let bodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: startPosition, nodeToFollow: previousNode, headReference: self)
             previousNode.nodeThatFollowsMe = bodyPart
             previousNode = bodyPart
             bodyParts.insert(bodyPart)
