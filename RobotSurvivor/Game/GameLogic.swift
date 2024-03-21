@@ -17,6 +17,7 @@ class GameLogic: ObservableObject {
         self.currentXP = 0
         self.xpToNextLvl = 30
         self.time = 0
+        self.playerLevel = 1
         self.isGameOver = false
     }
     @AppStorage ("showTutorial") var showTutorial: Bool = true
@@ -30,6 +31,7 @@ class GameLogic: ObservableObject {
     @Published var currentXP: Int = 0
     @Published var xpToNextLvl: Int = 30
     @Published var showPowerUp: Bool = false
+    @Published var playerLevel = 1
     //settings
     @AppStorage ("musicVolume") var musicVolume: Int = 5
     @AppStorage ("soundsVolume") var soundsVolume: Int = 5

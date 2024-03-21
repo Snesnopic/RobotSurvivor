@@ -109,7 +109,7 @@ struct GameView: View {
                     }
                 })
             
-            ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP)
+            ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP, currentLevel: $gameLogic.playerLevel)
             
             ScoreView(score: $gameLogic.currentScore, time: $gameLogic.time)
 //            DurationView(time: $gameLogic.time)
