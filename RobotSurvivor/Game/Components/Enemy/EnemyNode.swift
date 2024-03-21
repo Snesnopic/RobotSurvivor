@@ -112,61 +112,139 @@ class EnemyNode: SKSpriteNode {
     }
 }
 
-class EnemyBossNode: SKSpriteNode {
-    var type: EnemyBossType
-    
-    init(type: EnemyBossType, startPosition: CGPoint) {
-        self.type = type
-        let texture = SKTexture(imageNamed: "enemy3")
-        
-        
-        super.init(texture: texture, color: .white, size: CGSize(width: 20, height: 20))
-        self.userData = ["health": type.health, "speed": type.speed,
-                         "points": type.points]
-        
-        name = "enemyBoss"+type.name
-        
-        
-        physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x-10, self.position.y-10, 20, 20), transform: nil))
-        
-        physicsBody?.categoryBitMask = CollisionType.enemy
-        physicsBody?.collisionBitMask = CollisionType.player | CollisionType.enemy
-        physicsBody?.contactTestBitMask = CollisionType.none
-        physicsBody?.isDynamic = true
-        physicsBody?.allowsRotation = true
-        position = startPosition
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("LOL NO")
-    }
-    
-    func configureMovement(_ player: SKSpriteNode){
-       
-        let distance = abs(CGFloat(hypotf(Float(self.position.x - player.position.x), Float(self.position.y - player.position.y))))
-        let speed = type.speed
-        let action =  SKAction.move(to: player.position, duration: distance/speed )
-        run(action)
-        
-    }
+enum Direction: String{
+    case downleft = "Down-Left"
+    case downright = "Down-Right"
+    case down = "Down"
+    case left = "Left"
+    case right = "Right"
+    case upleft = "Up-Left"
+    case upright = "Up-Right"
+    case up = "Up"
     
 }
 
-class EnemyBodyBossNode: SKSpriteNode {
-    var type: EnemyType
-    var nodeToFollow: SKSpriteNode
-    init(type: EnemyType, startPosition: CGPoint, nodeToFollow: SKSpriteNode) {
+class EnemyBossNode: EnemyNode {
+    var direction: Direction = .up
+    var bodyParts: Set<EnemyNode> = []
+    init(type: EnemyType, startPosition: CGPoint, parts: Int) {
+        super.init(type: type, startPosition: startPosition)
         self.type = type
-        let texture = SKTexture(imageNamed: "enemy1")
-        self.nodeToFollow = nodeToFollow
+        self.points = type.points
+        self.health = type.health
+        self.damage = type.damage
+        self.movementSpeed = type.speed
         
-        super.init(texture: texture, color: .white, size: CGSize(width: 20, height: 20))
-        self.userData = ["health": type.health, "speed": type.speed,
-                         "points": type.points]
+        var bossPartEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
+            return enemy.name == "CentipedeBody"
+        })!
+        
+        
+        name = "enemy" + type.name
+        configurePhysics()
+        configureIdleAnimation()
+        position = startPosition
+        var previousNode: EnemyNode = self
+        for i in 0..<parts {
+            var bodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: CGPoint(x: previousNode.position.x, y: previousNode.position.y - 20), nodeToFollow: previousNode, headReference: self)
+            previousNode = bodyPart
+            bodyParts.insert(bodyPart)
+        }
+        
+    }
+    
+  
+    
+    //per parametri di fisica e collisioni
+    override func configurePhysics() {
+        physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRect(x: position.x - 10, y: position.y - 10, width: 20, height: 20), transform: nil))
+        physicsBody?.categoryBitMask = CollisionType.enemy
+        physicsBody?.collisionBitMask = CollisionType.player | CollisionType.enemy
+        physicsBody?.contactTestBitMask = CollisionType.player
+        physicsBody?.isDynamic = true
+        physicsBody?.allowsRotation = false
+    }
+    
+    //per animazione
+    override func configureIdleAnimation() {
+        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk/\(direction)")
+        var enemyIdleTextures: [SKTexture] = []
+        enemyAtlas.textureNames.sorted().forEach { string in
+            let texture = enemyAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            enemyIdleTextures.append(texture)
+        }
+
+        let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
+        run(SKAction.repeatForever(idleAnimation))
+    }
+    
+    //indovina?
+    override func die() {
+        let textureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
+        var textures: [SKTexture] = []
+        textureAtlas.textureNames.forEach { string in
+            let texture = textureAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            textures.append(texture)
+        }
+
+        let deathAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
+
+        let corpse = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
+        corpse.position = position
+        corpse.zPosition = 1
+        scene?.addChild(corpse)
+        let actionSequence = SKAction.sequence([
+            deathAnimation,
+            SKAction.wait(forDuration: 0.5),
+            SKAction.removeFromParent()])
+        corpse.run(actionSequence)
+        bodyParts.forEach { bodyPart in
+            bodyPart.die()
+        }
+        removeFromParent()
+    }
+    
+    //movimento
+    override func configureMovement(_ player: SKSpriteNode) {
+        let scaleFactor: CGFloat = (position.x < player.position.x) ? 1 : -1
+        if xScale != scaleFactor {
+            xScale *= -1
+        }
+
+        let distance = abs(hypot(position.x - player.position.x, position.y - player.position.y))
+        let action = SKAction.move(to: player.position, duration: distance / self.movementSpeed * (isMovementSlow ? 1.5 : 1))
+        run(action)
+    }
+    
+    //movimenti
+    override func slowDownMovement() {
+//        removeAllActions()
+//        isMovementSlow = true
+    }
+
+    override func speedUpMovement() {
+//        removeAllActions()
+//        isMovementSlow = false
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("LOL NO")
+    }
+}
+
+
+class EnemyBodyBossNode: EnemyNode {
+    var nodeToFollow: EnemyNode
+    var direction:Direction = .up
+    var headReference: EnemyBossNode
+    init(type: EnemyType, startPosition: CGPoint, nodeToFollow: EnemyNode, headReference: EnemyBossNode) {
+        self.nodeToFollow = nodeToFollow
+        self.headReference = headReference
+        super.init(type: type, startPosition: startPosition)
         
         name = "enemyBoss"+type.name
-        
         
         physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x-10, self.position.y-10, 20, 20), transform: nil))
         
@@ -183,11 +261,48 @@ class EnemyBodyBossNode: SKSpriteNode {
     }
     
     func configureMovement(){
-        let distance = abs(CGFloat(hypotf(Float(self.position.x - nodeToFollow.position.x), Float(self.position.y - nodeToFollow.position.y))))
-        let speed = type.speed
-        let offset: Double = distance < 10 ? 2 : 1
-        let  action =  SKAction.move(to: nodeToFollow.position, duration: 0.3)
-        run(action)
-        
+        let distance = nodeToFollow.size.width * 0.8 // Distance between head and body parts
+        let moveAction = SKAction.move(to: nodeToFollow.position, duration: 0.1)
+        run(moveAction)
     }
+    
+    //per animazione
+    override func configureIdleAnimation() {
+        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk/\(direction)")
+        var enemyIdleTextures: [SKTexture] = []
+        enemyAtlas.textureNames.sorted().forEach { string in
+            let texture = enemyAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            enemyIdleTextures.append(texture)
+        }
+
+        let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
+        run(SKAction.repeatForever(idleAnimation))
+    }
+    
+    //indovina?
+    override func die() {
+        headReference.bodyParts.remove(self)
+        let textureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
+        var textures: [SKTexture] = []
+        textureAtlas.textureNames.forEach { string in
+            let texture = textureAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            textures.append(texture)
+        }
+
+        let deathAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
+
+        let corpse = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
+        corpse.position = position
+        corpse.zPosition = 1
+        scene?.addChild(corpse)
+        let actionSequence = SKAction.sequence([
+            deathAnimation,
+            SKAction.wait(forDuration: 0.5),
+            SKAction.removeFromParent()])
+        corpse.run(actionSequence)
+        removeFromParent()
+    }
+    
 }

@@ -92,17 +92,17 @@ extension GameScene {
     }
     
     func createBoss() {
-        let enemyBoss = EnemyBossNode(type: EnemyTypesVM.enemyBoss , startPosition: getPositionNearPlayer())
+        var bossEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
+            return enemy.name == "CentipedeHead"
+        })!
+        
+        
+        let enemyBoss = EnemyBossNode(type: bossEnemyType , startPosition: getPositionNearPlayer(), parts: 10)
         enemyBoss.physicsBody?.affectedByGravity = false
         enemyBoss.zPosition = 2
         addChild(enemyBoss)
-        
-        var nodeToFollow: SKSpriteNode = enemyBoss.self
-        for _ in 0..<4 {
-            let enemyPart = EnemyBodyBossNode(type: enemyBoss.type.parts, startPosition: CGPoint(x: enemyBoss.position.x + 10, y: enemyBoss.position.y + 10), nodeToFollow: nodeToFollow)
-            enemyPart.zPosition = 1
-            addChild(enemyPart)
-            nodeToFollow = enemyPart.self
+        enemyBoss.bodyParts.forEach { bodyPart in
+            addChild(bodyPart)
         }
     }
 }
