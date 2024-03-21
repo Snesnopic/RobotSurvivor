@@ -16,7 +16,7 @@ extension GameScene{
         player.xp = 0
         player.xpToNextLevel += 10
         gameLogic.xpToNextLvl = player.xpToNextLevel
-        
+        gameLogic.playerLevel += 1
         gameLogic.showPowerUp = true
     }
     
