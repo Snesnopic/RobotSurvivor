@@ -30,7 +30,7 @@ class EnemyBossNode: EnemyNode {
         self.health = type.health
         self.damage = type.damage
         self.movementSpeed = type.speed
-                
+        
         let bossPartEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
             return enemy.name == "CentipedeBody"
         })!
@@ -39,17 +39,21 @@ class EnemyBossNode: EnemyNode {
         name = "enemy" + type.name
         configureIdleAnimation()
         position = startPosition
-        var previousNode: EnemyNode = self
-        for _ in 0..<parts {
+        let firstBodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: CGPoint(x: self.position.x, y: self.position.y - 5), nodeToFollow: self, headReference: self)
+        bodyParts.insert(firstBodyPart)
+        var previousNode: EnemyBodyBossNode = firstBodyPart
+        
+        for _ in 1..<parts {
             let bodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: CGPoint(x: previousNode.position.x, y: previousNode.position.y - 5), nodeToFollow: previousNode, headReference: self)
+            previousNode.nodeThatFollowsMe = bodyPart
             previousNode = bodyPart
             bodyParts.insert(bodyPart)
         }
         
     }
     
-  
-
+    
+    
     //per animazione
     override func configureIdleAnimation() {
         let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk/\(direction.rawValue)")
@@ -59,7 +63,7 @@ class EnemyBossNode: EnemyNode {
             texture.filteringMode = .nearest
             enemyIdleTextures.append(texture)
         }
-
+        
         let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
         run(SKAction.repeatForever(idleAnimation))
     }
@@ -73,9 +77,9 @@ class EnemyBossNode: EnemyNode {
             texture.filteringMode = .nearest
             textures.append(texture)
         }
-
+        
         let deathAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
-
+        
         let corpse = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
         corpse.position = position
         corpse.zPosition = 1

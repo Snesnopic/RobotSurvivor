@@ -10,6 +10,7 @@ import SpriteKit
 
 class EnemyBodyBossNode: EnemyNode {
     var nodeToFollow: EnemyNode
+    var nodeThatFollowsMe: EnemyBodyBossNode?
     var direction:Direction = .up
     var headReference: EnemyBossNode
     init(type: EnemyType, startPosition: CGPoint, nodeToFollow: EnemyNode, headReference: EnemyBossNode) {
@@ -72,7 +73,7 @@ class EnemyBodyBossNode: EnemyNode {
             texture.filteringMode = .nearest
             enemyIdleTextures.append(texture)
         }
-
+        
         let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
         run(SKAction.repeatForever(idleAnimation))
     }
@@ -80,6 +81,9 @@ class EnemyBodyBossNode: EnemyNode {
     //indovina?
     override func die() {
         headReference.bodyParts.remove(self)
+        if nodeThatFollowsMe != nil {
+            nodeThatFollowsMe!.nodeToFollow = self.nodeToFollow
+        }
         let textureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
         var textures: [SKTexture] = []
         textureAtlas.textureNames.forEach { string in
@@ -87,9 +91,9 @@ class EnemyBodyBossNode: EnemyNode {
             texture.filteringMode = .nearest
             textures.append(texture)
         }
-
+        
         let deathAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
-
+        
         let corpse = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
         corpse.position = position
         corpse.zPosition = 1
