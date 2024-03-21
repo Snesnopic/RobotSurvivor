@@ -21,6 +21,16 @@
         }
       }
     },
+    "bullet speed" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "colpi rapidi"
+          }
+        }
+      }
+    },
     "Choose character" : {
       "localizations" : {
         "it" : {
@@ -62,6 +72,16 @@
         }
       }
     },
+    "dmg" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "danno"
+          }
+        }
+      }
+    },
     "done" : {
       "localizations" : {
         "it" : {
@@ -94,12 +114,32 @@
         }
       }
     },
+    "firerate" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cad. tiro"
+          }
+        }
+      }
+    },
     "Game" : {
       "localizations" : {
         "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partita"
+          }
+        }
+      }
+    },
+    "hp" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hp"
           }
         }
       }
@@ -170,7 +210,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Potenziamento!"
+            "value" : "Potenziati!"
           }
         }
       }
@@ -210,7 +250,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Punti:"
+            "value" : "Punti: %lld"
           }
         }
       }
@@ -242,6 +282,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Effetti sonori"
+          }
+        }
+      }
+    },
+    "speed" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agilità"
           }
         }
       }

@@ -44,7 +44,7 @@ struct TutorialMenu: View {
                 .interpolation(.none)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 365, height: 600, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: 365, height: 600, alignment: .center)
             Text(tutorialSteps[currentStep])
                 .font(.custom("Silkscreen-Regular", size: 19))
                 .foregroundStyle(.white)
@@ -83,10 +83,10 @@ struct TutorialMenu: View {
 
 #Preview("English") {
     TutorialMenu()
-        .environment(\.locale, Locale(identifier: "en"))
+        .environment(\.locale, Locale(identifier: "EN"))
 }
 
 #Preview("Italian"){
     TutorialMenu()
-        .environment(\.locale, Locale(identifier: "it"))
+        .environment(\.locale, Locale(identifier: "IT"))
 }
