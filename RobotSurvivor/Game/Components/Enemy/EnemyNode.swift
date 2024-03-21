@@ -126,7 +126,7 @@ enum Direction: String{
 
 class EnemyBossNode: EnemyNode {
     var direction: Direction = .up
-    var bodyParts: Set<EnemyNode> = []
+    var bodyParts: Set<EnemyBodyBossNode> = []
     init(type: EnemyType, startPosition: CGPoint, parts: Int) {
         super.init(type: type, startPosition: startPosition)
         self.type = type
@@ -134,19 +134,18 @@ class EnemyBossNode: EnemyNode {
         self.health = type.health
         self.damage = type.damage
         self.movementSpeed = type.speed
-        
-        var bossPartEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
+                
+        let bossPartEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
             return enemy.name == "CentipedeBody"
         })!
         
         
         name = "enemy" + type.name
-        configurePhysics()
         configureIdleAnimation()
         position = startPosition
         var previousNode: EnemyNode = self
         for i in 0..<parts {
-            var bodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: CGPoint(x: previousNode.position.x, y: previousNode.position.y - 20), nodeToFollow: previousNode, headReference: self)
+            let bodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: CGPoint(x: previousNode.position.x, y: previousNode.position.y - 5), nodeToFollow: previousNode, headReference: self)
             previousNode = bodyPart
             bodyParts.insert(bodyPart)
         }
@@ -154,20 +153,10 @@ class EnemyBossNode: EnemyNode {
     }
     
   
-    
-    //per parametri di fisica e collisioni
-    override func configurePhysics() {
-        physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRect(x: position.x - 10, y: position.y - 10, width: 20, height: 20), transform: nil))
-        physicsBody?.categoryBitMask = CollisionType.enemy
-        physicsBody?.collisionBitMask = CollisionType.player | CollisionType.enemy
-        physicsBody?.contactTestBitMask = CollisionType.player
-        physicsBody?.isDynamic = true
-        physicsBody?.allowsRotation = false
-    }
-    
+
     //per animazione
     override func configureIdleAnimation() {
-        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk/\(direction)")
+        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk/\(direction.rawValue)")
         var enemyIdleTextures: [SKTexture] = []
         enemyAtlas.textureNames.sorted().forEach { string in
             let texture = enemyAtlas.textureNamed(string)
@@ -218,17 +207,6 @@ class EnemyBossNode: EnemyNode {
         run(action)
     }
     
-    //movimenti
-    override func slowDownMovement() {
-//        removeAllActions()
-//        isMovementSlow = true
-    }
-
-    override func speedUpMovement() {
-//        removeAllActions()
-//        isMovementSlow = false
-    }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("LOL NO")
     }
@@ -245,30 +223,26 @@ class EnemyBodyBossNode: EnemyNode {
         super.init(type: type, startPosition: startPosition)
         
         name = "enemyBoss"+type.name
-        
-        physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRectMake(self.position.x-10, self.position.y-10, 20, 20), transform: nil))
-        
-        physicsBody?.categoryBitMask = CollisionType.enemy
-        physicsBody?.collisionBitMask = CollisionType.player | CollisionType.enemy
-        physicsBody?.contactTestBitMask = CollisionType.none
-        physicsBody?.isDynamic = true
-        physicsBody?.allowsRotation = true
-        position = startPosition
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("LOL NO")
     }
     
-    func configureMovement(){
-        let distance = nodeToFollow.size.width * 0.8 // Distance between head and body parts
-        let moveAction = SKAction.move(to: nodeToFollow.position, duration: 0.1)
-        run(moveAction)
+    override func configureMovement(_ player: SKSpriteNode) {
+//        let scaleFactor: CGFloat = (position.x < player.position.x) ? 1 : -1
+//        if xScale != scaleFactor {
+//            xScale *= -1
+//        }
+
+        let distance = abs(hypot(position.x - player.position.x, position.y - player.position.y))
+        let action = SKAction.move(to: player.position, duration: distance / self.movementSpeed * (isMovementSlow ? 1.5 : 1))
+        run(action)
     }
     
     //per animazione
     override func configureIdleAnimation() {
-        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk/\(direction)")
+        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk/\(direction.rawValue)")
         var enemyIdleTextures: [SKTexture] = []
         enemyAtlas.textureNames.sorted().forEach { string in
             let texture = enemyAtlas.textureNamed(string)
