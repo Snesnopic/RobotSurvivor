@@ -93,11 +93,38 @@ class EnemyBossNode: EnemyNode {
     
     //movimento
     override func configureMovement(_ player: SKSpriteNode) {
-        let scaleFactor: CGFloat = (position.x < player.position.x) ? 1 : -1
-        if xScale != scaleFactor {
-            xScale *= -1
+        let dx = player.position.x - self.position.x
+        let dy = player.position.y - self.position.y
+        
+        let angleRadians = atan2(dy, dx)
+        let angleDegrees = angleRadians * (180.0 / CGFloat.pi)
+        
+        let directionBefore = direction
+        switch angleDegrees {
+        case 157.5 ..<  180.0:
+            direction = .left
+        case 112.5 ..< 157.5:
+            direction = .upleft
+        case 67.5 ..< 112.5:
+            direction = .up
+        case 22.5 ..< 67.5:
+            direction = .upright
+        case -22.5 ..< 22.5:
+            direction = .right
+        case -67.5 ..< -22.5:
+            direction = .downright
+        case -112.5 ..< -67.5:
+            direction = .down
+        case -157.5 ..< -112.5:
+            direction = .downleft
+        default:
+            direction = .left
         }
-
+        
+        if directionBefore != direction {
+            self.configureIdleAnimation()
+        }
+        
         let distance = abs(hypot(position.x - player.position.x, position.y - player.position.y))
         let action = SKAction.move(to: player.position, duration: distance / self.movementSpeed * (isMovementSlow ? 1.5 : 1))
         run(action)
