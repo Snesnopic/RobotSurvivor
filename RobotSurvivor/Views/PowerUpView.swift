@@ -10,9 +10,12 @@ import SwiftUI
 import SpriteKit
 
 struct PowerUpView: View {
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    @StateObject var gameLogic: GameLogic = GameLogic.shared
     @Binding var sceneWrap: SceneWrapper
+    let powerUpDisplayed: [String] = [String(localized: "dmg"), String(localized: "firerate"), String(localized: "hp"), String(localized: "speed"), String(localized: "bullet speed")]
+    
     let powerUp: [String] = ["+dmg", "+firerate", "+hp", "+speed", "+bullet speed"]
+
     @State var powerUpSet: Set = [0,1,2,3,4]
     @State var p1: Int = 0
     @State var p2: Int = 0
@@ -41,7 +44,7 @@ struct PowerUpView: View {
                             ZStack{
                                 PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                                     gameLogic.showPowerUp = false
-                                    sceneWrap.scene.callPowerUp(name: powerUp[p1])
+                                    sceneWrap.scene.callPowerUp(name: powerUpDisplayed[p1])
                                 }, imageView: Image(powerUp[p1]))
                             }
                             .frame(width:94, height: 120)
@@ -51,7 +54,7 @@ struct PowerUpView: View {
                         ZStack{
                             PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                                 gameLogic.showPowerUp = false
-                                sceneWrap.scene.callPowerUp(name: powerUp[p2])
+                                sceneWrap.scene.callPowerUp(name: powerUpDisplayed[p2])
                             }, imageView: Image(powerUp[p2]))
                             
                         }
@@ -60,7 +63,7 @@ struct PowerUpView: View {
                         
                         ZStack{ PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                             gameLogic.showPowerUp = false
-                            sceneWrap.scene.callPowerUp(name: powerUp[p3])
+                            sceneWrap.scene.callPowerUp(name: powerUpDisplayed[p3])
                         }, imageView: Image(powerUp[p3]))
                         
                             
@@ -80,14 +83,14 @@ struct PowerUpView: View {
                     
                     
                     HStack(alignment: .top){
-                        Text(powerUp[p1])
+                        Text(String("+" + powerUpDisplayed[p1]))
                             .tracking(-3)
                             .frame(maxWidth: 94)
-                        Text(powerUp[p2])
+                        Text(String("+" + powerUpDisplayed[p2]))
                             .tracking(-3)
                             .frame(maxWidth: 94)
                             .padding(.horizontal, 5)
-                        Text(powerUp[p3])
+                        Text(String("+" + powerUpDisplayed[p3]))
                             .tracking(-3)
                             .frame(maxWidth: 94)
                     }
@@ -102,6 +105,12 @@ struct PowerUpView: View {
         }
     }
 
-#Preview {
+#Preview("English") {
     PowerUpView(sceneWrap: .constant(SceneWrapper()))
+        .environment(\.locale, Locale(identifier: "EN"))
+}
+
+#Preview("Italian") {
+    PowerUpView(sceneWrap: .constant(SceneWrapper()))
+        .environment(\.locale, Locale(identifier: "IT"))
 }

@@ -10,7 +10,7 @@ import AVFoundation
 
 struct MainMenuView: View {
     
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    @StateObject var gameLogic: GameLogic = GameLogic.shared
     @Binding var currentGameState: GameState
     @State var showSetting: Bool = false
     @State var showTutorial: Bool = false
@@ -19,7 +19,7 @@ struct MainMenuView: View {
         static var shared: AVAudioPlayer = AVAudioPlayer()
     }
     
-    var audioPlayer: AudioPlayer =  AudioPlayer()
+    var audioPlayer: AudioPlayer = AudioPlayer()
     
     var body: some View {
         ZStack{
@@ -57,7 +57,7 @@ struct MainMenuView: View {
                     withAnimation{
                         self.currentGameState = .chooseChar
                     }
-                }, textView: Text(String(localized:"Play")) .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
+                }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
                 .frame(width: 224, height:96)
                 .padding(.bottom, -30)
                 .shadow(radius: 15)
@@ -75,7 +75,7 @@ struct MainMenuView: View {
                     
                     PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
                         showSetting = true
-                    }, textView: Text(String(localized: "Settings")).font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
+                    }, textView: Text("Settings").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                     .fullScreenCover(isPresented: $showSetting, content: {
                         Settings_Menu(gameLogic: GameLogic.shared, switchMusic: $gameLogic.musicSwitch, switchSound: $gameLogic.soundsSwitch, music: $gameLogic.musicVolume, sounds: $gameLogic.soundsVolume)
                     })
@@ -129,6 +129,12 @@ struct MainMenuView: View {
 }
 
 
-#Preview {
+#Preview("English") {
     MainMenuView(currentGameState: .constant(GameState.mainScreen))
+        .environment(\.locale, Locale(identifier: "EN"))
+}
+
+#Preview("Italian") {
+    MainMenuView(currentGameState: .constant(GameState.mainScreen))
+        .environment(\.locale, Locale(identifier: "IT"))
 }
