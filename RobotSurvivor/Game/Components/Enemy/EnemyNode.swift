@@ -26,7 +26,6 @@ class EnemyNode: SKSpriteNode {
         let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
         
         super.init(texture: texture, color: .white, size: CGSize(width: 20, height: 20))
-        self.movementSpeed = type.speed
 
         name = "enemy" + type.name
         configurePhysics()
@@ -71,14 +70,14 @@ class EnemyNode: SKSpriteNode {
             textures.append(texture)
         }
 
-        let idleAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
+        let deathAnimation = SKAction.animate(with: textures, timePerFrame: 0.3)
 
         let corpse = SKSpriteNode(texture: nil, size: CGSize(width: 30, height: 30))
         corpse.position = position
         corpse.zPosition = 1
         scene?.addChild(corpse)
         let actionSequence = SKAction.sequence([
-            idleAnimation,
+            deathAnimation,
             SKAction.wait(forDuration: 0.5),
             SKAction.removeFromParent()])
         corpse.run(actionSequence)
