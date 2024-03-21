@@ -17,7 +17,6 @@ struct CollisionType {
     static let xp: UInt32 = 4
     static let playerWeapon: UInt32 = 8
     static let pickUp: UInt32 = 6
-    
 }
 
 extension GameScene{
@@ -127,6 +126,9 @@ extension GameScene{
                 }
                 gameLogic.increaseScore(points: enemy.points)
                 enemiesOnMap.remove(enemy)
+                if let boss = enemy as? EnemyBossNode {
+                    activeBoss = nil
+                }
                 enemy.die()
             }
             else {
