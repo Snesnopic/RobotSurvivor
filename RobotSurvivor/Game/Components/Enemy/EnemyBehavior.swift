@@ -18,7 +18,7 @@ extension GameScene {
             createEnemy(powerFactor: multiplier)
             activeEnemiesCount += 1
         }
-        if Int(gameLogic.time) % 60 == 0 && !isBossActive {
+        if Int(gameLogic.time + 1) % 120 == 0 && !isBossActive {
             print("I should spawn the boss!")
             isBossActive = true
             createBoss()
