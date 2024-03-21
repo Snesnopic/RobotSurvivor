@@ -1,54 +1,58 @@
 //
-//  EnemyNode.swift
-//  UntitledGame
+//  EnemyBossNode.swift
+//  Robot Survivor
 //
-//  Created by Linar Zinatullin on 11/12/23.
+//  Created by Giuseppe Francione on 21/03/24.
 //
 
 import Foundation
 import SpriteKit
 
-//ho riordinato un po' il codice
-class EnemyNode: SKSpriteNode {
+enum Direction: String{
+    case downleft = "Down-Left"
+    case downright = "Down-Right"
+    case down = "Down"
+    case left = "Left"
+    case right = "Right"
+    case upleft = "Up-Left"
+    case upright = "Up-Right"
+    case up = "Up"
     
-    var type: EnemyType
-    var isMovementSlow: Bool = true
-    var points:Int
-    var health:Int
-    var damage:Double
-    var movementSpeed:Double
-    init(type: EnemyType, startPosition: CGPoint) {
+}
+
+class EnemyBossNode: EnemyNode {
+    var direction: Direction = .up
+    var bodyParts: Set<EnemyBodyBossNode> = []
+    init(type: EnemyType, startPosition: CGPoint, parts: Int) {
+        super.init(type: type, startPosition: startPosition)
         self.type = type
         self.points = type.points
         self.health = type.health
         self.damage = type.damage
         self.movementSpeed = type.speed
-        let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
+                
+        let bossPartEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
+            return enemy.name == "CentipedeBody"
+        })!
         
-        super.init(texture: texture, color: .white, size: CGSize(width: 20, height: 20))
-
+        
         name = "enemy" + type.name
-        configurePhysics()
         configureIdleAnimation()
         position = startPosition
-
+        var previousNode: EnemyNode = self
+        for _ in 0..<parts {
+            let bodyPart = EnemyBodyBossNode(type: bossPartEnemyType, startPosition: CGPoint(x: previousNode.position.x, y: previousNode.position.y - 5), nodeToFollow: previousNode, headReference: self)
+            previousNode = bodyPart
+            bodyParts.insert(bodyPart)
+        }
+        
     }
     
   
-    
-    //per parametri di fisica e collisioni
-    func configurePhysics() {
-        physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRect(x: position.x - 10, y: position.y - 10, width: 20, height: 20), transform: nil))
-        physicsBody?.categoryBitMask = CollisionType.enemy
-        physicsBody?.collisionBitMask = CollisionType.player | CollisionType.enemy
-        physicsBody?.contactTestBitMask = CollisionType.player
-        physicsBody?.isDynamic = true
-        physicsBody?.allowsRotation = false
-    }
-    
+
     //per animazione
-    func configureIdleAnimation() {
-        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk")
+    override func configureIdleAnimation() {
+        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk/\(direction.rawValue)")
         var enemyIdleTextures: [SKTexture] = []
         enemyAtlas.textureNames.sorted().forEach { string in
             let texture = enemyAtlas.textureNamed(string)
@@ -57,11 +61,11 @@ class EnemyNode: SKSpriteNode {
         }
 
         let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
-        run(SKAction.repeatForever(idleAnimation), withKey: "playerIdleAnimation")
+        run(SKAction.repeatForever(idleAnimation))
     }
     
     //indovina?
-    func die() {
+    override func die() {
         let textureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
         var textures: [SKTexture] = []
         textureAtlas.textureNames.forEach { string in
@@ -81,11 +85,14 @@ class EnemyNode: SKSpriteNode {
             SKAction.wait(forDuration: 0.5),
             SKAction.removeFromParent()])
         corpse.run(actionSequence)
+        bodyParts.forEach { bodyPart in
+            bodyPart.die()
+        }
         removeFromParent()
     }
     
     //movimento
-    func configureMovement(_ player: SKSpriteNode) {
+    override func configureMovement(_ player: SKSpriteNode) {
         let scaleFactor: CGFloat = (position.x < player.position.x) ? 1 : -1
         if xScale != scaleFactor {
             xScale *= -1
@@ -96,18 +103,8 @@ class EnemyNode: SKSpriteNode {
         run(action)
     }
     
-    //movimenti
-    func slowDownMovement() {
-        removeAllActions()
-        isMovementSlow = true
-    }
-
-    func speedUpMovement() {
-        removeAllActions()
-        isMovementSlow = false
-    }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("LOL NO")
     }
 }
+
