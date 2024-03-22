@@ -12,7 +12,7 @@ struct TutorialMenu: View {
     @State var currentStep: Int = 0
     @Environment(\.dismiss) private var dismiss
     
-    var tutorialSteps = [
+    var tutorialSteps: [String] = [
         String(localized:"Drag to move and shoot the endless enemies!"),
         String(localized:"Collect XP left from enemies to fill the xp bar!"),
         String(localized:"Fill the xp bar to obtain power-ups!")
