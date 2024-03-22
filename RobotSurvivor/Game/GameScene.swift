@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var healthBar: SKScene = SKScene()
     //enemies
     var enemiesOnMap: Set<EnemyNode> = []
-    var enemyTypes = EnemyTypesVM().enemyTypes
+    var enemyTypes = EnemyTypesVM.enemyTypes
     var spawnRate: Int = 0
     var readyToIncreaseSpawnRate: Bool = true
     var readyToIncreaseEnemyPower: Bool = true
@@ -60,9 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //music
     var backgroundMusicPlayer: AVAudioPlayer?
     var currentTrack: String? = "game1"
-    
-    var isBossReady = true
-    
+        
     var timer: Timer?
     //animations
     let flashRedAction = SKAction.sequence([
@@ -90,6 +88,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var bulletPool: [SKSpriteNode] = []
     var done: Bool = false
     var musicPool: [AVAudioPlayer] = []
+    
+    //boss
+    var isBossActive:Bool = false
+    var activeBoss: EnemyBossNode? = nil
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -141,7 +143,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.gameLogic.increaseTime(by: timeElapsedSinceLastUpdate)
         self.lastUpdate = currentTime
         self.enemyLogic()
-        
+        if isBossActive {
+            self.bossLogic()
+        }
         camera?.position = player.position
         
         //enable to have a wider view

@@ -14,11 +14,3 @@ struct EnemyType {
     let points: Int
     let damage: Double
 }
-
-struct EnemyBossType{
-    let name: String
-    let health: Int
-    let speed: Double
-    let points: Int
-    let parts: EnemyType
-}

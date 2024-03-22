@@ -18,8 +18,18 @@ extension GameScene {
             createEnemy(powerFactor: multiplier)
             activeEnemiesCount += 1
         }
+        if Int(gameLogic.time + 1) % 120 == 0 && !isBossActive {
+            print("I should spawn the boss!")
+            isBossActive = true
+            createBoss()
+        }
     }
-    
+    func bossLogic() {
+        activeBoss?.configureMovement(player)
+        activeBoss?.bodyParts.forEach({ bodyPart in
+            bodyPart.configureMovement(bodyPart.nodeToFollow)
+        })
+    }
     func getPositionNearPlayer() -> CGPoint {
         let offSet = Int.random(in: 10...100)
         let halfScreenWidth = Int(self.size.width / 2) + offSet
@@ -47,7 +57,7 @@ extension GameScene {
     }
     
     func createEnemy(powerFactor: Double) {
-        let enemyType = Int.random(in: 0..<enemyTypes.count)
+        let enemyType = Int.random(in: 0..<enemyTypes.count - 2)
         let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: getPositionNearPlayer())
         enemy.physicsBody?.affectedByGravity = false
         enemy.health = Int(Double(enemy.health) * powerFactor)
@@ -92,17 +102,16 @@ extension GameScene {
     }
     
     func createBoss() {
-        let enemyBoss = EnemyBossNode(type: EnemyTypesVM.enemyBoss , startPosition: getPositionNearPlayer())
-        enemyBoss.physicsBody?.affectedByGravity = false
+        let bossEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
+            return enemy.name == "CentipedeHead"
+        })!
+        
+        let enemyBoss = EnemyBossNode(type: bossEnemyType , startPosition: getPositionNearPlayer(), parts: 10)
+        activeBoss = enemyBoss
         enemyBoss.zPosition = 2
         addChild(enemyBoss)
-        
-        var nodeToFollow: SKSpriteNode = enemyBoss.self
-        for _ in 0..<4 {
-            let enemyPart = EnemyBodyBossNode(type: enemyBoss.type.parts, startPosition: CGPoint(x: enemyBoss.position.x + 10, y: enemyBoss.position.y + 10), nodeToFollow: nodeToFollow)
-            enemyPart.zPosition = 1
-            addChild(enemyPart)
-            nodeToFollow = enemyPart.self
+        enemyBoss.bodyParts.forEach { bodyPart in
+            addChild(bodyPart)
         }
     }
 }

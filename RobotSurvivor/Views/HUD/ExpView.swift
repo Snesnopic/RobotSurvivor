@@ -28,11 +28,30 @@ struct ExpView: View {
                                 .font(.custom("Silkscreen-Regular", size: 20))
                                 .foregroundStyle(.white)
                         }
-                    
-                    Rectangle()
-                        .fill(Color.green)
-                        .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: levelChipSize)
-                    .opacity(0.8)
+                    ZStack{
+                        Image("emptyBar")
+                            .interpolation(.none)
+                            .resizable()
+                            .frame(height: levelChipSize)
+                        HStack{
+                            Image("line")
+                                .interpolation(.none)
+                                .resizable()
+                            .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: levelChipSize)
+                            Spacer()
+                        }
+                        
+                        
+                        Image("border")
+                            .interpolation(.none)
+                            .resizable()
+                            .frame(height: levelChipSize)
+                        
+                    }
+                    //                    Rectangle()
+                    //                        .fill(Color.green)
+                    //                        .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: levelChipSize)
+                    //                    .opacity(0.8)
                 }
             }
         }
@@ -40,6 +59,6 @@ struct ExpView: View {
 }
 
 #Preview {
-    ExpView(experienceNeeded: .constant(40), currentXP: .constant(39), currentLevel: .constant(10))
+    ExpView(experienceNeeded: .constant(100), currentXP: .constant(10), currentLevel: .constant(10))
 }
 
