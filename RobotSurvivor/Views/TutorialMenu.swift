@@ -60,9 +60,9 @@ struct TutorialMenu: View {
                     }
                 }
             }, textView: Text(currentStep != 2 ? "next" : "done") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
-            .frame(width: 50, height: 35)
+            .frame(width: 100, height: 35)
             .padding(.top, 125)
-            .offset(x: 100, y: 0)
+            .offset(x: 75, y: 0)
             .shadow(radius: 15)
             
             PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
@@ -70,9 +70,9 @@ struct TutorialMenu: View {
                     currentStep -= 1
                 }
             }, textView: Text("back") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
-            .frame(width: 50, height: 35)
+            .frame(width: 100, height: 35)
             .padding(.top, 125)
-            .offset(x: 45, y: 0)
+            .offset(x: -30, y: 0)
             .shadow(radius: 15)
             .opacity(currentStep >= 1 ? 1 : 0)
             

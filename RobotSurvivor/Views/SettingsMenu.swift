@@ -164,6 +164,12 @@ struct Settings_Menu: View {
     }
 }
 
-#Preview {
+#Preview("English"){
     Settings_Menu(gameLogic: GameLogic.shared, switchMusic: .constant(true), switchSound: .constant(true), music: .constant(5), sounds: .constant(5))
+        .environment(\.locale, Locale(identifier: "EN"))
+}
+
+#Preview("Italian"){
+    Settings_Menu(gameLogic: GameLogic.shared, switchMusic: .constant(true), switchSound: .constant(true), music: .constant(5), sounds: .constant(5))
+        .environment(\.locale, Locale(identifier: "IT"))
 }
