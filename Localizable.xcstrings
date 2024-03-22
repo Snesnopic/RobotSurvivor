@@ -189,7 +189,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "successivo"
+            "value" : "continua"
           }
         }
       }
@@ -291,7 +291,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Effetti sonori"
+            "value" : "Effetti\nSonori"
           }
         }
       }
