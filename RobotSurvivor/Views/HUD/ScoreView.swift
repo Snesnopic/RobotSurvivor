@@ -48,7 +48,9 @@ struct ScoreView: View {
                 .position(CGPoint(x: geometry.size.width/6.5 , y: 90))
             }
             .offset(x: 7)
+            
         }
+        
     }
 }
 
