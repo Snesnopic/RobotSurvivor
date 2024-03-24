@@ -19,38 +19,38 @@ extension GameScene{
     }
     
     func increasePlayerSpeed(){
-        player.movementSpeed += 7
+        player.movementSpeed += 10
     }
     
     func increaseFireRate(){
         //debug purpose:
-//        fireRate = 30
-        fireRate += 0.25
+//        fireRate += 100
+        fireRate += 0.33
     }
     
     func increaseBulletSpeed(){
-        spd += 4
+        spd += 2
     }
     
     func increaseDamage(){
-        dmg += 8
+        dmg += 10
     }
     
     func callPowerUp(name: String){
         switch name {
-        case "+dmg":
+        case "dmg":
             increaseDamage()
             break
-        case "+hp":
+        case "hp":
             increaseHealth()
             break
-        case "+firerate":
+        case "firerate":
             increaseFireRate()
             break
-        case "+bullet speed":
+        case "bullet speed":
             increaseBulletSpeed()
             break
-        case "+speed":
+        case "speed":
             increasePlayerSpeed()
             break
         default:

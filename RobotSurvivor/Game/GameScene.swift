@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //music
     var backgroundMusicPlayer: AVAudioPlayer?
     var currentTrack: String? = "game1"
-        
+    
     var timer: Timer?
     //animations
     let flashRedAction = SKAction.sequence([
@@ -110,13 +110,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("You are in the game scene!")
         
         setupBackgroundMusic(quantityOfMusic: 2)
-        setupBulletPool(quantityOfBullets: 3)
-        DispatchQueue.main.async { [self] in
-            
-            setupBulletSoundPool(quantityOfSounds: 10)
-            setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
-            playTracks()
-        }
+        setupBulletPool(quantityOfBullets: 2)
+        setupBulletSoundPool(quantityOfSounds: 2)
+        setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
+        playTracks()
         
         let initialTiles = 10
         let tileSize = CGSize(width: 128, height: 128)
@@ -164,7 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if abs(CGFloat(hypot(Float(playerPosition.x - centerTile.x), Float(playerPosition.y - centerTile.y)))) > 768 {
             updateTiles()
         }
-  
+        
         for xp in xpToMagnetise{
             let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y - playerPosition.y))))
             let speed = 500.0
@@ -201,12 +198,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func shooting() {
         guard readyToShoot else { return }
-        
+
         readyToShoot = false
         shoot()
-        
-        let maxFireRate = max(fireRate, 0)
-        let waitAction = SKAction.wait(forDuration: 1/maxFireRate)
+
+        let maxFireRate = max(fireRate, 0.001)
+        let waitAction = SKAction.wait(forDuration: 1.0 / maxFireRate)
         let enableShootingAction = SKAction.run {
             self.readyToShoot = true
         }
@@ -214,6 +211,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let sequence = SKAction.sequence([waitAction, enableShootingAction])
         run(sequence)
     }
+
     
     func relocateEnemies() {
         readyToRecolate = false
@@ -229,7 +227,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let sequence = SKAction.sequence([waitAction, enableReload])
         run(sequence)
-
+        
     }
     
     func increaseSpawnRate() {
@@ -248,7 +246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func increaseEnemyPower() {
         readyToIncreaseEnemyPower = false
         multiplier = multiplier + 1
-
+        
         let waitAction = SKAction.wait(forDuration: 55)
         let enableIncreaseEnemyPowerAction = SKAction.run {
             self.readyToIncreaseEnemyPower = true
