@@ -9,12 +9,12 @@ import Foundation
 import SpriteKit
 
 extension GameScene{
+    
     func increaseHealth(){
         let newMaxHp = Int(Double(player.maxHp) * 1.2)
-        let difference = player.maxHp - newMaxHp
-        player.hp +=  difference
+        let difference = newMaxHp - player.maxHp
+        player.hp += difference
         player.maxHp = newMaxHp
-        
         updateHpBar()
     }
     

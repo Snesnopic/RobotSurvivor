@@ -27,7 +27,7 @@ struct PauseMenuView: View {
                     PixelArtButtonView(buttonImage: "exitUp", pressedImage: "exitDown", buttonPressedAction: {
                         gameLogic.showPauseMenu = false
                         self.currentGameState = .mainScreen
-//                        sceneWrap.scene.stopTracks()
+                        sceneWrap.scene.stopTracks()
                     })
                     .frame(width:67, height: 76.5)
 
