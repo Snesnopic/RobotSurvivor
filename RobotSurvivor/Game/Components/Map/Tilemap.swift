@@ -11,15 +11,10 @@ import SpriteKit
 extension GameScene{
     
     func addTile(at position: CGPoint) {
-        let tileImageName: String
+        var tileImageName: String
         let tileType = Int.random(in: 1...100)
-        if(tileType <= 70){
-            tileImageName = "Moon1"
-        }else if tileType > 70 && tileType < 90{
-            tileImageName = "Moon2"
-        } else {
-            tileImageName = "Moon3"
-        }
+        
+        tileImageName = (tileType <= 70) ? "Moon1" : ((tileType > 70 && tileType < 90) ? "Moon2" : "Moon3")        
         
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.name = "tile"
