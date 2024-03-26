@@ -29,12 +29,12 @@ struct ExpView: View {
                                 .foregroundStyle(.white)
                         }
                     ZStack{
-                        Image("emptyBar")
+                        Image("EmptyBar")
                             .interpolation(.none)
                             .resizable()
                             .frame(height: levelChipSize)
                         HStack{
-                            Image("line")
+                            Image("Line")
                                 .interpolation(.none)
                                 .resizable()
                                 .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: levelChipSize)

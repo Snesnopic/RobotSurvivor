@@ -110,9 +110,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("You are in the game scene!")
         
         setupBackgroundMusic(quantityOfMusic: 2)
-        setupBulletPool(quantityOfBullets: 2)
-        setupBulletSoundPool(quantityOfSounds: 2)
-        setupShortSoundPool(name: "HIT", quantityOfSounds: 2)
+        setupBulletPool(quantityOfBullets: 1)
+        setupBulletSoundPool(quantityOfSounds: 1)
+        setupShortSoundPool(name: "HIT", quantityOfSounds: 1)
         playTracks()
         
         let initialTiles = 10

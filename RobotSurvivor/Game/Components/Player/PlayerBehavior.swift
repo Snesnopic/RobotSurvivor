@@ -85,7 +85,7 @@ extension GameScene{
                 return sound
             }
         }
-        if bulletSoundPool.count < max(Int(fireRate) + 1, 10) {
+        if bulletSoundPool.count < max(Int(fireRate) + 1, 3) {
             do {
                 if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
                     let newSoundPlayer = try AVAudioPlayer(contentsOf: soundURL)
