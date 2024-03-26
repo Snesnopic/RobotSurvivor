@@ -21,79 +21,67 @@ struct TutorialView: View {
         String(localized: "Collect XP left from enemies to fill the xp bar!"),
         String(localized: "Fill the xp bar to obtain power-ups!")
     ]
-   
+    
     var body: some View {
         ZStack {
             
             Image("pauseMenu")
                 .interpolation(.none)
                 .resizable()
-                .scaledToFit()
-            Text(tutorialSteps[currentStep])
-                .font(.custom("Silkscreen-Regular", size: 19))
-                .foregroundStyle(.white)
-                .frame(width: 240, height: 150, alignment: .topLeading)
-            
-            PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
-                withAnimation {
-                    if currentStep == 2 && gameLogic.showTutorial {
-                        gameLogic.showTutorial = false;
-                        self.presentationMode.wrappedValue.dismiss()
-                        
-                    } else {
-                        currentStep += 1
-                    }
+                .responsiveFrame(widthPercentage: 95, heightPercentage: 70, alignment: .center)
+            VStack{
+                Text(tutorialSteps[currentStep])
+                    .font(.custom("Silkscreen-Regular", size: 19))
+                    .foregroundStyle(.white)
+                Spacer()
+                HStack {
+                    
+                    PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
+                        withAnimation {
+                            currentStep = (currentStep == 0 && gameLogic.showTutorial) ? 0 : currentStep - 1
+                        }
+                    }, textView: Text("back") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
+                    .responsiveFrame(widthPercentage: 25, heightPercentage: 4)
+                    .shadow(radius: 15)
+                    .opacity(currentStep >= 1 ? 1 : 0)
+                    
+                    PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
+                        withAnimation {
+                            if currentStep == 2 && gameLogic.showTutorial {
+                                //MARK: This works as intended. The self.presentationMode.wrappedValue.dismiss() does not work
+                                gameLogic.showTutorial = false;
+                                presentationMode.wrappedValue.dismiss()
+                                
+                            } else {
+                                currentStep += 1
+                            }
+                        }
+                    }, textView: Text(currentStep != 2 ? "next" : "done")
+                        .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
+                    
+                    .responsiveFrame(widthPercentage: 25, heightPercentage: 4)
                 }
-            }, textView: Text(currentStep != 2 ? "next" : "done") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
-            .frame(width: 100, height: 35)
-            .padding(.top, 125)
-            .offset(x: 75, y: 0)
-            .shadow(radius: 15)
+                .padding(.leading, 50)
+            }
+            .responsiveFrame(widthPercentage: 60, heightPercentage: 20)
             
-            PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
-                withAnimation {
-                    if currentStep == 0 && gameLogic.showTutorial {
-                        currentStep = 0
-                        
-                    } else {
-                        currentStep -= 1
-                    }
-                }
-            }, textView: Text("back") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
-            .frame(width: 100, height: 35)
-            .padding(.top, 125)
-            .offset(x: -30, y: 0)
-            .shadow(radius: 15)
-            .opacity(currentStep >= 1 ? 1 : 0)
-            
-            Image("cpuHor")
-                .interpolation(.none)
-                .resizable()
-                .frame(width: 150, height: 80, alignment: .center)
-                .offset(y: 310)
-            PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
+            PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
+                //MARK: This doesn't work as intended: once the x is pressed, it counts as the player has gone through the tutorial. The presentationMode.wrappedValue.dismiss() does not work
                 gameLogic.showTutorial = false
                 self.presentationMode.wrappedValue.dismiss()
-            }, textView: Text("skip") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
-            .frame(width: 100, height: 35)
-            .padding(.top, 125)
-            .offset(y: 248)
-            .shadow(radius: 15)
+            }, textView: Text("x")
+                .font(.custom("Silkscreen-Bold", size: 22)), textColor: .white)
+            .responsiveFrame(widthPercentage: 10, heightPercentage: 5.2)
+            .padding(.leading, 280)
+            .padding(.bottom, 215)
         }
-        .padding()
         .onDisappear {
-            saveTutorialStatus()
+            UserDefaults.standard.set(gameLogic.showTutorial, forKey: "showTutorial")
         }
         .onAppear {
-            loadTutorialStatus() 
-        }
-    }
-    func saveTutorialStatus() {
-        UserDefaults.standard.set(gameLogic.showTutorial, forKey: "showTutorial")
-    }
-    
-    func loadTutorialStatus() {
             UserDefaults.standard.bool(forKey: "showTutorial")
+        }
+
     }
 }
 

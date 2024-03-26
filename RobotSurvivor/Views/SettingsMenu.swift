@@ -35,123 +35,37 @@ struct Settings_Menu: View {
                     .resizable()
                     .scaledToFit()
                     .scaleEffect(x: 1, y: -1.2)
-                    .frame(width: 360)
+                    .responsiveFrame(widthPercentage: 90)
                     .shadow(radius: 20)
-                    .padding(.top, 50)
-                
+                                    
                 PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
                     dismiss()
                 }, textView: Text("x")
                     .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
-                .frame(width:50, height: 57)
+                .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
                 .shadow(radius: 15)
                 .padding(.leading, 275)
                 .padding(.bottom,700)
+                
                 VStack{
                     
                     Text("Settings")
                         .tracking(-2.5)
-                        .font(.custom("Silkscreen-Bold", size: 30))
+                        .font(.custom("Silkscreen-Bold", size: 26))
                         .shadow(radius: 15)
-                        .padding(.top, 50)
                     
-                    HStack{
-                        Text("Music")
-                            .tracking(-2.5)
-                            .padding(.trailing, 35)
-                        Image(switchMusic ? "OnSwitch1" : "OffSwitch1")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50)
-                            .onTapGesture {
-                                switchMusic.toggle()
-                            }
-                        
-                    }
-                    .font(.custom("Silkscreen-Bold", size: 25))
-                    .padding(.bottom, 7)
+                    //this is a view i made so that everytime we need the option that requires volume, it's more easily modifiable and also makes the code more readable and consistent than earlier
                     
-                    HStack{
-                        Text("Volume")
-                            .tracking(-2.5)
-                            .padding(.trailing, 10)
-                        
-                        PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
-                            //TODO: add volume levels
-                            if(music > 0){
-                                music = music - 1;
-                            }
-                        }, textView: Text(""))
-                        .frame(width:28, height:12)
-                        
-                        Text(String(music))
-                        
-                        PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
-                            //TODO: add volume levels
-                            if(music < 10){
-                                music = music + 1;
-                            }
-                        }, textView: Text(""))
-                        .frame(width:32, height:32)
-                    }
-                    .font(.custom("Silkscreen-Regular", size: 20))
-                    .padding(.bottom, 20)
+                    SettingOptions(gameLogic: GameLogic.shared, switchMusic: $switchMusic, switchSound: $switchSound, music: $music, sounds: $sounds, titleOfOption: "Music", subtitleOfOption: "Volume")
                     
-                    
-                    HStack{
-                        Text("Sound \nEffects")
-                            .tracking(-2.5)
-                            .multilineTextAlignment(.leading)
-                            .padding(.trailing, 10)
-                        Image(switchSound ? "OnSwitch1" : "OffSwitch1")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50)
-                            .onTapGesture {
-                                switchSound.toggle()
-                            }
-                        
-                    }
-                    .font(.custom("Silkscreen-Bold", size: 25))
-                    .padding(.bottom, 7)
-                    
-                    HStack{
-                        Text("Volume")
-                            .tracking(-2.5)
-                            .padding(.trailing, 10)
-                        
-                        PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
-                            //TODO: add volume levels
-                            if(sounds > 0){
-                                sounds = sounds - 1
-                            }
-                        }, textView: Text(""))
-                        .frame(width:28, height:12)
-                        
-                        Text(String(sounds))
-                        
-                        PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
-                            //TODO: add volume levels
-                            if(sounds < 10){
-                                sounds = sounds + 1
-                            }
-                        }, textView: Text(""))
-                        .frame(width:32, height:32)
-                    }
-                    .font(.custom("Silkscreen-Regular", size: 20))
-                    .padding(.bottom, 25)
-                    
-                    
+                    SettingOptions(gameLogic: GameLogic.shared, switchMusic: $switchMusic, switchSound: $switchSound, music: $music, sounds: $sounds, titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
                     
                     PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2",buttonPressedAction: {
                         //TODO: add navigation to credits
                         showCredits.toggle()
-                    }, textView: Text("Credits") .font(.custom("Silkscreen-Bold", size: 20)), textColor: .white)
-                    .frame(width: 144, height: 50)
-                    .padding(.bottom)
-                    .offset(y: 10)
+                    }, textView: Text("Credits") .font(.custom("Silkscreen-Bold", size: 16)), textColor: .white)
+                    .responsiveFrame(widthPercentage: 50, heightPercentage: 5, alignment: .center)
                     .shadow(radius: 15)
-                    
                     
                 }
                 .foregroundStyle(.white)

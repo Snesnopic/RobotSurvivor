@@ -29,12 +29,12 @@ struct CreditsView: View {
                 .scaleEffect(x: 1, y: -1)
                 .frame(width: 360)
                 .shadow(radius: 20)
-                .padding(.top, 50)
+                .padding(.top, 25)
             PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
                 showCredit = false
             }, textView: Text("x")
                 .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
-            .frame(width:50, height: 57)
+            .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
             .shadow(radius: 15)
             .padding(.leading, 275)
             .padding(.bottom,700)
@@ -44,10 +44,11 @@ struct CreditsView: View {
                     .tracking(-3)
                     .font(.custom ("Silkscreen-Bold", size: 23))
                     .foregroundStyle(.white)
+                    .padding()
                 ForEach(creators, id: \.self) {creator in
                     Text(creator)
                         .tracking(-3)
-                        .font(.custom ("Silkscreen-Regular", size: 20))
+                        .font(.custom ("Silkscreen-Regular", size: 22))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.white)
                 }

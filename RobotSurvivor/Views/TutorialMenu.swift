@@ -35,7 +35,7 @@ struct TutorialMenu: View {
                 dismiss()
             }, textView: Text("x")
                 .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
-            .frame(width:50, height: 57)
+            .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
             .shadow(radius: 15)
             .padding(.leading, 275)
             .padding(.bottom, 700)
@@ -43,38 +43,41 @@ struct TutorialMenu: View {
             Image("cpuHor")
                 .interpolation(.none)
                 .resizable()
-                .scaledToFit()
-                .frame(width: 365, height: 600, alignment: .center)
-            Text(tutorialSteps[currentStep])
-                .font(.custom("Silkscreen-Regular", size: 19))
-                .foregroundStyle(.white)
-                .frame(width: 240, height: 150, alignment: .topLeading)
-            
-            PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
-                withAnimation {
-                    if currentStep >= 2 {
-                        dismiss()
-                        
-                    } else {
-                        currentStep += 1
-                    }
+                .responsiveFrame(widthPercentage: 95, heightPercentage: 40, alignment: .center)
+            VStack{
+                Text(tutorialSteps[currentStep])
+                    .font(.custom("Silkscreen-Regular", size: 19))
+                    .foregroundStyle(.white)
+                Spacer()
+                HStack {
+                    
+                    PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
+                        withAnimation {
+                            currentStep -= 1
+                        }
+                    }, textView: Text("back") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
+                    .responsiveFrame(widthPercentage: 25, heightPercentage: 4)
+                    .shadow(radius: 15)
+                    .opacity(currentStep >= 1 ? 1 : 0)
+                   
+                    PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
+                        withAnimation {
+                            if currentStep >= 2 {
+                                dismiss()
+                                
+                            } else {
+                                currentStep += 1
+                            }
+                        }
+                    }, textView: Text(currentStep != 2 ? "next" : "done")
+                        .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
+                    
+                    .responsiveFrame(widthPercentage: 25, heightPercentage: 4)
+                    .shadow(radius: 15)
                 }
-            }, textView: Text(currentStep != 2 ? "next" : "done") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
-            .frame(width: 100, height: 35)
-            .padding(.top, 125)
-            .offset(x: 75, y: 0)
-            .shadow(radius: 15)
-            
-            PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
-                withAnimation {
-                    currentStep -= 1
-                }
-            }, textView: Text("back") .font(.custom("Silkscreen-Regular", size: 15)), textColor: .white)
-            .frame(width: 100, height: 35)
-            .padding(.top, 125)
-            .offset(x: -30, y: 0)
-            .shadow(radius: 15)
-            .opacity(currentStep >= 1 ? 1 : 0)
+                .padding(.leading, 50)
+            }
+            .responsiveFrame(widthPercentage: 60, heightPercentage: 20)
             
         }
         .statusBarHidden(true)
