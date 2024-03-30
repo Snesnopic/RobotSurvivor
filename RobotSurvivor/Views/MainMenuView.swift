@@ -104,11 +104,7 @@ struct MainMenuView: View {
         })
         .onChange(of: gameLogic.musicSwitch,perform: {
             value in
-            if(gameLogic.musicSwitch){
-                MainMenuView.AudioPlayer.shared.volume = (0.3/5)*Float(gameLogic.musicVolume)
-            }else{
-                MainMenuView.AudioPlayer.shared.volume = 0
-            }
+            MainMenuView.AudioPlayer.shared.volume = gameLogic.musicSwitch ? (0.3/5)*Float(gameLogic.musicVolume) : 0
             
         })
         .onChange(of: gameLogic.musicVolume,perform: {
