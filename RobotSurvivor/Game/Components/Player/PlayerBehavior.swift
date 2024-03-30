@@ -164,7 +164,7 @@ extension GameScene{
         return activeEnemies.min(by: { distanceBetween(node1: player, node2: $0) < distanceBetween(node1: player, node2: $1) })
     }
     
-    //this uses everything in this code
+    //this uses almost everything in this file
     func shoot() {
         var usedBullets: [SKSpriteNode] = []
         guard !isGameOver else { return }
@@ -191,6 +191,16 @@ extension GameScene{
                     }
                 }
             }
+            
+            //this is for the firerate power up
+            let maxFireRate = max(fireRate, 0.001)
+            let waitAction = SKAction.wait(forDuration: 1.0 / maxFireRate)
+            let enableShootingAction = SKAction.run {
+                self.readyToShoot = true
+            }
+
+            let sequence = SKAction.sequence([waitAction, enableShootingAction])
+            run(sequence)
         }
     }
     

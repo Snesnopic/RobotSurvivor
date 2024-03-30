@@ -26,14 +26,16 @@ class SceneWrapper{
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    //important variables
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
     var readyToRecolate: Bool = true
     var joystick: Joystick?
-    
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
+    
     //player
     var isPlayerAlive = true
     var player: PlayerNode = PlayerNode()
@@ -82,19 +84,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var shootAnimationTextures: [SKTexture] = []
     var shootAnimation = SKAction()
     
-    var timeSinceLastShot: TimeInterval = 0.0
-    var timeSinceLastUpdate: TimeInterval = 0.0
+    //sound, pools and haptic
     var bulletSoundPool: [AVAudioPlayer] = []
     var soundPool: [AVAudioPlayer] = []
     var bulletPool: [SKSpriteNode] = []
-    var done: Bool = false
     var musicPool: [AVAudioPlayer] = []
     var hapticEngine: CHHapticEngine?
 
-    
     //boss
     var isBossActive:Bool = false
     var activeBoss: EnemyBossNode? = nil
+    
     
     override init(){
         super.init(size: CGSize(width: 500, height: 500))
@@ -112,6 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
         
+        //haptic setup
         do {
             hapticEngine = try CHHapticEngine()
             try hapticEngine?.start()
@@ -119,13 +120,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("Ascanio: \(error.localizedDescription)")
         }
 
-        
+        //setup of pools
         setupBackgroundMusic(quantityOfMusic: 2)
         setupBulletPool(quantityOfBullets: 1)
         setupBulletSoundPool(quantityOfSounds: 1)
         setupShortSoundPool(name: "HIT", quantityOfSounds: 1)
         playTracks()
         
+        //map setup
         let initialTiles = 10
         let tileSize = CGSize(width: 128, height: 128)
         
@@ -137,6 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //find closest enemy
     func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
         return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
     }
@@ -185,7 +188,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if readyToShoot && isPlayerAlive {
-            shooting()
+            readyToShoot = false
+            shoot()
         }
         
         if readyToRecolate {
@@ -207,23 +211,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundMusicPlayer?.volume = gameLogic.musicSwitch ? (0.6/5)*Float(gameLogic.musicVolume) : 0
     }
     
-    func shooting() {
-        guard readyToShoot else { return }
-
-        readyToShoot = false
-        shoot()
-
-        let maxFireRate = max(fireRate, 0.001)
-        let waitAction = SKAction.wait(forDuration: 1.0 / maxFireRate)
-        let enableShootingAction = SKAction.run {
-            self.readyToShoot = true
-        }
-
-        let sequence = SKAction.sequence([waitAction, enableShootingAction])
-        run(sequence)
-    }
-
     
+    //everytime the player outruns the enemies, and reach the "out of bounds" they get relocated
     func relocateEnemies() {
         readyToRecolate = false
         for enemy in enemiesOnMap{
@@ -241,6 +230,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    //icnrease difficulty of the game by spawning more enemies
     func increaseSpawnRate() {
         readyToIncreaseSpawnRate = false
         self.spawnRate += 4
@@ -254,6 +244,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         run(sequence, withKey: "increaseSpawnRateAction")
     }
     
+    //same as above
     func increaseEnemyPower() {
         readyToIncreaseEnemyPower = false
         multiplier = multiplier + 1
@@ -266,6 +257,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         run(sequence, withKey: "increaseEnemyRatePower")
     }
     
+    //pickup for xp
     func spawnMagnetPickUp() {
         readyToSpawnPickUp = false
         spawnPickUp()
