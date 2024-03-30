@@ -8,6 +8,7 @@
 import Foundation
 import SpriteKit
 import AVFAudio
+import CoreHaptics
 
 extension GameScene{
     
@@ -122,11 +123,22 @@ extension GameScene{
     //this plays the getting hit sound
     func playGettingHitSound(name: String) {
         
+        
         guard let soundPlayer = soundPool.first else { return }
         soundPlayer.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
         soundPool.removeFirst()
         soundPlayer.play()
         soundPool.append(soundPlayer)
+        
+        //whenever the sound gets played, the user feels the impact with the haptic
+        if let playerGettingHitHaptic = createHitHapticPattern() {
+            do {
+                let player = try hapticEngine?.makePlayer(with: playerGettingHitHaptic)
+                try player?.start(atTime: 0)
+            } catch {
+                print("Ascanio: \(error.localizedDescription)")
+            }
+        }
     }
     
     //these are for configuration of bullet node
@@ -137,6 +149,7 @@ extension GameScene{
         bullet.setScale(1.5)
     }
     
+    //these configures the physics of the bullet
     private func configureBulletPhysics(_ bullet: SKSpriteNode) {
         bullet.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: bullet.size.width/3, height: bullet.size.height/3))
         bullet.physicsBody?.categoryBitMask = CollisionType.playerWeapon
@@ -197,4 +210,25 @@ extension GameScene{
         let sequence = SKAction.sequence([playSound, .removeFromParent()])
         self.scene?.run(sequence)
     }
+    
+    func createHitHapticPattern() -> CHHapticPattern? {
+        do {
+            let hapticEvent = CHHapticEvent(
+                eventType: .hapticContinuous,
+                parameters: [
+                    //tweak these for intensity and sharpness
+                    CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.5),
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.3)
+                ],
+                //tweak these for duration
+                relativeTime: 0,
+                duration: 0.1
+            )
+            return try CHHapticPattern(events: [hapticEvent], parameters: [])
+        } catch {
+            print("Failed to create haptic pattern: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
 }

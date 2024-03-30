@@ -7,6 +7,7 @@
 
 import SpriteKit
 import AVFoundation
+import CoreHaptics
 
 class SceneWrapper{
     var scene = GameScene()
@@ -88,6 +89,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var bulletPool: [SKSpriteNode] = []
     var done: Bool = false
     var musicPool: [AVAudioPlayer] = []
+    var hapticEngine: CHHapticEngine?
+
     
     //boss
     var isBossActive:Bool = false
@@ -108,6 +111,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")
+        
+        do {
+            hapticEngine = try CHHapticEngine()
+            try hapticEngine?.start()
+        } catch {
+            print("Ascanio: \(error.localizedDescription)")
+        }
+
         
         setupBackgroundMusic(quantityOfMusic: 2)
         setupBulletPool(quantityOfBullets: 1)
