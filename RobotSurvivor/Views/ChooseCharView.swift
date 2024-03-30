@@ -24,7 +24,7 @@ struct ChooseCharView: View {
                 .interpolation(.none)
                 .resizable()
                 .frame(width: 370,height: 400)
-                .padding(.bottom,50)
+                .padding(.bottom, 170)
             
             
             ScrollView(.horizontal,showsIndicators: false) {
@@ -51,19 +51,18 @@ struct ChooseCharView: View {
                     }
                 }
             }
-            .padding(.top, 50)
+            .padding(.bottom, 100)
             .padding(.horizontal, 455)
             
             Text("Choose character")
-                .tracking(3.0)
-                .font(.custom("Silkscreen-Bold", size: 19.0))
+                .font(.custom("Silkscreen-Bold", size: 20.0))
                 .foregroundStyle(.white)
-                .padding(.bottom,110)
+                .padding(.bottom, 260)
             PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
                 withAnimation{currentGameState = .playing}
             }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
             .frame(width: 224, height:96)
-            .padding(.top, 500)
+            .padding(.top, 450)
             
             PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
                 withAnimation{
