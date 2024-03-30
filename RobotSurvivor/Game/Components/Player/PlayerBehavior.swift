@@ -120,10 +120,28 @@ extension GameScene{
         }
     }
     
+    func playShortSound(name: String) {
+
+        guard let soundPlayer = soundPool.first else { return }
+        soundPlayer.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
+        soundPool.removeFirst()
+        soundPlayer.play()
+        soundPool.append(soundPlayer)
+        
+        //whenever the sound gets played, the user feels the impact with the haptic
+        if let playerGettingHitHaptic = createHitHapticPattern() {
+            do {
+                let player = try hapticEngine?.makePlayer(with: playerGettingHitHaptic)
+                try player?.start(atTime: 0)
+            } catch {
+                print("Ascanio: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     //this plays the getting hit sound
     func playGettingHitSound(name: String) {
-        
-        
+
         guard let soundPlayer = soundPool.first else { return }
         soundPlayer.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
         soundPool.removeFirst()
