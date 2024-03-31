@@ -27,6 +27,56 @@
         }
       }
     },
+    "+bullet speed" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+colpi rapidi"
+          }
+        }
+      }
+    },
+    "+dmg" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+danno"
+          }
+        }
+      }
+    },
+    "+firerate" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+cad. tiro"
+          }
+        }
+      }
+    },
+    "+hp" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+hp"
+          }
+        }
+      }
+    },
+    "+speed" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+agilità"
+          }
+        }
+      }
+    },
     "<" : {
       "localizations" : {
         "it" : {
@@ -49,22 +99,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "indietro"
-          }
-        }
-      }
-    },
-    "bullet speed" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "bullet speed"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "colpi rapidi"
           }
         }
       }
@@ -134,22 +168,6 @@
         }
       }
     },
-    "dmg" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "dmg"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "danno"
-          }
-        }
-      }
-    },
     "done" : {
       "localizations" : {
         "en" : {
@@ -200,22 +218,6 @@
         }
       }
     },
-    "firerate" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "firerate"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "cad. tiro"
-          }
-        }
-      }
-    },
     "Game" : {
       "localizations" : {
         "en" : {
@@ -228,22 +230,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partita"
-          }
-        }
-      }
-    },
-    "hp" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "hp"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "hp"
           }
         }
       }
@@ -448,22 +434,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Effetti Sonori"
-          }
-        }
-      }
-    },
-    "speed" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "speed"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "agilità"
           }
         }
       }

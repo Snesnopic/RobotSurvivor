@@ -36,21 +36,21 @@ extension GameScene{
         dmg += 10
     }
     
-    func callPowerUp(name: String){
+    func callPowerUp(name: String.LocalizationValue){
         switch name {
-        case "dmg":
+        case "+dmg":
             increaseDamage()
             break
-        case "hp":
+        case "+hp":
             increaseHealth()
             break
-        case "firerate":
+        case "+firerate":
             increaseFireRate()
             break
-        case "bullet speed":
+        case "+bullet speed":
             increaseBulletSpeed()
             break
-        case "speed":
+        case "+speed":
             increasePlayerSpeed()
             break
         default:

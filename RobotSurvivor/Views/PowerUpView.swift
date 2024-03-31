@@ -13,17 +13,22 @@ import AVFAudio
 struct PowerUpView: View {
     @StateObject var gameLogic: GameLogic = GameLogic.shared
     @Binding var sceneWrap: SceneWrapper
-    let powerUpDisplayed: [String] = [String(localized: "dmg"), String(localized: "firerate"), String(localized: "hp"), String(localized: "speed"), String(localized: "bullet speed")]
     
-    let powerUp: [String] = ["+dmg", "+firerate", "+hp", "+speed", "+bullet speed"]
-    
-    let path = Bundle.main.url(forResource: "LEVELUP", withExtension: "mp3")
-    let speedControl = AVAudioUnitVarispeed()
+
     @State var powerUpSet: Set = [0,1,2,3,4]
     @State var p1: Int = 0
     @State var p2: Int = 0
     @State var p3: Int = 0
     
+    //this is for the Text that displays the powerup it can be localized
+    let powerUp: [String.LocalizationValue] = ["+dmg", "+firerate", "+hp", "+speed", "+bullet speed"]
+    
+    //while this is to distinguish assets we call for powerup spawns
+    let powerUpAsset: [String] = ["+dmg", "+firerate", "+hp", "+speed", "+bullet speed"]
+        
+    let path = Bundle.main.url(forResource: "LEVELUP", withExtension: "mp3")
+    
+    //i just copied Linar's work here, nothing new
     class AudioPlayer {
         static var shared: AVAudioPlayer = AVAudioPlayer()
     }
@@ -43,37 +48,33 @@ struct PowerUpView: View {
                     .foregroundStyle(.white)
                     .padding(.bottom, 50)
                 
-                
                 HStack{
                     //TODO: randomly sort powerUp + give it to player on tap
                     
                     ZStack{
                         PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                             gameLogic.showPowerUp = false
-                            sceneWrap.scene.callPowerUp(name: powerUpDisplayed[p1])
-                        }, imageView: Image(powerUp[p1]))
+                            sceneWrap.scene.callPowerUp(name: powerUp[p1])
+                        }, imageView: Image(powerUpAsset[p1]))
                     }
                     .frame(width:94, height: 120)
                                         
                     ZStack{
                         PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                             gameLogic.showPowerUp = false
-                            sceneWrap.scene.callPowerUp(name: powerUpDisplayed[p2])
-                        }, imageView: Image(powerUp[p2]))
+                            sceneWrap.scene.callPowerUp(name: powerUp[p2])
+                        }, imageView: Image(powerUpAsset[p2]))
                         
                     }
                     .frame(width:94, height: 120)
                     .padding(.horizontal, 5)
                     
-                    ZStack{ PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
+                    PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                         gameLogic.showPowerUp = false
-                        sceneWrap.scene.callPowerUp(name: powerUpDisplayed[p3])
-                    }, imageView: Image(powerUp[p3]))
-                            
-                    }.frame(width:94, height: 120)
-                    
-                    
-                    
+                        sceneWrap.scene.callPowerUp(name: powerUp[p3])
+                    }, imageView: Image(powerUpAsset[p3]))
+                        .frame(width:94, height: 120)
+
                 }
                 .onAppear(){
                     p1 = powerUpSet.randomElement()!
@@ -93,7 +94,8 @@ struct PowerUpView: View {
                             print("Ascanio")
                         }
                     }
-                }.onDisappear(perform: {
+                }
+                .onDisappear(perform: {
                     if gameLogic.musicSwitch {
                         PowerUpView.AudioPlayer.shared.play()
                     }
@@ -103,14 +105,14 @@ struct PowerUpView: View {
                 
                 
                 HStack(alignment: .top){
-                    Text(String("+" + powerUpDisplayed[p1]))
+                    Text(String(localized: powerUp[p1]))
                         .tracking(-3)
                         .frame(maxWidth: 94)
-                    Text(String("+" + powerUpDisplayed[p2]))
+                    Text(String(localized: powerUp[p2]))
                         .tracking(-3)
                         .frame(maxWidth: 94)
                         .padding(.horizontal, 5)
-                    Text(String("+" + powerUpDisplayed[p3]))
+                    Text(String(localized: powerUp[p3]))
                         .tracking(-3)
                         .frame(maxWidth: 94)
                 }
