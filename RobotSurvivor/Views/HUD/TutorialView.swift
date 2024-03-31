@@ -66,7 +66,7 @@ struct TutorialView: View {
             .responsiveFrame(widthPercentage: 60, heightPercentage: 20)
             
             PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
-                //MARK: This doesn't work as intended: once the x is pressed, it counts as the player has gone through the tutorial. The presentationMode.wrappedValue.dismiss() does not work
+                //MARK: This doesn't work as intended! Once the x is pressed, it counts as if the player has gone through the tutorial. The dismiss() does not work, also the bool value should not be put to false for this action.
                 gameLogic.showTutorial = false
                 self.presentationMode.wrappedValue.dismiss()
             }, textView: Text("x")
