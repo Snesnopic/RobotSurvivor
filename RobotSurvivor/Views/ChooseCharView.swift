@@ -11,6 +11,8 @@ import _SpriteKit_SwiftUI
 struct ChooseCharView: View {
     @Binding var selectedChar:String
     @Binding var currentGameState: GameState
+    
+    var index: Int = 0
     var body: some View {
         ZStack {
             Color.deadBlue.ignoresSafeArea()
@@ -30,25 +32,25 @@ struct ChooseCharView: View {
             ScrollView(.horizontal,showsIndicators: false) {
                 HStack(alignment: .center)
                 {
-                    ForEach(skins, id: \.self) {
-                        skin in
+                    ForEach(Array(zip(skins, localizedSkins)), id: \.0) { skin, localizedSkin in
                         VStack {
                             Button(action: {
                                 selectedChar = skin
                             }, label: {
-                                if(skin == selectedChar){
-                                    SpriteView(scene: SkinPreviewScene(skin: skin,isActive: true),options: [.allowsTransparency])
-                                }
-                                else{
-                                    SpriteView(scene: SkinPreviewScene(skin: skin,isActive: false),options: [.allowsTransparency])
+                                if skin == selectedChar {
+                                    SpriteView(scene: SkinPreviewScene(skin: skin, isActive: true), options: [.allowsTransparency])
+                                } else {
+                                    SpriteView(scene: SkinPreviewScene(skin: skin, isActive: false), options: [.allowsTransparency])
                                         .grayscale(1)
                                 }
                             })
-                            .frame(width: 100,height: 100)
-                            Text(skin)
-                                .font(.custom("Silkscreen-Regular", size: 12.0)).foregroundStyle(.white)
+                            .frame(width: 100, height: 100)
+                            Text(localizedSkin)
+                                .font(.custom("Silkscreen-Regular", size: 12.0))
+                                .foregroundStyle(.white)
                         }
                     }
+
                 }
             }
             .padding(.bottom, 100)
@@ -84,6 +86,12 @@ struct ChooseCharView: View {
     }
 }
 
-#Preview {
+#Preview("English") {
     ChooseCharView(selectedChar: .constant("AntiTank"), currentGameState: .constant(.chooseChar))
+        .environment(\.locale, Locale(identifier: "EN"))
+}
+
+#Preview("Italian") {
+    ChooseCharView(selectedChar: .constant("AntiTank"), currentGameState: .constant(.chooseChar))
+        .environment(\.locale, Locale(identifier: "IT"))
 }

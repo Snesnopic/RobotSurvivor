@@ -87,6 +87,26 @@
         }
       }
     },
+    "AntiTank" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anticarro"
+          }
+        }
+      }
+    },
+    "Assault" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assalto"
+          }
+        }
+      }
+    },
     "back" : {
       "localizations" : {
         "en" : {
@@ -234,6 +254,16 @@
         }
       }
     },
+    "Grenadier" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Granatiere"
+          }
+        }
+      }
+    },
     "II" : {
       "localizations" : {
         "en" : {
@@ -246,6 +276,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "II"
+          }
+        }
+      }
+    },
+    "MachineGunner" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mitragliere"
           }
         }
       }
@@ -341,6 +381,16 @@
         }
       }
     },
+    "RadioOperator" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OperatoreRadio"
+          }
+        }
+      }
+    },
     "Restart" : {
       "localizations" : {
         "en" : {
@@ -422,6 +472,16 @@
         }
       }
     },
+    "Sniper" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cecchino"
+          }
+        }
+      }
+    },
     "Sound \nEffects" : {
       "localizations" : {
         "en" : {
@@ -434,6 +494,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Effetti Sonori"
+          }
+        }
+      }
+    },
+    "SquadLeader" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CapoSquadra"
           }
         }
       }

@@ -33,3 +33,13 @@ let skins = [
     "Sniper",
     "SquadLeader"
 ]
+
+let localizedSkins = [
+    String(localized: "AntiTank"),
+    String(localized: "Assault"),
+    String(localized: "Grenadier"),
+    String(localized: "MachineGunner"),
+    String(localized: "RadioOperator"),
+    String(localized: "Sniper"),
+    String(localized: "SquadLeader")
+]
