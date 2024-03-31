@@ -37,22 +37,30 @@ extension GameScene{
 //        newPickUp.physicsBody?.categoryBitMask = CollisionType.pickUp
 //        newPickUp.physicsBody?.collisionBitMask = CollisionType.player
 //
+        
         let newXP = SKSpriteNode(imageNamed: "expOrb2")
-        newXP.texture?.filteringMode = .nearest
         newXP.size = CGSize(width: 8, height: 8)
         newXP.name = "xp"
         newXP.position = position
         newXP.zPosition = 0;
-
+        
         newXP.physicsBody = SKPhysicsBody(circleOfRadius: 6)
         newXP.physicsBody?.affectedByGravity = false
-
+        
         //don't insert collisionBitMask for enemies
         newXP.physicsBody?.categoryBitMask = CollisionType.xp
         newXP.physicsBody?.collisionBitMask = CollisionType.none
         newXP.physicsBody?.contactTestBitMask = CollisionType.player
-        xpOnMap.insert(newXP)
+        
+        //this is done this way for 2 things: first, the animation would hurt the eyes of the user. Second, after testing, enemies would be hard to see if the "glowing" of the orbs would remain for too long on the screen
+        let animateAction = SKAction.animate(with: animationTextures, timePerFrame: 0.06)
+        let staticDuration = 0.94
+        let waitAction = SKAction.wait(forDuration: staticDuration)
+        let sequenceAction = SKAction.sequence([waitAction, animateAction])
+        let repeatAction = SKAction.repeatForever(sequenceAction)
+        
+        newXP.run(repeatAction)
         addChild(newXP)
+        
     }
-    
 }

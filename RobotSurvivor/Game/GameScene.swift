@@ -84,6 +84,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var shootAnimationTextures: [SKTexture] = []
     var shootAnimation = SKAction()
     
+     // Declare animationTextures array as a property
+        
+    var animationTextures = [SKTexture]()
+    let textureNames = ["expOrb1", "expOrb2"]
+    
     //sound, pools and haptic
     var bulletSoundPool: [AVAudioPlayer] = []
     var soundPool: [AVAudioPlayer] = []
@@ -97,6 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override init(){
+        
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
         view?.showsPhysics = true
@@ -107,7 +113,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     required init?(coder aDecoder: NSCoder){
         fatalError("coder problem")
     }
-    
     
     override func didMove(to view: SKView) {
         print("You are in the game scene!")

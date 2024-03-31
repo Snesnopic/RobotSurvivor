@@ -49,6 +49,10 @@ extension GameScene {
             shootAnimationTextures.append(texture)
         }
         shootAnimation = SKAction.animate(with: shootAnimationTextures, timePerFrame: 0.1)
+        
+        for name in ["expOrb1", "expOrb2"] {
+            animationTextures.append(SKTexture(imageNamed: name))
+        }
 
     }
     
