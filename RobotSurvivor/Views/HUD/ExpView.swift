@@ -37,7 +37,7 @@ struct ExpView: View {
                             Image("Line")
                                 .interpolation(.none)
                                 .resizable()
-                                .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * CGFloat(currentXP), height: levelChipSize)
+                                .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * (currentLevel == 1 ? CGFloat(Double(currentXP) * 2.45) : CGFloat(currentXP)), height: levelChipSize)
                             Spacer()
                         }
                         
@@ -55,6 +55,6 @@ struct ExpView: View {
 }
 
 #Preview {
-    ExpView(experienceNeeded: .constant(100), currentXP: .constant(10), currentLevel: .constant(10))
+    ExpView(experienceNeeded: .constant(100), currentXP: .constant(40), currentLevel: .constant(1))
 }
 

@@ -55,7 +55,6 @@ class SkinPreviewScene: SKScene {
         player.position = CGPoint(x: 25, y: 25)
         player.physicsBody?.isDynamic = false
         
-        
         addChild(player)
     }
 }

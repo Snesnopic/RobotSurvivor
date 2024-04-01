@@ -30,8 +30,7 @@ struct ChooseCharView: View {
             
             
             ScrollView(.horizontal,showsIndicators: false) {
-                HStack(alignment: .center)
-                {
+                HStack(alignment: .center) {
                     ForEach(Array(zip(skins, localizedSkins)), id: \.0) { skin, localizedSkin in
                         VStack {
                             Button(action: {
