@@ -35,7 +35,7 @@ struct Settings_Menu: View {
                     .resizable()
                     .scaledToFit()
                     .scaleEffect(x: 1, y: -1.2)
-                    .responsiveFrame(widthPercentage: 90)
+                    .responsiveFrame(widthPercentage: 95)
                     .shadow(radius: 20)
                                     
                 PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
