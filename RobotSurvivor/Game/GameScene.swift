@@ -267,7 +267,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         readyToSpawnPickUp = false
         spawnPickUp()
         
-        let waitAction = SKAction.wait(forDuration: 3)
+        let waitAction = SKAction.wait(forDuration: 45)
         let enableSpawnMagnetPickUpAction = SKAction.run {
             self.readyToSpawnPickUp = true
         }
