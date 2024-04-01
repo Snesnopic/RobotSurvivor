@@ -64,7 +64,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var backgroundMusicPlayer: AVAudioPlayer?
     var currentTrack: String? = "game1"
     
-    var timer: Timer?
     //animations
     let flashRedAction = SKAction.sequence([
         SKAction.colorize(with: .red , colorBlendFactor: 1.0, duration: 0.2),
@@ -83,9 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var shootAnimationTextures: [SKTexture] = []
     var shootAnimation = SKAction()
-    
-     // Declare animationTextures array as a property
-        
+            
     var animationTextures = [SKTexture]()
     let textureNames = ["expOrb1", "expOrb2"]
     
@@ -99,7 +96,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //boss
     var isBossActive:Bool = false
     var activeBoss: EnemyBossNode? = nil
-    
     
     override init(){
         
@@ -115,7 +111,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func didMove(to view: SKView) {
-        print("You are in the game scene!")
         
         //haptic setup
         do {
@@ -142,11 +137,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addTile(at: position)
             }
         }
-    }
-    
-    //find closest enemy
-    func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
-        return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -222,6 +212,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backgroundMusicPlayer?.volume = gameLogic.musicSwitch ? (0.6/5)*Float(gameLogic.musicVolume) : 0
     }
     
+    //find closest enemy
+    func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
+        return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
+    }
     
     //everytime the player outruns the enemies, and reach the "out of bounds" they get relocated
     func relocateEnemies() {

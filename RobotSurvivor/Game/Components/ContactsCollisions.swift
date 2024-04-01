@@ -126,7 +126,8 @@ extension GameScene{
                 }
                 gameLogic.increaseScore(points: enemy.points)
                 enemiesOnMap.remove(enemy)
-                if let boss = enemy as? EnemyBossNode {
+                //MARK: define boss instead of "_" if it's used, or delete it if it's not intended
+                if let _ = enemy as? EnemyBossNode {
                     activeBoss = nil
                 }
                 enemy.die()
