@@ -56,9 +56,9 @@ struct Settings_Menu: View {
                     
                     //this is a view i made so that everytime we need the option that requires volume, it's more easily modifiable and also makes the code more readable and consistent than earlier
                     
-                    SettingOptions(gameLogic: GameLogic.shared, switchMusic: $switchMusic, switchSound: $switchMusic, music: $music, sounds: $sounds, titleOfOption: "Music", subtitleOfOption: "Volume")
+                    SettingOptions(gameLogic: GameLogic.shared, switchOnOff: $switchMusic, regulator: $music, titleOfOption: "Music", subtitleOfOption: "Volume")
                     
-                    SettingOptions(gameLogic: GameLogic.shared, switchMusic: $switchMusic, switchSound: $switchSound, music: $music, sounds: $sounds, titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
+                    SettingOptions(gameLogic: GameLogic.shared, switchOnOff: $switchSound, regulator: $sounds, titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
                     
                     PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2",buttonPressedAction: {
                         //TODO: add navigation to credits

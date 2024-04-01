@@ -9,10 +9,8 @@ import SwiftUI
 
 struct SettingOptions: View {
     @ObservedObject var gameLogic: GameLogic
-    @Binding var switchMusic: Bool
-    @Binding var switchSound: Bool
-    @Binding var music: Int
-    @Binding var sounds: Int
+    @Binding var switchOnOff: Bool
+    @Binding var regulator: Int
     //this is because since the text are variables now, they have to be localized keys otherwise they won't be localized
     var titleOfOption: LocalizedStringKey
     var subtitleOfOption: LocalizedStringKey
@@ -25,12 +23,12 @@ struct SettingOptions: View {
                     .responsiveFrame(heightPercentage: 10)
                     
                 Spacer()
-                Image(switchMusic ? "OnSwitch1" : "OffSwitch1")
+                Image(switchOnOff ? "OnSwitch1" : "OffSwitch1")
                     .resizable()
                     .scaledToFit()
                     .responsiveFrame(widthPercentage: 10, heightPercentage: 10)
                     .onTapGesture {
-                        switchMusic.toggle()
+                        switchOnOff.toggle()
                     }
                 
             }
@@ -43,19 +41,19 @@ struct SettingOptions: View {
                 Spacer()
                 PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                     //TODO: add volume levels
-                    if(music > 0){
-                        music = music - 1;
+                    if(regulator > 0){
+                        regulator = regulator - 1;
                     }
                 }, textView: Text(""))
                 .responsiveFrame(widthPercentage: 5, aspectRatio: (1, 0.1))
                 
-                Text(String(music))
+                Text(String(regulator))
                     .offset(x: 1.5)
                 
                 PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2",buttonPressedAction: {
                     //TODO: add volume levels
-                    if(music < 10){
-                        music = music + 1;
+                    if(regulator < 10){
+                        regulator = regulator + 1;
                     }
                 }, textView: Text(""))
                 .responsiveFrame(widthPercentage: 6, heightPercentage: 3)
@@ -68,11 +66,11 @@ struct SettingOptions: View {
 }
 
 #Preview("English"){
-    SettingOptions(gameLogic: GameLogic.shared, switchMusic: .constant(true), switchSound: .constant(true), music: .constant(5), sounds: .constant(5), titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
+    SettingOptions(gameLogic: GameLogic.shared, switchOnOff: .constant(true), regulator: .constant(5), titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
         .environment(\.locale, Locale(identifier: "EN"))
 }
 
 #Preview("Italian"){
-    SettingOptions(gameLogic: GameLogic.shared, switchMusic: .constant(true), switchSound: .constant(true), music: .constant(5), sounds: .constant(5), titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
+    SettingOptions(gameLogic: GameLogic.shared, switchOnOff: .constant(true), regulator: .constant(5), titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
         .environment(\.locale, Locale(identifier: "IT"))
 }
