@@ -23,22 +23,8 @@ extension GameScene{
     
     public func generateXp(at position: CGPoint){
         
-//        let newPickUp = SKSpriteNode(imageNamed: "magnet")
-//        newPickUp.texture?.filteringMode = .nearest
-//        newPickUp.size = CGSize(width: 20, height: 20)
-//        newPickUp.name = "pickUp"
-//        newPickUp.position = getPositionNearPlayer()
-//        newPickUp.zPosition = 0;
-//        
-//        newPickUp.physicsBody = SKPhysicsBody(circleOfRadius: 7)
-//        newPickUp.physicsBody?.affectedByGravity = false
-//        
-//        //don't insert collisionBitMask for enemies
-//        newPickUp.physicsBody?.categoryBitMask = CollisionType.pickUp
-//        newPickUp.physicsBody?.collisionBitMask = CollisionType.player
-//
-        
         let newXP = SKSpriteNode(imageNamed: "expOrb2")
+        newXP.texture?.filteringMode = .nearest
         newXP.size = CGSize(width: 8, height: 8)
         newXP.name = "xp"
         newXP.position = position
@@ -51,6 +37,7 @@ extension GameScene{
         newXP.physicsBody?.categoryBitMask = CollisionType.xp
         newXP.physicsBody?.collisionBitMask = CollisionType.none
         newXP.physicsBody?.contactTestBitMask = CollisionType.player
+        xpOnMap.insert(newXP)
         
         //this is done this way for 2 things: first, the animation would hurt the eyes of the user. Second, after testing, enemies would be hard to see if the "glowing" of the orbs would remain for too long on the screen
         let animateAction = SKAction.animate(with: animationTextures, timePerFrame: 0.06)

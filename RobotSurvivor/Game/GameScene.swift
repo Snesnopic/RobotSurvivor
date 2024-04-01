@@ -182,10 +182,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         for xp in xpToMagnetise{
+            print("entering for")
             let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y - playerPosition.y))))
+            print("distance: assigned")
             let speed = 500.0
+            print("speed: assigned")
             let action =  SKAction.move(to: playerPosition, duration: distance/speed)
+            print("action: defined")
+            
             xp.run(action)
+            print("Action should be ran")
         }
         
         for enemy in enemiesOnMap{
@@ -267,7 +273,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         readyToSpawnPickUp = false
         spawnPickUp()
         
-        let waitAction = SKAction.wait(forDuration: 45)
+        let waitAction = SKAction.wait(forDuration: 3)
         let enableSpawnMagnetPickUpAction = SKAction.run {
             self.readyToSpawnPickUp = true
         }
