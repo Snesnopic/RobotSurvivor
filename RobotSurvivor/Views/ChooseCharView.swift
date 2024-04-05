@@ -76,18 +76,6 @@ struct ChooseCharView: View {
                 .font(.custom("Silkscreen-Bold", size: 30)), textColor: .white, textOffset: -2)
             .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
             .offset(CGSize(width: -140.0, height: -360.0))
-            
-            //MARK: This is necessary for centering symbols visually. It's a for cases where the pixelArtButton doesn't center symbols universally.
-//            Text("<")
-//            .offset(y: isPressed ? -1 : 0)
-//            .opacity(isPressed ? 0.5 : 1)
-//            .font(.custom("Silkscreen-Bold", size: 30))
-//            .foregroundStyle(.white)
-//            .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
-//            .offset(CGSize(width: -142.0, height: -364.0))
-//            .onTapGesture {
-//                isPressed = !isPressed ? true : false;
-//            }
         }
     }
 }
