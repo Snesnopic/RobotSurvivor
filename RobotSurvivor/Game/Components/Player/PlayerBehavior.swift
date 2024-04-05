@@ -38,7 +38,18 @@ extension GameScene{
             bulletPool.append(bullet)
         }
     }
-    
+    //this is to setup the sound pool for bullets
+    func setUpSoundPoolForBullets() {
+        if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
+            for _ in 0..<maxConcurrentSounds {
+                let audioNode = SKAudioNode(url: soundURL)
+                audioNode.autoplayLooped = false
+                audioNode.name = "BULLET"
+                addChild(audioNode)
+                bulletSoundNodes.append(audioNode)
+            }
+        }
+    }
     //this is the extraction part of the bullets
     func getBulletFromPool() -> SKSpriteNode? {
         if bulletPool.isEmpty {
@@ -52,55 +63,12 @@ extension GameScene{
         bulletPool.append(contentsOf: bullets)
     }
     
-    //same for sounds
-    func setupBulletSoundPool(quantityOfSounds: Int) {
-        for _ in 0..<quantityOfSounds {
-            if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
-                do {
-                    let soundPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                    soundPlayer.prepareToPlay()
-                    bulletSoundPool.append(soundPlayer)
-                } catch {
-                    print("Error loading bullet sound: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-    
-    //this is basically the play sound
+    //this plays the sound
     func playBulletSound() {
-        guard let soundPlayer = getAvailableSoundPlayer() else {
-            print("No available sound player in the pool")
-            return
-        }
-        
-        soundPlayer.volume = gameLogic.soundsSwitch ? (0.1/5) * Float(gameLogic.soundsVolume) : 0
-        soundPlayer.play()
-    }
-
-    //now this is a check for if we find the sound, then if a sound is found, there is the if statement that checks has necessary sounds, and if this happens it loads whatever is necesseray (firerate + 1), anyway this is to dynamically arrange firerate going higher if the player ever reaches that stage
-    func getAvailableSoundPlayer() -> AVAudioPlayer? {
-
-        for sound in bulletSoundPool {
-            if !sound.isPlaying {
-                return sound
-            }
-        }
-        if bulletSoundPool.count < max(Int(fireRate) + 1, 3) {
-            do {
-                if let soundURL = Bundle.main.url(forResource: "BULLETS", withExtension: "mp3") {
-                    let newSoundPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                    newSoundPlayer.prepareToPlay()
-                    bulletSoundPool.append(newSoundPlayer)
-                    return newSoundPlayer
-                } else {
-                    print("Failed to find sound file")
-                }
-            } catch {
-                print("Error creating AVAudioPlayer: \(error.localizedDescription)")
-            }
-        }
-        return nil
+        let audioNode = bulletSoundNodes[currentIndex]
+        audioNode.run(SKAction.changeVolume(to: gameLogic.soundsSwitch ? (0.1/5) * Float(gameLogic.soundsVolume) : 0, duration: 0))
+        audioNode.run(SKAction.play())
+        currentIndex = (currentIndex + 1) % maxConcurrentSounds
     }
     
     //for the same purpose of the sounds, the hitting sounds and others may be used with the same logic
