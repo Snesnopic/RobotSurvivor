@@ -50,7 +50,7 @@ struct Settings_Menu: View {
                 VStack{
                     
                     Text("Settings")
-                        .tracking(-2.5)
+                        .kerning(-3)
                         .font(.custom("Silkscreen-Bold", size: 26))
                         .shadow(radius: 15)
                     

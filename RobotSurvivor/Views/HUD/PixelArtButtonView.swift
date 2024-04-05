@@ -14,6 +14,7 @@ struct PixelArtButtonView: View {
     @State private var isPressed: Bool = false
     var textView: Text? = nil
     var textColor: Color? = .white
+    var textOffset: Int? = nil
     var imageView: Image? = nil
     
     var body: some View {
@@ -21,11 +22,18 @@ struct PixelArtButtonView: View {
             Image(isPressed ? pressedImage : buttonImage)
                 .interpolation(.none)
                 .resizable()
-            if let textView {
-                textView
+//            if let textView {
+//                textView
+//                    .offset(y: isPressed ? -1 : -5)
+//                    .opacity(isPressed ? 0.5 : 1)
+//            }
+            
+            
+            if let textView{
+                textView.offset(x: CGFloat(textOffset != nil ? textOffset! : 0))
+                
                     .offset(y: isPressed ? -1 : -5)
                     .opacity(isPressed ? 0.5 : 1)
-                
             }
             if let imageView {
                 imageView
@@ -45,6 +53,9 @@ struct PixelArtButtonView: View {
             buttonPressedAction?()
         })
     }
+    
+    
+
 }
 
 #Preview {

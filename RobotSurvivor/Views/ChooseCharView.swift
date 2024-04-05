@@ -12,6 +12,7 @@ struct ChooseCharView: View {
     @Binding var selectedChar:String
     @Binding var currentGameState: GameState
     
+    @State private var isPressed: Bool = false
     var index: Int = 0
     var body: some View {
         ZStack {
@@ -60,7 +61,9 @@ struct ChooseCharView: View {
                 .foregroundStyle(.white)
                 .padding(.bottom, 260)
             PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
-                withAnimation{currentGameState = .playing}
+                withAnimation{
+                    currentGameState = .playing
+                }
             }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
             .frame(width: 224, height:96)
             .padding(.top, 450)
@@ -69,18 +72,22 @@ struct ChooseCharView: View {
                 withAnimation{
                     self.currentGameState = .mainScreen
                 }
-            }, textView: Text("")
-                .font(.custom("Silkscreen-Bold", size: 30)), textColor: .white)
+            }, textView: Text("<")
+                .font(.custom("Silkscreen-Bold", size: 30)), textColor: .white, textOffset: -2)
             .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
             .offset(CGSize(width: -140.0, height: -360.0))
             
             //MARK: This is necessary for centering symbols visually. It's a for cases where the pixelArtButton doesn't center symbols universally.
-            Text("<")
-                .font(.custom("Silkscreen-Bold", size: 30))
-                .foregroundStyle(.white)
-                .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
-                .offset(CGSize(width: -142.0, height: -364.0))
-            
+//            Text("<")
+//            .offset(y: isPressed ? -1 : 0)
+//            .opacity(isPressed ? 0.5 : 1)
+//            .font(.custom("Silkscreen-Bold", size: 30))
+//            .foregroundStyle(.white)
+//            .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
+//            .offset(CGSize(width: -142.0, height: -364.0))
+//            .onTapGesture {
+//                isPressed = !isPressed ? true : false;
+//            }
         }
     }
 }

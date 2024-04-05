@@ -20,6 +20,7 @@ struct SettingOptions: View {
             
             HStack{
                 Text(titleOfOption)
+                    .kerning(-3)
                     .responsiveFrame(heightPercentage: 10)
                     
                 Spacer()
@@ -37,14 +38,14 @@ struct SettingOptions: View {
             
             HStack{
                 Text(subtitleOfOption)
-                    .tracking(-2.5)
+                    .kerning(-3)
                 Spacer()
                 PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2",buttonPressedAction: {
                     //TODO: add volume levels
                     if(regulator > 0){
                         regulator = regulator - 1;
                     }
-                }, textView: Text(""))
+                })
                 .responsiveFrame(widthPercentage: 5, aspectRatio: (1, 0.1))
                 
                 Text(String(regulator))
@@ -55,7 +56,7 @@ struct SettingOptions: View {
                     if(regulator < 10){
                         regulator = regulator + 1;
                     }
-                }, textView: Text(""))
+                })
                 .responsiveFrame(widthPercentage: 6, heightPercentage: 3)
             }
             .font(.custom("Silkscreen-Regular", size: 22))
