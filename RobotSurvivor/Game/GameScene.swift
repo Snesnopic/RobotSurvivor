@@ -125,10 +125,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         //setup of pools
         setUpSoundPoolForBullets()
-        
         setupBackgroundMusic(quantityOfMusic: 2)
         setupBulletPool(quantityOfBullets: 1)
-//        setupBulletSoundPool(quantityOfSounds: 1)
         setupShortSoundPool(name: "HIT", quantityOfSounds: 1)
         playTracks()
         
