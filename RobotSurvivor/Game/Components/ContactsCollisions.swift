@@ -76,6 +76,12 @@ extension GameScene{
         //TODO: Change val with enemy.xpvalue
         if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp) || (firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player)){
             gainXP(val: 3)
+            
+            //this is because when power up is shown, it would play the sound AFTER selecting the powerup. Therefore I decided to not play the sound if the powerup view is shown
+            if gameLogic.showPowerUp == false {
+                playExperienceSoundPickUp()
+            }
+            
             if(firstBody.categoryBitMask == CollisionType.xp){
                 xpToMagnetise.remove(firstBody.node!)
                 xpOnMap.remove(firstBody.node!)

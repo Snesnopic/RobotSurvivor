@@ -87,14 +87,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let textureNames = ["expOrb1", "expOrb2"]
     
     //sound, pools and haptic
-    var bulletSoundPool: [AVAudioPlayer] = []
+    //MARK: I wanted to implement the soundPool for those sounds that are not that common in the game, such as hit, so that we could have one large pool in which elements of interest get extracted, but i don't know if it's better in terms of usage resource. -Dave
+    
     var soundPool: [AVAudioPlayer] = []
     var bulletPool: [SKSpriteNode] = []
     var musicPool: [AVAudioPlayer] = []
-    var hapticEngine: CHHapticEngine?
     var bulletSoundNodes: [SKAudioNode] = []
-    let maxConcurrentSounds = 30 // Limit the number of concurrent sounds
-    var currentIndex = 0
+    var xpSoundNodes: [SKAudioNode] = []
+    var hapticEngine: CHHapticEngine?
+    
+    //index and concurrent sounds
+    let maxConcurrentSounds: Int = 30
+    var currentBulletIndex: Int = 0
+    var currentXpIndex: Int = 0
     
     //boss
     var isBossActive:Bool = false
@@ -124,6 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         //setup of pools
+        setUpSoundPoolForExperiencePickUp()
         setUpSoundPoolForBullets()
         setupBackgroundMusic(quantityOfMusic: 2)
         setupBulletPool(quantityOfBullets: 1)

@@ -39,7 +39,7 @@ extension GameScene{
         newXP.physicsBody?.contactTestBitMask = CollisionType.player
         xpOnMap.insert(newXP)
         
-        //this is done this way for 2 things: first, the animation would hurt the eyes of the user. Second, after testing, enemies would be hard to see if the "glowing" of the orbs would remain for too long on the screen
+        //this is done this way for 2 reasonss: first, the animation would hurt the eyes of the user. Second, after testing, enemies would be hard to see if the "glowing" of the orbs would remain for too long on the screen
         let animateAction = SKAction.animate(with: animationTextures, timePerFrame: 0.06)
         let staticDuration = 0.94
         let waitAction = SKAction.wait(forDuration: staticDuration)
@@ -49,5 +49,26 @@ extension GameScene{
         newXP.run(repeatAction)
         addChild(newXP)
         
+    }
+    
+    //this is to setup the sound pool for xp
+    func setUpSoundPoolForExperiencePickUp() {
+        if let soundURL = Bundle.main.url(forResource: "PICKUPXP", withExtension: "wav") {
+            for _ in 0..<maxConcurrentSounds {
+                let audioNode = SKAudioNode(url: soundURL)
+                audioNode.autoplayLooped = false
+                audioNode.name = "PICKUPXP"
+                addChild(audioNode)
+                xpSoundNodes.append(audioNode)
+            }
+        }
+    }
+    
+    //this plays the sound of xp
+    func playExperienceSoundPickUp() {
+        let audioNode = xpSoundNodes[currentXpIndex]
+        audioNode.run(SKAction.changeVolume(to: gameLogic.soundsSwitch ? (0.075/5) * Float(gameLogic.soundsVolume) : 0, duration: 0))
+        audioNode.run(SKAction.play())
+        currentXpIndex = (currentXpIndex + 1) % maxConcurrentSounds
     }
 }

@@ -65,10 +65,10 @@ extension GameScene{
     
     //this plays the sound
     func playBulletSound() {
-        let audioNode = bulletSoundNodes[currentIndex]
-        audioNode.run(SKAction.changeVolume(to: gameLogic.soundsSwitch ? (0.05/5) * Float(gameLogic.soundsVolume) : 0, duration: 0))
+        let audioNode = bulletSoundNodes[currentBulletIndex]
+        audioNode.run(SKAction.changeVolume(to: gameLogic.soundsSwitch ? (0.1/5) * Float(gameLogic.soundsVolume) : 0, duration: 0))
         audioNode.run(SKAction.play())
-        currentIndex = (currentIndex + 1) % maxConcurrentSounds
+        currentBulletIndex = (currentBulletIndex + 1) % maxConcurrentSounds
     }
     
     //for the same purpose of the sounds, the hitting sounds and others may be used with the same logic
