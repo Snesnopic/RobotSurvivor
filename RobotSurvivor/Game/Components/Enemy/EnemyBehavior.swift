@@ -84,21 +84,64 @@ extension GameScene {
         return newPosition
     }
     
-    func relocateEnemy(enemy: EnemyNode){
-        let relocatedEnemy = EnemyNode(type: enemy.type, startPosition: getRelocatePosition(enemy: enemy))
+    //everytime the player outruns the enemies, and reach the "out of bounds" they get relocated
+    func relocateEnemy(){
         
-        enemy.physicsBody?.affectedByGravity = false
-        relocatedEnemy.health = enemy.health
-        relocatedEnemy.movementSpeed = enemy.movementSpeed
-        relocatedEnemy.points = enemy.points
-        relocatedEnemy.damage = enemy.damage
+        readyToRecolate = false
+        for enemy in enemiesOnMap{
+            if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8){
+                
+                let relocatedEnemy = EnemyNode(type: enemy.type, startPosition: getRelocatePosition(enemy: enemy))
+                
+                enemy.physicsBody?.affectedByGravity = false
+                relocatedEnemy.health = enemy.health
+                relocatedEnemy.movementSpeed = enemy.movementSpeed
+                relocatedEnemy.points = enemy.points
+                relocatedEnemy.damage = enemy.damage
+                
+                relocatedEnemy.zPosition = 2
+                
+                enemiesOnMap.remove(enemy)
+                enemiesOnMap.insert(relocatedEnemy)
+                enemy.removeFromParent()
+                addChild(relocatedEnemy)
+            }
+        }
         
-        relocatedEnemy.zPosition = 2
+        let waitAction = SKAction.wait(forDuration: 3)
+        let enableReload = SKAction.run {
+            self.readyToRecolate = true
+        }
         
-        enemiesOnMap.remove(enemy)
-        enemiesOnMap.insert(relocatedEnemy)
-        enemy.removeFromParent()
-        addChild(relocatedEnemy)
+        let sequence = SKAction.sequence([waitAction, enableReload])
+        run(sequence)
+    }
+    
+    //icnrease difficulty of the game by spawning more enemies
+    func increaseSpawnRate() {
+        readyToIncreaseSpawnRate = false
+        self.spawnRate += 4
+        
+        let waitAction = SKAction.wait(forDuration: 25)
+        let enableSpawnRateIncreaseAction = SKAction.run {
+            self.readyToIncreaseSpawnRate = true
+        }
+        
+        let sequence = SKAction.sequence([waitAction, enableSpawnRateIncreaseAction])
+        run(sequence, withKey: "increaseSpawnRateAction")
+    }
+    
+    //same as above
+    func increaseEnemyPower() {
+        readyToIncreaseEnemyPower = false
+        multiplier = multiplier + 1
+        
+        let waitAction = SKAction.wait(forDuration: 55)
+        let enableIncreaseEnemyPowerAction = SKAction.run {
+            self.readyToIncreaseEnemyPower = true
+        }
+        let sequence = SKAction.sequence([waitAction, enableIncreaseEnemyPowerAction])
+        run(sequence, withKey: "increaseEnemyRatePower")
     }
     
     func createBoss() {

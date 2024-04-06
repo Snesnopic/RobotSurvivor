@@ -147,7 +147,14 @@ extension GameScene{
     //this should be explained by casillo
     func findClosestEnemy() -> EnemyNode? {
         let activeEnemies = children.compactMap { $0 as? EnemyNode }
-        return activeEnemies.min(by: { distanceBetween(node1: player, node2: $0) < distanceBetween(node1: player, node2: $1) })
+        return activeEnemies.min(by: {
+            distanceBetween(node1: player, node2: $0) < distanceBetween(node1: player, node2: $1)
+        })
+    }
+    
+    //find closest enemy
+    func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
+        return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
     }
     
     //this uses almost everything in this file

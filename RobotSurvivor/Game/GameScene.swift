@@ -175,16 +175,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         for xp in xpToMagnetise{
-            print("entering for")
             let distance = abs(CGFloat(hypotf(Float(xp.position.x - playerPosition.x), Float(xp.position.y - playerPosition.y))))
-            print("distance: assigned")
             let speed = 500.0
-            print("speed: assigned")
             let action =  SKAction.move(to: playerPosition, duration: distance/speed)
-            print("action: defined")
             
             xp.run(action)
-            print("Action should be ran")
         }
         
         for enemy in enemiesOnMap{
@@ -197,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if readyToRecolate {
-            relocateEnemies()
+            relocateEnemy()
         }
         
         if readyToIncreaseSpawnRate {
@@ -213,68 +208,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         backgroundMusicPlayer?.volume = gameLogic.musicSwitch ? (0.6/5)*Float(gameLogic.musicVolume) : 0
-    }
-    
-    //find closest enemy
-    func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
-        return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
-    }
-    
-    //everytime the player outruns the enemies, and reach the "out of bounds" they get relocated
-    func relocateEnemies() {
-        readyToRecolate = false
-        for enemy in enemiesOnMap{
-            if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8){
-                relocateEnemy(enemy: enemy)
-            }
-        }
-        let waitAction = SKAction.wait(forDuration: 3)
-        let enableReload = SKAction.run {
-            self.readyToRecolate = true
-        }
-        
-        let sequence = SKAction.sequence([waitAction, enableReload])
-        run(sequence)
-        
-    }
-    
-    //icnrease difficulty of the game by spawning more enemies
-    func increaseSpawnRate() {
-        readyToIncreaseSpawnRate = false
-        self.spawnRate += 4
-        
-        let waitAction = SKAction.wait(forDuration: 25)
-        let enableSpawnRateIncreaseAction = SKAction.run {
-            self.readyToIncreaseSpawnRate = true
-        }
-        
-        let sequence = SKAction.sequence([waitAction, enableSpawnRateIncreaseAction])
-        run(sequence, withKey: "increaseSpawnRateAction")
-    }
-    
-    //same as above
-    func increaseEnemyPower() {
-        readyToIncreaseEnemyPower = false
-        multiplier = multiplier + 1
-        
-        let waitAction = SKAction.wait(forDuration: 55)
-        let enableIncreaseEnemyPowerAction = SKAction.run {
-            self.readyToIncreaseEnemyPower = true
-        }
-        let sequence = SKAction.sequence([waitAction, enableIncreaseEnemyPowerAction])
-        run(sequence, withKey: "increaseEnemyRatePower")
-    }
-    
-    //pickup for xp
-    func spawnMagnetPickUp() {
-        readyToSpawnPickUp = false
-        spawnPickUp()
-        
-        let waitAction = SKAction.wait(forDuration: 45)
-        let enableSpawnMagnetPickUpAction = SKAction.run {
-            self.readyToSpawnPickUp = true
-        }
-        let sequence = SKAction.sequence([waitAction, enableSpawnMagnetPickUpAction])
-        run(sequence, withKey: "increaseSpawnMagnetPickUp")
     }
 }
