@@ -193,7 +193,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if readyToShoot && isPlayerAlive {
-            readyToShoot = false
             shoot()
         }
         

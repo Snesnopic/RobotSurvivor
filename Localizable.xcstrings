@@ -228,18 +228,12 @@
         }
       }
     },
-    "Game" : {
+    "Game\nOver!" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Game"
-          }
-        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Partita"
+            "value" : "Hai\nPerso!"
           }
         }
       }
@@ -318,22 +312,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "continua"
-          }
-        }
-      }
-    },
-    "Over" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Over"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminata"
           }
         }
       }

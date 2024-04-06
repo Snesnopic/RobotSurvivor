@@ -88,25 +88,6 @@ extension GameScene{
         }
     }
     
-    func playShortSound(name: String) {
-
-        guard let soundPlayer = soundPool.first else { return }
-        soundPlayer.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
-        soundPool.removeFirst()
-        soundPlayer.play()
-        soundPool.append(soundPlayer)
-        
-        //whenever the sound gets played, the user feels the impact with the haptic
-        if let playerGettingHitHaptic = createHitHapticPattern() {
-            do {
-                let player = try hapticEngine?.makePlayer(with: playerGettingHitHaptic)
-                try player?.start(atTime: 0)
-            } catch {
-                print("Ascanio: \(error.localizedDescription)")
-            }
-        }
-    }
-    
     //this plays the getting hit sound
     func playGettingHitSound(name: String) {
 
@@ -122,7 +103,7 @@ extension GameScene{
                 let player = try hapticEngine?.makePlayer(with: playerGettingHitHaptic)
                 try player?.start(atTime: 0)
             } catch {
-                print("Ascanio: \(error.localizedDescription)")
+                print("Ascanio: hit")
             }
         }
     }
@@ -159,11 +140,12 @@ extension GameScene{
     
     //this uses almost everything in this file
     func shoot() {
+        readyToShoot = false
         var usedBullets: [SKSpriteNode] = []
         guard !isGameOver else { return }
         
         if let shot = getBulletFromPool() {
-            print("colpi nel vettore: \(bulletPool.count)")
+
             usedBullets.append(shot)
             shot.position = player.position
             addChild(shot)
@@ -180,7 +162,6 @@ extension GameScene{
                 shot.run(sequence) { [self] in
                     if usedBullets.last == shot {
                         returnBulletToPool(usedBullets)
-                        print("colpi aggiornati vettore: \(bulletPool.count)")
                     }
                 }
             }

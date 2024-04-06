@@ -18,9 +18,7 @@ struct MainMenuView: View {
     class AudioPlayer {
         static var shared: AVAudioPlayer = AVAudioPlayer()
     }
-    
-    var audioPlayer: AudioPlayer = AudioPlayer()
-    
+        
     var body: some View {
         ZStack{
             Color.deadBlue.ignoresSafeArea()

@@ -39,9 +39,11 @@ struct GameView: View {
     @Binding var currentGameState: GameState
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
     @State var sceneWrapper = SceneWrapper()
+    @State private var fadeTheView: Bool = false
     
     var body: some View {
         ZStack {
+            
             SpriteView(scene: self.sceneWrapper.scene)
                 .onChange(of: gameLogic.showPowerUp, perform: { value in
                     if(gameLogic.showPowerUp == false){
@@ -109,6 +111,7 @@ struct GameView: View {
                     }
                 })
             
+            
             ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP, currentLevel: $gameLogic.playerLevel)
             
             ScoreView(score: $gameLogic.currentScore, time: $gameLogic.time)
@@ -124,18 +127,28 @@ struct GameView: View {
             if(gameLogic.showTutorial){
                 TutorialView(gameLogic: gameLogic ,currentGameState: $currentGameState, sceneWrap: $sceneWrapper)
             }
-            
-            
-            
-        }.onChange(of: gameLogic.isGameOver,perform: {
+        }
+        .onChange(of: sceneWrapper.scene.isPlayerAlive, perform: {
             value in
+            withAnimation(.linear(duration: 1).delay(1.55)) {
+                self.fadeTheView = true
+            }
+        })
+        
+        .onChange(of: gameLogic.isGameOver,perform: {
+            value in
+            
             if gameLogic.isGameOver {
+                
                 self.presentGameOverScreen()
+                
             }
         })
         .onAppear{
             self.gameLogic.restartGame()
         }
+        .opacity(fadeTheView ? 0 : 1)
+        .background(.black)
     }
     
     private func presentGameOverScreen() {

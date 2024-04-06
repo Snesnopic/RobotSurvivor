@@ -24,6 +24,7 @@
 		23A5F3912B21D42D0008FFB2 /* SceneSetUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */; };
 		23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */; };
 		3E0CD6252BC14D4000B7F36D /* PICKUPXP.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E0CD6242BC14D4000B7F36D /* PICKUPXP.wav */; };
+		3E0CD6292BC181B900B7F36D /* GAMEOVER.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E0CD6282BC181B900B7F36D /* GAMEOVER.wav */; };
 		3E47CAC52B76643600837773 /* TutorialMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47CAC42B76643600837773 /* TutorialMenu.swift */; };
 		3E5C618E2BAB96E7003B7A6A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */; };
 		3EA795B82BB332A200DD0BC0 /* ResponsiveFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA795B72BB332A200DD0BC0 /* ResponsiveFrame.swift */; };
@@ -82,6 +83,7 @@
 		23A5F3902B21D42D0008FFB2 /* SceneSetUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneSetUp.swift; sourceTree = "<group>"; };
 		23A5F3942B21D4E90008FFB2 /* EnemyBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBehavior.swift; sourceTree = "<group>"; };
 		3E0CD6242BC14D4000B7F36D /* PICKUPXP.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PICKUPXP.wav; sourceTree = "<group>"; };
+		3E0CD6282BC181B900B7F36D /* GAMEOVER.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = GAMEOVER.wav; sourceTree = "<group>"; };
 		3E47CAC42B76643600837773 /* TutorialMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialMenu.swift; sourceTree = "<group>"; };
 		3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		3EA795B72BB332A200DD0BC0 /* ResponsiveFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponsiveFrame.swift; path = RobotSurvivor/SupportingFiles/ResponsiveFrame.swift; sourceTree = SOURCE_ROOT; };
@@ -296,6 +298,7 @@
 				934BBFE62B29D06000B8D541 /* HIT.mp3 */,
 				934BBFE42B29CFEE00B8D541 /* DEATH.mp3 */,
 				934BBFE22B29CFE200B8D541 /* LEVELUP.mp3 */,
+				3E0CD6282BC181B900B7F36D /* GAMEOVER.wav */,
 				232CC4452B2DE3CC00834B76 /* game1.mp3 */,
 				9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */,
 				9D77C9532B2A022D00781A25 /* game3.mp3 */,
@@ -367,6 +370,7 @@
 				232CC4462B2DE3CC00834B76 /* game1.mp3 in Resources */,
 				9D77C9552B2A022D00781A25 /* game3.mp3 in Resources */,
 				9D77C9542B2A022D00781A25 /* game2.mp3 in Resources */,
+				3E0CD6292BC181B900B7F36D /* GAMEOVER.wav in Resources */,
 				EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */,
 				934BBFE92B2C5BF400B8D541 /* BULLETS.mp3 in Resources */,
 				3E5C618E2BAB96E7003B7A6A /* Localizable.xcstrings in Resources */,

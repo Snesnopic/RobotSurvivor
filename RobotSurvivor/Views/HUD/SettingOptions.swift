@@ -46,7 +46,7 @@ struct SettingOptions: View {
                         regulator = regulator - 1;
                     }
                 })
-                .responsiveFrame(widthPercentage: 5, aspectRatio: (1, 0.1))
+                .responsiveFrame(widthPercentage: 5, aspectRatio: (1, 0.5))
                 
                 Text(String(regulator))
                     .offset(x: 1.5)
