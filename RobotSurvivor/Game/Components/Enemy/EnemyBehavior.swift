@@ -21,7 +21,7 @@ extension GameScene {
         if Int(gameLogic.time + 1) % 120 == 0 && !isBossActive {
             print("I should spawn the boss!")
             isBossActive = true
-            createBoss()
+            createBoss(powerFactor: multiplier)
         }
     }
     func bossLogic() {
@@ -61,7 +61,7 @@ extension GameScene {
         let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: getPositionNearPlayer())
         enemy.physicsBody?.affectedByGravity = false
         enemy.health = Int(Double(enemy.health) * powerFactor)
-        enemy.movementSpeed = enemy.movementSpeed + (powerFactor * 3)
+        enemy.movementSpeed = enemy.movementSpeed + (powerFactor * 8)
         enemy.points = Int(Double(enemy.points) * powerFactor)
         enemy.damage = enemy.damage * powerFactor
         
@@ -144,12 +144,19 @@ extension GameScene {
         run(sequence, withKey: "increaseEnemyRatePower")
     }
     
-    func createBoss() {
+    func createBoss(powerFactor: Double) {
+                
         let bossEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
             return enemy.name == "CentipedeHead"
         })!
-        
         let enemyBoss = EnemyBossNode(type: bossEnemyType , startPosition: getPositionNearPlayer(), parts: 10)
+
+        enemyBoss.physicsBody?.affectedByGravity = false
+        enemyBoss.health = Int(Double(enemyBoss.health) * powerFactor)
+        enemyBoss.movementSpeed = enemyBoss.movementSpeed + (powerFactor * 8)
+        enemyBoss.points = Int(Double(enemyBoss.points) * powerFactor)
+        enemyBoss.damage = enemyBoss.damage * powerFactor
+        
         activeBoss = enemyBoss
         enemyBoss.zPosition = 2
         addChild(enemyBoss)
