@@ -22,14 +22,13 @@ class Joystick: SKScene {
         self.playerNode = player
         super.init(size: CGSize(width: 100, height: 100))
         self.backgroundColor = UIColor.clear
-        // Create the base of the joystick
-        //        let circlePath = UIBezierPath(ovalIn: CGRect(x: -50, y: -50, width: 100, height: 100))
-        joystickBase = SKShapeNode(circleOfRadius: 50)
+        // Create the base of the joystick, the contour of the joystick
+        joystickBase = SKShapeNode(circleOfRadius: 40)
         joystickBase.fillColor = UIColor.white.withAlphaComponent(0.2)
         addChild(joystickBase)
         joystickBase.position = CGPoint(x: 50, y: 50)
-        // Create the knob of the joystick
-        joystickKnob = SKShapeNode(circleOfRadius: 23)
+        // Create the knob of the joystick, the little circle inside
+        joystickKnob = SKShapeNode(circleOfRadius: 18)
         joystickKnob.fillColor = UIColor.white
         joystickKnob.position = joystickBase.position // Initially centered on the base
         addChild(joystickKnob)

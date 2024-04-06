@@ -152,9 +152,9 @@ extension GameScene {
         let enemyBoss = EnemyBossNode(type: bossEnemyType , startPosition: getPositionNearPlayer(), parts: 10)
 
         enemyBoss.physicsBody?.affectedByGravity = false
-        enemyBoss.health = Int(Double(enemyBoss.health) * powerFactor)
-        enemyBoss.movementSpeed = enemyBoss.movementSpeed + (powerFactor * 8)
-        enemyBoss.points = Int(Double(enemyBoss.points) * powerFactor)
+        enemyBoss.health = Int(Double(enemyBoss.health) * (powerFactor * powerFactor * powerFactor))
+        enemyBoss.movementSpeed = enemyBoss.movementSpeed + (powerFactor * powerFactor)
+        enemyBoss.points = Int(Double(enemyBoss.points) * powerFactor * powerFactor)
         enemyBoss.damage = enemyBoss.damage * powerFactor
         
         activeBoss = enemyBoss
