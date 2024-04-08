@@ -23,7 +23,7 @@ extension GameScene{
     
     public func generateXp(at position: CGPoint){
         
-        let newXP = SKSpriteNode(imageNamed: "expOrb2")
+        let newXP = SKSpriteNode(imageNamed: "expOrb")
         newXP.texture?.filteringMode = .nearest
         newXP.size = CGSize(width: 8, height: 8)
         newXP.name = "xp"
@@ -39,9 +39,9 @@ extension GameScene{
         newXP.physicsBody?.contactTestBitMask = CollisionType.player
         xpOnMap.insert(newXP)
         
-        //this is done this way for 2 reasonss: first, the animation would hurt the eyes of the user. Second, after testing, enemies would be hard to see if the "glowing" of the orbs would remain for too long on the screen
-        let animateAction = SKAction.animate(with: animationTextures, timePerFrame: 0.06)
-        let staticDuration = 0.94
+        
+        let animateAction = SKAction.animate(with: animationTextures, timePerFrame: 0.3)
+        let staticDuration = 0.2
         let waitAction = SKAction.wait(forDuration: staticDuration)
         let sequenceAction = SKAction.sequence([waitAction, animateAction])
         let repeatAction = SKAction.repeatForever(sequenceAction)

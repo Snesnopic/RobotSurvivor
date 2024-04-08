@@ -84,7 +84,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var shootAnimation = SKAction()
             
     var animationTextures = [SKTexture]()
-    let textureNames = ["expOrb1", "expOrb2"]
+    let orbTextureNames = ["expOrb", "expOrb2"]
     
     //sound, pools and haptic
     //MARK: I wanted to implement the soundPool for those sounds that are not that common in the game, such as hit, so that we could have one large pool in which elements of interest get extracted, but i don't know if it's better in terms of usage resource. -Dave
