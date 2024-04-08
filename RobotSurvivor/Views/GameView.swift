@@ -130,7 +130,7 @@ struct GameView: View {
         }
         .onChange(of: sceneWrapper.scene.isPlayerAlive, perform: {
             value in
-            withAnimation(.linear(duration: 1).delay(1.55)) {
+            withAnimation(.linear(duration: 0.95).delay(1.55)) {
                 self.fadeTheView = true
             }
         })
