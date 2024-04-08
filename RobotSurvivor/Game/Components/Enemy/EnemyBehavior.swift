@@ -149,14 +149,19 @@ extension GameScene {
         let bossEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
             return enemy.name == "CentipedeHead"
         })!
-        let enemyBoss = EnemyBossNode(type: bossEnemyType , startPosition: getPositionNearPlayer(), parts: 10)
+        let enemyBoss = EnemyBossNode(type: bossEnemyType , startPosition: getPositionNearPlayer(), parts: Int(powerFactor))
 
         enemyBoss.physicsBody?.affectedByGravity = false
         enemyBoss.health = Int(Double(enemyBoss.health) * (powerFactor * powerFactor * powerFactor))
         enemyBoss.movementSpeed = enemyBoss.movementSpeed + (powerFactor * powerFactor)
         enemyBoss.points = Int(Double(enemyBoss.points) * powerFactor * powerFactor)
         enemyBoss.damage = enemyBoss.damage * powerFactor
-        
+        enemyBoss.bodyParts.forEach { EnemyBodyBossNode in
+                    EnemyBodyBossNode.health = Int(Double(enemyBoss.health) * (powerFactor * powerFactor))
+                    EnemyBodyBossNode.movementSpeed = enemyBoss.movementSpeed + (powerFactor * powerFactor) + powerFactor
+                    EnemyBodyBossNode.points = Int(Double(enemyBoss.points) * powerFactor * powerFactor)
+                    EnemyBodyBossNode.damage = enemyBoss.damage * (powerFactor / 2)
+                }
         activeBoss = enemyBoss
         enemyBoss.zPosition = 2
         addChild(enemyBoss)
