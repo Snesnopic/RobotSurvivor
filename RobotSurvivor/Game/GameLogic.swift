@@ -20,7 +20,7 @@ class GameLogic: ObservableObject {
         self.playerLevel = 1
         self.isGameOver = false
     }
-    @AppStorage ("showTutorial") var showTutorial: Bool = true
+    @AppStorage("showTutorial") var showTutorial: Bool = true
     //general
     @Published var time: TimeInterval = 0
     @Published var currentScore: Int = 0
@@ -33,10 +33,10 @@ class GameLogic: ObservableObject {
     @Published var showPowerUp: Bool = false
     @Published var playerLevel = 1
     //settings
-    @AppStorage ("musicVolume") var musicVolume: Int = 5
-    @AppStorage ("soundsVolume") var soundsVolume: Int = 5
-    @AppStorage ("musicSwitch") var musicSwitch: Bool = true
-    @AppStorage ("soundsSwitch") var soundsSwitch: Bool = true
+    @AppStorage("musicVolume") var musicVolume: Int = 5
+    @AppStorage("soundsVolume") var soundsVolume: Int = 5
+    @AppStorage("musicSwitch") var musicSwitch: Bool = true
+    @AppStorage("soundsSwitch") var soundsSwitch: Bool = true
     @Published var showPauseMenu: Bool = false
     
     func increaseScore(points: Int){
