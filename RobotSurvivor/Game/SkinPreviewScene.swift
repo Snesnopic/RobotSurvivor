@@ -23,8 +23,8 @@ class SkinPreviewScene: SKScene {
     
     override func didMove(to view: SKView) {
         print("You are previewing \(skin)!")
-        let player:SKSpriteNode = SKSpriteNode(imageNamed: "\(skin)/Idle/1")
-        let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(skin)/Idle")
+        let player:SKSpriteNode = SKSpriteNode(imageNamed: "AntiTank/Idle/1")
+        let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "AntiTank/Idle")
         var playerIdleTextures: [SKTexture] = []
         var playerIdleAnimation:SKAction = SKAction()
         
