@@ -23,9 +23,15 @@ class EnemyNode: SKSpriteNode {
         self.health = type.health
         self.damage = type.damage
         self.movementSpeed = type.speed
-        let texture = SKTexture(imageNamed: "\(type.name)/Walk/1")
-        
-        super.init(texture: texture, color: .white, size: CGSize(width: 20, height: 20))
+        let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk")
+        var enemyIdleTextures: [SKTexture] = []
+        enemyAtlas.textureNames.sorted().forEach { string in
+            let texture = enemyAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            enemyIdleTextures.append(texture)
+        }
+        let texture = enemyIdleTextures.first
+        super.init(texture: texture, color: .white, size: texture?.size() ?? CGSize(width: 20, height: 20))
 
         name = "enemy" + type.name
         configurePhysics()
@@ -56,7 +62,7 @@ class EnemyNode: SKSpriteNode {
             enemyIdleTextures.append(texture)
         }
 
-        let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.3)
+        let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.1)
         run(SKAction.repeatForever(idleAnimation), withKey: "playerIdleAnimation")
     }
     
