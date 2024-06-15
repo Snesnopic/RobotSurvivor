@@ -9,21 +9,21 @@ import SwiftUI
 import AVFAudio
 
 struct GameOverView: View {
-    
+
     @Binding var currentGameState: GameState
-    @Binding var score:Int
+    @Binding var score: Int
     @State var opacity: Double = 0
     @StateObject var gameLogic: GameLogic = GameLogic.shared
-    
+
     class AudioPlayer {
         static var shared: AVAudioPlayer = AVAudioPlayer()
     }
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             Color.darkGreen
                 .ignoresSafeArea()
-            VStack{
+            VStack {
                 Text("Game\nOver!")
                     .font(.custom("Silkscreen-Bold", size: 75))
                     .padding(.bottom, 100)
@@ -31,33 +31,31 @@ struct GameOverView: View {
                 Text("Score: \(score)")
                     .font(.custom("Silkscreen-Bold", size: 30))
                     .padding(.bottom)
-                PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
+                PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
                     withAnimation {
                         restartGame()
                     }
                 }, textView: Text("Restart") .font(.custom("Silkscreen-Regular", size: 35)), textColor: .white)
-                .frame(width: 228, height:96)
+                .frame(width: 228, height: 96)
                 .padding(.top, 100)
                 .shadow(radius: 15)
-                
+
                 PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
-                    //TODO: add navigation to settings
-                    withAnimation{ backToMainScreen()}
+                    withAnimation { backToMainScreen()}
                 }, textView: Text("Menu").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
-                .frame(width: 224, height:64)
-                
+                .frame(width: 224, height: 64)
+
             }
             .padding(.top, 50)
             .foregroundStyle(.green)
-            
-            
+
         }
         .opacity(opacity)
         .onAppear(perform: {
-            withAnimation(.linear(duration: 1.3)){
+            withAnimation(.linear(duration: 1.3)) {
                 opacity = 1
             }
-            
+
             if currentGameState == .gameOver {
                 do {
                     let path = Bundle.main.url(forResource: "GAMEOVER", withExtension: "wav")
@@ -65,8 +63,7 @@ struct GameOverView: View {
                     MainMenuView.AudioPlayer.shared.numberOfLoops = 0
                     MainMenuView.AudioPlayer.shared.volume = gameLogic.soundsSwitch ? (0.2/5) * Float(gameLogic.soundsVolume) : 0
                     MainMenuView.AudioPlayer.shared.play()
-                }
-                catch {
+                } catch {
                     print("Ascanio game over")
                 }
             }
@@ -77,17 +74,17 @@ struct GameOverView: View {
         })
         .background(.black)
     }
-    
+
     private func backToMainScreen() {
         print("backtoMain")
         self.currentGameState = .mainScreen
-        
+
     }
-    
+
     private func restartGame() {
         print("restart")
         self.currentGameState = .playing
-        
+
     }
 }
 

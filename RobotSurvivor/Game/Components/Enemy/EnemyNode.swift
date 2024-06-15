@@ -8,15 +8,15 @@
 import Foundation
 import SpriteKit
 
-//ho riordinato un po' il codice
+// ho riordinato un po' il codice
 class EnemyNode: SKSpriteNode {
-    
+
     var type: EnemyType
     var isMovementSlow: Bool = true
-    var points:Int
-    var health:Int
-    var damage:Double
-    var movementSpeed:Double
+    var points: Int
+    var health: Int
+    var damage: Double
+    var movementSpeed: Double
     init(type: EnemyType, startPosition: CGPoint) {
         self.type = type
         self.points = type.points
@@ -39,10 +39,8 @@ class EnemyNode: SKSpriteNode {
         position = startPosition
 
     }
-    
-  
-    
-    //per parametri di fisica e collisioni
+
+    // per parametri di fisica e collisioni
     func configurePhysics() {
         physicsBody = SKPhysicsBody(polygonFrom: CGPath(ellipseIn: CGRect(x: position.x - 10, y: position.y - 10, width: 20, height: 20), transform: nil))
         physicsBody?.categoryBitMask = CollisionType.enemy
@@ -51,8 +49,8 @@ class EnemyNode: SKSpriteNode {
         physicsBody?.isDynamic = true
         physicsBody?.allowsRotation = false
     }
-    
-    //per animazione
+
+    // per animazione
     func configureIdleAnimation() {
         let enemyAtlas = SKTextureAtlas(named: "\(type.name)/Walk")
         var enemyIdleTextures: [SKTexture] = []
@@ -65,8 +63,8 @@ class EnemyNode: SKSpriteNode {
         let idleAnimation = SKAction.animate(with: enemyIdleTextures, timePerFrame: 0.1)
         run(SKAction.repeatForever(idleAnimation), withKey: "playerIdleAnimation")
     }
-    
-    //indovina?
+
+    // indovina?
     func die() {
         let textureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
         var textures: [SKTexture] = []
@@ -89,8 +87,8 @@ class EnemyNode: SKSpriteNode {
         corpse.run(actionSequence)
         removeFromParent()
     }
-    
-    //movimento
+
+    // movimento
     func configureMovement(_ player: SKSpriteNode) {
         let scaleFactor: CGFloat = (position.x < player.position.x) ? 1 : -1
         if xScale != scaleFactor {
@@ -101,8 +99,8 @@ class EnemyNode: SKSpriteNode {
         let action = SKAction.move(to: player.position, duration: distance / self.movementSpeed * (isMovementSlow ? 1.5 : 1))
         run(action)
     }
-    
-    //movimenti
+
+    // movimenti
     func slowDownMovement() {
         removeAllActions()
         isMovementSlow = true

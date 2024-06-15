@@ -10,156 +10,144 @@ import SpriteKit
 
 struct GameViewUI: UIViewRepresentable {
     func makeUIView(context: Context) -> SKView {
-        
+
         var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
         var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
-        
+
         let view = SKView()
         let scene = GameScene()
         scene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.scaleMode = .fill
         view.presentScene(scene)
-        
+
         // Enable FPS and physics debugging
         view.showsFPS = true
         view.showsPhysics = true
-        
+
         return view
     }
-    
+
     func updateUIView(_ uiView: SKView, context: Context) {
     }
-    
+
     typealias UIViewType = SKView
 }
 
-
 struct GameView: View {
-    
+
     @Binding var currentGameState: GameState
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
     @State var sceneWrapper = SceneWrapper.shared
     @State private var fadeTheView: Bool = false
-    
+
     var body: some View {
         ZStack {
-            
+
             SpriteView(scene: self.sceneWrapper.scene)
-                .onChange(of: gameLogic.showPowerUp, perform: { value in
-                    if(gameLogic.showPowerUp == false){
+                .onChange(of: gameLogic.showPowerUp, perform: { _ in
+                    if gameLogic.showPowerUp == false {
                         sceneWrapper.scene.isPaused = false
                     }
                 })
-                .onChange(of: gameLogic.showPauseMenu,perform: {
-                    value in
-                    if(gameLogic.showPauseMenu == false){
+                .onChange(of: gameLogic.showPauseMenu, perform: { _ in
+                    if gameLogic.showPauseMenu == false {
                         sceneWrapper.scene.isPaused = false
                     }
                 })
-            
-                .onChange(of: gameLogic.showTutorial,perform: {
-                    value in
-                    if(gameLogic.showTutorial == false){
+
+                .onChange(of: gameLogic.showTutorial, perform: { _ in
+                    if gameLogic.showTutorial == false {
                         sceneWrapper.scene.isPaused = false
                     }
                 })
                 .ignoresSafeArea()
-            
-            SpriteView(scene: sceneWrapper.joystickScene,options: [.allowsTransparency])
-                .onChange(of: gameLogic.showPowerUp,perform: {
-                    value in
-                    if(gameLogic.showPowerUp == false){
+
+            SpriteView(scene: sceneWrapper.joystickScene, options: [.allowsTransparency])
+                .onChange(of: gameLogic.showPowerUp, perform: { _ in
+                    if gameLogic.showPowerUp == false {
                         sceneWrapper.joystickScene.isPaused = false
-                    }else{
+                    } else {
                         sceneWrapper.joystickScene.isPaused = true
                     }
-                    
-                    if(gameLogic.showPowerUp == true){
+
+                    if gameLogic.showPowerUp == true {
                         sceneWrapper.joystickScene.hideJoystick()
-                    }else{
+                    } else {
                         sceneWrapper.joystickScene.showJoystick()
                     }
                 })
-                .onChange(of: gameLogic.showPauseMenu, perform: {
-                    value in
-                    if(gameLogic.showPauseMenu == false){
+                .onChange(of: gameLogic.showPauseMenu, perform: { _ in
+                    if gameLogic.showPauseMenu == false {
                         sceneWrapper.joystickScene.isPaused = false
-                    }else{
+                    } else {
                         sceneWrapper.joystickScene.isPaused = true
                     }
-                    
-                    if(gameLogic.showPauseMenu == true){
+
+                    if gameLogic.showPauseMenu == true {
                         sceneWrapper.joystickScene.hideJoystick()
-                    }else{
+                    } else {
                         sceneWrapper.joystickScene.showJoystick()
                     }
                 })
                 .ignoresSafeArea()
-            
-                .onChange(of: gameLogic.showTutorial, perform: {
-                    value in
-                    if(gameLogic.showTutorial == true){
+
+                .onChange(of: gameLogic.showTutorial, perform: { _ in
+                    if gameLogic.showTutorial == true {
                         sceneWrapper.joystickScene.isPaused = true
-                    }else{
+                    } else {
                         sceneWrapper.joystickScene.isPaused = false
                     }
-                    
-                    if(gameLogic.showTutorial == false){
+
+                    if gameLogic.showTutorial == false {
                         sceneWrapper.joystickScene.showJoystick()
-                    }else{
+                    } else {
                         sceneWrapper.joystickScene.hideJoystick()
                     }
                 })
-            
-            
-            ExpView(experienceNeeded: $gameLogic.xpToNextLvl ,currentXP: $gameLogic.currentXP, currentLevel: $gameLogic.playerLevel)
-            
+
+            ExpView(experienceNeeded: $gameLogic.xpToNextLvl, currentXP: $gameLogic.currentXP, currentLevel: $gameLogic.playerLevel)
+
             ScoreView(score: $gameLogic.currentScore, time: $gameLogic.time)
                 .padding(.vertical)
-            
-            if(gameLogic.showPowerUp){
+
+            if gameLogic.showPowerUp {
                 PowerUpView(sceneWrap: $sceneWrapper)
             }
-            if(gameLogic.showPauseMenu){
-                PauseMenuView(gameLogic: gameLogic ,currentGameState: $currentGameState, sceneWrap: $sceneWrapper);
+            if gameLogic.showPauseMenu {
+                PauseMenuView(gameLogic: gameLogic, currentGameState: $currentGameState, sceneWrap: $sceneWrapper)
             }
-            
-            if(gameLogic.showTutorial){
-                TutorialView(gameLogic: gameLogic ,currentGameState: $currentGameState, sceneWrap: $sceneWrapper)
+
+            if gameLogic.showTutorial {
+                TutorialView(gameLogic: gameLogic, currentGameState: $currentGameState, sceneWrap: $sceneWrapper)
             }
         }
-        .onChange(of: sceneWrapper.scene.isPlayerAlive, perform: {
-            value in
+        .onChange(of: sceneWrapper.scene.isPlayerAlive, perform: { _ in
             withAnimation(.linear(duration: 0.95).delay(1.55)) {
                 self.fadeTheView = true
             }
         })
-        
-        .onChange(of: gameLogic.isGameOver,perform: {
-            value in
-            
+
+        .onChange(of: gameLogic.isGameOver, perform: { _ in
+
             if gameLogic.isGameOver {
-                
+
                 self.presentGameOverScreen()
-                
+
             }
         })
-        .onAppear{
+        .onAppear {
             self.gameLogic.restartGame()
         }
         .opacity(fadeTheView ? 0 : 1)
         .background(.black)
     }
-    
+
     private func presentGameOverScreen() {
         self.currentGameState = .gameOver
     }
-    
+
 }
 
 #Preview {
     GameView(currentGameState: .constant(GameState.playing))
 }
-
-
-

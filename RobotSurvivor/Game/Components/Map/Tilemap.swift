@@ -8,28 +8,28 @@
 import Foundation
 import SpriteKit
 
-extension GameScene{
-    
+extension GameScene {
+
     func addTile(at position: CGPoint) {
         var tileImageName: String
         let tileType = Int.random(in: 1...100)
-        
+
         tileImageName = (tileType <= 70) ? "Moon1" : ((tileType > 70 && tileType < 90) ? "Moon2" : "Moon3")
-        
+
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.name = "tile"
         tile.position = position
         tile.zPosition = -1
         tile.texture?.filteringMode = .nearest
-        
+
         tilePositions.insert(position)
         addChild(tile)
-        
+
     }
     func newCenterTile() {
         let baseX = Int(player.position.x / tileSize.width)
         let baseY = Int(player.position.y / tileSize.height)
-        
+
         centerTile.x = CGFloat(baseX * Int(tileSize.width))
         centerTile.y = CGFloat(baseY * Int(tileSize.height))
     }
@@ -47,23 +47,22 @@ extension GameScene{
             }
         }
         for node in self.children.compactMap({ $0 as? SKSpriteNode }) {
-            if(node.name == "tile"){
-                if(node.position.x < centerTile.x - maxPixelDistance || node.position.x > centerTile.x + maxPixelDistance)
-                {
+            if node.name == "tile" {
+                if node.position.x < centerTile.x - maxPixelDistance || node.position.x > centerTile.x + maxPixelDistance {
                     tilePositions.remove(node.position)
                     node.removeFromParent()
-                }else if(node.position.y < centerTile.y - maxPixelDistance || node.position.y > centerTile.y +
-                         maxPixelDistance){
-                    tilePositions.remove(node.position)
+                } else if node.position.y < centerTile.y - maxPixelDistance || node.position.y > centerTile.y +
+                         maxPixelDistance {
+                     tilePositions.remove(node.position)
                     node.removeFromParent()
                 }
             }
         }
-        
+
     }
-    
+
     func isTilePresent(at position: CGPoint) -> Bool {
         return tilePositions.contains(position)
     }
-    
+
 }

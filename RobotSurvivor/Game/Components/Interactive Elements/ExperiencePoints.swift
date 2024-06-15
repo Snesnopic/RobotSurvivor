@@ -8,50 +8,49 @@
 import Foundation
 import SpriteKit
 
-extension GameScene{
-    public func gainXP(val: Int){
+extension GameScene {
+    public func gainXP(val: Int ) {
         let xpToLevel = player.xpToNextLevel - player.xp
         let value = xpToLevel - val
-        if(value <= 0){
+        if value <=   0 {
             levelUp()
             gainXP(val: -value)
-        }else{
-            player.xp += val;
+        } else {
+            player.xp += val
             gameLogic.currentXP = player.xp
         }
     }
-    
-    public func generateXp(at position: CGPoint){
-        
+
+    public func generateXp(at position: CGPoint ) {
+
         let newXP = SKSpriteNode(imageNamed: "expOrb")
         newXP.texture?.filteringMode = .nearest
         newXP.size = CGSize(width: 8, height: 8)
         newXP.name = "xp"
         newXP.position = position
-        newXP.zPosition = 0;
-        
+        newXP.zPosition = 0
+
         newXP.physicsBody = SKPhysicsBody(circleOfRadius: 6)
         newXP.physicsBody?.affectedByGravity = false
-        
-        //don't insert collisionBitMask for enemies
+
+        // don't insert collisionBitMask for enemies
         newXP.physicsBody?.categoryBitMask = CollisionType.xp
         newXP.physicsBody?.collisionBitMask = CollisionType.none
         newXP.physicsBody?.contactTestBitMask = CollisionType.player
         xpOnMap.insert(newXP)
-        
-        
+
         let animateAction = SKAction.animate(with: animationTextures, timePerFrame: 0.3)
         let staticDuration = 0.2
         let waitAction = SKAction.wait(forDuration: staticDuration)
         let sequenceAction = SKAction.sequence([waitAction, animateAction])
         let repeatAction = SKAction.repeatForever(sequenceAction)
-        
+
         newXP.run(repeatAction)
         addChild(newXP)
-        
+
     }
-    
-    //this is to setup the sound pool for xp
+
+    // this is to setup the sound pool for xp
     func setUpSoundPoolForExperiencePickUp() {
         if let soundURL = Bundle.main.url(forResource: "PICKUPXP", withExtension: "wav") {
             for _ in 0..<maxConcurrentSounds {
@@ -63,8 +62,8 @@ extension GameScene{
             }
         }
     }
-    
-    //this plays the sound of xp
+
+    // this plays the sound of xp
     func playExperienceSoundPickUp() {
         let audioNode = xpSoundNodes[currentXpIndex]
         audioNode.run(SKAction.changeVolume(to: gameLogic.soundsSwitch ? (0.075/5) * Float(gameLogic.soundsVolume) : 0, duration: 0))

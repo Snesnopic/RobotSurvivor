@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct RobotSurvivorApp: App {
-    
+
     var body: some Scene {
         WindowGroup {
             ParentView()

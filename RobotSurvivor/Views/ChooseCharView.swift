@@ -9,15 +9,15 @@ import SwiftUI
 import _SpriteKit_SwiftUI
 
 struct ChooseCharView: View {
-    @Binding var selectedChar:String
+    @Binding var selectedChar: String
     @Binding var currentGameState: GameState
-    
+
     @State private var isPressed: Bool = false
     var index: Int = 0
     var body: some View {
         ZStack {
             Color.deadBlue.ignoresSafeArea()
-            
+
             Image("chip3")
                 .interpolation(.none)
                 .scaledToFill()
@@ -26,11 +26,10 @@ struct ChooseCharView: View {
             Image("cpuPower")
                 .interpolation(.none)
                 .resizable()
-                .frame(width: 370,height: 400)
+                .frame(width: 370, height: 400)
                 .padding(.bottom, 170)
-            
-            
-            ScrollView(.horizontal,showsIndicators: false) {
+
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .center) {
                     ForEach(Array(zip(skins, localizedSkins)), id: \.0) { skin, localizedSkin in
                         VStack {
@@ -55,21 +54,21 @@ struct ChooseCharView: View {
             }
             .padding(.bottom, 100)
             .padding(.horizontal, 455)
-            
+
             Text("Choose character")
                 .font(.custom("Silkscreen-Bold", size: 20.0))
                 .foregroundStyle(.white)
                 .padding(.bottom, 260)
-            PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2",buttonPressedAction: {
-                withAnimation{
+            PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
+                withAnimation {
                     currentGameState = .playing
                 }
             }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
-            .frame(width: 224, height:96)
+            .frame(width: 224, height: 96)
             .padding(.top, 450)
-            
-            PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
-                withAnimation{
+
+            PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2", buttonPressedAction: {
+                withAnimation {
                     self.currentGameState = .mainScreen
                 }
             }, textView: Text("<")

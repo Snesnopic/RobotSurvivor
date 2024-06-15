@@ -5,7 +5,6 @@
 //  Created by Maya Navarrete Moncada on 13/12/23.
 //
 
-
 import SwiftUI
 
 struct Settings_Menu: View {
@@ -17,11 +16,11 @@ struct Settings_Menu: View {
     @Binding var sounds: Int
     @State var showCredits: Bool = false
     var body: some View {
-        if(!showCredits){
-            ZStack{
+        if !showCredits {
+            ZStack {
                 Color.deadBlue
                     .ignoresSafeArea()
-                
+
                 Image("chip3")
                     .interpolation(.none)
                     .resizable()
@@ -29,7 +28,7 @@ struct Settings_Menu: View {
                     .ignoresSafeArea()
                     .offset(x: -34)
                     .opacity(0.6)
-                
+
                 Image("cpuVert")
                     .interpolation(.none)
                     .resizable()
@@ -37,42 +36,42 @@ struct Settings_Menu: View {
                     .scaleEffect(x: 1, y: -1.2)
                     .responsiveFrame(widthPercentage: 95)
                     .shadow(radius: 20)
-                                    
-                PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2",buttonPressedAction: {
+
+                PixelArtButtonView(buttonImage: "circle1", pressedImage: "circle2", buttonPressedAction: {
                     dismiss()
                 }, textView: Text("x")
                     .font(.custom("Silkscreen-Bold", size: 25)), textColor: .white)
                 .responsiveFrame(widthPercentage: 13, heightPercentage: 7)
                 .shadow(radius: 15)
                 .padding(.leading, 275)
-                .padding(.bottom,700)
-                
-                VStack{
-                    
+                .padding(.bottom, 700)
+
+                VStack {
+
                     Text("Settings")
                         .kerning(-3)
                         .font(.custom("Silkscreen-Bold", size: 26))
                         .shadow(radius: 15)
-                    
-                    //this is a view i made so that everytime we need the option that requires volume, it's more easily modifiable and also makes the code more readable and consistent than earlier
-                    
+
+                    // this is a view i made so that everytime we need the option that requires volume, it's more easily modifiable and also makes the code more readable and consistent than earlier
+
                     SettingOptions(gameLogic: GameLogic.shared, switchOnOff: $switchMusic, regulator: $music, titleOfOption: "Music", subtitleOfOption: "Volume")
-                    
+
                     SettingOptions(gameLogic: GameLogic.shared, switchOnOff: $switchSound, regulator: $sounds, titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
-                    
-                    PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2",buttonPressedAction: {
-                        //TODO: add navigation to credits
+
+                    PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
+                        // TODO: add navigation to credits
                         showCredits.toggle()
                     }, textView: Text("Credits") .font(.custom("Silkscreen-Bold", size: 16)), textColor: .white)
                     .responsiveFrame(widthPercentage: 50, heightPercentage: 5, alignment: .center)
                     .shadow(radius: 15)
-                    
+
                 }
                 .foregroundStyle(.white)
             }
             .statusBarHidden(true)
 
-        }else{
+        } else {
             CreditsView(showCredit: $showCredits)
         }
     }

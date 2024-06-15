@@ -10,26 +10,26 @@ import SpriteKit
 import SwiftUI
 
 struct CollisionType {
-    static let all : UInt32 = UInt32.max
-    static let none : UInt32 = 0
-    static let player : UInt32 = 1
-    static let enemy : UInt32 = 2
+    static let all: UInt32 = UInt32.max
+    static let none: UInt32 = 0
+    static let player: UInt32 = 1
+    static let enemy: UInt32 = 2
     static let xp: UInt32 = 4
     static let playerWeapon: UInt32 = 8
     static let pickUp: UInt32 = 6
 }
 
-extension GameScene{
-    
+extension GameScene {
+
     func didBegin(_ contact: SKPhysicsContact) {
-        
+
         let firstBody: SKPhysicsBody = contact.bodyA
         let secondBody: SKPhysicsBody = contact.bodyB
         let chance = Int.random(in: 1...100)
-        
-        //Contact between player and enemy
-        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
-            
+
+        // Contact between player and enemy
+        if (firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player ) {
+
             guard let enemyNode1 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
             let enemyDmg = enemyNode1.damage
             player.hp -= Int(enemyDmg)
@@ -38,15 +38,15 @@ extension GameScene{
                 isPlayerAlive = false
             }
             updateHpBar()
-            if !isPlayerAlive && player.action(forKey: "deathAnimation") == nil{
+            if !isPlayerAlive && player.action(forKey: "deathAnimation") == nil {
                 player.removeAllActions()
                 joystick?.removeAllChildren()
                 joystick?.isJoystickActive = false
                 joystick?.hideJoystick()
                 joystick?.isPaused = true
-                player.run(deathAnimation,withKey: "deathAnimation")
+                player.run(deathAnimation, withKey: "deathAnimation")
                 playDeathSound(audioFileName: "DEATH.mp3")
-                
+
                 let waitAction = SKAction.wait(forDuration: 2.5)
                 let enableEnding = SKAction.run {
                     self.finishGame()
@@ -58,62 +58,59 @@ extension GameScene{
 //                    self.finishGame()
 //                }
                 return
-            }
-            else if isPlayerAlive{
+            } else if isPlayerAlive {
                 playGettingHitSound(name: "HIT.mp3")
                 flashRed(node: player)
-            }
-            else {
+            } else {
                 return
             }
-            
+
             guard let enemyNode2 = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
             enemyNode2.slowDownMovement()
         }
-        
-        
-        //Contact between player and xp
-        //TODO: Change val with enemy.xpvalue
-        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp) || (firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player)){
+
+        // Contact between player and xp
+        // TODO: Change val with enemy.xpvalue
+        if (firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.xp) || (firstBody.categoryBitMask == CollisionType.xp && secondBody.categoryBitMask == CollisionType.player ) {
             gainXP(val: 3)
-            
-            //this is because when power up is shown, it would play the sound AFTER selecting the powerup. Therefore I decided to not play the sound if the powerup view is shown
+
+            // this is because when power up is shown, it would play the sound AFTER selecting the powerup. Therefore I decided to not play the sound if the powerup view is shown
             if gameLogic.showPowerUp == false {
                 playExperienceSoundPickUp()
             }
-            
-            if(firstBody.categoryBitMask == CollisionType.xp){
+
+            if firstBody.categoryBitMask == CollisionType.xp {
                 xpToMagnetise.remove(firstBody.node!)
                 xpOnMap.remove(firstBody.node!)
                 firstBody.node?.removeFromParent()
-            }else{
+            } else {
                 xpToMagnetise.remove(secondBody.node!)
                 xpOnMap.remove(secondBody.node!)
                 secondBody.node?.removeFromParent()
             }
         }
-        
-        //Contact between player and pickUps
-        //TODO: change the function magnet to a more generic one with param. type (like powerUps)
-        if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.pickUp) || (firstBody.categoryBitMask == CollisionType.pickUp && secondBody.categoryBitMask == CollisionType.player)){
+
+        // Contact between player and pickUps
+        // TODO: change the function magnet to a more generic one with param. type (like powerUps)
+        if (firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.pickUp) || (firstBody.categoryBitMask == CollisionType.pickUp && secondBody.categoryBitMask == CollisionType.player ) {
             magnet()
-            if(firstBody.categoryBitMask == CollisionType.pickUp){
+            if firstBody.categoryBitMask == CollisionType.pickUp {
                 firstBody.node?.removeFromParent()
-            }else{
+            } else {
                 secondBody.node?.removeFromParent()
             }
         }
-        
-        //Contact between playerWeapon and enemy
-        //TODO: Change val with enemy.xpvalue
-        if ((firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon)){
-            
-            //TODO: Implement the death logic based on enemy health
+
+        // Contact between playerWeapon and enemy
+        // TODO: Change val with enemy.xpvalue
+        if (firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon ) {
+
+            // TODO: Implement the death logic based on enemy health
             let enemyNode = [firstBody, secondBody].first { $0.categoryBitMask == CollisionType.enemy }?.node
             let bulletNode = [firstBody, secondBody].first { $0.categoryBitMask == CollisionType.playerWeapon }?.node
-            
+
             guard let enemy = enemyNode as? EnemyNode, let bullet = bulletNode as? SKSpriteNode else {return}
-                
+
             // TODO: Implement the death logic based on enemy health
             enemy.health -= dmg
 
@@ -126,39 +123,38 @@ extension GameScene{
                     explosionAnimation,
                     SKAction.removeFromParent()])
                 explosion.run(actionSequence)
-                
-                if(chance>25){
+
+                if chance > 25 {
                     generateXp(at: enemy.position)
                 }
                 gameLogic.increaseScore(points: enemy.points)
                 enemiesOnMap.remove(enemy)
-                //MARK: define boss instead of "_" if it's used, or delete it if it's not intended
+                // MARK: define boss instead of "_" if it's used, or delete it if it's not intended
                 if let _ = enemy as? EnemyBossNode {
                     activeBoss = nil
                 }
                 enemy.die()
-            }
-            else {
+            } else {
                 flashRed(node: enemy)
             }
             bullet.removeFromParent()
         }
-        
+
         func didEnd(_ contact: SKPhysicsContact) {
             let firstBody: SKPhysicsBody = contact.bodyA
             let secondBody: SKPhysicsBody = contact.bodyB
-            //Contact between player and enemy
-            if ((firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player)){
+            // Contact between player and enemy
+            if (firstBody.categoryBitMask == CollisionType.player && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.player ) {
                 guard let enemyNode = (firstBody.node as? EnemyNode) ?? (secondBody.node as? EnemyNode) else {return}
                 enemyNode.speedUpMovement()
             }
-            
+
         }
-        
+
     }
     func flashRed(node: SKNode) {
         if node.action(forKey: "flashRed") == nil {
-            node.run(flashRedAction,withKey: "flashRed")
+            node.run(flashRedAction, withKey: "flashRed")
         }
     }
 }

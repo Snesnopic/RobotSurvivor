@@ -12,11 +12,11 @@ struct PixelArtButtonView: View {
     var pressedImage: String
     var buttonPressedAction: (() -> Void)?
     @State private var isPressed: Bool = false
-    var textView: Text? = nil
+    var textView: Text?
     var textColor: Color? = .white
-    var textOffset: Int? = nil
-    var imageView: Image? = nil
-    
+    var textOffset: Int?
+    var imageView: Image?
+
     var body: some View {
         ZStack {
             Image(isPressed ? pressedImage : buttonImage)
@@ -27,11 +27,10 @@ struct PixelArtButtonView: View {
 //                    .offset(y: isPressed ? -1 : -5)
 //                    .opacity(isPressed ? 0.5 : 1)
 //            }
-            
-            
-            if let textView{
+
+            if let textView {
                 textView.offset(x: CGFloat(textOffset != nil ? textOffset! : 0))
-                
+
                     .offset(y: isPressed ? -1 : -5)
                     .opacity(isPressed ? 0.5 : 1)
             }
@@ -43,18 +42,16 @@ struct PixelArtButtonView: View {
                     .offset(y: isPressed ? 0 : -5)
                     .opacity(isPressed ? 0.5 : 1)
                     .offset(y: -4)
-                
+
             }
         }
         .foregroundStyle(textColor ?? .white).gesture(DragGesture(minimumDistance: 0).onChanged { _ in
             isPressed = true
-        }.onEnded{ _ in
+        }.onEnded { _ in
             isPressed = false
             buttonPressedAction?()
         })
     }
-    
-    
 
 }
 

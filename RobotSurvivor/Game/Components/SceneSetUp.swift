@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 
 extension GameScene {
-    
+
     func setUpGame() {
         self.setUpPhysicsWorld()
         self.backgroundColor = SKColor.darkGray
@@ -17,7 +17,7 @@ extension GameScene {
         self.createPlayer(at: playerInitialPosition)
         self.camera = sceneCamera
     }
-    
+
     func setUpAnimations() {
         explosionAtlas.textureNames.sorted().forEach { string in
             let texture = explosionAtlas.textureNamed(string)
@@ -33,7 +33,7 @@ extension GameScene {
             deathAnimationTextures.append(texture)
         }
         deathAnimation = SKAction.animate(with: deathAnimationTextures, timePerFrame: 0.5)
-        
+
         let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Idle")
         playerIdleAtlas.textureNames.sorted().forEach { string in
             let texture = playerIdleAtlas.textureNamed(string)
@@ -41,7 +41,7 @@ extension GameScene {
             playerIdleTextures.append(texture)
         }
         playerIdleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
-        
+
         let shootAnimationAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Fire")
         shootAnimationAtlas.textureNames.forEach { string in
             let texture = shootAnimationAtlas.textureNamed(string)
@@ -49,16 +49,16 @@ extension GameScene {
             shootAnimationTextures.append(texture)
         }
         shootAnimation = SKAction.animate(with: shootAnimationTextures, timePerFrame: 0.1)
-        
+
         for name in orbTextureNames {
             animationTextures.append(SKTexture(imageNamed: name))
         }
 
     }
-    
+
     private func setUpPhysicsWorld() {
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = .zero
     }
-    
+
 }

@@ -9,10 +9,10 @@ import Foundation
 
 extension TimeInterval {
     var hourMinuteSecond: String {
-        String(format:"%d:%02d:%02d", hour, minute, second)
+        String(format: "%d:%02d:%02d", hour, minute, second)
     }
     var minuteSecond: String {
-        String(format:"%d:%02d", minute, second)
+        String(format: "%d:%02d", minute, second)
     }
     var hour: Int {
         Int((self/3600).truncatingRemainder(dividingBy: 3600))

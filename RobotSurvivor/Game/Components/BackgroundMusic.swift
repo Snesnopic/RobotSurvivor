@@ -7,12 +7,11 @@
 
 import AVFoundation
 
-extension GameScene: AVAudioPlayerDelegate{
-    
-    
+extension GameScene: AVAudioPlayerDelegate {
+
     func setupBackgroundMusic(quantityOfMusic: Int) {
         var index: Int = 0
-        
+
         for _ in 0..<(quantityOfMusic) {
             do {
                 let backgroundMusic = Bundle.main.url(forResource: "game\(index+1)", withExtension: "mp3")
@@ -26,7 +25,7 @@ extension GameScene: AVAudioPlayerDelegate{
             }
         }
     }
-    //haha scemo
+    // haha scemo
     func playTracks() {
         guard !gameLogic.isGameOver else { return }
         let currentMusic = musicPool.first
@@ -37,14 +36,14 @@ extension GameScene: AVAudioPlayerDelegate{
         backgroundMusicPlayer = currentMusic
         musicPool.append(currentMusic!)
     }
-    
+
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         playTracks()
     }
-    
+
     func stopTracks() {
         backgroundMusicPlayer?.stop()
         backgroundMusicPlayer = nil
     }
-    
+
 }

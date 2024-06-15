@@ -8,7 +8,6 @@
 import SpriteKit
 import Foundation
 
-
 class Joystick: SKScene {
     var gameSceneReference: GameScene
     var playerNode: PlayerNode
@@ -16,7 +15,7 @@ class Joystick: SKScene {
     var joystickKnob: SKShapeNode!
     var isJoystickActive: Bool = false
     var angle: CGFloat = 0.0
-    
+
     required init(player: PlayerNode, gameSceneReference: GameScene) {
         self.gameSceneReference = gameSceneReference
         self.playerNode = player
@@ -33,13 +32,11 @@ class Joystick: SKScene {
         joystickKnob.position = joystickBase.position // Initially centered on the base
         addChild(joystickKnob)
     }
-    
-    
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
@@ -48,38 +45,37 @@ class Joystick: SKScene {
             joystickKnob.position = joystickBase.position
         }
     }
-    
+
     override func update(_ currentTime: TimeInterval) {
         if !isJoystickActive {
             hideJoystick()
-        }
-        else {
+        } else {
             showJoystick()
             let deltaTime = gameSceneReference.deltaTime
-            
+
             // Use the angle and distance to control movement
             let speed: CGFloat = CGFloat(playerNode.movementSpeed)
             let xMovement = cos(angle) * speed * deltaTime
             let yMovement = sin(angle) * speed * deltaTime
-            
+
             // Apply the movement to your character or game objects
             // For example:
             playerNode.position.x += xMovement
             playerNode.position.y += yMovement
-            
+
             if xMovement > 0 && playerNode.xScale <= 0 ||
-                xMovement < 0 && playerNode.xScale >= 0  {
+                xMovement < 0 && playerNode.xScale >= 0 {
                 playerNode.xScale *= -1
             }
-            
+
             gameSceneReference.healthBar.children.forEach { node in
                 node.position = playerNode.position
-                node.position.x = node.position.x - (playerNode.size.width / 2)
-                node.position.y = node.position.y - playerNode.size.height
+                node.position.x -= (playerNode.size.width / 2)
+                node.position.y -= playerNode.size.height
             }
         }
     }
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         // Joystick is not active if you don't move your touch from the base
@@ -100,17 +96,17 @@ class Joystick: SKScene {
             joystickKnob.position = CGPoint(x: x, y: y)
         }
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard isJoystickActive else { return }
         joystickKnob.position = joystickBase.position // Reset knob position
         isJoystickActive = false
     }
-    
-    func hideJoystick(){
+
+    func hideJoystick() {
         self.alpha = 0.0
     }
-    func showJoystick(){
+    func showJoystick() {
         self.alpha = 0.9
     }
 }

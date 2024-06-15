@@ -9,12 +9,12 @@ import Foundation
 import SpriteKit
 
 class PlayerNode: SKSpriteNode {
-    var level:Int
-    var xp:Int
-    var xpToNextLevel:Int
-    var movementSpeed:Int
-    var hp:Int
-    var maxHp:Int
+    var level: Int
+    var xp: Int
+    var xpToNextLevel: Int
+    var movementSpeed: Int
+    var hp: Int
+    var maxHp: Int
     init() {
         level = 1
         xp = 0
@@ -31,11 +31,11 @@ class PlayerNode: SKSpriteNode {
         }
         let texture = playerIdleTextures.first!
         super.init(texture: texture, color: .white, size: texture.size())
-        
+
         name = "player"
         position = position
-        physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 20, height:  20))
-        
+        physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 20, height: 20))
+
         zPosition = 3
         position = CGPoint(x: 0, y: 0)
         physicsBody?.categoryBitMask = CollisionType.player
@@ -44,9 +44,9 @@ class PlayerNode: SKSpriteNode {
         physicsBody?.isDynamic = false
         physicsBody?.affectedByGravity = false
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }

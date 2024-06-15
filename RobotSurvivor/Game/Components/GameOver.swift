@@ -8,12 +8,12 @@
 import Foundation
 import GameKit
 
-extension GameScene{
-    
+extension GameScene {
+
     var isGameOver: Bool {
         return gameLogic.isGameOver
     }
-    
+
     func finishGame() {
         GKLeaderboard.submitScore(gameLogic.currentScore, context: 0, player: GKLocalPlayer.local, leaderboardIDs: ["highscores"]) { error in
             if error != nil {
@@ -24,5 +24,5 @@ extension GameScene{
         self.scene?.isPaused = true
         player.hp = 0
     }
-    
+
 }

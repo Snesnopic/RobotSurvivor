@@ -17,7 +17,7 @@ struct ExpView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                HStack(spacing: 0){
+                HStack(spacing: 0) {
                     Image("levelChip")
                         .interpolation(.none)
                         .resizable()
@@ -28,25 +28,24 @@ struct ExpView: View {
                                 .font(.custom("Silkscreen-Regular", size: 20))
                                 .foregroundStyle(.white)
                         }
-                    ZStack{
+                    ZStack {
                         Image("emptyBar")
                             .interpolation(.none)
                             .resizable()
                             .frame(height: levelChipSize)
-                        HStack{
+                        HStack {
                             Image("line")
                                 .interpolation(.none)
                                 .resizable()
                                 .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * (currentLevel == 1 ? CGFloat(Double(currentXP) * 2.45) : CGFloat(currentXP)), height: levelChipSize)
                             Spacer()
                         }
-                        
-                        
+
                         Image("border")
                             .interpolation(.none)
                             .resizable()
                             .frame(height: levelChipSize)
-                        
+
                     }
                 }
             }
@@ -57,4 +56,3 @@ struct ExpView: View {
 #Preview {
     ExpView(experienceNeeded: .constant(100), currentXP: .constant(40), currentLevel: .constant(1))
 }
-

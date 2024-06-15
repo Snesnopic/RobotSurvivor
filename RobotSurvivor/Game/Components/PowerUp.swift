@@ -8,49 +8,44 @@
 import Foundation
 import SpriteKit
 
-extension GameScene{
-    
-    func increaseHealth(){
+extension GameScene {
+
+    func increaseHealth( ) {
         let newMaxHp = Int(Double(player.maxHp) * 1.2)
         let difference = newMaxHp - player.maxHp
         player.hp += difference
         player.maxHp = newMaxHp
         updateHpBar()
     }
-    
-    func increasePlayerSpeed(){
+
+    func increasePlayerSpeed( ) {
         player.movementSpeed += 10
     }
-    
-    func increaseFireRate(){
+
+    func increaseFireRate( ) {
         fireRate += 0.85
     }
-    
-    func increaseBulletSpeed(){
+
+    func increaseBulletSpeed( ) {
         spd += 2
     }
-    
-    func increaseDamage(){
+
+    func increaseDamage( ) {
         dmg += 10
     }
-    
-    func callPowerUp(name: String.LocalizationValue){
+
+    func callPowerUp(name: String.LocalizationValue ) {
         switch name {
         case "+dmg":
             increaseDamage()
-            break
         case "+hp":
             increaseHealth()
-            break
         case "+firerate":
             increaseFireRate()
-            break
         case "+bullet speed":
             increaseBulletSpeed()
-            break
         case "+speed":
             increasePlayerSpeed()
-            break
         default:
             break
         }
