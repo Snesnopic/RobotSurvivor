@@ -14,7 +14,7 @@ extension GameScene{
         var tileImageName: String
         let tileType = Int.random(in: 1...100)
         
-        tileImageName = (tileType <= 70) ? "Moon1" : ((tileType > 70 && tileType < 90) ? "Moon2" : "Moon3")        
+        tileImageName = (tileType <= 70) ? "Moon1" : ((tileType > 70 && tileType < 90) ? "Moon2" : "Moon3")
         
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.name = "tile"
@@ -35,9 +35,11 @@ extension GameScene{
     }
     func updateTiles() {
         newCenterTile()
+        // Load 12 by 12 tiles around you to fill the distance
+        let maxPixelDistance = tileSize.width * 12
         // Load new tiles
-        for x in stride(from: centerTile.x - 1536, through: centerTile.x + 1536, by: tileSize.width) {
-            for y in stride(from: centerTile.y - 1536, through: centerTile.y + 1536, by: tileSize.height) {
+        for x in stride(from: centerTile.x - maxPixelDistance, through: centerTile.x + maxPixelDistance, by: tileSize.width) {
+            for y in stride(from: centerTile.y - maxPixelDistance, through: centerTile.y + maxPixelDistance, by: tileSize.height) {
                 let position = CGPoint(x: x, y: y)
                 if !isTilePresent(at: position) {
                     addTile(at: position)
@@ -46,11 +48,12 @@ extension GameScene{
         }
         for node in self.children.compactMap({ $0 as? SKSpriteNode }) {
             if(node.name == "tile"){
-                if(node.position.x < centerTile.x - 1536 || node.position.x > centerTile.x + 1536)
-                    {
+                if(node.position.x < centerTile.x - maxPixelDistance || node.position.x > centerTile.x + maxPixelDistance)
+                {
                     tilePositions.remove(node.position)
                     node.removeFromParent()
-                }else if(node.position.y < centerTile.y - 1536 || node.position.y > centerTile.y + 1536){
+                }else if(node.position.y < centerTile.y - maxPixelDistance || node.position.y > centerTile.y +
+                         maxPixelDistance){
                     tilePositions.remove(node.position)
                     node.removeFromParent()
                 }
