@@ -22,8 +22,15 @@ class PlayerNode: SKSpriteNode {
         movementSpeed = 70
         hp = 100
         maxHp = 100
-        
-        super.init(texture: nil, color: .white, size: CGSize(width: 30, height: 30))
+        var playerIdleTextures: [SKTexture] = []
+        let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(GameLogic.shared.currentSkin)/Idle")
+        playerIdleAtlas.textureNames.sorted().forEach { string in
+            let texture = playerIdleAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            playerIdleTextures.append(texture)
+        }
+        let texture = playerIdleTextures.first!
+        super.init(texture: texture, color: .white, size: texture.size())
         
         name = "player"
         position = position
