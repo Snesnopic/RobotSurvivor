@@ -87,12 +87,12 @@ struct TutorialView: View {
 
 
 #Preview("English") {
-    TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
+    TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper.shared))
         .environment(\.locale, Locale(identifier: "EN"))
 }
 
 
 #Preview("Italian") {
-    TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
+    TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper.shared))
         .environment(\.locale, Locale(identifier: "IT"))
 }

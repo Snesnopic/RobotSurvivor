@@ -21,7 +21,7 @@ struct ParentView: View {
         case .gameOver:
             GameOverView(currentGameState: $currentGameState, score: $gameLogic.currentScore)
         case .tutorial:
-            TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
+            TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper.shared))
         case .chooseChar:
             ChooseCharView(selectedChar: $gameLogic.currentSkin, currentGameState: $currentGameState)
         }

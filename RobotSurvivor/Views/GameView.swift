@@ -38,7 +38,7 @@ struct GameView: View {
     
     @Binding var currentGameState: GameState
     @StateObject var gameLogic: GameLogic =  GameLogic.shared
-    @State var sceneWrapper = SceneWrapper()
+    @State var sceneWrapper = SceneWrapper.shared
     @State private var fadeTheView: Bool = false
     
     var body: some View {

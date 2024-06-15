@@ -51,5 +51,5 @@ struct PauseMenuView: View {
 }
 
 #Preview {
-    PauseMenuView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper()))
+    PauseMenuView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper.shared))
 }

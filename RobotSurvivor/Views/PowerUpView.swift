@@ -126,11 +126,11 @@ struct PowerUpView: View {
 }
 
 #Preview("English") {
-    PowerUpView(sceneWrap: .constant(SceneWrapper()))
+    PowerUpView(sceneWrap: .constant(SceneWrapper.shared))
         .environment(\.locale, Locale(identifier: "EN"))
 }
 
 #Preview("Italian") {
-    PowerUpView(sceneWrap: .constant(SceneWrapper()))
+    PowerUpView(sceneWrap: .constant(SceneWrapper.shared))
         .environment(\.locale, Locale(identifier: "IT"))
 }

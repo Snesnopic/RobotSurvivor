@@ -10,9 +10,10 @@ import AVFoundation
 import CoreHaptics
 
 class SceneWrapper{
+    static let shared = SceneWrapper()
     var scene = GameScene()
     var joystickScene: Joystick
-    init() {
+    private init() {
         var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
         var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
         scene = GameScene()
