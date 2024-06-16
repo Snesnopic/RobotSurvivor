@@ -138,14 +138,41 @@ extension GameScene {
         return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
     }
 
+    func startShooting() {
+
+        let maxFireRate = max(fireRate, 0.001)
+        print(maxFireRate)
+        let waitAction = SKAction.wait(forDuration: 1.0 / maxFireRate)
+        let enableShootingAction = SKAction.run { [self] in
+            self.readyToShoot = true
+            self.shoot()
+        }
+        let sequence = SKAction.sequence([waitAction, enableShootingAction])
+        let repeatForever = SKAction.repeatForever(sequence)
+        run(repeatForever, withKey: "shootSequence")
+    }
+
+    // Function to update fire rate dynamically
+    func updateFireRate(newFireRate: Double) {
+        fireRate = newFireRate
+
+        // Cancel the current shooting sequence
+        removeAction(forKey: "shootSequence")
+
+        // Restart shooting with the updated fire rate
+        startShooting()
+    }
+
     // this uses almost everything in this file
     func shoot() {
-        readyToShoot = false
+
+        guard isPlayerAlive && !isGameOver else { return }
+        print("isPlayerAlive: \(isPlayerAlive)")
+        print("isGameOver: \(isGameOver)")
+
         var usedBullets: [SKSpriteNode] = []
-        guard !isGameOver else { return }
 
         if let shot = getBulletFromPool() {
-
             usedBullets.append(shot)
             shot.position = player.position
             addChild(shot)
@@ -165,17 +192,8 @@ extension GameScene {
                     }
                 }
             }
-
-            // this is for the firerate power up
-            let maxFireRate = max(fireRate, 0.001)
-            let waitAction = SKAction.wait(forDuration: 1.0 / maxFireRate)
-            let enableShootingAction = SKAction.run {
-                self.readyToShoot = true
-            }
-
-            let sequence = SKAction.sequence([waitAction, enableShootingAction])
-            run(sequence)
         }
+
     }
 
     // play death sound as explained above

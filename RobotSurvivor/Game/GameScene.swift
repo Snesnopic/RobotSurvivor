@@ -40,6 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isPlayerAlive = true
     var player: PlayerNode = PlayerNode()
     var healthBar: SKScene = SKScene()
+    var playerShootingTimer: Timer?
     // enemies
     var enemiesOnMap: Set<EnemyNode> = []
     var enemyTypes = EnemyTypesVM.enemyTypes
@@ -146,6 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addTile(at: position)
             }
         }
+        startShooting()
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -190,10 +192,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         for enemy in enemiesOnMap {
             enemy.configureMovement(player)
-        }
-
-        if readyToShoot && isPlayerAlive {
-            shoot()
         }
 
         if readyToRecolate {
