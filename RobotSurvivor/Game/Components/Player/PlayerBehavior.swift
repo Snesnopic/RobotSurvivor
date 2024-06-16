@@ -137,7 +137,8 @@ extension GameScene {
     func distanceBetween(node1: SKNode, node2: SKNode) -> Float {
         return hypotf(Float(node1.position.x - node2.position.x), Float(node1.position.y - node2.position.y))
     }
-
+    
+    /// Creating a wait action that gets removed and reapplied everytime the fireRate changes
     func startShooting() {
 
         let maxFireRate = max(fireRate, 0.001)
@@ -151,15 +152,12 @@ extension GameScene {
         let repeatForever = SKAction.repeatForever(sequence)
         run(repeatForever, withKey: "shootSequence")
     }
-
-    // Function to update fire rate dynamically
+    
+    /// Called in powerup, this updates the fireRate with the new value
+    /// - Parameter newFireRate: from the powerUp file
     func updateFireRate(newFireRate: Double) {
         fireRate = newFireRate
-
-        // Cancel the current shooting sequence
         removeAction(forKey: "shootSequence")
-
-        // Restart shooting with the updated fire rate
         startShooting()
     }
 

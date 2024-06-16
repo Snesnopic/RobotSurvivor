@@ -34,7 +34,7 @@ struct ExpView: View {
                             .resizable()
                             .frame(height: levelChipSize)
                         HStack {
-                            Image("line")
+                            Image("Line")
                                 .interpolation(.none)
                                 .resizable()
                                 .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * (currentLevel == 1 ? CGFloat(Double(currentXP) * 2.45) : CGFloat(currentXP)), height: levelChipSize)
