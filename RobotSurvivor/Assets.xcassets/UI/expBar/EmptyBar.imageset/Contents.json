@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "EmptyBar.png",
+      "filename" : "emptyBar.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
