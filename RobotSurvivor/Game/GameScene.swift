@@ -23,6 +23,16 @@ class SceneWrapper {
         joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
         scene.joystick = joystickScene
     }
+    func createScene() {
+        var screenWidth: CGFloat { UIScreen.main.bounds.size.width }
+        var screenHeight: CGFloat { UIScreen.main.bounds.size.height }
+        scene = GameScene()
+        scene.size = CGSize(width: screenWidth, height: screenHeight)
+        scene.scaleMode = .fill
+        joystickScene = Joystick(player: scene.player, gameSceneReference: scene)
+        joystickScene.size = CGSize(width: screenWidth, height: screenHeight)
+        scene.joystick = joystickScene
+    }
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -107,7 +117,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var activeBoss: EnemyBossNode?
 
     override init() {
-
         super.init(size: CGSize(width: 500, height: 500))
         view?.showsFPS = true
         view?.showsPhysics = true

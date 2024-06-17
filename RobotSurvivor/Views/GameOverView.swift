@@ -41,7 +41,9 @@ struct GameOverView: View {
                 .shadow(radius: 15)
 
                 PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
-                    withAnimation { backToMainScreen()}
+                    withAnimation {
+                        backToMainScreen()
+                    }
                 }, textView: Text("Menu").font(.custom("Silkscreen-Regular", size: 25)), textColor: .white)
                 .frame(width: 224, height: 64)
 
@@ -83,6 +85,7 @@ struct GameOverView: View {
 
     private func restartGame() {
         print("restart")
+        SceneWrapper.shared.createScene()
         self.currentGameState = .playing
 
     }

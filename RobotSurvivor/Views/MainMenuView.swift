@@ -54,6 +54,7 @@ struct MainMenuView: View {
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
                     withAnimation {
                         self.currentGameState = .playing
+                        SceneWrapper.shared.createScene()
                     }
                 }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
                 .frame(width: 224, height: 96)
