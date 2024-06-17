@@ -1,2 +1,4 @@
 # Robot Survivor
-Tiago's tutorial: https://www.createwithswift.com/using-spritekit-in-a-swiftui-project/
+Robot-themed roguelike survivor game for iOS devices, made in SpriteKit.
+![screenshot](https://github.com/Snesnopic/RobotSurvivor/blob/main/RobotSurvivor/Assets.xcassets/AppIcon.appiconset/robotAppIcon.png) <br>
+
