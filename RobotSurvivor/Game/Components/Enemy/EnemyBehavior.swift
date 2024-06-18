@@ -85,24 +85,23 @@ extension GameScene {
     func relocateEnemy() {
 
         readyToRecolate = false
-        for enemy in enemiesOnMap {
-            if distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8) {
+        for enemy in enemiesOnMap where distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8) {
 
-                let relocatedEnemy = EnemyNode(type: enemy.type, startPosition: getRelocatePosition(enemy: enemy))
+            let relocatedEnemy = EnemyNode(type: enemy.type, startPosition: getRelocatePosition(enemy: enemy))
 
-                enemy.physicsBody?.affectedByGravity = false
-                relocatedEnemy.health = enemy.health
-                relocatedEnemy.movementSpeed = enemy.movementSpeed
-                relocatedEnemy.points = enemy.points
-                relocatedEnemy.damage = enemy.damage
+            enemy.physicsBody?.affectedByGravity = false
+            relocatedEnemy.health = enemy.health
+            relocatedEnemy.movementSpeed = enemy.movementSpeed
+            relocatedEnemy.points = enemy.points
+            relocatedEnemy.damage = enemy.damage
 
-                relocatedEnemy.zPosition = 2
+            relocatedEnemy.zPosition = 2
 
-                enemiesOnMap.remove(enemy)
-                enemiesOnMap.insert(relocatedEnemy)
-                enemy.removeFromParent()
-                addChild(relocatedEnemy)
-            }
+            enemiesOnMap.remove(enemy)
+            enemiesOnMap.insert(relocatedEnemy)
+            enemy.removeFromParent()
+            addChild(relocatedEnemy)
+
         }
 
         let waitAction = SKAction.wait(forDuration: 3)

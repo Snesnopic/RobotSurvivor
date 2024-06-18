@@ -46,16 +46,14 @@ extension GameScene {
                 }
             }
         }
-        for node in self.children.compactMap({ $0 as? SKSpriteNode }) {
-            if node.name == "tile" {
-                if node.position.x < centerTile.x - maxPixelDistance || node.position.x > centerTile.x + maxPixelDistance {
-                    tilePositions.remove(node.position)
-                    node.removeFromParent()
-                } else if node.position.y < centerTile.y - maxPixelDistance || node.position.y > centerTile.y +
-                         maxPixelDistance {
-                     tilePositions.remove(node.position)
-                    node.removeFromParent()
-                }
+        for node in self.children.compactMap({ $0 as? SKSpriteNode }) where node.name == "tile" {
+            if node.position.x < centerTile.x - maxPixelDistance || node.position.x > centerTile.x + maxPixelDistance {
+                tilePositions.remove(node.position)
+                node.removeFromParent()
+            } else if node.position.y < centerTile.y - maxPixelDistance || node.position.y > centerTile.y +
+                        maxPixelDistance {
+                tilePositions.remove(node.position)
+                node.removeFromParent()
             }
         }
 
