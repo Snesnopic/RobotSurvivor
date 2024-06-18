@@ -41,7 +41,6 @@ struct SettingOptions: View {
                     .kerning(-3)
                 Spacer()
                 PixelArtButtonView(buttonImage: "minus1", pressedImage: "minus2", buttonPressedAction: {
-                    // TODO: add volume levels
                     if regulator >  0 {
                         regulator -= 1
                     }
@@ -52,7 +51,6 @@ struct SettingOptions: View {
                     .offset(x: 1.5)
 
                 PixelArtButtonView(buttonImage: "plus1", pressedImage: "plus2", buttonPressedAction: {
-                    // TODO: add volume levels
                     if regulator <  10 {
                         regulator += 1
                     }

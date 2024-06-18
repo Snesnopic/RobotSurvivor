@@ -102,16 +102,13 @@ extension GameScene {
         }
 
         // Contact between playerWeapon and enemy
-        // TODO: Change val with enemy.xpvalue
         if (firstBody.categoryBitMask == CollisionType.playerWeapon && secondBody.categoryBitMask == CollisionType.enemy) || (firstBody.categoryBitMask == CollisionType.enemy && secondBody.categoryBitMask == CollisionType.playerWeapon ) {
 
-            // TODO: Implement the death logic based on enemy health
             let enemyNode = [firstBody, secondBody].first { $0.categoryBitMask == CollisionType.enemy }?.node
             let bulletNode = [firstBody, secondBody].first { $0.categoryBitMask == CollisionType.playerWeapon }?.node
 
             guard let enemy = enemyNode as? EnemyNode, let bullet = bulletNode as? SKSpriteNode else {return}
 
-            // TODO: Implement the death logic based on enemy health
             enemy.health -= dmg
 
             if enemy.health <= 0 {

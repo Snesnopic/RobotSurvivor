@@ -48,8 +48,6 @@ struct PowerUpView: View {
                     .padding(.bottom, 50)
 
                 HStack {
-                    // TODO: randomly sort powerUp + give it to player on tap
-
                     ZStack {
                         PixelArtButtonView(buttonImage: "PowerUpButton1", pressedImage: "PowerUpButton2", buttonPressedAction: {
                             gameLogic.showPowerUp = false

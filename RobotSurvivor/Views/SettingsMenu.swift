@@ -60,7 +60,6 @@ struct Settings_Menu: View {
                     SettingOptions(gameLogic: GameLogic.shared, switchOnOff: $switchSound, regulator: $sounds, titleOfOption: "Sound \nEffects", subtitleOfOption: "Volume")
 
                     PixelArtButtonView(buttonImage: "ButtonSett1", pressedImage: "ButtonSett2", buttonPressedAction: {
-                        // TODO: add navigation to credits
                         showCredits.toggle()
                     }, textView: Text("Credits") .font(.custom("Silkscreen-Bold", size: 16)), textColor: .white)
                     .responsiveFrame(widthPercentage: 50, heightPercentage: 5, alignment: .center)
