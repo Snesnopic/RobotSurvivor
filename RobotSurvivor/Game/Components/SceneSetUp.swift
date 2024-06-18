@@ -25,14 +25,14 @@ extension GameScene {
             explosionTextures.append(texture)
         }
         explosionAnimation = SKAction.animate(with: explosionTextures, timePerFrame: 0.07)
-
-        let deathAnimationAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Death")
-        deathAnimationAtlas.textureNames.sorted().forEach { string in
-            let texture = deathAnimationAtlas.textureNamed(string)
-            texture.filteringMode = .nearest
-            deathAnimationTextures.append(texture)
-        }
-        deathAnimation = SKAction.animate(with: deathAnimationTextures, timePerFrame: 0.5)
+//
+//        let deathAnimationAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Death")
+//        deathAnimationAtlas.textureNames.sorted().forEach { string in
+//            let texture = deathAnimationAtlas.textureNamed(string)
+//            texture.filteringMode = .nearest
+//            deathAnimationTextures.append(texture)
+//        }
+//        deathAnimation = SKAction.animate(with: deathAnimationTextures, timePerFrame: 0.5)
 
         let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Idle")
         playerIdleAtlas.textureNames.sorted().forEach { string in
