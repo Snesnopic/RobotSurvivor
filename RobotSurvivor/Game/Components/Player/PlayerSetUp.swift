@@ -11,8 +11,6 @@ import SpriteKit
 extension GameScene {
     func createPlayer(at position: CGPoint) {
 
-        player.run(SKAction.repeatForever(playerIdleAnimation))
-
         let healthBarFill = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))
         let healthBarTotal = SKShapeNode(rect: CGRect(origin: .zero, size: CGSize(width: player.size.width, height: 5.0)))
 

@@ -94,6 +94,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var shootAnimationTextures: [SKTexture] = []
     var shootAnimation = SKAction()
 
+    var playerWalkTextures: [SKTexture] = []
+    var playerWalkAnimation = SKAction()
+
     var animationTextures = [SKTexture]()
     let orbTextureNames = ["expOrb", "expOrb2"]
 
@@ -176,7 +179,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         // enable to have a wider view
         // camera?.setScale(5)
-
+        if joystick != nil && joystick!.isJoystickActive {
+            // player is moving
+            if player.action(forKey: "walkAnimation") == nil {
+                player.removeAction(forKey: "idleAnimation")
+                let repeater = SKAction.repeatForever(playerWalkAnimation)
+                player.run(repeater, withKey: "walkAnimation")
+            }
+        } else {
+            // player is not moving
+            if player.action(forKey: "idleAnimation") == nil {
+                player.removeAction(forKey: "walkAnimation")
+                let repeater = SKAction.repeatForever(playerIdleAnimation)
+                player.run(repeater, withKey: "idleAnimation")
+            }
+        }
         self.scene?.isPaused = (gameLogic.showPowerUp || gameLogic.showPauseMenu || gameLogic.showTutorial ) ? true : false
 
         if lastUpdateTime.isZero {

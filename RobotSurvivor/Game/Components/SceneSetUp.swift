@@ -42,6 +42,14 @@ extension GameScene {
         }
         playerIdleAnimation = SKAction.animate(with: playerIdleTextures, timePerFrame: 0.3)
 
+        let playerWalkAtlas: SKTextureAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Walk")
+        playerWalkAtlas.textureNames.sorted().forEach { string in
+            let texture = playerWalkAtlas.textureNamed(string)
+            texture.filteringMode = .nearest
+            playerWalkTextures.append(texture)
+        }
+        playerWalkAnimation = SKAction.animate(with: playerWalkTextures, timePerFrame: 0.1)
+
         let shootAnimationAtlas = SKTextureAtlas(named: "\(gameLogic.currentSkin)/Fire")
         shootAnimationAtlas.textureNames.forEach { string in
             let texture = shootAnimationAtlas.textureNamed(string)
