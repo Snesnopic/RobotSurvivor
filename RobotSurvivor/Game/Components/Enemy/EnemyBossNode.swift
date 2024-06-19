@@ -90,7 +90,11 @@ class EnemyBossNode: EnemyNode {
             bodyPart.die()
         }
         removeFromParent()
-        (scene as? GameScene)?.changeStage()
+        if let gameScene = self.scene as? GameScene {
+            gameScene.changeStage()
+        } else {
+            print("\(self.scene) is not a gamescene!")
+        }
     }
 
     // movimento
