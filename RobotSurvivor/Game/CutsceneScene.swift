@@ -34,7 +34,6 @@ class CutsceneScene: SKScene, SKPhysicsContactDelegate {
         camera = sceneCamera
         self.addChild(camera!)
         camera!.run(action)
-        print(scene?.size)
         camera?.setScale( 393 / (scene?.size.width)! )
         let playerIdleAtlas: SKTextureAtlas = SKTextureAtlas(named: "AntiTank/Idle")
         var playerIdleTextures: [SKTexture] = []
@@ -43,7 +42,20 @@ class CutsceneScene: SKScene, SKPhysicsContactDelegate {
             texture.filteringMode = .nearest
             playerIdleTextures.append(texture)
         }
-        for i in 0..<320 {
+
+        print("Provo a prendere il sound")
+        if let soundURL = Bundle.main.url(forResource: "explosion", withExtension: "wav") {
+            print("Ci sono riuscito")
+            for _ in 0..<34 {
+                let audioNode = SKAudioNode(url: soundURL)
+                audioNode.autoplayLooped = false
+                audioNode.name = "EXPLOSION"
+                addChild(audioNode)
+                audioNode.run(SKAction.sequence([SKAction.wait(forDuration: Double.random(in: (0.0)...(7.0))), SKAction.changeVolume(to: GameLogic.shared.soundsSwitch ? (0.1/5) * Float(GameLogic.shared.soundsVolume) : 0, duration: 0), SKAction.play()]))
+            }
+        }
+
+        for _ in 0..<320 {
             let expType = Int.random(in: 0...1)
             let explosionAtlas = SKTextureAtlas(named: "Explosions/\(expType == 1 ? "Big" : "Small")")
             var explosionTextures: [SKTexture] = []
@@ -52,7 +64,7 @@ class CutsceneScene: SKScene, SKPhysicsContactDelegate {
                 texture.filteringMode = .nearest
                 explosionTextures.append(texture)
             }
-            var explosionAnimation = SKAction.animate(with: explosionTextures, timePerFrame: 0.07)
+            let explosionAnimation = SKAction.animate(with: explosionTextures, timePerFrame: 0.07)
             let explosion: SKNode = SKSpriteNode(texture: nil, size: explosionTextures.first!.size())
             explosion.xScale = 5
             explosion.yScale = 5
@@ -61,7 +73,7 @@ class CutsceneScene: SKScene, SKPhysicsContactDelegate {
             explosion.zPosition = 2
             scene!.addChild(explosion)
             let actionSequence = SKAction.sequence([
-                SKAction.wait(forDuration: Double.random(in: (0.0)...(10.0))),
+                SKAction.wait(forDuration: Double.random(in: (0.0)...(7.0))),
                 explosionAnimation,
                 SKAction.removeFromParent()])
             explosion.run(actionSequence)

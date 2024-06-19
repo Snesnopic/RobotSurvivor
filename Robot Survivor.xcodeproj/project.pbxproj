@@ -56,6 +56,8 @@
 		9DD1D6CC2B29CAB00027768C /* mainmenu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */; };
 		9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8E2B32B20A777000998F3 /* GameScene.swift */; };
 		9DD9DA502C1E1C56008E2798 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9DD9DA4F2C1E1C50008E2798 /* .swiftlint.yml */; };
+		9DE335F52C219FAE00408D37 /* CutsceneScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335F42C219FAE00408D37 /* CutsceneScene.swift */; };
+		9DE335F72C21B4A900408D37 /* CutsceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335F62C21B4A900408D37 /* CutsceneView.swift */; };
 		9DFFA2CD2B76785500581F16 /* ChooseCharView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFA2CC2B76785500581F16 /* ChooseCharView.swift */; };
 		9DFFA2CF2B767BE100581F16 /* SkinPreviewScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFA2CE2B767BE100581F16 /* SkinPreviewScene.swift */; };
 		EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */; };
@@ -118,6 +120,8 @@
 		9DD1D6CB2B29CAB00027768C /* mainmenu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainmenu.mp3; sourceTree = "<group>"; };
 		9DD8E2B32B20A777000998F3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		9DD9DA4F2C1E1C50008E2798 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		9DE335F42C219FAE00408D37 /* CutsceneScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutsceneScene.swift; sourceTree = "<group>"; };
+		9DE335F62C21B4A900408D37 /* CutsceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutsceneView.swift; sourceTree = "<group>"; };
 		9DFFA2CC2B76785500581F16 /* ChooseCharView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCharView.swift; sourceTree = "<group>"; };
 		9DFFA2CE2B767BE100581F16 /* SkinPreviewScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinPreviewScene.swift; sourceTree = "<group>"; };
 		EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Bold.ttf"; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				23A5F38B2B21D3A30008FFB2 /* Components */,
 				9DD8E2B32B20A777000998F3 /* GameScene.swift */,
 				23A5F3782B21CFA10008FFB2 /* GameLogic.swift */,
+				9DE335F42C219FAE00408D37 /* CutsceneScene.swift */,
 				931293F82B21D93F009B2441 /* Joystick.swift */,
 			);
 			path = Game;
@@ -419,6 +424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DE335F52C219FAE00408D37 /* CutsceneScene.swift in Sources */,
 				6BADBF8C2B2BBBED0047B2F9 /* TimeIntervalExtension.swift in Sources */,
 				233F1F592B286B5400EF01FC /* Constants.swift in Sources */,
 				9D59B0F82BA05BBC00C9B627 /* PlayerNode.swift in Sources */,
@@ -428,6 +434,7 @@
 				2347545B2B29A7520063537F /* PlayerBehavior.swift in Sources */,
 				9D0A40622BAC694C00A738B3 /* EnemyBodyBossNode.swift in Sources */,
 				23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */,
+				9DE335F72C21B4A900408D37 /* CutsceneView.swift in Sources */,
 				9DFFA2CD2B76785500581F16 /* ChooseCharView.swift in Sources */,
 				EEA581762B2B66A50068148C /* MainMenuView.swift in Sources */,
 				9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */,
