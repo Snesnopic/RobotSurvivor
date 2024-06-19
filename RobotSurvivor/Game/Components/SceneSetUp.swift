@@ -69,4 +69,14 @@ extension GameScene {
         physicsWorld.gravity = .zero
     }
 
+    func changeStage(to stage: Stage) {
+        enemiesOnMap.forEach { enemyNode in
+            enemyNode.removeAllChildren()
+            enemyNode.removeAllActions()
+            enemyNode.removeFromParent()
+
+        }
+        self.gameLogic.stage = stage
+    }
+
 }
