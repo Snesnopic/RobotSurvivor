@@ -218,8 +218,8 @@ extension GameScene {
                 eventType: .hapticContinuous,
                 parameters: [
                     // tweak these for intensity and sharpness
-                    CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.5),
-                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.3)
+                    CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.7),
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.6)
                 ],
                 // tweak these for duration
                 relativeTime: 0,
