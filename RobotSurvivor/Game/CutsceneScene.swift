@@ -8,6 +8,7 @@
 import Foundation
 import SpriteKit
 import SwiftUI
+import CoreHaptics
 
 class CutsceneScene: SKScene, SKPhysicsContactDelegate {
     override init() {
@@ -52,6 +53,7 @@ class CutsceneScene: SKScene, SKPhysicsContactDelegate {
                 audioNode.name = "EXPLOSION"
                 addChild(audioNode)
                 audioNode.run(SKAction.sequence([SKAction.wait(forDuration: Double.random(in: (0.0)...(7.0))), SKAction.changeVolume(to: GameLogic.shared.soundsSwitch ? (0.1/5) * Float(GameLogic.shared.soundsVolume) : 0, duration: 0), SKAction.play()]))
+                createHitHapticPattern()
             }
         }
 
@@ -106,6 +108,26 @@ class CutsceneScene: SKScene, SKPhysicsContactDelegate {
 
     override func update(_ currentTime: TimeInterval) {
 
+    }
+
+    func createHitHapticPattern() -> CHHapticPattern? {
+        do {
+            let hapticEvent = CHHapticEvent(
+                eventType: .hapticContinuous,
+                parameters: [
+                    // tweak these for intensity and sharpness
+                    CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.5),
+                    CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.3)
+                ],
+                // tweak these for duration
+                relativeTime: 0,
+                duration: 0.1
+            )
+            return try CHHapticPattern(events: [hapticEvent], parameters: [])
+        } catch {
+            print("Failed to create haptic pattern: \(error.localizedDescription)")
+            return nil
+        }
     }
 
 }

@@ -30,6 +30,7 @@
 		3E89C0D52C231B09006DD852 /* CutsceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89C0D42C231B09006DD852 /* CutsceneView.swift */; };
 		3EA795B82BB332A200DD0BC0 /* ResponsiveFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA795B72BB332A200DD0BC0 /* ResponsiveFrame.swift */; };
 		3EA795BA2BB3330C00DD0BC0 /* SettingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA795B92BB3330C00DD0BC0 /* SettingOptions.swift */; };
+		3EA9AF262C231F270093096F /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EA9AF252C231F260093096F /* explosion.wav */; };
 		3EF2DD5A2B7396380089ACB7 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2DD592B7396380089ACB7 /* TutorialView.swift */; };
 		6B4703532B2DC76B007A6E4C /* PickUps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4703522B2DC76B007A6E4C /* PickUps.swift */; };
 		6B99D2C12B21DF6C0069204F /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B99D2C02B21DF6C0069204F /* GameOver.swift */; };
@@ -92,6 +93,7 @@
 		3E89C0D42C231B09006DD852 /* CutsceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CutsceneView.swift; path = RobotSurvivor/Views/CutsceneView.swift; sourceTree = SOURCE_ROOT; };
 		3EA795B72BB332A200DD0BC0 /* ResponsiveFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponsiveFrame.swift; path = RobotSurvivor/SupportingFiles/ResponsiveFrame.swift; sourceTree = SOURCE_ROOT; };
 		3EA795B92BB3330C00DD0BC0 /* SettingOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingOptions.swift; sourceTree = "<group>"; };
+		3EA9AF252C231F260093096F /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
 		3EF2DD592B7396380089ACB7 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		6B4703522B2DC76B007A6E4C /* PickUps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickUps.swift; sourceTree = "<group>"; };
 		6B99D2C02B21DF6C0069204F /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				934BBFE82B2C5BF400B8D541 /* BULLETS.mp3 */,
+				3EA9AF252C231F260093096F /* explosion.wav */,
 				3E0CD6242BC14D4000B7F36D /* PICKUPXP.wav */,
 				934BBFE62B29D06000B8D541 /* HIT.mp3 */,
 				934BBFE42B29CFEE00B8D541 /* DEATH.mp3 */,
@@ -391,6 +394,7 @@
 				9D77C9542B2A022D00781A25 /* game2.mp3 in Resources */,
 				3E0CD6292BC181B900B7F36D /* GAMEOVER.wav in Resources */,
 				EE2F23B62B2853D8000E3490 /* Silkscreen-Regular.ttf in Resources */,
+				3EA9AF262C231F270093096F /* explosion.wav in Resources */,
 				934BBFE92B2C5BF400B8D541 /* BULLETS.mp3 in Resources */,
 				3E5C618E2BAB96E7003B7A6A /* Localizable.xcstrings in Resources */,
 				23A5F38A2B21D34B0008FFB2 /* Preview Content in Resources */,

@@ -27,7 +27,7 @@ struct ExpView: View {
                                 .foregroundStyle(.white)
                         }
                     ZStack {
-                        Image("emptyBar")
+                        Image("EmptyBar")
                             .interpolation(.none)
                             .resizable()
                             .frame(height: levelChipSize)
