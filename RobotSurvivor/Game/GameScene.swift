@@ -12,6 +12,7 @@ import CoreHaptics
 class SceneWrapper {
     static let shared = SceneWrapper()
     var scene = GameScene()
+    var cutscene = CutsceneScene()
     var joystickScene: Joystick
     private init() {
         var screenWidth: CGFloat { UIScreen.main.bounds.size.width }

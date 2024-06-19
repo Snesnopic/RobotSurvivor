@@ -24,6 +24,8 @@ struct ParentView: View {
             TutorialView(gameLogic: GameLogic.shared, currentGameState: .constant(GameState.playing), sceneWrap: .constant(SceneWrapper.shared))
         case .chooseChar:
             ChooseCharView(selectedChar: $gameLogic.currentSkin, currentGameState: $currentGameState)
+        case .cutscene:
+            CutsceneView(currentGameState: $currentGameState)
         }
     }
 }

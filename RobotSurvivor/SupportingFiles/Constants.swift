@@ -13,6 +13,7 @@ enum GameState {
     case gameOver
     case tutorial
     case chooseChar
+    case cutscene
 }
 
 let creators = [
