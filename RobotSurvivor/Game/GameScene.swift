@@ -166,17 +166,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     public func changeStage() {
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-            if GameLogic.shared.stage == .prologue {
-                print("cambio!")
-                withAnimation {
-                    GameLogic.shared.stage = .cutscene
-                }
+        if GameLogic.shared.stage == .prologue && isPlayerAlive && !isGameOver {
+            print("cambio!")
+            withAnimation {
+                GameLogic.shared.stage = .cutscene
             }
         }
     }
 
     override func update(_ currentTime: TimeInterval) {
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
+            self.changeStage()
+        }
         if self.lastUpdate == 0 {
             self.lastUpdate = currentTime
         }
