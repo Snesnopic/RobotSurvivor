@@ -23,6 +23,40 @@ struct CutsceneView: View {
             }
             .opacity(fadeTheView ? 0 : 1)
             .background(.black)
+            .onChange(of: gameLogic.stage, perform: { _ in
+                if gameLogic.stage == .main {
+                    withAnimation {
+                        currentGameState = .playing
+                    }
+                    sceneWrapper.scene.isPaused = false
+                    sceneWrapper.scene.children.forEach { sknode in
+                        print("Devo rimuovere")
+                        if let enemy = sknode as? EnemyNode {
+                            print("Rimuovo enemy")
+                            enemy.removeFromParent()
+                            enemy.removeAllActions()
+                        }
+                        if let name = sknode.name, name.contains("xp") {
+                            print("Rimuovo xp")
+                            sknode.removeAllActions()
+                            sknode.removeFromParent()
+                        }
+                        if let name = sknode.name, name.contains("bullet") {
+                            print("Rimuovo bullet")
+                            sknode.removeAllActions()
+                            sknode.removeFromParent()
+                        }
+                        if let name = sknode.name, name.contains("pickUp") {
+                            print("Rimuovo pickUp")
+                            sknode.removeAllActions()
+                            sknode.removeFromParent()
+                        }
+
+                        sceneWrapper.scene.enemiesOnMap = []
+                    }
+
+                }
+            })
     }
 
     private func presentGameOverScreen() {

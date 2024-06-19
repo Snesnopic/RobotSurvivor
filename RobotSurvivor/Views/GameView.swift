@@ -44,6 +44,14 @@ struct GameView: View {
         ZStack {
 
             SpriteView(scene: self.sceneWrapper.scene)
+                .onChange(of: gameLogic.stage, perform: { _ in
+                    withAnimation {
+                        if gameLogic.stage ==  .cutscene {
+                            sceneWrapper.scene.isPaused = true
+                            currentGameState = .cutscene
+                        }
+                    }
+                })
                 .onChange(of: gameLogic.showPowerUp, perform: { _ in
                     if gameLogic.showPowerUp == false {
                         sceneWrapper.scene.isPaused = false
