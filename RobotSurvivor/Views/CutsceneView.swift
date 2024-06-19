@@ -51,7 +51,7 @@ struct CutsceneView: View {
                             sknode.removeAllActions()
                             sknode.removeFromParent()
                         }
-
+                        sceneWrapper.scene.readyToSpawnPickUp = true
                         sceneWrapper.scene.enemiesOnMap = []
                     }
 
