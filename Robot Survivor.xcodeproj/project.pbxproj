@@ -27,6 +27,7 @@
 		3E0CD6292BC181B900B7F36D /* GAMEOVER.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3E0CD6282BC181B900B7F36D /* GAMEOVER.wav */; };
 		3E47CAC52B76643600837773 /* TutorialMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E47CAC42B76643600837773 /* TutorialMenu.swift */; };
 		3E5C618E2BAB96E7003B7A6A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */; };
+		3E89C0D52C231B09006DD852 /* CutsceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E89C0D42C231B09006DD852 /* CutsceneView.swift */; };
 		3EA795B82BB332A200DD0BC0 /* ResponsiveFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA795B72BB332A200DD0BC0 /* ResponsiveFrame.swift */; };
 		3EA795BA2BB3330C00DD0BC0 /* SettingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA795B92BB3330C00DD0BC0 /* SettingOptions.swift */; };
 		3EF2DD5A2B7396380089ACB7 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF2DD592B7396380089ACB7 /* TutorialView.swift */; };
@@ -89,6 +90,7 @@
 		3E0CD6282BC181B900B7F36D /* GAMEOVER.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = GAMEOVER.wav; sourceTree = "<group>"; };
 		3E47CAC42B76643600837773 /* TutorialMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialMenu.swift; sourceTree = "<group>"; };
 		3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		3E89C0D42C231B09006DD852 /* CutsceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CutsceneView.swift; path = RobotSurvivor/Views/CutsceneView.swift; sourceTree = SOURCE_ROOT; };
 		3EA795B72BB332A200DD0BC0 /* ResponsiveFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponsiveFrame.swift; path = RobotSurvivor/SupportingFiles/ResponsiveFrame.swift; sourceTree = SOURCE_ROOT; };
 		3EA795B92BB3330C00DD0BC0 /* SettingOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingOptions.swift; sourceTree = "<group>"; };
 		3EF2DD592B7396380089ACB7 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				9DFFA2CC2B76785500581F16 /* ChooseCharView.swift */,
 				23A5F3822B21D0C50008FFB2 /* HUD */,
 				23A5F37E2B21D0480008FFB2 /* ParentView.swift */,
+				3E89C0D42C231B09006DD852 /* CutsceneView.swift */,
 				EEA581752B2B66A50068148C /* MainMenuView.swift */,
 				EEF2533F2B2C966D00DDE44B /* PauseMenuView.swift */,
 				3E47CAC42B76643600837773 /* TutorialMenu.swift */,
@@ -224,6 +227,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		3E89C0D32C231A3C006DD852 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				9DE335F62C21B4A900408D37 /* CutsceneView.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		6BE822072B345E3100962953 /* Enemy */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +282,7 @@
 				3E88BDCB2BAB7C3700610203 /* Localizable.xcstrings */,
 				9D3EDD362B1F3FD200C5DF7B /* RobotSurvivor */,
 				9D3EDD352B1F3FD200C5DF7B /* Products */,
+				3E89C0D32C231A3C006DD852 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -458,6 +470,7 @@
 				233F1F4F2B27039800EF01FC /* EnemyType.swift in Sources */,
 				934BBFDD2B28539B00B8D541 /* ExpView.swift in Sources */,
 				931293F92B21D93F009B2441 /* Joystick.swift in Sources */,
+				3E89C0D52C231B09006DD852 /* CutsceneView.swift in Sources */,
 				3EF2DD5A2B7396380089ACB7 /* TutorialView.swift in Sources */,
 				23A5F3912B21D42D0008FFB2 /* SceneSetUp.swift in Sources */,
 				9D3EDD382B1F3FD200C5DF7B /* RobotSurvivorApp.swift in Sources */,
