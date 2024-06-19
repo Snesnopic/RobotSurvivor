@@ -58,7 +58,6 @@
 		9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD8E2B32B20A777000998F3 /* GameScene.swift */; };
 		9DD9DA502C1E1C56008E2798 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 9DD9DA4F2C1E1C50008E2798 /* .swiftlint.yml */; };
 		9DE335F52C219FAE00408D37 /* CutsceneScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335F42C219FAE00408D37 /* CutsceneScene.swift */; };
-		9DE335F72C21B4A900408D37 /* CutsceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE335F62C21B4A900408D37 /* CutsceneView.swift */; };
 		9DFFA2CD2B76785500581F16 /* ChooseCharView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFA2CC2B76785500581F16 /* ChooseCharView.swift */; };
 		9DFFA2CF2B767BE100581F16 /* SkinPreviewScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFFA2CE2B767BE100581F16 /* SkinPreviewScene.swift */; };
 		EE2F23B52B2853D8000E3490 /* Silkscreen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */; };
@@ -123,7 +122,6 @@
 		9DD8E2B32B20A777000998F3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		9DD9DA4F2C1E1C50008E2798 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		9DE335F42C219FAE00408D37 /* CutsceneScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutsceneScene.swift; sourceTree = "<group>"; };
-		9DE335F62C21B4A900408D37 /* CutsceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutsceneView.swift; sourceTree = "<group>"; };
 		9DFFA2CC2B76785500581F16 /* ChooseCharView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCharView.swift; sourceTree = "<group>"; };
 		9DFFA2CE2B767BE100581F16 /* SkinPreviewScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinPreviewScene.swift; sourceTree = "<group>"; };
 		EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Silkscreen-Bold.ttf"; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 				EE8F34432B30615100321E56 /* CreditsView.swift */,
 				9D1E6B1F2B711A4A0013D59E /* SettingsMenu.swift */,
 				9D3EDD392B1F3FD200C5DF7B /* GameView.swift */,
-				9DE335F62C21B4A900408D37 /* CutsceneView.swift */,
 				23A5F37A2B21CFCD0008FFB2 /* GameOverView.swift */,
 				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
 				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
@@ -231,7 +228,6 @@
 		3E89C0D32C231A3C006DD852 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				9DE335F62C21B4A900408D37 /* CutsceneView.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -447,7 +443,6 @@
 				2347545B2B29A7520063537F /* PlayerBehavior.swift in Sources */,
 				9D0A40622BAC694C00A738B3 /* EnemyBodyBossNode.swift in Sources */,
 				23A5F3952B21D4E90008FFB2 /* EnemyBehavior.swift in Sources */,
-				9DE335F72C21B4A900408D37 /* CutsceneView.swift in Sources */,
 				9DFFA2CD2B76785500581F16 /* ChooseCharView.swift in Sources */,
 				EEA581762B2B66A50068148C /* MainMenuView.swift in Sources */,
 				9DD8E2B42B20A777000998F3 /* GameScene.swift in Sources */,
