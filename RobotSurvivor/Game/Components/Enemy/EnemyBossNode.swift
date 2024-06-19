@@ -90,6 +90,7 @@ class EnemyBossNode: EnemyNode {
             bodyPart.die()
         }
         removeFromParent()
+        (scene as? GameScene)?.changeStage()
     }
 
     // movimento
