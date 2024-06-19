@@ -13,15 +13,17 @@ extension GameScene {
     func addTile(at position: CGPoint) {
         var tileImageName: String
         let tileType = Int.random(in: 1...100)
-
-        tileImageName = (tileType <= 70) ? "Moon1" : ((tileType > 70 && tileType < 90) ? "Moon2" : "Moon3")
-
+        if self.gameLogic.stage == .main {
+            tileImageName = (tileType <= 70) ? "Moon1" : ((tileType > 70 && tileType < 90) ? "Moon2" : "Moon3")
+        } else {
+            tileImageName = "Metallic"
+        }
         let tile = SKSpriteNode(imageNamed: tileImageName)
         tile.name = "tile"
         tile.position = position
         tile.zPosition = -1
         tile.texture?.filteringMode = .nearest
-
+        tile.size = CGSize(width: 128, height: 128)
         tilePositions.insert(position)
         addChild(tile)
 
