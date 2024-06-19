@@ -18,9 +18,6 @@ struct CutsceneView: View {
     var body: some View {
         SpriteView(scene: self.sceneWrapper.cutscene)
             .ignoresSafeArea()
-            .onAppear {
-                self.gameLogic.restartGame()
-            }
             .opacity(fadeTheView ? 0 : 1)
             .background(.black)
             .onChange(of: gameLogic.stage, perform: { _ in

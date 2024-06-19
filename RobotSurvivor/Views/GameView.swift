@@ -36,7 +36,7 @@ struct GameViewUI: UIViewRepresentable {
 struct GameView: View {
 
     @Binding var currentGameState: GameState
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    @ObservedObject var gameLogic: GameLogic = GameLogic.shared
     @State var sceneWrapper = SceneWrapper.shared
     @State private var fadeTheView: Bool = false
 
@@ -46,7 +46,7 @@ struct GameView: View {
             SpriteView(scene: self.sceneWrapper.scene)
                 .onChange(of: gameLogic.stage, perform: { _ in
                     withAnimation {
-                        if gameLogic.stage ==  .cutscene {
+                        if gameLogic.stage == .cutscene {
                             sceneWrapper.scene.isPaused = true
                             currentGameState = .cutscene
                         }
@@ -113,9 +113,9 @@ struct GameView: View {
                     }
                 })
 
-            ExpView(experienceNeeded: $gameLogic.xpToNextLvl, currentXP: $gameLogic.currentXP, currentLevel: $gameLogic.playerLevel)
+            ExpView()
 
-            ScoreView(score: $gameLogic.currentScore, time: $gameLogic.time)
+            ScoreView()
                 .padding(.vertical)
 
             if gameLogic.showPowerUp {
@@ -143,9 +143,6 @@ struct GameView: View {
 
             }
         })
-        .onAppear {
-            self.gameLogic.restartGame()
-        }
         .opacity(fadeTheView ? 0 : 1)
         .background(.black)
     }
