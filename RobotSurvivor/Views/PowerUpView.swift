@@ -11,7 +11,7 @@ import SpriteKit
 import AVFAudio
 
 struct PowerUpView: View {
-    @StateObject var gameLogic: GameLogic = GameLogic.shared
+    @ObservedObject var gameLogic: GameLogic = GameLogic.shared
     @Binding var sceneWrap: SceneWrapper
 
     @State var powerUpSet: Set = [0, 1, 2, 3, 4]

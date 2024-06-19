@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ScoreView: View {
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
-    @Binding var score: Int
-    @Binding var time: TimeInterval
+    @ObservedObject var gameLogic: GameLogic =  GameLogic.shared
 
     var body: some View {
         GeometryReader { geometry in
@@ -20,7 +18,7 @@ struct ScoreView: View {
                     .foregroundStyle(.white)
                 .position(CGPoint(x: geometry.size.width/2, y: 60))
 
-            Text(String(score))
+                Text(String(gameLogic.currentScore))
                 .font(.custom("Silkscreen-Regular", size: 30))
                 .foregroundStyle(.white)
                 .position(CGPoint(x: geometry.size.width/2, y: 90))
@@ -42,7 +40,7 @@ struct ScoreView: View {
                 .font(.custom("Silkscreen-Regular", size: 30))
                 .foregroundStyle(.white)
                 .position(CGPoint(x: geometry.size.width/6.5, y: 60) )
-            Text(String(time.minuteSecond))
+                Text(String(gameLogic.time.minuteSecond))
                 .font(.custom("Silkscreen-Regular", size: 30))
                 .foregroundStyle(.white)
                 .position(CGPoint(x: geometry.size.width/6.5, y: 90))
@@ -55,7 +53,7 @@ struct ScoreView: View {
 }
 
 #Preview {
-    ScoreView(score: .constant(100), time: .constant(TimeInterval(581)))
+    ScoreView()
         .background {
             Color.black
         }

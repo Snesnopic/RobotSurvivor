@@ -10,7 +10,7 @@ import AVFoundation
 
 struct MainMenuView: View {
 
-    @StateObject var gameLogic: GameLogic = GameLogic.shared
+    @ObservedObject var gameLogic: GameLogic = GameLogic.shared
     @Binding var currentGameState: GameState
     @State var showSetting: Bool = false
     @State var showTutorial: Bool = false

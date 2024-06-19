@@ -11,7 +11,7 @@ import SpriteKit
 struct CutsceneView: View {
 
     @Binding var currentGameState: GameState
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    @ObservedObject var gameLogic: GameLogic =  GameLogic.shared
     @State var sceneWrapper = SceneWrapper.shared
     @State private var fadeTheView: Bool = false
 
