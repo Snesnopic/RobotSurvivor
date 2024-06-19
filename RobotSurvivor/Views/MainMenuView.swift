@@ -53,6 +53,7 @@ struct MainMenuView: View {
 
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
                     withAnimation {
+                        gameLogic.restartGame()
                         self.currentGameState = .playing
                         SceneWrapper.shared.createScene()
                     }
