@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 
+enum Stage {
+    case prologue, cutscene, main
+}
 class GameLogic: ObservableObject {
 
     static let shared: GameLogic = GameLogic()
@@ -20,6 +23,7 @@ class GameLogic: ObservableObject {
         self.playerLevel = 1
         self.isGameOver = false
     }
+    @Published var stage: Stage = .prologue
     @AppStorage("showTutorial") var showTutorial: Bool = true
     // general
     @Published var time: TimeInterval = 0
