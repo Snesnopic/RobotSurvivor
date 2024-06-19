@@ -8,6 +8,7 @@
 import SpriteKit
 import AVFoundation
 import CoreHaptics
+import SwiftUI
 
 class SceneWrapper {
     static let shared = SceneWrapper()
@@ -133,23 +134,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func didMove(to view: SKView) {
+        camera?.setScale( 393 / (scene?.size.width)! )
+        if gameLogic.stage == .prologue {
+            // haptic setup
+            do {
+                hapticEngine = try CHHapticEngine()
+                try hapticEngine?.start()
+            } catch {
+                print("Ascanio: \(error.localizedDescription)")
+            }
 
-        // haptic setup
-        do {
-            hapticEngine = try CHHapticEngine()
-            try hapticEngine?.start()
-        } catch {
-            print("Ascanio: \(error.localizedDescription)")
+            // setup of pools
+            setUpSoundPoolForExperiencePickUp()
+            setUpSoundPoolForBullets()
+            setupBackgroundMusic(quantityOfMusic: 2)
+            setupBulletPool(quantityOfBullets: 1)
+            setupShortSoundPool(name: "HIT", quantityOfSounds: 1)
+            playTracks()
         }
-
-        // setup of pools
-        setUpSoundPoolForExperiencePickUp()
-        setUpSoundPoolForBullets()
-        setupBackgroundMusic(quantityOfMusic: 2)
-        setupBulletPool(quantityOfBullets: 1)
-        setupShortSoundPool(name: "HIT", quantityOfSounds: 1)
-        playTracks()
-
         // map setup
         let initialTiles = 10
         let tileSize = CGSize(width: 128, height: 128)
@@ -163,8 +165,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         startShooting()
     }
 
-    override func update(_ currentTime: TimeInterval) {
+    public func changeStage() {
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+            if GameLogic.shared.stage == .prologue {
+                print("cambio!")
+                withAnimation {
+                    GameLogic.shared.stage = .cutscene
+                }
+            }
+        }
+    }
 
+    override func update(_ currentTime: TimeInterval) {
         if self.lastUpdate == 0 {
             self.lastUpdate = currentTime
         }
