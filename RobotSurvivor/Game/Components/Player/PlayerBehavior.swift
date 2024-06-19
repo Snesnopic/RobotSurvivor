@@ -33,6 +33,7 @@ extension GameScene {
     func setupBulletPool(quantityOfBullets: Int) {
         for _ in 0..<quantityOfBullets {
             let bullet = SKSpriteNode(imageNamed: "bullet")
+            bullet.name = "bullet"
             configureBullet(bullet)
             configureBulletPhysics(bullet)
             bulletPool.append(bullet)
