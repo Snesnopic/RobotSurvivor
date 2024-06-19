@@ -14,7 +14,7 @@ enum Stage {
 class GameLogic: ObservableObject {
 
     static let shared: GameLogic = GameLogic()
-
+    private init() {}
     func restartGame() {
         self.currentScore = 0
         self.currentXP = 0
@@ -22,6 +22,7 @@ class GameLogic: ObservableObject {
         self.time = 0
         self.playerLevel = 1
         self.isGameOver = false
+        self.stage = .prologue
     }
     @Published var stage: Stage = .prologue
     @AppStorage("showTutorial") var showTutorial: Bool = true
