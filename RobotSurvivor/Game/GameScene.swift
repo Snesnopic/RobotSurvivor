@@ -43,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
-    var readyToRecolate: Bool = true
+    var readyToRelocate: Bool = true
     var joystick: Joystick?
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
@@ -166,17 +166,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     public func changeStage() {
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-            if GameLogic.shared.stage == .prologue {
-                print("cambio!")
-                withAnimation {
-                    GameLogic.shared.stage = .cutscene
-                }
+        if GameLogic.shared.stage == .prologue && isPlayerAlive && !isGameOver {
+            print("cambio!")
+            withAnimation {
+                GameLogic.shared.stage = .cutscene
             }
         }
     }
 
     override func update(_ currentTime: TimeInterval) {
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
+            self.changeStage()
+        }
         if self.lastUpdate == 0 {
             self.lastUpdate = currentTime
         }
@@ -233,7 +234,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemy.configureMovement(player)
         }
 
-        if readyToRecolate {
+        if readyToRelocate {
             relocateEnemy()
         }
 

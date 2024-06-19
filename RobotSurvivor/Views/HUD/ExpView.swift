@@ -10,9 +10,7 @@ import SwiftUI
 import SpriteKit
 
 struct ExpView: View {
-    @Binding var experienceNeeded: Int // Bind this to your game's experience logic
-    @Binding var currentXP: Int
-    @Binding var currentLevel: Int
+    @ObservedObject var gameLogic = GameLogic.shared
     var levelChipSize = 50.0
     var body: some View {
         GeometryReader { geometry in
@@ -24,7 +22,7 @@ struct ExpView: View {
                         .scaledToFit()
                         .frame(width: levelChipSize, height: levelChipSize)
                         .overlay {
-                            Text("\(currentLevel)")
+                            Text("\(gameLogic.playerLevel)")
                                 .font(.custom("Silkscreen-Regular", size: 20))
                                 .foregroundStyle(.white)
                         }
@@ -37,7 +35,7 @@ struct ExpView: View {
                             Image("Line")
                                 .interpolation(.none)
                                 .resizable()
-                                .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(experienceNeeded)) * (currentLevel == 1 ? CGFloat(Double(currentXP) * 2.45) : CGFloat(currentXP)), height: levelChipSize)
+                                .frame(width: ((geometry.size.width - levelChipSize)/CGFloat(gameLogic.xpToNextLvl)) * (gameLogic.playerLevel == 1 ? CGFloat(Double(gameLogic.currentXP) * 2.45) : CGFloat(gameLogic.currentXP)), height: levelChipSize)
                             Spacer()
                         }
 
@@ -54,5 +52,5 @@ struct ExpView: View {
 }
 
 #Preview {
-    ExpView(experienceNeeded: .constant(100), currentXP: .constant(40), currentLevel: .constant(1))
+    ExpView()
 }

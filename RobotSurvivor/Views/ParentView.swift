@@ -10,7 +10,7 @@ import AVFAudio
 
 struct ParentView: View {
     @State var currentGameState: GameState = .mainScreen
-    @StateObject var gameLogic: GameLogic = GameLogic.shared
+    @ObservedObject var gameLogic: GameLogic = GameLogic.shared
     var body: some View {
         switch currentGameState {
         case .mainScreen:

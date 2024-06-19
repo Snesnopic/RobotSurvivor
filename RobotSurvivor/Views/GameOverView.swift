@@ -13,7 +13,7 @@ struct GameOverView: View {
     @Binding var currentGameState: GameState
     @Binding var score: Int
     @State var opacity: Double = 0
-    @StateObject var gameLogic: GameLogic = GameLogic.shared
+    @ObservedObject var gameLogic: GameLogic = GameLogic.shared
 
     class AudioPlayer {
         static var shared: AVAudioPlayer = AVAudioPlayer()
@@ -33,6 +33,7 @@ struct GameOverView: View {
                     .padding(.bottom)
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
                     withAnimation {
+                        gameLogic.restartGame()
                         restartGame()
                     }
                 }, textView: Text("Restart") .font(.custom("Silkscreen-Regular", size: 35)), textColor: .white)

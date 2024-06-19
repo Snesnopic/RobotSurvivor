@@ -11,16 +11,13 @@ import SpriteKit
 struct CutsceneView: View {
 
     @Binding var currentGameState: GameState
-    @StateObject var gameLogic: GameLogic =  GameLogic.shared
+    @ObservedObject var gameLogic: GameLogic =  GameLogic.shared
     @State var sceneWrapper = SceneWrapper.shared
     @State private var fadeTheView: Bool = false
 
     var body: some View {
         SpriteView(scene: self.sceneWrapper.cutscene)
             .ignoresSafeArea()
-            .onAppear {
-                self.gameLogic.restartGame()
-            }
             .opacity(fadeTheView ? 0 : 1)
             .background(.black)
             .onChange(of: gameLogic.stage, perform: { _ in
@@ -51,7 +48,7 @@ struct CutsceneView: View {
                             sknode.removeAllActions()
                             sknode.removeFromParent()
                         }
-
+                        sceneWrapper.scene.readyToSpawnPickUp = true
                         sceneWrapper.scene.enemiesOnMap = []
                     }
 
