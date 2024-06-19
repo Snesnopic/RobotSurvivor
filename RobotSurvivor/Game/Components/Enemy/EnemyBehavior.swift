@@ -84,7 +84,7 @@ extension GameScene {
     // everytime the player outruns the enemies, and reach the "out of bounds" they get relocated
     func relocateEnemy() {
 
-        readyToRecolate = false
+        readyToRelocate = false
         for enemy in enemiesOnMap where distanceBetween(node1: enemy, node2: player) > Float((frame.height + frame.width)/2.8) {
 
             let relocatedEnemy = EnemyNode(type: enemy.type, startPosition: getRelocatePosition(enemy: enemy))
@@ -106,7 +106,7 @@ extension GameScene {
 
         let waitAction = SKAction.wait(forDuration: 3)
         let enableReload = SKAction.run {
-            self.readyToRecolate = true
+            self.readyToRelocate = true
         }
 
         let sequence = SKAction.sequence([waitAction, enableReload])

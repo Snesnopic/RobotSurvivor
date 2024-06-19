@@ -43,7 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lastUpdateTime: TimeInterval = 0
     var deltaTime: TimeInterval = 0
     var sceneCamera: SKCameraNode = SKCameraNode()
-    var readyToRecolate: Bool = true
+    var readyToRelocate: Bool = true
     var joystick: Joystick?
     var gameLogic: GameLogic = GameLogic.shared
     var lastUpdate: TimeInterval = 0
@@ -233,7 +233,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemy.configureMovement(player)
         }
 
-        if readyToRecolate {
+        if readyToRelocate {
             relocateEnemy()
         }
 
