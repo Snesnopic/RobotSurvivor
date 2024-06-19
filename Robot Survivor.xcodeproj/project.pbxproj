@@ -176,6 +176,7 @@
 				EE8F34432B30615100321E56 /* CreditsView.swift */,
 				9D1E6B1F2B711A4A0013D59E /* SettingsMenu.swift */,
 				9D3EDD392B1F3FD200C5DF7B /* GameView.swift */,
+				9DE335F62C21B4A900408D37 /* CutsceneView.swift */,
 				23A5F37A2B21CFCD0008FFB2 /* GameOverView.swift */,
 				EE2F23B32B2853D8000E3490 /* Silkscreen-Bold.ttf */,
 				EE2F23B42B2853D8000E3490 /* Silkscreen-Regular.ttf */,
