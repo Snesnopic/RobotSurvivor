@@ -33,6 +33,7 @@ struct GameOverView: View {
                     .padding(.bottom)
                 PixelArtButtonView(buttonImage: "ButtonPlay1", pressedImage: "ButtonPlay2", buttonPressedAction: {
                     withAnimation {
+                        gameLogic.restartGame()
                         restartGame()
                     }
                 }, textView: Text("Restart") .font(.custom("Silkscreen-Regular", size: 35)), textColor: .white)
