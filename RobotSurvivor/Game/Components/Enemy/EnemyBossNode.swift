@@ -100,8 +100,6 @@ class EnemyBossNode: EnemyNode {
 
         if isDead {
             gameScene!.changeStage()
-        } else {
-            print("\(self.scene) is not a gamescene!")
         }
     }
 
