@@ -93,15 +93,14 @@ class EnemyBossNode: EnemyNode {
             bodyPart.die()
         }
         if type.name == "CentipedeHead" {
-            print(type.name)
             isDead = true
         }
         removeFromParent()
 
         if isDead {
-            gameScene!.changeStage()
-        } else {
-            print("\(self.scene) is not a gamescene!")
+            Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { _ in
+                self.gameScene!.changeStage()
+            })
         }
     }
 
