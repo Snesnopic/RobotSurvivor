@@ -166,8 +166,6 @@ extension GameScene {
     func shoot() {
 
         guard isPlayerAlive && !isGameOver else { return }
-        print("isPlayerAlive: \(isPlayerAlive)")
-        print("isGameOver: \(isGameOver)")
 
         var usedBullets: [SKSpriteNode] = []
 

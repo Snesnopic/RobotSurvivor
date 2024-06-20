@@ -23,13 +23,16 @@ enum Direction: String {
 class EnemyBossNode: EnemyNode {
     var direction: Direction = .up
     var bodyParts: Set<EnemyBodyBossNode> = []
-    init(type: EnemyType, startPosition: CGPoint, parts: Int) {
+    var isDead: Bool = false
+    weak var gameScene: GameScene?
+    init(type: EnemyType, startPosition: CGPoint, parts: Int, gameScene: GameScene) {
         super.init(type: type, startPosition: startPosition)
         self.type = type
         self.points = type.points
         self.health = type.health
         self.damage = type.damage
         self.movementSpeed = type.speed
+        self.gameScene = gameScene
 
         let bossPartEnemyType = EnemyTypesVM.enemyTypes.first(where: { enemy in
             return enemy.name == "CentipedeBody"
@@ -89,9 +92,14 @@ class EnemyBossNode: EnemyNode {
         bodyParts.forEach { bodyPart in
             bodyPart.die()
         }
+        if type.name == "CentipedeHead" {
+            print(type.name)
+            isDead = true
+        }
         removeFromParent()
-        if let gameScene = self.scene as? GameScene {
-            gameScene.changeStage()
+
+        if isDead {
+            gameScene!.changeStage()
         } else {
             print("\(self.scene) is not a gamescene!")
         }

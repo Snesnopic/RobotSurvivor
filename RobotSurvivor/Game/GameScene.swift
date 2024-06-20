@@ -175,9 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
-            self.changeStage()
-        }
+
         if self.lastUpdate == 0 {
             self.lastUpdate = currentTime
         }
