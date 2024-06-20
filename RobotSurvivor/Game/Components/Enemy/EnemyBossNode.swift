@@ -72,7 +72,7 @@ class EnemyBossNode: EnemyNode {
     override func die() {
         let textureAtlas = SKTextureAtlas(named: "\(type.name)/Death")
         var textures: [SKTexture] = []
-        textureAtlas.textureNames.forEach { string in
+        textureAtlas.textureNames.sorted().forEach { string in
             let texture = textureAtlas.textureNamed(string)
             texture.filteringMode = .nearest
             textures.append(texture)
