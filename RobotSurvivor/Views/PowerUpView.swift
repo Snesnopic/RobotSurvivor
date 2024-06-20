@@ -97,7 +97,7 @@ struct PowerUpView: View {
                         PowerUpView.AudioPlayer.shared.play()
                     }
                 })
-                .onChange(of: gameLogic.isGameOver, perform: { newValue in
+                .onChange(of: gameLogic.isGameOver, perform: { _ in
                     if gameLogic.isGameOver == true {
                         gameLogic.showPowerUp = false
                     }
