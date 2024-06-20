@@ -22,7 +22,8 @@ let creators = [
     "Claudio Pepe",
     "Maya Navarrete",
     "Linar Zinatullin",
-    "Davide Castaldi"
+    "Davide Castaldi",
+    "Chiara Ricci"
 ]
 
 let skins = [

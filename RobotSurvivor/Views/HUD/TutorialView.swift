@@ -19,7 +19,8 @@ struct TutorialView: View {
     var tutorialSteps = [
         String(localized: "Drag to move and shoot the endless enemies!"),
         String(localized: "Collect XP left from enemies to fill the xp bar!"),
-        String(localized: "Fill the xp bar to obtain power-ups!")
+        String(localized: "Fill the xp bar to obtain power-ups!"),
+        String(localized: "Defeat the boss to advance to the next stage!")
     ]
 
     var body: some View {
