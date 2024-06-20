@@ -165,6 +165,5 @@ extension GameScene {
             addChild(bodyPart)
         }
         activeBoss!.isDead = false
-        print(activeBoss?.isDead as Any)
     }
 }
