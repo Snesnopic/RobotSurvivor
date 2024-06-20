@@ -98,6 +98,7 @@ class EnemyBossNode: EnemyNode {
             print(type.name)
             isDead = true
         }
+        removeAllActions()
         removeFromParent()
 
         if isDead {
