@@ -12,36 +12,6 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "idiom" : "universal",
-      "locale" : "en",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "locale" : "en",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "locale" : "en",
-      "scale" : "3x"
-    },
-    {
-      "idiom" : "universal",
-      "locale" : "it",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "locale" : "it",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "locale" : "it",
-      "scale" : "3x"
     }
   ],
   "info" : {
