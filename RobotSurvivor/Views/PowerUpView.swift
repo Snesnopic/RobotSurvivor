@@ -97,6 +97,11 @@ struct PowerUpView: View {
                         PowerUpView.AudioPlayer.shared.play()
                     }
                 })
+                .onChange(of: gameLogic.isGameOver, perform: { _ in
+                    if gameLogic.isGameOver == true {
+                        gameLogic.showPowerUp = false
+                    }
+                })
 
                 HStack(alignment: .top) {
                     Text(String(localized: powerUp[p1]))

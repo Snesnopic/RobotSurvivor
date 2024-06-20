@@ -48,6 +48,11 @@ struct CutsceneView: View {
                             sknode.removeAllActions()
                             sknode.removeFromParent()
                         }
+                        if let name = sknode.name, name.contains("tile") {
+                            print("Rimuovo tile")
+                            sknode.removeAllActions()
+                            sknode.removeFromParent()
+                        }
                         sceneWrapper.scene.readyToSpawnPickUp = true
                         sceneWrapper.scene.enemiesOnMap = []
                     }

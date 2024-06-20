@@ -93,14 +93,14 @@ class EnemyBossNode: EnemyNode {
             bodyPart.die()
         }
         if type.name == "CentipedeHead" {
+            self.gameScene?.isBossActive = false
+            print(type.name)
             isDead = true
         }
         removeFromParent()
 
         if isDead {
-            Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: { _ in
-                self.gameScene!.changeStage()
-            })
+            gameScene!.changeStage()
         }
     }
 
