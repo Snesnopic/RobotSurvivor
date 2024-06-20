@@ -93,6 +93,7 @@ class EnemyBossNode: EnemyNode {
             bodyPart.die()
         }
         if type.name == "CentipedeHead" {
+            self.gameScene?.isBossActive = false
             print(type.name)
             isDead = true
         }
