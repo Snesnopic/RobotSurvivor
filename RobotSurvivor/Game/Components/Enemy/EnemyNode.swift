@@ -85,6 +85,7 @@ class EnemyNode: SKSpriteNode {
             SKAction.wait(forDuration: 0.5),
             SKAction.removeFromParent()])
         corpse.run(actionSequence)
+        removeAllActions()
         removeFromParent()
     }
 
