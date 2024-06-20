@@ -179,7 +179,14 @@
       }
     },
     "Defeat the boss to advance to the next stage!" : {
-
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sconfiggi il boss e avanza al livello successivo!"
+          }
+        }
+      }
     },
     "done" : {
       "localizations" : {
