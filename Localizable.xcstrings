@@ -129,6 +129,12 @@
         }
       }
     },
+    "Circuit" : {
+
+    },
+    "Clash" : {
+
+    },
     "Collect XP left from enemies to fill the xp bar!" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -386,6 +392,7 @@
       }
     },
     "Robot" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -487,6 +494,7 @@
       }
     },
     "Survivor" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

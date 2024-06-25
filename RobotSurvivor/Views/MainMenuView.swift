@@ -39,10 +39,10 @@ struct MainMenuView: View {
                         .shadow(radius: 15)
 
                     VStack {
-                        Text("Robot")
-                            .font(.custom("Silkscreen-Bold", size: 50))
+                        Text("Circuit")
+                            .font(.custom("Silkscreen-Bold", size: 44))
                             .foregroundStyle(.white)
-                        Text("Survivor")
+                        Text("Clash")
                             .font(.custom("Silkscreen-Bold", size: 30))
                             .foregroundStyle(.white)
                             .padding(.top, -45)
@@ -57,7 +57,7 @@ struct MainMenuView: View {
                         self.currentGameState = .playing
                         SceneWrapper.shared.createScene()
                     }
-                }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 50)), textColor: .white)
+                }, textView: Text("Play") .font(.custom("Silkscreen-Regular", size: 42)), textColor: .white)
                 .frame(width: 224, height: 96)
                 .padding(.bottom, -30)
                 .shadow(radius: 15)
